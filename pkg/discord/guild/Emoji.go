@@ -1,3 +1,3 @@
-package discord
+package guild
 
 type Emoji interface{}

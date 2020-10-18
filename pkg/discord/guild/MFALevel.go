@@ -3,7 +3,7 @@ package guild
 import "errors"
 
 var (
-	ErrBadMFALevel = errors.New("unrecognized mfa_level value")
+	ErrBadMFALevel = errors.New("unrecognized MFA level value")
 )
 
 type MFALevel uint8
