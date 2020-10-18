@@ -1,8 +1,7 @@
-package integration
+package user
 
 import (
 	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/user"
 	"github.com/foxcapades/lib-go-discord/pkg/dlib"
 )
 
@@ -30,8 +29,8 @@ type Application interface {
 	SetSummary(sum string) Application
 
 	// the bot associated with this application
-	Bot() user.User
+	Bot() User
 	BotIsSet() bool
-	SetBot(user user.User) Application
+	SetBot(user User) Application
 	UnsetBot() Application
 }

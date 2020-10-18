@@ -1,4 +1,4 @@
-package discord
+package guild
 
 import (
 	"github.com/foxcapades/lib-go-discord/pkg/discord/user"
@@ -6,41 +6,41 @@ import (
 	"time"
 )
 
-type GuildMember interface {
+type Member interface {
 	// the user this guild member represents
 	// The field user won't be included in the member object attached to MESSAGE_CREATE and MESSAGE_UPDATE gateway events.
 	User() user.User
 	UserIsSet() bool
-	SetUser(user.User) GuildMember
-	UnsetUser() GuildMember
+	SetUser(user.User) Member
+	UnsetUser() Member
 
 	// this users guild nickname
 	Nick() user.Nickname
 	NickIsNull() bool
-	SetNick(user.Nickname) GuildMember
-	SetNullNick() GuildMember
+	SetNick(user.Nickname) Member
+	SetNullNick() Member
 
 	// array of role object ids
 	Roles() []dlib.Snowflake
-	SetRoles(roleIds []dlib.Snowflake) GuildMember
+	SetRoles(roleIds []dlib.Snowflake) Member
 
 	// when the user joined the guild
 	JoinedAt() time.Time
-	SetJoinedAt(time.Time) GuildMember
+	SetJoinedAt(time.Time) Member
 
 	// when the user started boosting the guild
 	PremiumSince() time.Time
 	PremiumSinceIsSet() bool
 	PremiumSinceIsNull() bool
-	SetPremiumSince(time.Time) GuildMember
-	SetNullPremiumSince() GuildMember
-	UnsetPremiumSince() GuildMember
+	SetPremiumSince(time.Time) Member
+	SetNullPremiumSince() Member
+	UnsetPremiumSince() Member
 
 	// whether the user is deafened in voice channels
 	Deaf() bool
-	SetDeaf(bool) GuildMember
+	SetDeaf(bool) Member
 
 	// whether the user is muted in voice channels
 	Mute() bool
-	SetMute(bool) GuildMember
+	SetMute(bool) Member
 }

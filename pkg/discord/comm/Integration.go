@@ -7,6 +7,20 @@ import (
 	"time"
 )
 
+// ╔════════════════════════════════════════════════════════════════════════╗ //
+// ║                                                                        ║ //
+// ║    Errors                                                              ║ //
+// ║                                                                        ║ //
+// ╚════════════════════════════════════════════════════════════════════════╝ //
+
+// ╔════════════════════════════════════════════════════════════════════════╗ //
+// ║                                                                        ║ //
+// ║    Public Types                                                        ║ //
+// ║                                                                        ║ //
+// ╚════════════════════════════════════════════════════════════════════════╝ //
+
+// Integration
+// TODO: Document me
 type Integration interface {
 	// integration id
 	ID() dlib.Snowflake
@@ -69,8 +83,8 @@ type Integration interface {
 	SetRevoked(bool) Integration
 
 	// The bot/OAuth2 application for discord integrations
-	Application() Application
+	Application() user.Application
 	ApplicationIsSet() bool
-	SetApplication(Application) Integration
+	SetApplication(user.Application) Integration
 	UnsetApplication() Integration
 }

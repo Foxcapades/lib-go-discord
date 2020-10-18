@@ -1,13 +1,26 @@
 package user
 
+import "errors"
+
+var (
+	ErrBadConnVisibility = errors.New("unrecognized connection visibility value")
+)
+
 type ConnectionVisibility uint8
 
 const (
-	ConnectionVisibilityNone ConnectionVisibility = iota
-	ConnectionVisibilityEveryone
+	ConnVisibilityNone ConnectionVisibility = iota
+	ConnVisibilityEveryone
 )
 
 func (c ConnectionVisibility) IsValid() bool {
-	return c == ConnectionVisibilityNone ||
-		c == ConnectionVisibilityEveryone
+	return nil == c.Validate()
+}
+
+func (c ConnectionVisibility) Validate() error {
+	if c > ConnVisibilityEveryone {
+		return ErrBadConnVisibility
+	}
+
+	return nil
 }
