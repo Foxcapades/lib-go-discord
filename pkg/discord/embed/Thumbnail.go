@@ -1,8 +1,8 @@
-package message
+package embed
 
 // EmbedThumbnail
 // TODO: Document me
-type EmbedThumbnail interface {
+type Thumbnail interface {
 	// URL returns the current value of this record's `url` field.
 	//
 	// The `url` field contains the source url of thumbnail (only supports http(s)
@@ -16,10 +16,10 @@ type EmbedThumbnail interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) EmbedThumbnail
+	SetURL(string) Thumbnail
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() EmbedThumbnail
+	UnsetURL() Thumbnail
 
 	// ProxyUrl returns the current value of this record's `proxy_url` field.
 	//
@@ -35,10 +35,10 @@ type EmbedThumbnail interface {
 
 	// SetProxyUrl overwrites the current value of this record's `proxy_url`
 	// field.
-	SetProxyUrl(string) EmbedThumbnail
+	SetProxyUrl(string) Thumbnail
 
 	// UnsetProxyUrl removes this record's `proxy_url` field.
-	UnsetProxyUrl() EmbedThumbnail
+	UnsetProxyUrl() Thumbnail
 
 	// Height returns the current value of this record's `height` field.
 	//
@@ -53,10 +53,10 @@ type EmbedThumbnail interface {
 	HeightIsSet() bool
 
 	// SetHeight overwrites the current value of this record's `height` field.
-	SetHeight(uint16) EmbedThumbnail
+	SetHeight(uint16) Thumbnail
 
 	// UnsetHeight removes this record's `height` field.
-	UnsetHeight() EmbedThumbnail
+	UnsetHeight() Thumbnail
 
 	// Width returns the current value of this record's `width` field.
 	//
@@ -71,8 +71,8 @@ type EmbedThumbnail interface {
 	WidthIsSet() bool
 
 	// SetWidth overwrites the current value of this record's `width` field.
-	SetWidth(uint16) EmbedThumbnail
+	SetWidth(uint16) Thumbnail
 
 	// UnsetWidth removes this record's `width` field.
-	UnsetWidth() EmbedThumbnail
+	UnsetWidth() Thumbnail
 }

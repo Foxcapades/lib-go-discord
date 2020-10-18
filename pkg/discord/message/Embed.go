@@ -2,6 +2,7 @@ package message
 
 import (
 	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
+	"github.com/foxcapades/lib-go-discord/pkg/discord/embed"
 	"time"
 )
 
@@ -33,13 +34,13 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use TypeIsSet to check if the field is present before use.
-	Type() EmbedType
+	Type() embed.Type
 
 	// TypeIsSet returns whether this record's `type` field is currently present.
 	TypeIsSet() bool
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(EmbedType) Embed
+	SetType(embed.Type) Embed
 
 	// UnsetType removes this record's `type` field.
 	UnsetType() Embed
@@ -123,14 +124,14 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use FooterIsSet to check if the field is present before use.
-	Footer() EmbedFooter
+	Footer() embed.Footer
 
 	// FooterIsSet returns whether this record's `footer` field is currently
 	// present.
 	FooterIsSet() bool
 
 	// SetFooter overwrites the current value of this record's `footer` field.
-	SetFooter(EmbedFooter) Embed
+	SetFooter(embed.Footer) Embed
 
 	// UnsetFooter removes this record's `footer` field.
 	UnsetFooter() Embed
@@ -141,14 +142,14 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ImageIsSet to check if the field is present before use.
-	Image() EmbedImage
+	Image() embed.Image
 
 	// ImageIsSet returns whether this record's `image` field is currently
 	// present.
 	ImageIsSet() bool
 
 	// SetImage overwrites the current value of this record's `image` field.
-	SetImage(EmbedImage) Embed
+	SetImage(embed.Image) Embed
 
 	// UnsetImage removes this record's `image` field.
 	UnsetImage() Embed
@@ -159,7 +160,7 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ThumbnailIsSet to check if the field is present before use.
-	Thumbnail() EmbedThumbnail
+	Thumbnail() embed.Thumbnail
 
 	// ThumbnailIsSet returns whether this record's `thumbnail` field is currently
 	// present.
@@ -167,7 +168,7 @@ type Embed interface {
 
 	// SetThumbnail overwrites the current value of this record's `thumbnail`
 	// field.
-	SetThumbnail(EmbedThumbnail) Embed
+	SetThumbnail(embed.Thumbnail) Embed
 
 	// UnsetThumbnail removes this record's `thumbnail` field.
 	UnsetThumbnail() Embed
@@ -178,14 +179,14 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use VideoIsSet to check if the field is present before use.
-	Video() EmbedVideo
+	Video() embed.Video
 
 	// VideoIsSet returns whether this record's `video` field is currently
 	// present.
 	VideoIsSet() bool
 
 	// SetVideo overwrites the current value of this record's `video` field.
-	SetVideo(EmbedVideo) Embed
+	SetVideo(embed.Video) Embed
 
 	// UnsetVideo removes this record's `video` field.
 	UnsetVideo() Embed
@@ -196,14 +197,14 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ProviderIsSet to check if the field is present before use.
-	Provider() EmbedProvider
+	Provider() embed.Provider
 
 	// ProviderIsSet returns whether this record's `provider` field is currently
 	// present.
 	ProviderIsSet() bool
 
 	// SetProvider overwrites the current value of this record's `provider` field.
-	SetProvider(EmbedProvider) Embed
+	SetProvider(embed.Provider) Embed
 
 	// UnsetProvider removes this record's `provider` field.
 	UnsetProvider() Embed
@@ -214,14 +215,14 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use AuthorIsSet to check if the field is present before use.
-	Author() EmbedAuthor
+	Author() embed.Author
 
 	// AuthorIsSet returns whether this record's `author` field is currently
 	// present.
 	AuthorIsSet() bool
 
 	// SetAuthor overwrites the current value of this record's `author` field.
-	SetAuthor(EmbedAuthor) Embed
+	SetAuthor(embed.Author) Embed
 
 	// UnsetAuthor removes this record's `author` field.
 	UnsetAuthor() Embed
@@ -232,14 +233,14 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use FieldsIsSet to check if the field is present before use.
-	Fields() []EmbedField
+	Fields() []embed.Field
 
 	// FieldsIsSet returns whether this record's `fields` field is currently
 	// present.
 	FieldsIsSet() bool
 
 	// SetFields overwrites the current value of this record's `fields` field.
-	SetFields([]EmbedField) Embed
+	SetFields([]embed.Field) Embed
 
 	// UnsetFields removes this record's `fields` field.
 	UnsetFields() Embed

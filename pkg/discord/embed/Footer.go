@@ -1,13 +1,13 @@
-package message
+package embed
 
-type EmbedFooter interface {
+type Footer interface {
 	// Text returns the current value of this record's `text` field.
 	//
 	// The `text` field contains the footer text.
 	Text() string
 
 	// SetText overwrites the current value of this record's `text` field.
-	SetText(string) EmbedFooter
+	SetText(string) Footer
 
 	// IconURL returns the current value of this record's `icon_url` field.
 	//
@@ -23,10 +23,10 @@ type EmbedFooter interface {
 	IconURLIsSet() bool
 
 	// SetIconURL overwrites the current value of this record's `icon_url` field.
-	SetIconURL(string) EmbedFooter
+	SetIconURL(string) Footer
 
 	// UnsetIconURL removes this record's `icon_url` field.
-	UnsetIconURL() EmbedFooter
+	UnsetIconURL() Footer
 
 	// ProxyIconURL returns the current value of this record's `proxy_icon_url`
 	// field.
@@ -43,8 +43,8 @@ type EmbedFooter interface {
 
 	// SetProxyIconURL overwrites the current value of this record's
 	// `proxy_icon_url` field.
-	SetProxyIconURL(string) EmbedFooter
+	SetProxyIconURL(string) Footer
 
 	// UnsetProxyIconURL removes this record's `proxy_icon_url` field.
-	UnsetProxyIconURL() EmbedFooter
+	UnsetProxyIconURL() Footer
 }

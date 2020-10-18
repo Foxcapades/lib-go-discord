@@ -1,4 +1,4 @@
-package message
+package embed
 
 import "errors"
 
@@ -6,48 +6,48 @@ var (
 	ErrBadEmbedType = errors.New("unrecognized embed type value")
 )
 
-// EmbedType
+// Type
 // TODO: Document me
 //
 // Embed types are "loosely defined" and, for the most part, are not used by our
 // clients for rendering. Embed attributes power what is rendered. Embed types
 // should be considered deprecated and might be removed in a future API version.
-type EmbedType string
+type Type string
 
 const (
 	// Generic embed rendered from embed attributes.
-	EmbedTypeRich EmbedType = "rich"
+	TypeRich Type = "rich"
 
 	// Image embed.
-	EmbedTypeImage EmbedType = "image"
+	TypeImage Type = "image"
 
 	// Video embed.
-	EmbedTypeVideo EmbedType = "video"
+	TypeVideo Type = "video"
 
 	// Animated gif image embed rendered as a video embed.
-	EmbedTypeGifV EmbedType = "gifv"
+	TypeGifV Type = "gifv"
 
 	// Article embed.
-	EmbedTypeArticle EmbedType = "article"
+	TypeArticle Type = "article"
 
 	// Link embed.
-	EmbedTypeLink EmbedType = "link"
+	TypeLink Type = "link"
 )
 
-func (e EmbedType) IsValid() bool {
+func (e Type) IsValid() bool {
 	return nil == e.Validate()
 }
 
-var embedTypes = []EmbedType{
-	EmbedTypeRich,
-	EmbedTypeImage,
-	EmbedTypeVideo,
-	EmbedTypeGifV,
-	EmbedTypeArticle,
-	EmbedTypeLink,
+var embedTypes = []Type{
+	TypeRich,
+	TypeImage,
+	TypeVideo,
+	TypeGifV,
+	TypeArticle,
+	TypeLink,
 }
 
-func (e EmbedType) Validate() error {
+func (e Type) Validate() error {
 	for i := range embedTypes {
 		if e == embedTypes[i] {
 			return nil

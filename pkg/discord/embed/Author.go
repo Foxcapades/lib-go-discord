@@ -1,6 +1,6 @@
-package message
+package embed
 
-type EmbedAuthor interface {
+type Author interface {
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the author.
@@ -13,10 +13,10 @@ type EmbedAuthor interface {
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(string) EmbedAuthor
+	SetName(string) Author
 
 	// UnsetName removes this record's `name` field.
-	UnsetName() EmbedAuthor
+	UnsetName() Author
 
 	// URL returns the current value of this record's `url` field.
 	//
@@ -30,10 +30,10 @@ type EmbedAuthor interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) EmbedAuthor
+	SetURL(string) Author
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() EmbedAuthor
+	UnsetURL() Author
 
 	// IconURL returns the current value of this record's `icon_url` field.
 	//
@@ -49,10 +49,10 @@ type EmbedAuthor interface {
 	IconURLIsSet() bool
 
 	// SetIconURL overwrites the current value of this record's `icon_url` field.
-	SetIconURL(string) EmbedAuthor
+	SetIconURL(string) Author
 
 	// UnsetIconURL removes this record's `icon_url` field.
-	UnsetIconURL() EmbedAuthor
+	UnsetIconURL() Author
 
 	// ProxyIconURL returns the current value of this record's `proxy_icon_url`
 	// field.
@@ -69,8 +69,8 @@ type EmbedAuthor interface {
 
 	// SetProxyIconURL overwrites the current value of this record's
 	// `proxy_icon_url` field.
-	SetProxyIconURL(string) EmbedAuthor
+	SetProxyIconURL(string) Author
 
 	// UnsetProxyIconURL removes this record's `proxy_icon_url` field.
-	UnsetProxyIconURL() EmbedAuthor
+	UnsetProxyIconURL() Author
 }

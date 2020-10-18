@@ -1,13 +1,13 @@
-package message
+package embed
 
-type EmbedField interface {
+type Field interface {
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the field.
 	Name() string
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(string) EmbedField
+	SetName(string) Field
 
 	// Value returns the current value of this record's `value` field.
 	//
@@ -15,7 +15,7 @@ type EmbedField interface {
 	Value() string
 
 	// SetValue overwrites the current value of this record's `value` field.
-	SetValue(string) EmbedField
+	SetValue(string) Field
 
 	// Inline returns the current value of this record's `inline` field.
 	//
@@ -31,8 +31,8 @@ type EmbedField interface {
 	InlineIsSet() bool
 
 	// SetInline overwrites the current value of this record's `inline` field.
-	SetInline(bool) EmbedField
+	SetInline(bool) Field
 
 	// UnsetInline removes this record's `inline` field.
-	UnsetInline() EmbedField
+	UnsetInline() Field
 }

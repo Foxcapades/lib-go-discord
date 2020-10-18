@@ -1,8 +1,8 @@
-package message
+package embed
 
 // EmbedVideo
 // TODO: Document me
-type EmbedVideo interface {
+type Video interface {
 	// URL returns the current value of this record's `url` field.
 	//
 	// The `url` field contains the source url of the video.
@@ -15,10 +15,10 @@ type EmbedVideo interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) EmbedVideo
+	SetURL(string) Video
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() EmbedVideo
+	UnsetURL() Video
 
 	// Height returns the current value of this record's `height` field.
 	//
@@ -33,10 +33,10 @@ type EmbedVideo interface {
 	HeightIsSet() bool
 
 	// SetHeight overwrites the current value of this record's `height` field.
-	SetHeight(uint16) EmbedVideo
+	SetHeight(uint16) Video
 
 	// UnsetHeight removes this record's `height` field.
-	UnsetHeight() EmbedVideo
+	UnsetHeight() Video
 
 	// Width returns the current value of this record's `width` field.
 	//
@@ -51,8 +51,8 @@ type EmbedVideo interface {
 	WidthIsSet() bool
 
 	// SetWidth overwrites the current value of this record's `width` field.
-	SetWidth(uint16) EmbedVideo
+	SetWidth(uint16) Video
 
 	// UnsetWidth removes this record's `width` field.
-	UnsetWidth() EmbedVideo
+	UnsetWidth() Video
 }

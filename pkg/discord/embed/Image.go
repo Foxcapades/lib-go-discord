@@ -1,8 +1,8 @@
-package message
+package embed
 
 // EmbedImage
 // TODO: Document me
-type EmbedImage interface {
+type Image interface {
 	// URL returns the current value of this record's `url` field.
 	//
 	// The `url` field contains the source url of the image (only supports http(s)
@@ -16,10 +16,10 @@ type EmbedImage interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) EmbedImage
+	SetURL(string) Image
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() EmbedImage
+	UnsetURL() Image
 
 	// ProxyURL returns the current value of this record's `proxy_url` field.
 	//
@@ -35,10 +35,10 @@ type EmbedImage interface {
 
 	// SetProxyURL overwrites the current value of this record's `proxy_url`
 	// field.
-	SetProxyURL(string) EmbedImage
+	SetProxyURL(string) Image
 
 	// UnsetProxyURL removes this record's `proxy_url` field.
-	UnsetProxyURL() EmbedImage
+	UnsetProxyURL() Image
 
 	// Height returns the current value of this record's `height` field.
 	//
@@ -53,10 +53,10 @@ type EmbedImage interface {
 	HeightIsSet() bool
 
 	// SetHeight overwrites the current value of this record's `height` field.
-	SetHeight(uint16) EmbedImage
+	SetHeight(uint16) Image
 
 	// UnsetHeight removes this record's `height` field.
-	UnsetHeight() EmbedImage
+	UnsetHeight() Image
 
 	// Width returns the current value of this record's `width` field.
 	//
@@ -71,8 +71,8 @@ type EmbedImage interface {
 	WidthIsSet() bool
 
 	// SetWidth overwrites the current value of this record's `width` field.
-	SetWidth(uint16) EmbedImage
+	SetWidth(uint16) Image
 
 	// UnsetWidth removes this record's `width` field.
-	UnsetWidth() EmbedImage
+	UnsetWidth() Image
 }
