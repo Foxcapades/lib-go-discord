@@ -1,3 +1,3 @@
-package guild
+package comm
 
 type Emoji interface{}

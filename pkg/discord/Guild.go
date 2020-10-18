@@ -92,8 +92,8 @@ type Guild interface {
 	Roles() []comm.Role
 	SetRoles(roles []comm.Role) Guild
 
-	Emojis() []guild.Emoji
-	SetEmojis(emoji []guild.Emoji) Guild
+	Emojis() []comm.Emoji
+	SetEmojis(emoji []comm.Emoji) Guild
 
 	Features() []guild.Feature
 	SetFeatures(feats []guild.Feature) Guild
