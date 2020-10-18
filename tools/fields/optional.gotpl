@@ -1,0 +1,97 @@
+{{ define "optional" -}}
+package dlib
+
+import (
+	"encoding/json"
+	"errors"
+	"time"
+)
+
+var (
+	ErrUnsetField = errors.New("cannot get a value from an absent field; " +
+		"use the *IsSet method before attempting to unwrap a nullable field")
+	ErrSerializeUnset = errors.New("cannot serialize an absent field")
+)
+
+type OptionContainer interface {
+	// IsSet returns whether the current field value is present.
+	IsSet() bool
+
+	// IsUnset returns whether the current field value is absent.
+	IsUnset() bool
+}
+
+type OptionalField interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	OptionContainer
+
+	// Unset marks the field as absent.
+	Unset() OptionalField
+}
+
+{{- range $type := .Types }}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type {{ $type.Name }}OptionalField struct {
+	value {{ $type.Type }}
+	isSet bool
+}
+
+func (i {{ $type.Name }}OptionalField) IsSet() bool {
+	return i.isSet
+}
+
+func (i {{ $type.Name }}OptionalField) IsUnset() bool {
+	return !i.isSet
+}
+
+func (i *{{ $type.Name }}OptionalField) Unset() OptionalField {
+	i.isSet = false
+
+	return i
+}
+
+func (i *{{ $type.Name }}OptionalField) Set(val {{ $type.Type }}) OptionalField {
+	i.isSet = true
+	i.value = val
+
+	return i
+}
+
+// Value returns the raw value contained by this field.
+//
+// If this field is unset, this method will panic.
+func (i {{ $type.Name }}OptionalField) Value() {{ $type.Type }} {
+	if !i.isSet {
+		panic(ErrUnsetField)
+	}
+
+	return i.value
+}
+
+func (i *{{ $type.Name }}OptionalField) UnmarshalJSON(bytes []byte) error {
+	var tmp {{ $type.Type }}
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	i.value = tmp
+	i.isSet = true
+
+	return nil
+}
+
+func (i *{{ $type.Name }}OptionalField) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	return json.Marshal(i.value)
+}
+
+{{- end }}
+{{ end -}}

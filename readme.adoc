@@ -1,0 +1,5 @@
+= Golang Discord API SDK
+
+== TODO:
+
+- Convert image hash values to a struct type.

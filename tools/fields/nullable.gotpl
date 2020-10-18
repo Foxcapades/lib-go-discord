@@ -1,0 +1,102 @@
+{{ define "nullable" -}}
+package dlib
+
+import (
+	"encoding/json"
+	"errors"
+	"time"
+)
+
+var (
+	ErrNullField = errors.New("cannot get a value from a null field; use " +
+		"the *IsNull method before attempting to unwrap a nullable field")
+)
+
+type NullContainer interface {
+	// IsNull returns whether the current field value is null.
+	IsNull() bool
+
+	// IsNotNull returns whether the current field value is not null.
+	IsNotNull() bool
+}
+
+type NullableField interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	NullContainer
+
+	// SetNull sets the current field to null.
+	SetNull() NullableField
+}
+
+{{- range $type := .Types }}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type {{ $type.Name }}NullableField struct {
+	value {{ $type.Type }}
+	isSet bool
+}
+
+func (i {{ $type.Name }}NullableField) IsNull() bool {
+	return !i.isSet
+}
+
+func (i {{ $type.Name }}NullableField) IsNotNull() bool {
+	return i.isSet
+}
+
+func (i *{{ $type.Name }}NullableField) SetNull() NullableField {
+	i.isSet = false
+
+	return i
+}
+
+func (i *{{ $type.Name }}NullableField) Set(val {{ $type.Type }}) NullableField {
+	i.isSet = true
+	i.value = val
+
+	return i
+}
+
+// Value returns the raw wrapped field value.
+//
+// This method panics if the field is marked as null.
+func (i {{ $type.Name }}NullableField) Value() {{ $type.Type }} {
+	if !i.isSet {
+		panic(ErrNullField)
+	}
+
+	return i.value
+}
+
+func (i *{{ $type.Name }}NullableField) UnmarshalJSON(bytes []byte) error {
+	var tmp *{{ $type.Type }}
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	if tmp != nil {
+		i.value = *tmp
+		i.isSet = true
+	}
+
+	return nil
+}
+
+func (i *{{ $type.Name }}NullableField) MarshalJSON() ([]byte, error) {
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+{{- end }}
+
+////////////////////////////////////////////////////////////////////////////////
+
+var nullValue = []byte("null");
+{{ end -}}

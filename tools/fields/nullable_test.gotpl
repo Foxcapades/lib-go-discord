@@ -1,0 +1,163 @@
+{{- /*gotype: github.com/foxcapades/lib-go-discord/tools/fields/internal/types.Wrapper*/ -}}
+{{ define "nullable-test" -}}
+package dlib_test
+
+import (
+	"strconv"
+	"testing"
+	"time"
+
+	. "github.com/foxcapades/lib-go-discord/pkg/dlib"
+	. "github.com/smartystreets/goconvey/convey"
+)
+
+{{- range $type := .Types }}
+
+func Test{{ $type.Name }}NullableField(t *testing.T) {
+	Convey("{{ $type.Name }}NullableField", t, func() {
+
+		Convey(".IsNull()", func() {
+			Convey("returns true", func() {
+				Convey("when first constructed", func() {
+					var target {{ $type.Name }}NullableField
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+
+				Convey("when set to null", func() {
+					var target {{ $type.Name }}NullableField
+
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+
+					target.Set({{ $type.Testing.ValueTest.InputValue }})
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+			})
+
+			Convey("returns false", func() {
+				Convey("when a value is set", func() {
+					var target {{ $type.Name }}NullableField
+
+					target.Set({{ $type.Testing.ValueTest.InputValue }})
+
+					So(target.IsNull(), ShouldBeFalse)
+				})
+			})
+		})
+
+		Convey(".IsNotNull()", func() {
+			Convey("returns false", func() {
+				Convey("when first constructed", func() {
+					var target {{ $type.Name }}NullableField
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+
+				Convey("when set to null", func() {
+					var target {{ $type.Name }}NullableField
+
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+
+					target.Set({{ $type.Testing.ValueTest.InputValue }})
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+			})
+
+			Convey("returns true", func() {
+				Convey("when a value is set", func() {
+					var target {{ $type.Name }}NullableField
+
+					target.Set({{ $type.Testing.ValueTest.InputValue }})
+
+					So(target.IsNotNull(), ShouldBeTrue)
+				})
+			})
+		})
+
+		Convey(".Value()", func() {
+			Convey("returns the set value", func() {
+				var target {{ $type.Name }}NullableField
+
+				target.Set({{ $type.Testing.ValueTest.InputValue }})
+
+				So(
+					{{- if $type.Testing.ValueTest.HasActualTransform -}}
+						{{ call $type.Testing.ValueTest.ActualTransform "target.Value()" }}
+					{{- else -}}
+						target.Value()
+					{{- end }},
+
+					{{- $type.Testing.ValueTest.Comparison }},
+
+					{{- if $type.Testing.ValueTest.HasExpectTransform -}}
+						{{ call $type.Testing.ValueTest.ExpectTransform $type.Testing.ValueTest.ExpectValue }}
+					{{- else -}}
+						{{ $type.Testing.ValueTest.ExpectValue }}
+					{{- end -}}
+
+					{{- if $type.Testing.ValueTest.HasCompParams -}}
+						, {{ join $type.Testing.ValueTest.CompareParams ", " }}
+					{{- end }})
+			})
+			// {{$type.Testing.ValueTest.CompareParams}}
+
+			Convey("panics when no value is set", func() {
+				var target {{ $type.Name }}NullableField
+
+				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+			})
+		})
+
+		Convey(".MarshalJSON()", func() {
+			Convey("returns null when the field is null", func() {
+				var target {{ $type.Name }}NullableField
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte{'n', 'u', 'l', 'l'})
+				So(b, ShouldBeNil)
+			})
+
+			Convey("returns the serialized value when the field is not null", func() {
+				var target {{ $type.Name }}NullableField
+
+				target.Set({{ $type.Testing.JSONTest.InputValue }})
+
+				a, b := target.MarshalJSON()
+
+
+				So(
+					{{- if $type.Testing.JSONTest.HasActualTransform -}}
+						{{ call $type.Testing.JSONTest.ActualTransform "a" }}
+					{{- else -}}
+						a
+					{{- end }},
+
+					{{- $type.Testing.JSONTest.Comparison }},
+
+					{{- if $type.Testing.JSONTest.HasExpectTransform -}}
+						{{ call $type.Testing.JSONTest.ExpectTransform $type.Testing.JSONTest.ExpectValue }}
+					{{- else -}}
+						{{ $type.Testing.JSONTest.ExpectValue}}
+					{{- end }}
+
+					{{- if $type.Testing.JSONTest.HasCompParams -}}
+						, {{ join $type.Testing.JSONTest.CompareParams ", " }}
+					{{- end -}}
+				)
+				So(b, ShouldBeNil)
+			})
+		})
+	})
+}
+
+{{- end }}
+{{ end -}}

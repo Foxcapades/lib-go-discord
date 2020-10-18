@@ -1,0 +1,123 @@
+{{ define "tri-state" -}}
+package dlib
+
+import (
+	"encoding/json"
+	"time"
+)
+
+type TriStateField interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	OptionContainer
+	NullContainer
+
+	// SetNull sets the current field value to null.
+	SetNull() TriStateField
+
+	// Unset marks the current field as absent.
+	Unset() TriStateField
+}
+
+{{- range $type := .Types }}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type {{ $type.Name }}TriStateField struct {
+	value {{ $type.Type }}
+	flags flag
+}
+
+func (i {{ $type.Name }}TriStateField) IsNull() bool {
+	return !isSet(i.flags, flagNotNull)
+}
+
+func (i {{ $type.Name }}TriStateField) IsNotNull() bool {
+	return isSet(i.flags, flagNotNull)
+}
+
+func (i {{ $type.Name }}TriStateField) IsUnset() bool {
+	return !isSet(i.flags, flagPresent)
+}
+
+func (i {{ $type.Name }}TriStateField) IsSet() bool {
+	return isSet(i.flags, flagPresent)
+}
+
+func (i *{{ $type.Name }}TriStateField) SetNull() TriStateField {
+	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+
+	return i
+}
+
+func (i *{{ $type.Name }}TriStateField) Unset() TriStateField {
+	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+
+	return i
+}
+
+func (i *{{ $type.Name }}TriStateField) Set(val {{ $type.Type }}) TriStateField {
+	i.flags = add(add(i.flags, flagNotNull), flagPresent)
+	i.value = val
+
+	return i
+}
+
+func (i {{ $type.Name }}TriStateField) Value() {{ $type.Type }} {
+	return i.value
+}
+
+// MarshalJSON serializes the current field to JSON.
+//
+// If this field is unset, this method will error with
+func (i {{ $type.Name }}TriStateField) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+func (i {{ $type.Name }}TriStateField) UnmarshalJSON(bytes []byte) error {
+	var tmp *{{ $type.Type }}
+
+	if err := json.Unmarshal(bytes, tmp); err != nil {
+		return err
+	}
+
+	if tmp != nil {
+		i.flags = add(i.flags, flagNotNull)
+		i.value = *tmp
+	}
+
+	return nil
+}
+
+{{- end }}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type flag uint8
+
+const (
+	flagPresent flag = 1 << iota
+	flagNotNull
+)
+
+func isSet(val, test flag) bool {
+	return val & test == test
+}
+
+func add(val, add flag) flag {
+	return val | add
+}
+
+func sub(val, sub flag) flag {
+	return val & ^sub
+}
+{{ end -}}
