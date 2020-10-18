@@ -1,6 +1,10 @@
 package api
 
-import "github.com/foxcapades/lib-go-discord/pkg/discord/comm"
+import (
+	"github.com/foxcapades/lib-go-discord/pkg/discord"
+	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
+	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+)
 
 type DiscordAPI interface {
 	Guilds() GuildAPI
@@ -12,4 +16,11 @@ type DiscordAPI interface {
 
 type GuildAPI interface {
 
+}
+
+type ChannelAPI interface {
+	// Get a channel by ID.
+	//
+	//Returns a channel object.
+	Get(id dlib.Snowflake) (discord.Channel, error)
 }
