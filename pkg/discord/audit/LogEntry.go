@@ -91,14 +91,14 @@ type LogEntry interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ReasonIsSet to check if the field is present before use.
-	Reason() Reason
+	Reason() LogReason
 
 	// ReasonIsSet returns whether this record's `reason` field is currently
 	// present.
 	ReasonIsSet() bool
 
 	// SetReason overwrites the current value of this record's `reason` field.
-	SetReason(Reason) LogEntry
+	SetReason(LogReason) LogEntry
 
 	// UnsetReason removes this record's `reason` field.
 	UnsetReason() LogEntry
