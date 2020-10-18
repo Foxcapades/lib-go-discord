@@ -1,4 +1,4 @@
-package discord
+package comm
 
 import (
 	"github.com/foxcapades/lib-go-discord/pkg/discord/integration"
