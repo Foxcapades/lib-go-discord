@@ -1,6 +1,9 @@
 package discord
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/pkg/discord/channel"
+	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+)
 
 type Channel interface {
 	ID() dlib.Snowflake
