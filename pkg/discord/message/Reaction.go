@@ -1,6 +1,8 @@
 package message
 
-import "github.com/foxcapades/lib-go-discord/pkg/discord/comm"
+import (
+	"github.com/foxcapades/lib-go-discord/pkg/discord/guild"
+)
 
 // Reaction
 // TODO: document me
@@ -24,8 +26,8 @@ type Reaction interface {
 	// Emoji returns the current value of this record's `emoji` field.
 	//
 	// The `emoji` field contains emoji information.
-	Emoji() comm.Emoji
+	Emoji() guild.Emoji
 
 	// SetEmoji overwrites the current value of this record's `emoji` field.
-	SetEmoji(comm.Emoji) Reaction
+	SetEmoji(guild.Emoji) Reaction
 }

@@ -33,8 +33,8 @@ type Preview interface {
 	SetNullDiscoverySplash() Preview
 
 	// custom guild emojis
-	Emojis() []comm.Emoji
-	SetEmojis([]comm.Emoji) Preview
+	Emojis() []Emoji
+	SetEmojis([]Emoji) Preview
 
 	// enabled guild features
 	Features() []Feature
