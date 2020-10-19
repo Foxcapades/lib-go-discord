@@ -32,9 +32,10 @@ func (s *Snowflake) UnmarshalJSON(bytes []byte) (err error) {
 		return
 	}
 
-	if s.raw, err = strconv.ParseUint(tmp, 10, 64); err != nil {
-		return
-	}
+	return s.UnmarshalString(tmp)
+}
 
+func (s *Snowflake) UnmarshalString(val string) (err error) {
+	s.raw, err = strconv.ParseUint(val, 10, 64)
 	return
 }

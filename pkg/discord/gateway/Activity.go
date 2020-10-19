@@ -2,7 +2,6 @@ package gateway
 
 import (
 	"github.com/foxcapades/lib-go-discord/pkg/discord/gateway/activity"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/pkg/dlib"
 	"time"
 )
@@ -212,13 +211,13 @@ type Activity interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use AssetsIsSet to check if the field is present before use.
-	Assets() Assets
+	Assets() activity.Assets
 
 	// AssetsIsSet returns whether this record's `assets` field is currently present.
 	AssetsIsSet() bool
 
 	// SetAssets overwrites the current value of this record's `assets` field.
-	SetAssets(Assets) Activity
+	SetAssets(activity.Assets) Activity
 
 	// UnsetAssets removes this record's `assets` field.
 	UnsetAssets() Activity
@@ -230,13 +229,13 @@ type Activity interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use SecretsIsSet to check if the field is present before use.
-	Secrets() Secrets
+	Secrets() activity.Secrets
 
 	// SecretsIsSet returns whether this record's `secrets` field is currently present.
 	SecretsIsSet() bool
 
 	// SetSecrets overwrites the current value of this record's `secrets` field.
-	SetSecrets(Secrets) Activity
+	SetSecrets(activity.Secrets) Activity
 
 	// UnsetSecrets removes this record's `secrets` field.
 	UnsetSecrets() Activity
@@ -266,13 +265,13 @@ type Activity interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use FlagsIsSet to check if the field is present before use.
-	Flags() ActivityFlag
+	Flags() activity.Flag
 
 	// FlagsIsSet returns whether this record's `flags` field is currently present.
 	FlagsIsSet() bool
 
 	// SetFlags overwrites the current value of this record's `flags` field.
-	SetFlags(ActivityFlag) Activity
+	SetFlags(activity.Flag) Activity
 
 	// UnsetFlags removes this record's `flags` field.
 	UnsetFlags() Activity
