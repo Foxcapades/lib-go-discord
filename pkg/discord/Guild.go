@@ -363,10 +363,16 @@ type Guild interface {
 	// `system_channel_flags` field.
 	SetSystemChannelFlags(guild.SystemChannelFlag) Guild
 
+	// AddSystemChannelFlag adds the given flag to this record's current
+	// `system_channel_flags` value.
 	AddSystemChannelFlag(guild.SystemChannelFlag) Guild
 
+	// RemoveSystemChannelFlag removes the given flag to this record's current
+	// `system_channel_flags` value.
 	RemoveSystemChannelFlag(guild.SystemChannelFlag) Guild
 
+	// SystemChannelFlagsContains returns whether the given flag is already in
+	// this record's `system_channel_flags` value.
 	SystemChannelFlagsContains(guild.SystemChannelFlag) bool
 
 	// RulesChannelID returns the current value of this record's
