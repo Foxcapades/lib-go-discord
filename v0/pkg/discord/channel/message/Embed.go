@@ -1,8 +1,8 @@
 package message
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/embed"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/embed"
 	"time"
 )
 

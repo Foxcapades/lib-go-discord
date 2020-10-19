@@ -1,6 +1,6 @@
 package message
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 type AllowedMentions interface {
 	// Parse returns the current value of this record's `parse` field.

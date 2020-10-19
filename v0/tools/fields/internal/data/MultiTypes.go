@@ -2,7 +2,7 @@ package data
 
 import (
 	"fmt"
-	"github.com/foxcapades/lib-go-discord/tools/fields/internal/types"
+	"github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/types"
 )
 
 const (

@@ -1,8 +1,7 @@
-package comm
+package guild
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/guild"
 )
 
 // ╔════════════════════════════════════════════════════════════════════════╗ //
@@ -112,18 +111,18 @@ type voiceRegionImpl struct {
 }
 
 func (v *voiceRegionImpl) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[guild.FieldKey]interface{}{
-		guild.FieldKeyID:         v.id,
-		guild.FieldKeyName:       v.name,
-		guild.FieldKeyVIP:        v.VIP(),
-		guild.FieldKeyOptimal:    v.Optimal(),
-		guild.FieldKeyDeprecated: v.Deprecated(),
-		guild.FieldKeyCustom:     v.Custom(),
+	return json.Marshal(map[FieldKey]interface{}{
+		FieldKeyID:         v.id,
+		FieldKeyName:       v.name,
+		FieldKeyVIP:        v.VIP(),
+		FieldKeyOptimal:    v.Optimal(),
+		FieldKeyDeprecated: v.Deprecated(),
+		FieldKeyCustom:     v.Custom(),
 	})
 }
 
 func (v *voiceRegionImpl) UnmarshalJSON(bytes []byte) (err error) {
-	tmp := make(map[guild.FieldKey]json.RawMessage, 6)
+	tmp := make(map[FieldKey]json.RawMessage, 6)
 
 	if err = json.Unmarshal(bytes, &tmp); err != nil {
 		return
@@ -132,9 +131,9 @@ func (v *voiceRegionImpl) UnmarshalJSON(bytes []byte) (err error) {
 	for k, raw := range tmp {
 		switch k {
 		// Handle string fields
-		case guild.FieldKeyID:
+		case FieldKeyID:
 			err = json.Unmarshal(raw, &v.id)
-		case guild.FieldKeyName:
+		case FieldKeyName:
 			err = json.Unmarshal(raw, &v.name)
 
 		// Handle boolean flags
@@ -143,13 +142,13 @@ func (v *voiceRegionImpl) UnmarshalJSON(bytes []byte) (err error) {
 
 			if err = json.Unmarshal(raw, &tb); err == nil {
 				switch k {
-				case guild.FieldKeyVIP:
+				case FieldKeyVIP:
 					v.SetVIP(tb)
-				case guild.FieldKeyOptimal:
+				case FieldKeyOptimal:
 					v.SetOptimal(tb)
-				case guild.FieldKeyDeprecated:
+				case FieldKeyDeprecated:
 					v.SetDeprecated(tb)
-				case guild.FieldKeyCustom:
+				case FieldKeyCustom:
 					v.SetCustom(tb)
 				}
 			}

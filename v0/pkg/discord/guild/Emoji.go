@@ -1,9 +1,9 @@
 package guild
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/user"
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type Emoji interface {

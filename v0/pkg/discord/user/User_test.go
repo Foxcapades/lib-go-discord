@@ -3,7 +3,7 @@ package user_test
 import (
 	"testing"
 
-	. "github.com/foxcapades/lib-go-discord/pkg/discord/user"
+	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 	. "github.com/smartystreets/goconvey/convey"
 )
 

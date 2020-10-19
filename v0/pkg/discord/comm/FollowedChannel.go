@@ -1,6 +1,6 @@
 package comm
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 // FollowedChannel
 // TODO: Document me

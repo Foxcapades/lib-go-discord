@@ -1,7 +1,7 @@
 package message
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord/guild"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 )
 
 // Reaction

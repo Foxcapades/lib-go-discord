@@ -2,7 +2,7 @@ package user
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type OptionalUser struct {

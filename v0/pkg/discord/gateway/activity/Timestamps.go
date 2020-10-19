@@ -2,10 +2,10 @@ package activity
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/internal/utils"
 	"time"
 
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type Timestamps interface {

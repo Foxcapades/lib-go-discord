@@ -1,9 +1,8 @@
-package comm
+package user
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord/integration"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/user"
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/integration"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -61,9 +60,9 @@ type Integration interface {
 	SetExpireGracePeriod(days uint32) Integration
 
 	// user for this integration
-	User() user.User
+	User() User
 	UserIsSet() bool
-	SetUser(user.User) Integration
+	SetUser(User) Integration
 	UnsetUser() Integration
 
 	// integration account information
@@ -83,8 +82,8 @@ type Integration interface {
 	SetRevoked(bool) Integration
 
 	// The bot/OAuth2 application for discord integrations
-	Application() user.Application
+	Application() Application
 	ApplicationIsSet() bool
-	SetApplication(user.Application) Integration
+	SetApplication(Application) Integration
 	UnsetApplication() Integration
 }

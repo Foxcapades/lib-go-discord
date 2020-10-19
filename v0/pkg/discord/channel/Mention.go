@@ -1,6 +1,6 @@
 package channel
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 type Mention interface {
 	// ID returns the current value of this record's `id` field.

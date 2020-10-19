@@ -1,3 +1,5 @@
+// +build ignore
+
 package main
 
 import (
@@ -5,8 +7,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/foxcapades/lib-go-discord/tools/fields/internal/data"
-	"github.com/foxcapades/lib-go-discord/tools/fields/internal/types"
+	"github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/data"
+	"github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/types"
 )
 
 const (

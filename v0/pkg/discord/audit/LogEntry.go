@@ -1,6 +1,6 @@
 package audit
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 type LogEntry interface {
 	// TargetID returns the current value of this record's `target_id` field.

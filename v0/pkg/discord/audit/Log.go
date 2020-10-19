@@ -1,18 +1,18 @@
 package audit
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/user"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/webhook"
 )
 
 type Log interface {
 	// Webhooks returns the current value of this record's `webhooks` field.
 	//
 	// The `webhooks` field contains a list of webhooks found in the audit log.
-	Webhooks() []Webhook
+	Webhooks() []webhook.Webhook
 
 	// SetWebhooks overwrites the current value of this record's `webhooks` field.
-	SetWebhooks([]Webhook) Log
+	SetWebhooks([]webhook.Webhook) Log
 
 	// Users returns the current value of this record's `users` field.
 	//
@@ -36,9 +36,9 @@ type Log interface {
 	// field.
 	//
 	// The `integrations` field contains a list of partial integration objects.
-	Integrations() []comm.Integration
+	Integrations() []user.Integration
 
 	// SetIntegrations overwrites the current value of this record's
 	// `integrations` field.
-	SetIntegrations([]comm.Integration) Log
+	SetIntegrations([]user.Integration) Log
 }

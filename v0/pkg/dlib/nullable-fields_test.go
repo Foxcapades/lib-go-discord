@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/foxcapades/lib-go-discord/pkg/dlib"
+	. "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	. "github.com/smartystreets/goconvey/convey"
 )
 

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/foxcapades/lib-go-discord/pkg/discord/derr"
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/derr"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 // ╔════════════════════════════════════════════════════════════════════════╗ //

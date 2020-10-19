@@ -1,6 +1,6 @@
 package audit
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 // TODO: The fields on this type seems pretty sus.  Are they all strings?  Are
 //       they all required?  Its name is Optional, so perhaps all fields are

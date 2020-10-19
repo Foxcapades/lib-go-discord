@@ -1,8 +1,9 @@
 package guild
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord/user"
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/gateway"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 
@@ -48,8 +49,8 @@ type PresenceUpdate interface {
 	// Activities returns the current value of this record's `activities` field.
 	//
 	// The `activities` field contains the
-	Activities() []Activit
+	Activities() []gateway.Activity
 
 	// SetActivities overwrites the current value of this record's `activities` field.
-	SetActivities([]Activit) PresenceUpdate
+	SetActivities([]gateway.Activity) PresenceUpdate
 }

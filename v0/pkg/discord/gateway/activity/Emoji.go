@@ -1,6 +1,6 @@
 package activity
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 type Emoji interface {
 	// Name returns the current value of this record's `name` field.

@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/foxcapades/lib-go-discord/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type DiscordAPI interface {
@@ -11,7 +11,7 @@ type DiscordAPI interface {
 
 	// GetVoiceRegions fetches and returns an array of voice region objects that
 	// can be used when creating servers.
-	GetVoiceRegions() ([]comm.VoiceRegion, error)
+	GetVoiceRegions() ([]guild.VoiceRegion, error)
 }
 
 type GuildAPI interface {

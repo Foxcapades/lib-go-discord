@@ -1,6 +1,6 @@
 package guild
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 type Widget interface {
 	// Enabled returns the value of the `enabled` field currently set on this

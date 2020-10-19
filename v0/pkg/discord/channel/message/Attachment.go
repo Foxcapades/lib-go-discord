@@ -1,6 +1,6 @@
 package message
 
-import "github.com/foxcapades/lib-go-discord/pkg/dlib"
+import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
 type Attachment interface {
 	// ID returns the current value of this record's `id` field.

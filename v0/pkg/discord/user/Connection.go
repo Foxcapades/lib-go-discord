@@ -1,7 +1,5 @@
 package user
 
-import "github.com/foxcapades/lib-go-discord/pkg/discord/comm"
-
 type Connection interface {
 	// id of the connection account
 	Id() string
@@ -22,9 +20,9 @@ type Connection interface {
 	UnsetRevoked() Connection
 
 	// an array of partial server integrations
-	Integrations() []comm.Integration
+	Integrations() []Integration
 	IntegrationsIsSet() bool
-	SetIntegrations([]comm.Integration) Connection
+	SetIntegrations([]Integration) Connection
 	UnsetIntegrations() Connection
 
 	// whether the connection is verified

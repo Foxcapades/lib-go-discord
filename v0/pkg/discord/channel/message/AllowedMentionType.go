@@ -10,10 +10,10 @@ type AllowedMentionType string
 
 const (
 	// Controls role mentions.
-	AllowedMentionTypeRoles    AllowedMentionType = "roles"
+	AllowedMentionTypeRoles AllowedMentionType = "roles"
 
 	// Controls user mentions.
-	AllowedMentionTypeUsers    AllowedMentionType = "users"
+	AllowedMentionTypeUsers AllowedMentionType = "users"
 
 	// Controls @everyone and @here mentions.
 	AllowedMentionTypeEveryone AllowedMentionType = "everyone"
