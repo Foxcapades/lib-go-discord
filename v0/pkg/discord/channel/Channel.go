@@ -1,7 +1,6 @@
-package discord
+package channel
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
@@ -21,10 +20,10 @@ type Channel interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field contains the type of the channel.
-	Type() channel.Type
+	Type() Type
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(channel.Type) Channel
+	SetType(Type) Channel
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -90,13 +89,13 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use NameIsSet to check if the field is present before use.
-	Name() channel.Name
+	Name() Name
 
 	// NameIsSet returns whether this record's `name` field is currently present.
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(channel.Name) Channel
+	SetName(Name) Channel
 
 	// UnsetName removes this record's `name` field.
 	UnsetName() Channel
@@ -108,7 +107,7 @@ type Channel interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use TopicIsReadable to check if the field is
 	// present and non-null before use.
-	Topic() channel.Topic
+	Topic() Topic
 
 	// TopicIsNull returns whether this record's `topic` field is currently null.
 	TopicIsNull() bool
@@ -122,7 +121,7 @@ type Channel interface {
 	TopicIsReadable() bool
 
 	// SetTopic overwrites the current value of this record's `topic` field.
-	SetTopic(channel.Topic) Channel
+	SetTopic(Topic) Channel
 
 	// SetNullTopic overwrites the current value of this record's `topic` field
 	// with `null`.
@@ -188,14 +187,14 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use BitrateIsSet to check if the field is present before use.
-	Bitrate() uint64
+	Bitrate() Bitrate
 
 	// BitrateIsSet returns whether this record's `bitrate` field is currently
 	// present.
 	BitrateIsSet() bool
 
 	// SetBitrate overwrites the current value of this record's `bitrate` field.
-	SetBitrate(uint64) Channel
+	SetBitrate(Bitrate) Channel
 
 	// UnsetBitrate removes this record's `bitrate` field.
 	UnsetBitrate() Channel
@@ -206,7 +205,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use UserLimitIsSet to check if the field is present before use.
-	UserLimit() uint16
+	UserLimit() UserLimit
 
 	// UserLimitIsSet returns whether this record's `user_limit` field is
 	// currently present.
@@ -214,7 +213,7 @@ type Channel interface {
 
 	// SetUserLimit overwrites the current value of this record's `user_limit`
 	// field.
-	SetUserLimit(uint16) Channel
+	SetUserLimit(UserLimit) Channel
 
 	// UnsetUserLimit removes this record's `user_limit` field.
 	UnsetUserLimit() Channel
@@ -228,7 +227,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use RateLimitPerUserIsSet to check if the field is present before use.
-	RateLimitPerUser() channel.PerUserRateLimit
+	RateLimitPerUser() PerUserRateLimit
 
 	// RateLimitPerUserIsSet returns whether this record's `rate_limit_per_user`
 	// field is currently present.
@@ -236,7 +235,7 @@ type Channel interface {
 
 	// SetRateLimitPerUser overwrites the current value of this record's
 	// `rate_limit_per_user` field.
-	SetRateLimitPerUser(channel.PerUserRateLimit) Channel
+	SetRateLimitPerUser(PerUserRateLimit) Channel
 
 	// UnsetRateLimitPerUser removes this record's `rate_limit_per_user` field.
 	UnsetRateLimitPerUser() Channel

@@ -1,6 +1,7 @@
 package discord
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -520,14 +521,14 @@ type Guild interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ChannelsIsSet to check if the field is present before use.
-	Channels() []Channel
+	Channels() []channel.Channel
 
 	// ChannelsIsSet returns whether this record's `channels` field is currently
 	// present.
 	ChannelsIsSet() bool
 
 	// SetChannels overwrites the current value of this record's `channels` field.
-	SetChannels([]Channel) Guild
+	SetChannels([]channel.Channel) Guild
 
 	// UnsetChannels removes this record's `channels` field.
 	UnsetChannels() Guild

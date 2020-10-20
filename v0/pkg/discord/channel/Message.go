@@ -90,10 +90,10 @@ type Message interface {
 	// Content returns the current value of this record's `content` field.
 	//
 	// The `content` field contains the contents of the message.
-	Content() string
+	Content() message.Content
 
 	// SetContent overwrites the current value of this record's `content` field.
-	SetContent(string) Message
+	SetContent(message.Content) Message
 	//contents of the message
 
 	// Timestamp returns the current value of this record's `timestamp` field.
