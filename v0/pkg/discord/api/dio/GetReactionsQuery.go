@@ -97,7 +97,7 @@ func (g *getReactionsQuery) ToQuery() string {
 		out.WriteByte(queryStart)
 		out.WriteString(queryBefore)
 		out.WriteByte(queryValSep)
-		out.WriteString(g.before.Value().String())
+		out.WriteString(g.before.Get().String())
 	}
 
 	if g.after.IsSet() {
@@ -109,7 +109,7 @@ func (g *getReactionsQuery) ToQuery() string {
 
 		out.WriteString(queryAfter)
 		out.WriteByte(queryValSep)
-		out.WriteString(g.after.Value().String())
+		out.WriteString(g.after.Get().String())
 	}
 
 	if g.limit.IsSet() {
@@ -155,7 +155,7 @@ func (g *getReactionsQuery) GetEmoji() guild.Emoji {
 }
 
 func (g *getReactionsQuery) Before() dlib.Snowflake {
-	return g.before.Value()
+	return g.before.Get()
 }
 
 func (g *getReactionsQuery) BeforeIsSet() bool {
@@ -173,7 +173,7 @@ func (g *getReactionsQuery) UnsetBefore() GetReactionsQuery {
 }
 
 func (g *getReactionsQuery) After() dlib.Snowflake {
-	return g.after.Value()
+	return g.after.Get()
 }
 
 func (g *getReactionsQuery) AfterIsSet() bool {

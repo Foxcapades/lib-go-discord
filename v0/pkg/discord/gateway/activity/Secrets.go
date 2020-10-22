@@ -75,15 +75,15 @@ func (s *secretsImpl) MarshalJSON() ([]byte, error) {
 	out := make(map[FieldKey]string)
 
 	if s.join.IsSet() {
-		out[FieldKeyJoin] = s.join.Value()
+		out[FieldKeyJoin] = s.join.Get()
 	}
 
 	if s.spectate.IsSet() {
-		out[FieldKeySpectate] = s.spectate.Value()
+		out[FieldKeySpectate] = s.spectate.Get()
 	}
 
 	if s.match.IsSet() {
-		out[FieldKeyMatch] = s.match.Value()
+		out[FieldKeyMatch] = s.match.Get()
 	}
 
 	return json.Marshal(out)
@@ -111,7 +111,7 @@ func (s *secretsImpl) UnmarshalJSON(bytes []byte) error {
 }
 
 func (s *secretsImpl) Join() string {
-	return s.join.Value()
+	return s.join.Get()
 }
 
 func (s *secretsImpl) JoinIsSet() bool {
@@ -129,7 +129,7 @@ func (s *secretsImpl) UnsetJoin() Secrets {
 }
 
 func (s *secretsImpl) Spectate() string {
-	return s.spectate.Value()
+	return s.spectate.Get()
 }
 
 func (s *secretsImpl) SpectateIsSet() bool {
@@ -147,7 +147,7 @@ func (s *secretsImpl) UnsetSpectate() Secrets {
 }
 
 func (s *secretsImpl) Match() string {
-	return s.match.Value()
+	return s.match.Get()
 }
 
 func (s *secretsImpl) MatchIsSet() bool {

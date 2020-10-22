@@ -1,3 +1,3 @@
 .PHONY: gen-fields
-gen-fields:
-	go run tools/fields/main.go
+gen-fields-v0:
+	go run v0/tools/fields/main.go

@@ -60,7 +60,7 @@ func (i *I8NullableField) Set(val int8) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I8NullableField) Value() int8 {
+func (i I8NullableField) Get() int8 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -122,7 +122,7 @@ func (i *I16NullableField) Set(val int16) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I16NullableField) Value() int16 {
+func (i I16NullableField) Get() int16 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -184,7 +184,7 @@ func (i *I32NullableField) Set(val int32) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I32NullableField) Value() int32 {
+func (i I32NullableField) Get() int32 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -246,7 +246,7 @@ func (i *I64NullableField) Set(val int64) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I64NullableField) Value() int64 {
+func (i I64NullableField) Get() int64 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -308,7 +308,7 @@ func (i *U8NullableField) Set(val uint8) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U8NullableField) Value() uint8 {
+func (i U8NullableField) Get() uint8 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -370,7 +370,7 @@ func (i *U16NullableField) Set(val uint16) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U16NullableField) Value() uint16 {
+func (i U16NullableField) Get() uint16 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -432,7 +432,7 @@ func (i *U32NullableField) Set(val uint32) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U32NullableField) Value() uint32 {
+func (i U32NullableField) Get() uint32 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -494,7 +494,7 @@ func (i *U64NullableField) Set(val uint64) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U64NullableField) Value() uint64 {
+func (i U64NullableField) Get() uint64 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -556,7 +556,7 @@ func (i *F32NullableField) Set(val float32) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i F32NullableField) Value() float32 {
+func (i F32NullableField) Get() float32 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -618,7 +618,7 @@ func (i *F64NullableField) Set(val float64) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i F64NullableField) Value() float64 {
+func (i F64NullableField) Get() float64 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -680,7 +680,7 @@ func (i *BoolNullableField) Set(val bool) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i BoolNullableField) Value() bool {
+func (i BoolNullableField) Get() bool {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -742,7 +742,7 @@ func (i *StrNullableField) Set(val string) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i StrNullableField) Value() string {
+func (i StrNullableField) Get() string {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -804,7 +804,7 @@ func (i *SnowflakeNullableField) Set(val Snowflake) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i SnowflakeNullableField) Value() Snowflake {
+func (i SnowflakeNullableField) Get() Snowflake {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -866,7 +866,7 @@ func (i *TimeNullableField) Set(val time.Time) NullableField {
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i TimeNullableField) Value() time.Time {
+func (i TimeNullableField) Get() time.Time {
 	if !i.isSet {
 		panic(ErrNullField)
 	}

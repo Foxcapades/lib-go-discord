@@ -67,12 +67,12 @@ func (t *timestampsImpl) MarshalJSON() ([]byte, error) {
 	out := tmpTimes{}
 
 	if t.start.IsSet() {
-		millis := uint64(t.start.Value().UnixNano() / 1_000_000)
+		millis := uint64(t.start.Get().UnixNano() / 1_000_000)
 		out.Start = &millis
 	}
 
 	if t.end.IsSet() {
-		millis := uint64(t.end.Value().UnixNano() / 1_000_000)
+		millis := uint64(t.end.Get().UnixNano() / 1_000_000)
 		out.End = &millis
 	}
 
@@ -97,7 +97,7 @@ func (t *timestampsImpl) UnmarshalJSON(bytes []byte) error {
 }
 
 func (t *timestampsImpl) Start() time.Time {
-	return t.start.Value()
+	return t.start.Get()
 }
 
 func (t *timestampsImpl) StartIsSet() bool {
@@ -115,7 +115,7 @@ func (t *timestampsImpl) UnsetStart() Timestamps {
 }
 
 func (t *timestampsImpl) End() time.Time {
-	return t.end.Value()
+	return t.end.Get()
 }
 
 func (t *timestampsImpl) EndIsSet() bool {

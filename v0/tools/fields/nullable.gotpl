@@ -63,7 +63,7 @@ func (i *{{ $type.Name }}NullableField) Set(val {{ $type.Type }}) NullableField 
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i {{ $type.Name }}NullableField) Value() {{ $type.Type }} {
+func (i {{ $type.Name }}NullableField) Get() {{ $type.Type }} {
 	if !i.isSet {
 		panic(ErrNullField)
 	}

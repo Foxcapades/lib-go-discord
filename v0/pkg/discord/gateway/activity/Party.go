@@ -88,12 +88,12 @@ func (p *partyImpl) MarshalJSON() ([]byte, error) {
 	out := new(tmpParty)
 
 	if p.id.IsSet() {
-		tmp := p.id.Value()
+		tmp := p.id.Get()
 		out.ID = &tmp
 	}
 
 	if p.cur.IsSet() {
-		tmp := [2]uint16{p.cur.Value(), p.max.Value()}
+		tmp := [2]uint16{p.cur.Get(), p.max.Get()}
 		out.Size = &tmp
 	}
 
@@ -121,7 +121,7 @@ func (p *partyImpl) UnmarshalJSON(bytes []byte) error {
 }
 
 func (p *partyImpl) ID() string {
-	return p.id.Value()
+	return p.id.Get()
 }
 
 func (p *partyImpl) IDIsSet() bool {
@@ -139,7 +139,7 @@ func (p *partyImpl) UnsetID() Party {
 }
 
 func (p *partyImpl) CurrentSize() uint16 {
-	return p.cur.Value()
+	return p.cur.Get()
 }
 
 func (p *partyImpl) CurrentSizeIsSet() bool {
@@ -158,7 +158,7 @@ func (p *partyImpl) UnsetCurrentSize() Party {
 }
 
 func (p *partyImpl) MaxSize() uint16 {
-	return p.max.Value()
+	return p.max.Get()
 }
 
 func (p *partyImpl) MaxSizeIsSet() bool {

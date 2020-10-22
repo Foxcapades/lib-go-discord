@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	ErrSetNilTriState = errors.New("attempted to set a nil value through a" +
-		" tri-state field setter")
+	ErrSetNilTriStateVal = errors.New("attempted to set a nil value using a" +
+		" TriStateField's Set method")
 )
 
 type TriStateField interface {
@@ -23,6 +23,9 @@ type TriStateField interface {
 
 	// Unset marks the current field as absent.
 	Unset() TriStateField
+
+	// IsReadable returns true if the current field is set and non-null.
+	IsReadable() bool
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +51,10 @@ func (i I8TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i I8TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *I8TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -67,7 +74,7 @@ func (i *I8TriStateField) Set(val int8) TriStateField {
 	return i
 }
 
-func (i I8TriStateField) Value() int8 {
+func (i I8TriStateField) Get() int8 {
 	return i.value
 }
 
@@ -124,6 +131,10 @@ func (i I16TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i I16TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *I16TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -143,7 +154,7 @@ func (i *I16TriStateField) Set(val int16) TriStateField {
 	return i
 }
 
-func (i I16TriStateField) Value() int16 {
+func (i I16TriStateField) Get() int16 {
 	return i.value
 }
 
@@ -200,6 +211,10 @@ func (i I32TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i I32TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *I32TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -219,7 +234,7 @@ func (i *I32TriStateField) Set(val int32) TriStateField {
 	return i
 }
 
-func (i I32TriStateField) Value() int32 {
+func (i I32TriStateField) Get() int32 {
 	return i.value
 }
 
@@ -276,6 +291,10 @@ func (i I64TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i I64TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *I64TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -295,7 +314,7 @@ func (i *I64TriStateField) Set(val int64) TriStateField {
 	return i
 }
 
-func (i I64TriStateField) Value() int64 {
+func (i I64TriStateField) Get() int64 {
 	return i.value
 }
 
@@ -352,6 +371,10 @@ func (i U8TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i U8TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *U8TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -371,7 +394,7 @@ func (i *U8TriStateField) Set(val uint8) TriStateField {
 	return i
 }
 
-func (i U8TriStateField) Value() uint8 {
+func (i U8TriStateField) Get() uint8 {
 	return i.value
 }
 
@@ -428,6 +451,10 @@ func (i U16TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i U16TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *U16TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -447,7 +474,7 @@ func (i *U16TriStateField) Set(val uint16) TriStateField {
 	return i
 }
 
-func (i U16TriStateField) Value() uint16 {
+func (i U16TriStateField) Get() uint16 {
 	return i.value
 }
 
@@ -504,6 +531,10 @@ func (i U32TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i U32TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *U32TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -523,7 +554,7 @@ func (i *U32TriStateField) Set(val uint32) TriStateField {
 	return i
 }
 
-func (i U32TriStateField) Value() uint32 {
+func (i U32TriStateField) Get() uint32 {
 	return i.value
 }
 
@@ -580,6 +611,10 @@ func (i U64TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i U64TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *U64TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -599,7 +634,7 @@ func (i *U64TriStateField) Set(val uint64) TriStateField {
 	return i
 }
 
-func (i U64TriStateField) Value() uint64 {
+func (i U64TriStateField) Get() uint64 {
 	return i.value
 }
 
@@ -656,6 +691,10 @@ func (i F32TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i F32TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *F32TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -675,7 +714,7 @@ func (i *F32TriStateField) Set(val float32) TriStateField {
 	return i
 }
 
-func (i F32TriStateField) Value() float32 {
+func (i F32TriStateField) Get() float32 {
 	return i.value
 }
 
@@ -732,6 +771,10 @@ func (i F64TriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i F64TriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *F64TriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -751,7 +794,7 @@ func (i *F64TriStateField) Set(val float64) TriStateField {
 	return i
 }
 
-func (i F64TriStateField) Value() float64 {
+func (i F64TriStateField) Get() float64 {
 	return i.value
 }
 
@@ -808,6 +851,10 @@ func (i BoolTriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i BoolTriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *BoolTriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -827,7 +874,7 @@ func (i *BoolTriStateField) Set(val bool) TriStateField {
 	return i
 }
 
-func (i BoolTriStateField) Value() bool {
+func (i BoolTriStateField) Get() bool {
 	return i.value
 }
 
@@ -884,6 +931,10 @@ func (i StrTriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i StrTriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *StrTriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -903,7 +954,7 @@ func (i *StrTriStateField) Set(val string) TriStateField {
 	return i
 }
 
-func (i StrTriStateField) Value() string {
+func (i StrTriStateField) Get() string {
 	return i.value
 }
 
@@ -960,6 +1011,10 @@ func (i SnowflakeTriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i SnowflakeTriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *SnowflakeTriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -979,7 +1034,7 @@ func (i *SnowflakeTriStateField) Set(val Snowflake) TriStateField {
 	return i
 }
 
-func (i SnowflakeTriStateField) Value() Snowflake {
+func (i SnowflakeTriStateField) Get() Snowflake {
 	return i.value
 }
 
@@ -1036,6 +1091,10 @@ func (i TimeTriStateField) IsSet() bool {
 	return isSet(i.flags, flagPresent)
 }
 
+func (i TimeTriStateField) IsReadable() bool {
+	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+}
+
 func (i *TimeTriStateField) SetNull() TriStateField {
 	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
 
@@ -1055,7 +1114,7 @@ func (i *TimeTriStateField) Set(val time.Time) TriStateField {
 	return i
 }
 
-func (i TimeTriStateField) Value() time.Time {
+func (i TimeTriStateField) Get() time.Time {
 	return i.value
 }
 

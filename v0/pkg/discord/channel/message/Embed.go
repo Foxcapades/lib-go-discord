@@ -297,7 +297,7 @@ func (t TriStateEmbedField) Get() Embed {
 
 func (t TriStateEmbedField) Set(e Embed) {
 	if e == nil {
-		panic(dlib.ErrSetNilTriState)
+		panic(dlib.ErrSetNilTriStateVal)
 	}
 
 	t.value = e

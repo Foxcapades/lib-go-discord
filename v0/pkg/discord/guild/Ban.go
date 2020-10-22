@@ -71,7 +71,7 @@ func (b *banImpl) UnmarshalJSON(bytes []byte) error {
 }
 
 func (b *banImpl) Reason() string {
-	return b.reason.Value()
+	return b.reason.Get()
 }
 
 func (b *banImpl) ReasonIsNull() bool {

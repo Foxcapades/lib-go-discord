@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	tplPath = "tools/fields/"
-	outPath = "pkg/dlib/"
+	tplPath = "v0/tools/fields/"
+	outPath = "v0/pkg/dlib/"
 )
 
 func main() {

@@ -64,7 +64,7 @@ func (i *{{ $type.Name }}OptionalField) Set(val {{ $type.Type }}) OptionalField 
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i {{ $type.Name }}OptionalField) Value() {{ $type.Type }} {
+func (i {{ $type.Name }}OptionalField) Get() {{ $type.Type }} {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}

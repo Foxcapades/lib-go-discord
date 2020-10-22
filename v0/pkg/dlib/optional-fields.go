@@ -61,7 +61,7 @@ func (i *I8OptionalField) Set(val int8) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I8OptionalField) Value() int8 {
+func (i I8OptionalField) Get() int8 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -121,7 +121,7 @@ func (i *I16OptionalField) Set(val int16) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I16OptionalField) Value() int16 {
+func (i I16OptionalField) Get() int16 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -181,7 +181,7 @@ func (i *I32OptionalField) Set(val int32) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I32OptionalField) Value() int32 {
+func (i I32OptionalField) Get() int32 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -241,7 +241,7 @@ func (i *I64OptionalField) Set(val int64) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I64OptionalField) Value() int64 {
+func (i I64OptionalField) Get() int64 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -301,7 +301,7 @@ func (i *U8OptionalField) Set(val uint8) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U8OptionalField) Value() uint8 {
+func (i U8OptionalField) Get() uint8 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -361,7 +361,7 @@ func (i *U16OptionalField) Set(val uint16) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U16OptionalField) Value() uint16 {
+func (i U16OptionalField) Get() uint16 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -421,7 +421,7 @@ func (i *U32OptionalField) Set(val uint32) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U32OptionalField) Value() uint32 {
+func (i U32OptionalField) Get() uint32 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -481,7 +481,7 @@ func (i *U64OptionalField) Set(val uint64) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U64OptionalField) Value() uint64 {
+func (i U64OptionalField) Get() uint64 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -541,7 +541,7 @@ func (i *F32OptionalField) Set(val float32) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i F32OptionalField) Value() float32 {
+func (i F32OptionalField) Get() float32 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -601,7 +601,7 @@ func (i *F64OptionalField) Set(val float64) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i F64OptionalField) Value() float64 {
+func (i F64OptionalField) Get() float64 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -661,7 +661,7 @@ func (i *BoolOptionalField) Set(val bool) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i BoolOptionalField) Value() bool {
+func (i BoolOptionalField) Get() bool {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -721,7 +721,7 @@ func (i *StrOptionalField) Set(val string) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i StrOptionalField) Value() string {
+func (i StrOptionalField) Get() string {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -781,7 +781,7 @@ func (i *SnowflakeOptionalField) Set(val Snowflake) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i SnowflakeOptionalField) Value() Snowflake {
+func (i SnowflakeOptionalField) Get() Snowflake {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -841,7 +841,7 @@ func (i *TimeOptionalField) Set(val time.Time) OptionalField {
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i TimeOptionalField) Value() time.Time {
+func (i TimeOptionalField) Get() time.Time {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}

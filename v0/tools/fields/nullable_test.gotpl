@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/foxcapades/lib-go-discord/pkg/dlib"
+	. "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -82,7 +82,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target {{ $type.Name }}NullableField
 
@@ -90,9 +90,9 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 
 				So(
 					{{- if $type.Testing.ValueTest.HasActualTransform -}}
-						{{ call $type.Testing.ValueTest.ActualTransform "target.Value()" }}
+						{{ call $type.Testing.ValueTest.ActualTransform "target.Get()" }}
 					{{- else -}}
-						target.Value()
+						target.Get()
 					{{- end }},
 
 					{{- $type.Testing.ValueTest.Comparison }},
@@ -112,7 +112,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 			Convey("panics when no value is set", func() {
 				var target {{ $type.Name }}NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 

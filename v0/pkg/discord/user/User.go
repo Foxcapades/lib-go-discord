@@ -474,7 +474,7 @@ func (u *userImpl) SetDiscriminator(code Discriminator) User {
 }
 
 func (u *userImpl) AvatarHash() string {
-	return u.avatar.Value()
+	return u.avatar.Get()
 }
 
 func (u *userImpl) AvatarHashIsNull() bool {
@@ -494,7 +494,7 @@ func (u *userImpl) SetNullAvatarHash() User {
 }
 
 func (u *userImpl) BotFlag() bool {
-	return u.bot.Value()
+	return u.bot.Get()
 }
 
 func (u *userImpl) BotFlagIsSet() bool {
@@ -514,7 +514,7 @@ func (u *userImpl) UnsetBotFlag() User {
 }
 
 func (u *userImpl) SystemFlag() bool {
-	return u.system.Value()
+	return u.system.Get()
 }
 
 func (u *userImpl) SystemFlagIsSet() bool {
@@ -534,7 +534,7 @@ func (u *userImpl) UnsetSystemFlag() User {
 }
 
 func (u *userImpl) MFAEnabled() bool {
-	return u.mfaEnabled.Value()
+	return u.mfaEnabled.Get()
 }
 
 func (u *userImpl) MFAEnabledIsSet() bool {
@@ -554,7 +554,7 @@ func (u *userImpl) UnsetMFAEnabled() User {
 }
 
 func (u *userImpl) Locale() string {
-	return u.locale.Value()
+	return u.locale.Get()
 }
 
 func (u *userImpl) LocaleIsSet() bool {
@@ -574,7 +574,7 @@ func (u *userImpl) UnsetLocale() User {
 }
 
 func (u *userImpl) VerifiedFlag() bool {
-	return u.verified.Value()
+	return u.verified.Get()
 }
 
 func (u *userImpl) VerifiedFlagIsSet() bool {
@@ -594,7 +594,7 @@ func (u *userImpl) UnsetVerifiedFlag() User {
 }
 
 func (u *userImpl) Email() string {
-	return u.email.Value()
+	return u.email.Get()
 }
 
 func (u *userImpl) EmailIsSet() bool {
@@ -624,7 +624,7 @@ func (u *userImpl) SetNullEmail() User {
 }
 
 func (u *userImpl) Flags() Flag {
-	return Flag(u.flags.Value())
+	return Flag(u.flags.Get())
 }
 
 func (u *userImpl) FlagsIsSet() bool {
@@ -657,7 +657,7 @@ func (u *userImpl) AddFlag(flag Flag) User {
 	}
 
 	if u.flags.IsSet() {
-		u.flags.Set(u.flags.Value() | uint32(flag))
+		u.flags.Set(u.flags.Get() | uint32(flag))
 	} else {
 		u.flags.Set(uint32(flag))
 	}
@@ -673,7 +673,7 @@ func (u *userImpl) RemoveFlag(flag Flag) User {
 	}
 
 	if u.flags.IsSet() {
-		u.flags.Set(u.flags.Value() & ^uint32(flag))
+		u.flags.Set(u.flags.Get() & ^uint32(flag))
 	}
 
 	return u
@@ -687,14 +687,14 @@ func (u *userImpl) FlagsContains(flag Flag) bool {
 	}
 
 	if u.flags.IsSet() {
-		return u.flags.Value()|uint32(flag) == uint32(flag)
+		return u.flags.Get()|uint32(flag) == uint32(flag)
 	}
 
 	return false
 }
 
 func (u *userImpl) PremiumType() PremiumType {
-	return PremiumType(u.premiumType.Value())
+	return PremiumType(u.premiumType.Get())
 }
 
 func (u *userImpl) PremiumTypeIsSet() bool {
@@ -720,7 +720,7 @@ func (u *userImpl) UnsetPremiumType() User {
 }
 
 func (u *userImpl) PublicFlags() Flag {
-	return Flag(u.publicFlags.Value())
+	return Flag(u.publicFlags.Get())
 }
 
 func (u *userImpl) PublicFlagsIsSet() bool {
@@ -751,7 +751,7 @@ func (u *userImpl) AddPublicFlag(flag Flag) User {
 	}
 
 	if u.publicFlags.IsSet() {
-		u.publicFlags.Set(uint32(flag) | u.publicFlags.Value())
+		u.publicFlags.Set(uint32(flag) | u.publicFlags.Get())
 	} else {
 		u.publicFlags.Set(uint32(flag))
 	}
@@ -767,7 +767,7 @@ func (u *userImpl) RemovePublicFlag(flag Flag) User {
 	}
 
 	if u.publicFlags.IsSet() {
-		u.publicFlags.Set(u.publicFlags.Value() & ^uint32(flag))
+		u.publicFlags.Set(u.publicFlags.Get() & ^uint32(flag))
 	}
 
 	return u
@@ -782,7 +782,7 @@ func (u *userImpl) PublicFlagsContains(flag Flag) bool {
 
 	c := uint32(flag)
 
-	return u.publicFlags.Value()&c == c
+	return u.publicFlags.Get()&c == c
 }
 
 func (*userImpl) appendIfSet1(mp map[FieldKey]interface{}, key FieldKey, field dlib.OptionalField) {

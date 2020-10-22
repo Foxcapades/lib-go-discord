@@ -78,20 +78,20 @@ func TestI8NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target I8NullableField
 
 				target.Set(120)
 
-				So(target.Value(),ShouldEqual,120)
+				So(target.Get(),ShouldEqual,120)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target I8NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -189,20 +189,20 @@ func TestI16NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target I16NullableField
 
 				target.Set(32_215)
 
-				So(target.Value(),ShouldEqual,32_215)
+				So(target.Get(),ShouldEqual,32_215)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target I16NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -300,20 +300,20 @@ func TestI32NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target I32NullableField
 
 				target.Set(3_331_115)
 
-				So(target.Value(),ShouldEqual,3_331_115)
+				So(target.Get(),ShouldEqual,3_331_115)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target I32NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -411,20 +411,20 @@ func TestI64NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target I64NullableField
 
 				target.Set(123_456_789_123)
 
-				So(target.Value(),ShouldEqual,123_456_789_123)
+				So(target.Get(),ShouldEqual,123_456_789_123)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target I64NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -522,20 +522,20 @@ func TestU8NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target U8NullableField
 
 				target.Set(250)
 
-				So(target.Value(),ShouldEqual,250)
+				So(target.Get(),ShouldEqual,250)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target U8NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -633,20 +633,20 @@ func TestU16NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target U16NullableField
 
 				target.Set(62_000)
 
-				So(target.Value(),ShouldEqual,62_000)
+				So(target.Get(),ShouldEqual,62_000)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target U16NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -744,20 +744,20 @@ func TestU32NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target U32NullableField
 
 				target.Set(10_880_000)
 
-				So(target.Value(),ShouldEqual,10_880_000)
+				So(target.Get(),ShouldEqual,10_880_000)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target U32NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -855,20 +855,20 @@ func TestU64NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target U64NullableField
 
 				target.Set(999_999_999_999)
 
-				So(target.Value(),ShouldEqual,999_999_999_999)
+				So(target.Get(),ShouldEqual,999_999_999_999)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target U64NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -966,20 +966,20 @@ func TestF32NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target F32NullableField
 
 				target.Set(1.234512)
 
-				So(target.Value(),ShouldAlmostEqual,1.234512, 0.00001)
+				So(target.Get(),ShouldAlmostEqual,1.234512, 0.00001)
 			})
 			// [0.00001]
 
 			Convey("panics when no value is set", func() {
 				var target F32NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1077,20 +1077,20 @@ func TestF64NullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target F64NullableField
 
 				target.Set(12345.123456789)
 
-				So(target.Value(),ShouldAlmostEqual,12345.123456789)
+				So(target.Get(),ShouldAlmostEqual,12345.123456789)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target F64NullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1188,20 +1188,20 @@ func TestBoolNullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target BoolNullableField
 
 				target.Set(true)
 
-				So(target.Value(),ShouldEqual,true)
+				So(target.Get(),ShouldEqual,true)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target BoolNullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1299,20 +1299,20 @@ func TestStrNullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target StrNullableField
 
 				target.Set("hello world")
 
-				So(target.Value(),ShouldEqual,"hello world")
+				So(target.Get(),ShouldEqual,"hello world")
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target StrNullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1410,20 +1410,20 @@ func TestSnowflakeNullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target SnowflakeNullableField
 
 				target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
-				So(target.Value().RawValue(),ShouldEqual,123456789123)
+				So(target.Get().RawValue(),ShouldEqual,123456789123)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target SnowflakeNullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1521,20 +1521,20 @@ func TestTimeNullableField(t *testing.T) {
 			})
 		})
 
-		Convey(".Value()", func() {
+		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
 				var target TimeNullableField
 
 				target.Set(time.Unix(0, 0).UTC())
 
-				So(target.Value(),ShouldResemble,time.Unix(0, 0).UTC())
+				So(target.Get(),ShouldResemble,time.Unix(0, 0).UTC())
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target TimeNullableField
 
-				So(func() {target.Value()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
 		})
 
