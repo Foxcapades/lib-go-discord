@@ -355,36 +355,36 @@ type userImpl struct {
 }
 
 func (u *userImpl) MarshalJSON() ([]byte, error) {
-	out := make(map[user.FieldKey]interface{}, 10)
+	out := make(map[FieldKey]interface{}, 10)
 
 	if u.id.RawValue() == 0 {
 		return nil, ErrNoId
 	} else {
-		out[user.FieldKeyId] = u.id
+		out[FieldKeyId] = u.id
 	}
 
 	if u.username == "" {
 		return nil, ErrNoUsername
 	} else {
-		out[user.FieldKeyUsername] = u.username
+		out[FieldKeyUsername] = u.username
 	}
 
 	if u.discriminator == 0 {
 		return nil, ErrNoDiscriminator
 	} else {
-		out[user.FieldKeyDiscriminator] = u.discriminator
+		out[FieldKeyDiscriminator] = u.discriminator
 	}
 
-	out[user.FieldKeyAvatar] = u.avatar
-	u.appendIfSet1(out, user.FieldKeyBot, &u.bot)
-	u.appendIfSet1(out, user.FieldKeySystem, &u.system)
-	u.appendIfSet1(out, user.FieldKeyMFAEnabled, &u.mfaEnabled)
-	u.appendIfSet1(out, user.FieldKeyLocale, &u.locale)
-	u.appendIfSet1(out, user.FieldKeyVerified, &u.verified)
-	u.appendIfSet2(out, user.FieldKeyEmail, &u.email)
-	u.appendIfSet1(out, user.FieldKeyFlags, &u.flags)
-	u.appendIfSet1(out, user.FieldKeyPremiumType, &u.premiumType)
-	u.appendIfSet1(out, user.FieldKeyPublicFlags, &u.publicFlags)
+	out[FieldKeyAvatar] = u.avatar
+	u.appendIfSet1(out, FieldKeyBot, &u.bot)
+	u.appendIfSet1(out, FieldKeySystem, &u.system)
+	u.appendIfSet1(out, FieldKeyMFAEnabled, &u.mfaEnabled)
+	u.appendIfSet1(out, FieldKeyLocale, &u.locale)
+	u.appendIfSet1(out, FieldKeyVerified, &u.verified)
+	u.appendIfSet2(out, FieldKeyEmail, &u.email)
+	u.appendIfSet1(out, FieldKeyFlags, &u.flags)
+	u.appendIfSet1(out, FieldKeyPremiumType, &u.premiumType)
+	u.appendIfSet1(out, FieldKeyPublicFlags, &u.publicFlags)
 
 	return json.Marshal(out)
 }
@@ -396,27 +396,27 @@ func (u *userImpl) UnmarshalJSON(bytes []byte) (err error) {
 		return
 	}
 
-	multis := map[user.FieldKey]json.Unmarshaler{
-		user.FieldKeyAvatar:      &u.avatar,
-		user.FieldKeyBot:         &u.bot,
-		user.FieldKeySystem:      &u.system,
-		user.FieldKeyMFAEnabled:  &u.mfaEnabled,
-		user.FieldKeyLocale:      &u.locale,
-		user.FieldKeyVerified:    &u.verified,
-		user.FieldKeyEmail:       &u.email,
-		user.FieldKeyFlags:       &u.flags,
-		user.FieldKeyPremiumType: &u.premiumType,
-		user.FieldKeyPublicFlags: &u.publicFlags,
+	multis := map[FieldKey]json.Unmarshaler{
+		FieldKeyAvatar:      &u.avatar,
+		FieldKeyBot:         &u.bot,
+		FieldKeySystem:      &u.system,
+		FieldKeyMFAEnabled:  &u.mfaEnabled,
+		FieldKeyLocale:      &u.locale,
+		FieldKeyVerified:    &u.verified,
+		FieldKeyEmail:       &u.email,
+		FieldKeyFlags:       &u.flags,
+		FieldKeyPremiumType: &u.premiumType,
+		FieldKeyPublicFlags: &u.publicFlags,
 	}
 
-	singles := map[user.FieldKey]interface{}{
-		user.FieldKeyId:            &u.id,
-		user.FieldKeyUsername:      &u.username,
-		user.FieldKeyDiscriminator: &u.discriminator,
+	singles := map[FieldKey]interface{}{
+		FieldKeyId:            &u.id,
+		FieldKeyUsername:      &u.username,
+		FieldKeyDiscriminator: &u.discriminator,
 	}
 
 	for k, v := range in {
-		key := user.FieldKey(k)
+		key := FieldKey(k)
 
 		if f, ok := singles[key]; ok {
 			err = json.Unmarshal(v, f)
@@ -449,7 +449,7 @@ func (u *userImpl) Username() string {
 func (u *userImpl) SetUsername(name user.Username) User {
 	if u.validate {
 		if err := name.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyUsername), name, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyUsername), name, err))
 		}
 	}
 
@@ -465,7 +465,7 @@ func (u *userImpl) Discriminator() user.Discriminator {
 func (u *userImpl) SetDiscriminator(code user.Discriminator) User {
 	if u.validate {
 		if err := code.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyDiscriminator), code, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyDiscriminator), code, err))
 		}
 	}
 
@@ -635,7 +635,7 @@ func (u *userImpl) FlagsIsSet() bool {
 func (u *userImpl) SetFlags(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -653,7 +653,7 @@ func (u *userImpl) UnsetFlags() User {
 func (u *userImpl) AddFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -669,7 +669,7 @@ func (u *userImpl) AddFlag(flag user.Flag) User {
 func (u *userImpl) RemoveFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -683,7 +683,7 @@ func (u *userImpl) RemoveFlag(flag user.Flag) User {
 func (u *userImpl) FlagsContains(flag user.Flag) bool {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -705,7 +705,7 @@ func (u *userImpl) PremiumTypeIsSet() bool {
 func (u *userImpl) SetPremiumType(val user.PremiumType) User {
 	if u.validate {
 		if err := val.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyPremiumType), val, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyPremiumType), val, err))
 		}
 	}
 
@@ -731,7 +731,7 @@ func (u *userImpl) PublicFlagsIsSet() bool {
 func (u *userImpl) SetPublicFlags(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -747,7 +747,7 @@ func (u *userImpl) UnsetPublicFlags() User {
 func (u *userImpl) AddPublicFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -763,7 +763,7 @@ func (u *userImpl) AddPublicFlag(flag user.Flag) User {
 func (u *userImpl) RemovePublicFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -777,7 +777,7 @@ func (u *userImpl) RemovePublicFlag(flag user.Flag) User {
 func (u *userImpl) PublicFlagsContains(flag user.Flag) bool {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -786,13 +786,13 @@ func (u *userImpl) PublicFlagsContains(flag user.Flag) bool {
 	return u.publicFlags.Get()&c == c
 }
 
-func (*userImpl) appendIfSet1(mp map[user.FieldKey]interface{}, key user.FieldKey, field dlib.OptionalField) {
+func (*userImpl) appendIfSet1(mp map[FieldKey]interface{}, key FieldKey, field dlib.OptionalField) {
 	if field.IsSet() {
 		mp[key] = field
 	}
 }
 
-func (*userImpl) appendIfSet2(mp map[user.FieldKey]interface{}, key user.FieldKey, field dlib.TriStateField) {
+func (*userImpl) appendIfSet2(mp map[FieldKey]interface{}, key FieldKey, field dlib.TriStateField) {
 	if field.IsSet() {
 		mp[key] = field
 	}

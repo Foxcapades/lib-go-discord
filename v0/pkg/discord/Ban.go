@@ -3,7 +3,6 @@ package discord
 import (
 	"encoding/json"
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -38,27 +37,27 @@ type banImpl struct {
 }
 
 func (b *banImpl) MarshalJSON() ([]byte, error) {
-	out := make(map[guild.FieldKey]interface{}, 2)
-	out[guild.FieldKeyReason] = b.reason
-	out[guild.FieldKeyUser] = b.user
+	out := make(map[FieldKey]interface{}, 2)
+	out[FieldKeyReason] = b.reason
+	out[FieldKeyUser] = b.user
 
 	return json.Marshal(out)
 }
 
 func (b *banImpl) UnmarshalJSON(bytes []byte) error {
-	tmp := make(map[guild.FieldKey]json.RawMessage, 2)
+	tmp := make(map[FieldKey]json.RawMessage, 2)
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
-	if v, ok := tmp[guild.FieldKeyReason]; ok {
+	if v, ok := tmp[FieldKeyReason]; ok {
 		if err := b.reason.UnmarshalJSON(v); err != nil {
 			return err
 		}
 	}
 
-	if v, ok := tmp[guild.FieldKeyUser]; ok {
+	if v, ok := tmp[FieldKeyUser]; ok {
 		b.user = NewUser(b.validate)
 
 		if err := b.user.UnmarshalJSON(v); err != nil {

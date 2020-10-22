@@ -3,7 +3,6 @@ package dio
 import (
 	"encoding/json"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 )
 
 type MessagePatch interface {
@@ -122,29 +121,29 @@ type messagePatch struct {
 }
 
 func (m *messagePatch) MarshalJSON() ([]byte, error) {
-	out := make(map[message.FieldKey]interface{})
+	out := make(map[discord.FieldKey]interface{})
 
 	if m.cont.IsSet() {
 		if m.cont.IsNull() {
-			out[message.FieldKeyContent] = nil
+			out[discord.FieldKeyContent] = nil
 		} else {
-			out[message.FieldKeyContent] = m.cont.Get()
+			out[discord.FieldKeyContent] = m.cont.Get()
 		}
 	}
 
 	if m.flag.IsSet() {
 		if m.flag.IsNull() {
-			out[message.FieldKeyFlags] = nil
+			out[discord.FieldKeyFlags] = nil
 		} else {
-			out[message.FieldKeyFlags] = m.flag.Get()
+			out[discord.FieldKeyFlags] = m.flag.Get()
 		}
 	}
 
 	if m.embed.IsSet() {
 		if m.embed.IsNull() {
-			out[message.FieldKeyEmbed] = nil
+			out[discord.FieldKeyEmbed] = nil
 		} else {
-			out[message.FieldKeyEmbed] = m.embed.Get()
+			out[discord.FieldKeyEmbed] = m.embed.Get()
 		}
 	}
 
