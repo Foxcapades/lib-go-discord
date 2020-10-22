@@ -138,5 +138,43 @@ type MessageAPI interface {
 	// current user. Fires a Message Reaction Remove Emoji Gateway event.
 	DeleteAllReactionsFor(msgId dlib.Snowflake, emoji guild.Emoji) error
 
-	EditMessage(id dlib.Snowflake)
+	// EditMessage patches a previously sent message.
+	//
+	// The fields `content`, `embed`, `allowed_mentions` and flags can be edited
+	// by the original message author. Other users can only edit flags and only if
+	// they have the MANAGE_MESSAGES permission in the corresponding channel.
+	//
+	// When specifying flags, ensure to include all previously set flags/bits in
+	// addition to ones that you are modifying. Only flags documented in the table
+	// below may be modified by users (unsupported flag changes are currently
+	// ignored without error).
+	//
+	// Fires a Message Update Gateway event.
+	//
+	// Returns a message object.
+	EditMessage(id dlib.Snowflake, patch dio.MessagePatch) (channel.Message, error)
+
+	// DeleteMessage deletes an existing message.
+	//
+	// If operating on a guild channel and trying to delete a message that was not
+	// sent by the current user, this endpoint requires the MANAGE_MESSAGES
+	// permission.
+	//
+	// Fires a Message Delete Gateway event.
+	DeleteMessage(id dlib.Snowflake) error
+
+	// BulkDeleteMessage deletes multiple messages in a single request.
+	//
+	// This endpoint can only be used on guild channels and requires the
+	// MANAGE_MESSAGES permission.
+	//
+	// Fires a Message Delete Bulk Gateway event.
+	//
+	// Any message IDs given that do not exist or are invalid will count towards
+	// the minimum and maximum message count (currently 2 and 100 respectively).
+	//
+	// This endpoint will not delete messages older than 2 weeks, and will fail
+	// with a 400 BAD REQUEST if any message provided is older than that or if any
+	// duplicate message IDs are provided.
+	BulkDeleteMessages([]dlib.Snowflake) error
 }

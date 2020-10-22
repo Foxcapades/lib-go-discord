@@ -87,10 +87,10 @@ type OptionalEntryInfo interface {
 	//
 	// Applies to action type(s): CHANNEL_OVERWRITE_CREATE,
 	// CHANNEL_OVERWRITE_UPDATE, CHANNEL_OVERWRITE_DELETE
-	Type() permission.OverwriteType
+	Type() permission.Type
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(permission.OverwriteType) OptionalEntryInfo
+	SetType(permission.Type) OptionalEntryInfo
 
 	// RoleName returns the current value of this record's `role_name` field.
 	//

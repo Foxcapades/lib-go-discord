@@ -19,10 +19,10 @@ type Overwrite interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field
-	Type() OverwriteType
+	Type() Type
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(OverwriteType) Overwrite
+	SetType(Type) Overwrite
 
 	// Allow returns the current value of this record's `allow` field.
 	//

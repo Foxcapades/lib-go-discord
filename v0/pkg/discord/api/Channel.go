@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/api/dio"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -39,9 +40,23 @@ type ChannelAPI interface {
 	//
 	// For Community guilds, the Rules or Guidelines channel and the Community
 	// Updates channel cannot be deleted.
-	//
-	// Returns a channel object on success.
 	Delete(id dlib.Snowflake) error
+
+	// EditPermissions updates the channel permission overwrites for a user or
+	// role in a channel.
+	//
+	// Only usable for guild channels.
+	//
+	// Requires the MANAGE_ROLES permission.
+	EditPermissions(id dlib.Snowflake, patch dio.ChannelPermissionPatch) error
+
+	// GetInvites returns a list of invite objects (with invite metadata) for the
+	// channel.
+	//
+	// Only usable for guild channels.
+	//
+	// Requires the MANAGE_CHANNELS permission.
+	GetInvites(id dlib.Snowflake) ([]discord.Invite, error)
 
 	Messages() MessageAPI
 }

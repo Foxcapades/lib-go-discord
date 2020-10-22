@@ -6,18 +6,18 @@ var (
 	ErrBadOverwriteType = errors.New("unrecognized overwrite type value")
 )
 
-type OverwriteType uint8
+type Type uint8
 
 const (
-	OverwriteTypeRole OverwriteType = iota
+	OverwriteTypeRole Type = iota
 	OverwriteTypeMember
 )
 
-func (o OverwriteType) IsValid() bool {
+func (o Type) IsValid() bool {
 	return nil == o.Validate()
 }
 
-func (o OverwriteType) Validate() error {
+func (o Type) Validate() error {
 	if o > 1 {
 		return ErrBadOverwriteType
 	}
