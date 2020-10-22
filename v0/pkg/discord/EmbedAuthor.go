@@ -1,6 +1,6 @@
-package embed
+package discord
 
-type Author interface {
+type EmbedAuthor interface {
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the author.
@@ -13,10 +13,10 @@ type Author interface {
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(string) Author
+	SetName(string) EmbedAuthor
 
 	// UnsetName removes this record's `name` field.
-	UnsetName() Author
+	UnsetName() EmbedAuthor
 
 	// URL returns the current value of this record's `url` field.
 	//
@@ -30,10 +30,10 @@ type Author interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) Author
+	SetURL(string) EmbedAuthor
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() Author
+	UnsetURL() EmbedAuthor
 
 	// IconURL returns the current value of this record's `icon_url` field.
 	//
@@ -49,10 +49,10 @@ type Author interface {
 	IconURLIsSet() bool
 
 	// SetIconURL overwrites the current value of this record's `icon_url` field.
-	SetIconURL(string) Author
+	SetIconURL(string) EmbedAuthor
 
 	// UnsetIconURL removes this record's `icon_url` field.
-	UnsetIconURL() Author
+	UnsetIconURL() EmbedAuthor
 
 	// ProxyIconURL returns the current value of this record's `proxy_icon_url`
 	// field.
@@ -69,8 +69,8 @@ type Author interface {
 
 	// SetProxyIconURL overwrites the current value of this record's
 	// `proxy_icon_url` field.
-	SetProxyIconURL(string) Author
+	SetProxyIconURL(string) EmbedAuthor
 
 	// UnsetProxyIconURL removes this record's `proxy_icon_url` field.
-	UnsetProxyIconURL() Author
+	UnsetProxyIconURL() EmbedAuthor
 }

@@ -1,4 +1,4 @@
-package guild
+package discord
 
 import (
 	"bytes"
@@ -30,7 +30,7 @@ const (
 	IconMaxHeight uint16 = 1024
 )
 
-type Icon interface {
+type GuildIcon interface {
 	comm.Validatable
 	image.Data
 }
@@ -42,7 +42,7 @@ type Icon interface {
 // panic.
 //
 // See NewIcon() for more information.
-func RequireNewIcon(in io.ReadSeeker) Icon {
+func RequireNewIcon(in io.ReadSeeker) GuildIcon {
 	if out, err := NewIcon(in); err != nil {
 		panic(err)
 	} else {
@@ -63,7 +63,7 @@ func RequireNewIcon(in io.ReadSeeker) Icon {
 // instance will be returned alongside an ErrBadIconSize error.  This error may
 // be treated as a warning and ignored, however the Discord API may return an
 // error itself if this icon is sent to that API.
-func NewIcon(in io.ReadSeeker) (Icon, error) {
+func NewIcon(in io.ReadSeeker) (GuildIcon, error) {
 	if _, err := in.Seek(0, io.SeekStart); err != nil {
 		return nil, err
 	}

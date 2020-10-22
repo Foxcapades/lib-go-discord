@@ -2,7 +2,6 @@ package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/embed"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
@@ -125,14 +124,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use FooterIsSet to check if the field is present before use.
-	Footer() embed.Footer
+	Footer() EmbedFooter
 
 	// FooterIsSet returns whether this record's `footer` field is currently
 	// present.
 	FooterIsSet() bool
 
 	// SetFooter overwrites the current value of this record's `footer` field.
-	SetFooter(embed.Footer) MessageEmbed
+	SetFooter(EmbedFooter) MessageEmbed
 
 	// UnsetFooter removes this record's `footer` field.
 	UnsetFooter() MessageEmbed
@@ -143,14 +142,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ImageIsSet to check if the field is present before use.
-	Image() embed.Image
+	Image() EmbedImage
 
 	// ImageIsSet returns whether this record's `image` field is currently
 	// present.
 	ImageIsSet() bool
 
 	// SetImage overwrites the current value of this record's `image` field.
-	SetImage(embed.Image) MessageEmbed
+	SetImage(EmbedImage) MessageEmbed
 
 	// UnsetImage removes this record's `image` field.
 	UnsetImage() MessageEmbed
@@ -161,7 +160,7 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ThumbnailIsSet to check if the field is present before use.
-	Thumbnail() embed.Thumbnail
+	Thumbnail() EmbedThumbnail
 
 	// ThumbnailIsSet returns whether this record's `thumbnail` field is currently
 	// present.
@@ -169,7 +168,7 @@ type MessageEmbed interface {
 
 	// SetThumbnail overwrites the current value of this record's `thumbnail`
 	// field.
-	SetThumbnail(embed.Thumbnail) MessageEmbed
+	SetThumbnail(EmbedThumbnail) MessageEmbed
 
 	// UnsetThumbnail removes this record's `thumbnail` field.
 	UnsetThumbnail() MessageEmbed
@@ -180,14 +179,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use VideoIsSet to check if the field is present before use.
-	Video() embed.Video
+	Video() EmbedVideo
 
 	// VideoIsSet returns whether this record's `video` field is currently
 	// present.
 	VideoIsSet() bool
 
 	// SetVideo overwrites the current value of this record's `video` field.
-	SetVideo(embed.Video) MessageEmbed
+	SetVideo(EmbedVideo) MessageEmbed
 
 	// UnsetVideo removes this record's `video` field.
 	UnsetVideo() MessageEmbed
@@ -198,14 +197,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ProviderIsSet to check if the field is present before use.
-	Provider() embed.Provider
+	Provider() EmbedProvider
 
 	// ProviderIsSet returns whether this record's `provider` field is currently
 	// present.
 	ProviderIsSet() bool
 
 	// SetProvider overwrites the current value of this record's `provider` field.
-	SetProvider(embed.Provider) MessageEmbed
+	SetProvider(EmbedProvider) MessageEmbed
 
 	// UnsetProvider removes this record's `provider` field.
 	UnsetProvider() MessageEmbed
@@ -216,14 +215,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use AuthorIsSet to check if the field is present before use.
-	Author() embed.Author
+	Author() EmbedAuthor
 
 	// AuthorIsSet returns whether this record's `author` field is currently
 	// present.
 	AuthorIsSet() bool
 
 	// SetAuthor overwrites the current value of this record's `author` field.
-	SetAuthor(embed.Author) MessageEmbed
+	SetAuthor(EmbedAuthor) MessageEmbed
 
 	// UnsetAuthor removes this record's `author` field.
 	UnsetAuthor() MessageEmbed
@@ -234,14 +233,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use FieldsIsSet to check if the field is present before use.
-	Fields() []embed.Field
+	Fields() []EmbedField
 
 	// FieldsIsSet returns whether this record's `fields` field is currently
 	// present.
 	FieldsIsSet() bool
 
 	// SetFields overwrites the current value of this record's `fields` field.
-	SetFields([]embed.Field) MessageEmbed
+	SetFields([]EmbedField) MessageEmbed
 
 	// UnsetFields removes this record's `fields` field.
 	UnsetFields() MessageEmbed

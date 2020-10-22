@@ -2,7 +2,6 @@ package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -12,8 +11,8 @@ type GuildPreview interface {
 	SetID(id dlib.Snowflake) GuildPreview
 
 	// guild name (2-100 characters)
-	Name() guild.Name
-	SetName(name guild.Name) GuildPreview
+	Name() GuildName
+	SetName(name GuildName) GuildPreview
 
 	// icon hash
 	Icon() comm.ImageHash
@@ -38,8 +37,8 @@ type GuildPreview interface {
 	SetEmojis([]Emoji) GuildPreview
 
 	// enabled guild features
-	Features() []guild.Feature
-	SetFeatures([]guild.Feature) GuildPreview
+	Features() []GuildFeature
+	SetFeatures([]GuildFeature) GuildPreview
 
 	// approximate number of members in this guild
 	ApproximateMemberCount() uint32

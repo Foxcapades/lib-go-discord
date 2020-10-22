@@ -20,10 +20,10 @@ type Guild interface {
 	//
 	// The `name` field contains the guild name (2-100 characters, excluding
 	// trailing and leading whitespace).
-	Name() guild.Name
+	Name() GuildName
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(guild.Name) Guild
+	SetName(GuildName) Guild
 
 	// Icon returns the current value of this record's `icon` field.
 	//
@@ -259,22 +259,22 @@ type Guild interface {
 	//
 	// The `default_message_notifications` field contains the default message
 	// notifications level.
-	DefaultMessageNotifications() guild.MessageNotificationLevel
+	DefaultMessageNotifications() MessageNotificationLevel
 
 	// SetDefaultMessageNotifications overwrites the current value of this
 	// record's `default_message_notifications` field.
-	SetDefaultMessageNotifications(guild.MessageNotificationLevel) Guild
+	SetDefaultMessageNotifications(MessageNotificationLevel) Guild
 
 	// ExplicitContentFilter returns the current value of this record's
 	// `explicit_content_filter` field.
 	//
 	// The `explicit_content_filter` field contains the explicit content filter
 	// level.
-	ExplicitContentFilter() guild.ExplicitContentFilterLevel
+	ExplicitContentFilter() ExplicitContentFilterLevel
 
 	// SetExplicitContentFilter overwrites the current value of this record's
 	// `explicit_content_filter` field.
-	SetExplicitContentFilter(guild.ExplicitContentFilterLevel) Guild
+	SetExplicitContentFilter(ExplicitContentFilterLevel) Guild
 
 	// Roles returns the current value of this record's `roles` field.
 	//
@@ -295,10 +295,10 @@ type Guild interface {
 	// Features returns the current value of this record's `features` field.
 	//
 	// The `features` field contains the enabled guild features.
-	Features() []guild.Feature
+	Features() []GuildFeature
 
 	// SetFeatures overwrites the current value of this record's `features` field.
-	SetFeatures([]guild.Feature) Guild
+	SetFeatures([]GuildFeature) Guild
 
 	// MFALevel returns the current value of this record's `mfa_level` field.
 	//

@@ -1,12 +1,11 @@
-package embed
+package discord
 
-// EmbedImage
+// EmbedVideo
 // TODO: Document me
-type Image interface {
+type EmbedVideo interface {
 	// URL returns the current value of this record's `url` field.
 	//
-	// The `url` field contains the source url of the image (only supports http(s)
-	// and attachments).
+	// The `url` field contains the source url of the video.
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use URLIsSet to check if the field is present before use.
@@ -16,33 +15,14 @@ type Image interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) Image
+	SetURL(string) EmbedVideo
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() Image
-
-	// ProxyURL returns the current value of this record's `proxy_url` field.
-	//
-	// The `proxy_url` field contains a proxied url of the image.
-	//
-	// If this method is called on a field that is unset, this method will panic.
-	// Use ProxyURLIsSet to check if the field is present before use.
-	ProxyURL() string
-
-	// ProxyURLIsSet returns whether this record's `proxy_url` field is currently
-	// present.
-	ProxyURLIsSet() bool
-
-	// SetProxyURL overwrites the current value of this record's `proxy_url`
-	// field.
-	SetProxyURL(string) Image
-
-	// UnsetProxyURL removes this record's `proxy_url` field.
-	UnsetProxyURL() Image
+	UnsetURL() EmbedVideo
 
 	// Height returns the current value of this record's `height` field.
 	//
-	// The `height` field contains the height of the image.
+	// The `height` field contains the height of the video.
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use HeightIsSet to check if the field is present before use.
@@ -53,14 +33,14 @@ type Image interface {
 	HeightIsSet() bool
 
 	// SetHeight overwrites the current value of this record's `height` field.
-	SetHeight(uint16) Image
+	SetHeight(uint16) EmbedVideo
 
 	// UnsetHeight removes this record's `height` field.
-	UnsetHeight() Image
+	UnsetHeight() EmbedVideo
 
 	// Width returns the current value of this record's `width` field.
 	//
-	// The `width` field contains the width of the image.
+	// The `width` field contains width of the video.
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use WidthIsSet to check if the field is present before use.
@@ -71,8 +51,8 @@ type Image interface {
 	WidthIsSet() bool
 
 	// SetWidth overwrites the current value of this record's `width` field.
-	SetWidth(uint16) Image
+	SetWidth(uint16) EmbedVideo
 
 	// UnsetWidth removes this record's `width` field.
-	UnsetWidth() Image
+	UnsetWidth() EmbedVideo
 }

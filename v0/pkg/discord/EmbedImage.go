@@ -1,11 +1,11 @@
-package embed
+package discord
 
-// EmbedThumbnail
+// EmbedImage
 // TODO: Document me
-type Thumbnail interface {
+type EmbedImage interface {
 	// URL returns the current value of this record's `url` field.
 	//
-	// The `url` field contains the source url of thumbnail (only supports http(s)
+	// The `url` field contains the source url of the image (only supports http(s)
 	// and attachments).
 	//
 	// If this method is called on a field that is unset, this method will panic.
@@ -16,33 +16,33 @@ type Thumbnail interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) Thumbnail
+	SetURL(string) EmbedImage
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() Thumbnail
+	UnsetURL() EmbedImage
 
-	// ProxyUrl returns the current value of this record's `proxy_url` field.
+	// ProxyURL returns the current value of this record's `proxy_url` field.
 	//
-	// The `proxy_url` field contains a proxied url of the thumbnail.
+	// The `proxy_url` field contains a proxied url of the image.
 	//
 	// If this method is called on a field that is unset, this method will panic.
-	// Use ProxyUrlIsSet to check if the field is present before use.
-	ProxyUrl() string
+	// Use ProxyURLIsSet to check if the field is present before use.
+	ProxyURL() string
 
-	// ProxyUrlIsSet returns whether this record's `proxy_url` field is currently
+	// ProxyURLIsSet returns whether this record's `proxy_url` field is currently
 	// present.
-	ProxyUrlIsSet() bool
+	ProxyURLIsSet() bool
 
-	// SetProxyUrl overwrites the current value of this record's `proxy_url`
+	// SetProxyURL overwrites the current value of this record's `proxy_url`
 	// field.
-	SetProxyUrl(string) Thumbnail
+	SetProxyURL(string) EmbedImage
 
-	// UnsetProxyUrl removes this record's `proxy_url` field.
-	UnsetProxyUrl() Thumbnail
+	// UnsetProxyURL removes this record's `proxy_url` field.
+	UnsetProxyURL() EmbedImage
 
 	// Height returns the current value of this record's `height` field.
 	//
-	// The `height` field contains the height of the thumbnail.
+	// The `height` field contains the height of the image.
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use HeightIsSet to check if the field is present before use.
@@ -53,14 +53,14 @@ type Thumbnail interface {
 	HeightIsSet() bool
 
 	// SetHeight overwrites the current value of this record's `height` field.
-	SetHeight(uint16) Thumbnail
+	SetHeight(uint16) EmbedImage
 
 	// UnsetHeight removes this record's `height` field.
-	UnsetHeight() Thumbnail
+	UnsetHeight() EmbedImage
 
 	// Width returns the current value of this record's `width` field.
 	//
-	// The `width` field contains the width of the thumbnail.
+	// The `width` field contains the width of the image.
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use WidthIsSet to check if the field is present before use.
@@ -71,8 +71,8 @@ type Thumbnail interface {
 	WidthIsSet() bool
 
 	// SetWidth overwrites the current value of this record's `width` field.
-	SetWidth(uint16) Thumbnail
+	SetWidth(uint16) EmbedImage
 
 	// UnsetWidth removes this record's `width` field.
-	UnsetWidth() Thumbnail
+	UnsetWidth() EmbedImage
 }

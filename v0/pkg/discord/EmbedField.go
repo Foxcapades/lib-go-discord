@@ -1,13 +1,13 @@
-package embed
+package discord
 
-type Field interface {
+type EmbedField interface {
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the field.
 	Name() string
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(string) Field
+	SetName(string) EmbedField
 
 	// Value returns the current value of this record's `value` field.
 	//
@@ -15,7 +15,7 @@ type Field interface {
 	Value() string
 
 	// SetValue overwrites the current value of this record's `value` field.
-	SetValue(string) Field
+	SetValue(string) EmbedField
 
 	// Inline returns the current value of this record's `inline` field.
 	//
@@ -31,8 +31,8 @@ type Field interface {
 	InlineIsSet() bool
 
 	// SetInline overwrites the current value of this record's `inline` field.
-	SetInline(bool) Field
+	SetInline(bool) EmbedField
 
 	// UnsetInline removes this record's `inline` field.
-	UnsetInline() Field
+	UnsetInline() EmbedField
 }

@@ -1,6 +1,6 @@
-package embed
+package discord
 
-type Provider interface {
+type EmbedProvider interface {
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the provider.
@@ -13,10 +13,10 @@ type Provider interface {
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(string) Provider
+	SetName(string) EmbedProvider
 
 	// UnsetName removes this record's `name` field.
-	UnsetName() Provider
+	UnsetName() EmbedProvider
 
 	// URL returns the current value of this record's `url` field.
 	//
@@ -30,8 +30,8 @@ type Provider interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) Provider
+	SetURL(string) EmbedProvider
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() Provider
+	UnsetURL() EmbedProvider
 }

@@ -1,6 +1,7 @@
 package dio
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm/image"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -97,7 +98,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use DefaultMessageNotificationsIsReadable to check
 	// if the field is present and non-null before use.
-	DefaultMessageNotifications() guild.MessageNotificationLevel
+	DefaultMessageNotifications() discord.MessageNotificationLevel
 
 	// DefaultMessageNotificationsIsNull returns whether this request's
 	// `default_message_notifications` field is currently null.
@@ -113,7 +114,7 @@ type GuildPatch interface {
 
 	// SetDefaultMessageNotifications overwrites the current value of this
 	// request's `default_message_notifications` field.
-	SetDefaultMessageNotifications(guild.MessageNotificationLevel) GuildPatch
+	SetDefaultMessageNotifications(discord.MessageNotificationLevel) GuildPatch
 
 	// SetNullDefaultMessageNotifications overwrites the current value of this
 	// request's `default_message_notifications` field with `null`.
@@ -132,7 +133,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use ExplicitContentFilterIsReadable to check if
 	// the field is present and non-null before use.
-	ExplicitContentFilter() guild.ExplicitContentFilterLevel
+	ExplicitContentFilter() discord.ExplicitContentFilterLevel
 
 	// ExplicitContentFilterIsNull returns whether this request's
 	// `explicit_content_filter` field is currently null.
@@ -148,7 +149,7 @@ type GuildPatch interface {
 
 	// SetExplicitContentFilter overwrites the current value of this request's
 	// `explicit_content_filter` field.
-	SetExplicitContentFilter(guild.ExplicitContentFilterLevel) GuildPatch
+	SetExplicitContentFilter(discord.ExplicitContentFilterLevel) GuildPatch
 
 	// SetNullExplicitContentFilter overwrites the current value of this request's
 	// `explicit_content_filter` field with `null`.

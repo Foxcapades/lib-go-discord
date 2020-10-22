@@ -1,4 +1,4 @@
-package guild
+package discord
 
 import "errors"
 
