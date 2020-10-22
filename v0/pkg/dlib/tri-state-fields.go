@@ -2,7 +2,13 @@ package dlib
 
 import (
 	"encoding/json"
+	"errors"
 	"time"
+)
+
+var (
+	ErrSetNilTriState = errors.New("attempted to set a nil value through a" +
+		" tri-state field setter")
 )
 
 type TriStateField interface {

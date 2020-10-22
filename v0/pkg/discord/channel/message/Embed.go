@@ -3,6 +3,7 @@ package message
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/embed"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -244,4 +245,61 @@ type Embed interface {
 
 	// UnsetFields removes this record's `fields` field.
 	UnsetFields() Embed
+}
+
+
+type TriStateEmbedField struct {
+	value Embed
+	null  bool
+}
+
+func (t TriStateEmbedField) IsSet() bool {
+	return t.value != nil
+}
+
+func (t TriStateEmbedField) IsUnset() bool {
+	return t.value == nil && !t.null
+}
+
+func (t TriStateEmbedField) IsNull() bool {
+	return t.value == nil && t.null
+}
+
+func (t TriStateEmbedField) IsNotNull() bool {
+	return !t.null
+}
+
+func (t TriStateEmbedField) IsReadable() bool {
+	return t.value != nil
+}
+
+func (t TriStateEmbedField) SetNull() {
+	t.value = nil
+	t.null = true
+}
+
+func (t TriStateEmbedField) Unset() {
+	t.value = nil
+	t.null = false
+}
+
+func (t TriStateEmbedField) Get() Embed {
+	if t.value == nil {
+		if t.null {
+			panic(dlib.ErrNullField)
+		} else {
+			panic(dlib.ErrUnsetField)
+		}
+	}
+
+	return t.value
+}
+
+func (t TriStateEmbedField) Set(e Embed) {
+	if e == nil {
+		panic(dlib.ErrSetNilTriState)
+	}
+
+	t.value = e
+	t.null = false
 }

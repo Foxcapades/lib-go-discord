@@ -75,3 +75,21 @@ func TestDiscriminator_MarshalJSON(t *testing.T) {
 		})
 	})
 }
+
+func TestDiscriminator_UnmarshalJSON(t *testing.T) {
+	Convey("Discriminator.UnmarshalJSON", t, func() {
+		Convey("returns an error", func() {
+			Convey("when the input value is not a string", func() {
+				var target user.Discriminator
+
+				So(target.UnmarshalJSON([]byte("1234")), ShouldNotBeNil)
+			})
+
+			Convey("when the input value string is not numeric", func() {
+				var target user.Discriminator
+
+				So(target.UnmarshalJSON([]byte("hello")), ShouldNotBeNil)
+			})
+		})
+	})
+}
