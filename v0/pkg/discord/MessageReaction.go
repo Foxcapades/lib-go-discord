@@ -1,19 +1,15 @@
-package message
+package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
-)
-
-// Reaction
+// MessageReaction
 // TODO: document me
-type Reaction interface {
+type MessageReaction interface {
 	// Count returns the current value of this record's `count` field.
 	//
 	// The `count` field contains the times this emoji has been used to react.
 	Count() uint16
 
 	// SetCount overwrites the current value of this record's `count` field.
-	SetCount(uint16) Reaction
+	SetCount(uint16) MessageReaction
 
 	// Me returns the current value of this record's `me` field.
 	//
@@ -21,13 +17,13 @@ type Reaction interface {
 	Me() bool
 
 	// SetMe overwrites the current value of this record's `me` field.
-	SetMe(bool) Reaction
+	SetMe(bool) MessageReaction
 
 	// Emoji returns the current value of this record's `emoji` field.
 	//
 	// The `emoji` field contains emoji information.
-	Emoji() guild.Emoji
+	Emoji() Emoji
 
 	// SetEmoji overwrites the current value of this record's `emoji` field.
-	SetEmoji(guild.Emoji) Reaction
+	SetEmoji(Emoji) MessageReaction
 }

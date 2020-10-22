@@ -1,4 +1,4 @@
-package user
+package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/integration"
@@ -82,8 +82,8 @@ type Integration interface {
 	SetRevoked(bool) Integration
 
 	// The bot/OAuth2 application for discord integrations
-	Application() Application
+	Application() UserApplication
 	ApplicationIsSet() bool
-	SetApplication(Application) Integration
+	SetApplication(UserApplication) Integration
 	UnsetApplication() Integration
 }

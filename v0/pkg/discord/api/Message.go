@@ -2,10 +2,8 @@ package api
 
 import (
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/api/dio"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -25,14 +23,14 @@ type MessageAPI interface {
 	// Passing a nil value to this method will result in no filters being applied.
 	//
 	// Returns an array of message objects on success.
-	GetMessages(dio.MessageFilter) ([]channel.Message, error)
+	GetMessages(dio.MessageFilter) ([]discord.Message, error)
 
 	// GetMessage Returns a specific message in the channel. If operating on a
 	// guild channel, this endpoint requires the 'READ_MESSAGE_HISTORY' permission
 	// to be present on the current user.
 	//
 	// Returns a message object on success.
-	GetMessage(id dlib.Snowflake) (channel.Message, error)
+	GetMessage(id dlib.Snowflake) (discord.Message, error)
 
 	// PostJSONMessage creates a new message for a guild text or DM channel.
 	//
@@ -61,7 +59,7 @@ type MessageAPI interface {
 	// fields `content` or `embed`.
 	//
 	// Returns a message object.
-	PostJSONMessage(post dio.JSONMessagePost) (channel.Message, error)
+	PostJSONMessage(post dio.JSONMessagePost) (discord.Message, error)
 
 	// PostMultipartMessage creates a new message for a guild text or DM channel.
 	//
@@ -90,7 +88,7 @@ type MessageAPI interface {
 	// the fields `content`, `embed` or `file`.
 	//
 	// Returns a message object.
-	PostMultipartMessage(post dio.MultipartMessagePost) (channel.Message, error)
+	PostMultipartMessage(post dio.MultipartMessagePost) (discord.Message, error)
 
 	// CrosspostMessage crossposts the given message in a News Channel to all
 	// subscriber channels.
@@ -100,7 +98,7 @@ type MessageAPI interface {
 	// other messages, to be present for the current user.
 	//
 	// Returns a message object.
-	CrosspostMessage(id dlib.Snowflake) (channel.Message, error)
+	CrosspostMessage(id dlib.Snowflake) (discord.Message, error)
 
 	// CreateReaction adds a reaction to the message with the given ID.
 	//
@@ -108,35 +106,35 @@ type MessageAPI interface {
 	// on the current user. Additionally, if nobody else has reacted to the
 	// message using this emoji, this endpoint requires the 'ADD_REACTIONS'
 	// permission to be present on the current user.
-	CreateReaction(msgId dlib.Snowflake, emoji guild.Emoji) error
+	CreateReaction(msgId dlib.Snowflake, emoji discord.Emoji) error
 
 	// DeleteOwnReaction delete a reaction the current user has made for the
 	// message.
-	DeleteOwnReaction(msgId dlib.Snowflake, emoji guild.Emoji) error
+	DeleteOwnReaction(msgId dlib.Snowflake, emoji discord.Emoji) error
 
 	// DeleteUserReaction deletes another user's reaction.
 	//
 	// This endpoint requires the 'MANAGE_MESSAGES' permission to be present on
 	// the current user.
-	DeleteUserReaction(msgId, userId dlib.Snowflake, emoji guild.Emoji) error
+	DeleteUserReaction(msgId, userId dlib.Snowflake, emoji discord.Emoji) error
 
 	// GetReactions returns a list of users that reacted with this emoji.
-	GetReactions(query dio.GetReactionsQuery) ([]user.User, error)
+	GetReactions(query dio.GetReactionsQuery) ([]discord.User, error)
 
 	// DeleteAllReactions deletes all reactions on a message.
 	//
 	// This endpoint requires the 'MANAGE_MESSAGES' permission to be present on
 	// the current user.
 	//
-	// Fires a Message Reaction Remove All Gateway event.
+	// Fires a Message MessageReaction Remove All Gateway event.
 	DeleteAllReactions(id dlib.Snowflake) error
 
 	// DeleteAllReactionsFor deletes all the reactions for the given emoji on a
 	// message.
 	//
 	// This endpoint requires the MANAGE_MESSAGES permission to be present on the
-	// current user. Fires a Message Reaction Remove Emoji Gateway event.
-	DeleteAllReactionsFor(msgId dlib.Snowflake, emoji guild.Emoji) error
+	// current user. Fires a Message MessageReaction Remove Emoji Gateway event.
+	DeleteAllReactionsFor(msgId dlib.Snowflake, emoji discord.Emoji) error
 
 	// EditMessage patches a previously sent message.
 	//
@@ -152,7 +150,7 @@ type MessageAPI interface {
 	// Fires a Message Update Gateway event.
 	//
 	// Returns a message object.
-	EditMessage(id dlib.Snowflake, patch dio.MessagePatch) (channel.Message, error)
+	EditMessage(id dlib.Snowflake, patch dio.MessagePatch) (discord.Message, error)
 
 	// DeleteMessage deletes an existing message.
 	//

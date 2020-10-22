@@ -3,7 +3,6 @@ package api
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/api/dio"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -11,7 +10,7 @@ type ChannelAPI interface {
 	// Get a channel by ID.
 	//
 	// Returns a channel object.
-	Get(id dlib.Snowflake) (channel.Channel, error)
+	Get(id dlib.Snowflake) (discord.Channel, error)
 
 	// Patch updates a channel's settings.
 	//
@@ -21,7 +20,7 @@ type ChannelAPI interface {
 	// Channel Update events will fire for each child channel that also changes.
 	//
 	// Returns a channel on success, and a 400 BAD REQUEST on invalid parameters.
-	Patch(dlib.Snowflake, dio.ChannelPatch) (channel.Channel, error)
+	Patch(dlib.Snowflake, dio.ChannelPatch) (discord.Channel, error)
 
 	// Delete a channel, or close a private message.
 	//

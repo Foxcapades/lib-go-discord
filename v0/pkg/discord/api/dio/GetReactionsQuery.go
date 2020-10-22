@@ -1,7 +1,7 @@
 package dio
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"strings"
 )
@@ -15,8 +15,8 @@ type GetReactionsQuery interface {
 	SetMessageID(dlib.Snowflake) GetReactionsQuery
 	MessageID() dlib.Snowflake
 
-	SetEmoji(guild.Emoji) GetReactionsQuery
-	GetEmoji() guild.Emoji
+	SetEmoji(discord.Emoji) GetReactionsQuery
+	GetEmoji() discord.Emoji
 
 	// Before returns the current value of this query's `before` param.
 	//
@@ -71,7 +71,7 @@ type GetReactionsQuery interface {
 	UnsetLimit() GetReactionsQuery
 }
 
-func NewGetReactionsQuery(msgId, userId dlib.Snowflake, emoji guild.Emoji) GetReactionsQuery {
+func NewGetReactionsQuery(msgId, userId dlib.Snowflake, emoji discord.Emoji) GetReactionsQuery {
 	return &getReactionsQuery{
 		userId: userId,
 		msgId:  msgId,
@@ -85,7 +85,7 @@ type getReactionsQuery struct {
 	before dlib.SnowflakeOptionalField
 	after  dlib.SnowflakeOptionalField
 	limit  OptionalRecordLimit
-	emoji  guild.Emoji
+	emoji  discord.Emoji
 }
 
 func (g *getReactionsQuery) ToQuery() string {
@@ -145,12 +145,12 @@ func (g *getReactionsQuery) MessageID() dlib.Snowflake {
 	return g.msgId
 }
 
-func (g *getReactionsQuery) SetEmoji(emoji guild.Emoji) GetReactionsQuery {
+func (g *getReactionsQuery) SetEmoji(emoji discord.Emoji) GetReactionsQuery {
 	g.emoji = emoji
 	return g
 }
 
-func (g *getReactionsQuery) GetEmoji() guild.Emoji {
+func (g *getReactionsQuery) GetEmoji() discord.Emoji {
 	return g.emoji
 }
 

@@ -1,8 +1,8 @@
-package guild
+package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/gateway"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -25,10 +25,10 @@ type PresenceUpdate interface {
 	//
 	// TODO: This should probably be it's own type since the API may return
 	//       incompatible values.
-	User() user.User
+	User() User
 
 	// SetUser overwrites the current value of this record's `user` field.
-	SetUser(user.User) PresenceUpdate
+	SetUser(User) PresenceUpdate
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -41,10 +41,10 @@ type PresenceUpdate interface {
 	// Status returns the current value of this record's `status` field.
 	//
 	// The `status` field contains the
-	Status() PresenceStatus
+	Status() guild.PresenceStatus
 
 	// SetStatus overwrites the current value of this record's `status` field.
-	SetStatus(PresenceStatus) PresenceUpdate
+	SetStatus(guild.PresenceStatus) PresenceUpdate
 
 	// Activities returns the current value of this record's `activities` field.
 	//

@@ -1,7 +1,6 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -288,10 +287,10 @@ type Guild interface {
 	// Emojis returns the current value of this record's `emojis` field.
 	//
 	// The `emojis` field contains the custom guild emojis.
-	Emojis() []guild.Emoji
+	Emojis() []Emoji
 
 	// SetEmojis overwrites the current value of this record's `emojis` field.
-	SetEmojis([]guild.Emoji) Guild
+	SetEmojis([]Emoji) Guild
 
 	// Features returns the current value of this record's `features` field.
 	//
@@ -484,7 +483,7 @@ type Guild interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use VoiceStatesIsSet to check if the field is present before use.
-	VoiceStates() []guild.VoiceState
+	VoiceStates() []VoiceState
 
 	// VoiceStatesIsSet returns whether this record's `voice_states` field is
 	// currently present.
@@ -492,7 +491,7 @@ type Guild interface {
 
 	// SetVoiceStates overwrites the current value of this record's `voice_states`
 	// field.
-	SetVoiceStates([]guild.VoiceState) Guild
+	SetVoiceStates([]VoiceState) Guild
 
 	// UnsetVoiceStates removes this record's `voice_states` field.
 	UnsetVoiceStates() Guild
@@ -503,14 +502,14 @@ type Guild interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use MembersIsSet to check if the field is present before use.
-	Members() guild.Member
+	Members() GuildMember
 
 	// MembersIsSet returns whether this record's `members` field is currently
 	// present.
 	MembersIsSet() bool
 
 	// SetMembers overwrites the current value of this record's `members` field.
-	SetMembers(guild.Member) Guild
+	SetMembers(GuildMember) Guild
 
 	// UnsetMembers removes this record's `members` field.
 	UnsetMembers() Guild
@@ -521,14 +520,14 @@ type Guild interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ChannelsIsSet to check if the field is present before use.
-	Channels() []channel.Channel
+	Channels() []Channel
 
 	// ChannelsIsSet returns whether this record's `channels` field is currently
 	// present.
 	ChannelsIsSet() bool
 
 	// SetChannels overwrites the current value of this record's `channels` field.
-	SetChannels([]channel.Channel) Guild
+	SetChannels([]Channel) Guild
 
 	// UnsetChannels removes this record's `channels` field.
 	UnsetChannels() Guild
@@ -541,7 +540,7 @@ type Guild interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use PresencesIsSet to check if the field is present before use.
-	Presences() []guild.PresenceUpdate
+	Presences() []PresenceUpdate
 
 	// PresencesIsSet returns whether this record's `presences` field is currently
 	// present.
@@ -549,7 +548,7 @@ type Guild interface {
 
 	// SetPresences overwrites the current value of this record's `presences`
 	// field.
-	SetPresences([]guild.PresenceUpdate) Guild
+	SetPresences([]PresenceUpdate) Guild
 
 	// UnsetPresences removes this record's `presences` field.
 	UnsetPresences() Guild

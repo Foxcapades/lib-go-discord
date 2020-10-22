@@ -1,7 +1,7 @@
 package webhook
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -56,13 +56,13 @@ type Webhook interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use UserIsSet to check if the field is present before use.
-	User() user.User
+	User() discord.User
 
 	// UserIsSet returns whether this record's `user` field is currently present.
 	UserIsSet() bool
 
 	// SetUser overwrites the current value of this record's `user` field.
-	SetUser(user.User) Webhook
+	SetUser(discord.User) Webhook
 
 	// UnsetUser removes this record's `user` field.
 	UnsetUser() Webhook

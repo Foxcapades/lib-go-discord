@@ -1,8 +1,7 @@
-package guild
+package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -67,13 +66,13 @@ type Emoji interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use UserIsSet to check if the field is present before use.
-	User() user.User
+	User() User
 
 	// UserIsSet returns whether this record's `user` field is currently present.
 	UserIsSet() bool
 
 	// SetUser overwrites the current value of this record's `user` field.
-	SetUser(user.User) Emoji
+	SetUser(User) Emoji
 
 	// UnsetUser removes this record's `user` field.
 	UnsetUser() Emoji

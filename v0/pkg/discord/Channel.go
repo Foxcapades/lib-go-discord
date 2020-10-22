@@ -1,9 +1,9 @@
-package channel
+package discord
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
@@ -20,10 +20,10 @@ type Channel interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field contains the type of the channel.
-	Type() Type
+	Type() channel.Type
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(Type) Channel
+	SetType(channel.Type) Channel
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -89,13 +89,13 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use NameIsSet to check if the field is present before use.
-	Name() Name
+	Name() channel.Name
 
 	// NameIsSet returns whether this record's `name` field is currently present.
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(Name) Channel
+	SetName(channel.Name) Channel
 
 	// UnsetName removes this record's `name` field.
 	UnsetName() Channel
@@ -107,7 +107,7 @@ type Channel interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use TopicIsReadable to check if the field is
 	// present and non-null before use.
-	Topic() Topic
+	Topic() channel.Topic
 
 	// TopicIsNull returns whether this record's `topic` field is currently null.
 	TopicIsNull() bool
@@ -121,7 +121,7 @@ type Channel interface {
 	TopicIsReadable() bool
 
 	// SetTopic overwrites the current value of this record's `topic` field.
-	SetTopic(Topic) Channel
+	SetTopic(channel.Topic) Channel
 
 	// SetNullTopic overwrites the current value of this record's `topic` field
 	// with `null`.
@@ -187,14 +187,14 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use BitrateIsSet to check if the field is present before use.
-	Bitrate() Bitrate
+	Bitrate() channel.Bitrate
 
 	// BitrateIsSet returns whether this record's `bitrate` field is currently
 	// present.
 	BitrateIsSet() bool
 
 	// SetBitrate overwrites the current value of this record's `bitrate` field.
-	SetBitrate(Bitrate) Channel
+	SetBitrate(channel.Bitrate) Channel
 
 	// UnsetBitrate removes this record's `bitrate` field.
 	UnsetBitrate() Channel
@@ -205,7 +205,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use UserLimitIsSet to check if the field is present before use.
-	UserLimit() UserLimit
+	UserLimit() channel.UserLimit
 
 	// UserLimitIsSet returns whether this record's `user_limit` field is
 	// currently present.
@@ -213,7 +213,7 @@ type Channel interface {
 
 	// SetUserLimit overwrites the current value of this record's `user_limit`
 	// field.
-	SetUserLimit(UserLimit) Channel
+	SetUserLimit(channel.UserLimit) Channel
 
 	// UnsetUserLimit removes this record's `user_limit` field.
 	UnsetUserLimit() Channel
@@ -227,7 +227,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use RateLimitPerUserIsSet to check if the field is present before use.
-	RateLimitPerUser() PerUserRateLimit
+	RateLimitPerUser() channel.PerUserRateLimit
 
 	// RateLimitPerUserIsSet returns whether this record's `rate_limit_per_user`
 	// field is currently present.
@@ -235,7 +235,7 @@ type Channel interface {
 
 	// SetRateLimitPerUser overwrites the current value of this record's
 	// `rate_limit_per_user` field.
-	SetRateLimitPerUser(PerUserRateLimit) Channel
+	SetRateLimitPerUser(channel.PerUserRateLimit) Channel
 
 	// UnsetRateLimitPerUser removes this record's `rate_limit_per_user` field.
 	UnsetRateLimitPerUser() Channel
@@ -246,7 +246,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use RecipientsIsSet to check if the field is present before use.
-	Recipients() []user.User
+	Recipients() []User
 
 	// RecipientsIsSet returns whether this record's `recipients` field is
 	// currently present.
@@ -254,7 +254,7 @@ type Channel interface {
 
 	// SetRecipients overwrites the current value of this record's `recipients`
 	// field.
-	SetRecipients([]user.User) Channel
+	SetRecipients([]User) Channel
 
 	// UnsetRecipients removes this record's `recipients` field.
 	UnsetRecipients() Channel

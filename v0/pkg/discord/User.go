@@ -1,8 +1,9 @@
-package user
+package discord
 
 import (
 	"encoding/json"
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/derr"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -76,7 +77,7 @@ type User interface {
 
 	// SetUsername overwrites the current value of this user record's `username`
 	// field with the given param value.
-	SetUsername(name Username) User
+	SetUsername(name user.Username) User
 
 	// Discriminator returns the value of the `discriminator` field currently set
 	// on this user record.
@@ -85,11 +86,11 @@ type User interface {
 	//
 	// Getting this field from the Discord API requires the `identify` OAuth2
 	// scope.
-	Discriminator() Discriminator
+	Discriminator() user.Discriminator
 
 	// SetDiscriminator overwrites the current value of this user record's
 	// `discriminator` field with the given param value.
-	SetDiscriminator(code Discriminator) User
+	SetDiscriminator(code user.Discriminator) User
 
 	// AvatarHash returns the value of the `avatar_hash` field currently set on
 	// this user record.
@@ -218,13 +219,13 @@ type User interface {
 	// If the user record's `flags` field is unset when this method is called,
 	// this method will panic.  Check for the field's existence with the
 	// FlagsIsSet method.
-	Flags() Flag
+	Flags() user.Flag
 
 	// FlagsIsSet returns whether the current user record's flags field exists.
 	FlagsIsSet() bool
 
 	// SetFlags overwrites the current user record's flag(s) with the given value.
-	SetFlags(Flag) User
+	SetFlags(user.Flag) User
 
 	// UnsetFlags removes this user record's flags field.
 	UnsetFlags() User
@@ -234,18 +235,18 @@ type User interface {
 	//
 	// If the field is unset when this method is called this method, the given
 	// parameter value will become the new field value.
-	AddFlag(Flag) User
+	AddFlag(user.Flag) User
 
 	// RemoveFlag removes the given user flag from this User record's current flag
 	// value(s).
 	//
 	// If the field is unset when this method is called, this method does nothing.
 	// become the new field value.
-	RemoveFlag(Flag) User
+	RemoveFlag(user.Flag) User
 
 	// FlagsContains returns whether or not the public flag value(s) currently set
 	// on this user record contain or equal the given value.
-	FlagsContains(Flag) bool
+	FlagsContains(user.Flag) bool
 
 	// PremiumType returns the value of the `premium_type` field currently set on
 	// this user record.
@@ -258,9 +259,9 @@ type User interface {
 	// If the user record's `premium_type` field is unset when this method is
 	// called, this method will panic.  Check for the field's existence with the
 	// PremiumTypeIsSet method.
-	PremiumType() PremiumType
+	PremiumType() user.PremiumType
 	PremiumTypeIsSet() bool
-	SetPremiumType(PremiumType) User
+	SetPremiumType(user.PremiumType) User
 	UnsetPremiumType() User
 
 	// PublicFlags returns the value of the `public_flags` field currently set on
@@ -274,7 +275,7 @@ type User interface {
 	// If the user record's `public_flags` field is unset when this method is
 	// called, this method will panic.  Check for the field's existence with the
 	// PublicFlagsIsSet method.
-	PublicFlags() Flag
+	PublicFlags() user.Flag
 
 	// PublicFlagsIsSet returns whether the current user record's public flags
 	// field exists.
@@ -282,7 +283,7 @@ type User interface {
 
 	// SetPublicFlags overwrites the current user record's public flag(s) with the
 	// given value.
-	SetPublicFlags(Flag) User
+	SetPublicFlags(user.Flag) User
 
 	// UnsetPublicFlags removes this user record's flags field.
 	UnsetPublicFlags() User
@@ -292,18 +293,18 @@ type User interface {
 	//
 	// If the field is unset when this method is called this method, the given
 	// parameter value will become the new field value.
-	AddPublicFlag(Flag) User
+	AddPublicFlag(user.Flag) User
 
 	// RemovePublicFlag removes the given user flag from this User record's
 	// current public flag value(s).
 	//
 	// If the field is unset when this method is called, this method does nothing.
 	// become the new field value.
-	RemovePublicFlag(Flag) User
+	RemovePublicFlag(user.Flag) User
 
 	// PublicFlagsContains returns whether or not the public flag value(s)
 	// currently set on this user record contain or equal the given value.
-	PublicFlagsContains(Flag) bool
+	PublicFlagsContains(user.Flag) bool
 }
 
 // ╔════════════════════════════════════════════════════════════════════════╗ //
@@ -339,8 +340,8 @@ type userImpl struct {
 	validate bool
 
 	id            dlib.Snowflake
-	username      Username
-	discriminator Discriminator
+	username      user.Username
+	discriminator user.Discriminator
 	avatar        dlib.StrNullableField
 	bot           dlib.BoolOptionalField
 	system        dlib.BoolOptionalField
@@ -354,36 +355,36 @@ type userImpl struct {
 }
 
 func (u *userImpl) MarshalJSON() ([]byte, error) {
-	out := make(map[FieldKey]interface{}, 10)
+	out := make(map[user.FieldKey]interface{}, 10)
 
 	if u.id.RawValue() == 0 {
 		return nil, ErrNoId
 	} else {
-		out[FieldKeyId] = u.id
+		out[user.FieldKeyId] = u.id
 	}
 
 	if u.username == "" {
 		return nil, ErrNoUsername
 	} else {
-		out[FieldKeyUsername] = u.username
+		out[user.FieldKeyUsername] = u.username
 	}
 
 	if u.discriminator == 0 {
 		return nil, ErrNoDiscriminator
 	} else {
-		out[FieldKeyDiscriminator] = u.discriminator
+		out[user.FieldKeyDiscriminator] = u.discriminator
 	}
 
-	out[FieldKeyAvatar] = u.avatar
-	u.appendIfSet1(out, FieldKeyBot, &u.bot)
-	u.appendIfSet1(out, FieldKeySystem, &u.system)
-	u.appendIfSet1(out, FieldKeyMFAEnabled, &u.mfaEnabled)
-	u.appendIfSet1(out, FieldKeyLocale, &u.locale)
-	u.appendIfSet1(out, FieldKeyVerified, &u.verified)
-	u.appendIfSet2(out, FieldKeyEmail, &u.email)
-	u.appendIfSet1(out, FieldKeyFlags, &u.flags)
-	u.appendIfSet1(out, FieldKeyPremiumType, &u.premiumType)
-	u.appendIfSet1(out, FieldKeyPublicFlags, &u.publicFlags)
+	out[user.FieldKeyAvatar] = u.avatar
+	u.appendIfSet1(out, user.FieldKeyBot, &u.bot)
+	u.appendIfSet1(out, user.FieldKeySystem, &u.system)
+	u.appendIfSet1(out, user.FieldKeyMFAEnabled, &u.mfaEnabled)
+	u.appendIfSet1(out, user.FieldKeyLocale, &u.locale)
+	u.appendIfSet1(out, user.FieldKeyVerified, &u.verified)
+	u.appendIfSet2(out, user.FieldKeyEmail, &u.email)
+	u.appendIfSet1(out, user.FieldKeyFlags, &u.flags)
+	u.appendIfSet1(out, user.FieldKeyPremiumType, &u.premiumType)
+	u.appendIfSet1(out, user.FieldKeyPublicFlags, &u.publicFlags)
 
 	return json.Marshal(out)
 }
@@ -395,27 +396,27 @@ func (u *userImpl) UnmarshalJSON(bytes []byte) (err error) {
 		return
 	}
 
-	multis := map[FieldKey]json.Unmarshaler{
-		FieldKeyAvatar:      &u.avatar,
-		FieldKeyBot:         &u.bot,
-		FieldKeySystem:      &u.system,
-		FieldKeyMFAEnabled:  &u.mfaEnabled,
-		FieldKeyLocale:      &u.locale,
-		FieldKeyVerified:    &u.verified,
-		FieldKeyEmail:       &u.email,
-		FieldKeyFlags:       &u.flags,
-		FieldKeyPremiumType: &u.premiumType,
-		FieldKeyPublicFlags: &u.publicFlags,
+	multis := map[user.FieldKey]json.Unmarshaler{
+		user.FieldKeyAvatar:      &u.avatar,
+		user.FieldKeyBot:         &u.bot,
+		user.FieldKeySystem:      &u.system,
+		user.FieldKeyMFAEnabled:  &u.mfaEnabled,
+		user.FieldKeyLocale:      &u.locale,
+		user.FieldKeyVerified:    &u.verified,
+		user.FieldKeyEmail:       &u.email,
+		user.FieldKeyFlags:       &u.flags,
+		user.FieldKeyPremiumType: &u.premiumType,
+		user.FieldKeyPublicFlags: &u.publicFlags,
 	}
 
-	singles := map[FieldKey]interface{}{
-		FieldKeyId:            &u.id,
-		FieldKeyUsername:      &u.username,
-		FieldKeyDiscriminator: &u.discriminator,
+	singles := map[user.FieldKey]interface{}{
+		user.FieldKeyId:            &u.id,
+		user.FieldKeyUsername:      &u.username,
+		user.FieldKeyDiscriminator: &u.discriminator,
 	}
 
 	for k, v := range in {
-		key := FieldKey(k)
+		key := user.FieldKey(k)
 
 		if f, ok := singles[key]; ok {
 			err = json.Unmarshal(v, f)
@@ -445,10 +446,10 @@ func (u *userImpl) Username() string {
 	return string(u.username)
 }
 
-func (u *userImpl) SetUsername(name Username) User {
+func (u *userImpl) SetUsername(name user.Username) User {
 	if u.validate {
 		if err := name.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyUsername), name, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyUsername), name, err))
 		}
 	}
 
@@ -457,14 +458,14 @@ func (u *userImpl) SetUsername(name Username) User {
 	return u
 }
 
-func (u *userImpl) Discriminator() Discriminator {
+func (u *userImpl) Discriminator() user.Discriminator {
 	return u.discriminator
 }
 
-func (u *userImpl) SetDiscriminator(code Discriminator) User {
+func (u *userImpl) SetDiscriminator(code user.Discriminator) User {
 	if u.validate {
 		if err := code.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyDiscriminator), code, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyDiscriminator), code, err))
 		}
 	}
 
@@ -623,18 +624,18 @@ func (u *userImpl) SetNullEmail() User {
 	return u
 }
 
-func (u *userImpl) Flags() Flag {
-	return Flag(u.flags.Get())
+func (u *userImpl) Flags() user.Flag {
+	return user.Flag(u.flags.Get())
 }
 
 func (u *userImpl) FlagsIsSet() bool {
 	return u.flags.IsSet()
 }
 
-func (u *userImpl) SetFlags(flag Flag) User {
+func (u *userImpl) SetFlags(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -649,10 +650,10 @@ func (u *userImpl) UnsetFlags() User {
 	return u
 }
 
-func (u *userImpl) AddFlag(flag Flag) User {
+func (u *userImpl) AddFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -665,10 +666,10 @@ func (u *userImpl) AddFlag(flag Flag) User {
 	return u
 }
 
-func (u *userImpl) RemoveFlag(flag Flag) User {
+func (u *userImpl) RemoveFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -679,10 +680,10 @@ func (u *userImpl) RemoveFlag(flag Flag) User {
 	return u
 }
 
-func (u *userImpl) FlagsContains(flag Flag) bool {
+func (u *userImpl) FlagsContains(flag user.Flag) bool {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyFlags), flag, err))
 		}
 	}
 
@@ -693,18 +694,18 @@ func (u *userImpl) FlagsContains(flag Flag) bool {
 	return false
 }
 
-func (u *userImpl) PremiumType() PremiumType {
-	return PremiumType(u.premiumType.Get())
+func (u *userImpl) PremiumType() user.PremiumType {
+	return user.PremiumType(u.premiumType.Get())
 }
 
 func (u *userImpl) PremiumTypeIsSet() bool {
 	return u.premiumType.IsSet()
 }
 
-func (u *userImpl) SetPremiumType(val PremiumType) User {
+func (u *userImpl) SetPremiumType(val user.PremiumType) User {
 	if u.validate {
 		if err := val.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPremiumType), val, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyPremiumType), val, err))
 		}
 	}
 
@@ -719,18 +720,18 @@ func (u *userImpl) UnsetPremiumType() User {
 	return u
 }
 
-func (u *userImpl) PublicFlags() Flag {
-	return Flag(u.publicFlags.Get())
+func (u *userImpl) PublicFlags() user.Flag {
+	return user.Flag(u.publicFlags.Get())
 }
 
 func (u *userImpl) PublicFlagsIsSet() bool {
 	return u.publicFlags.IsSet()
 }
 
-func (u *userImpl) SetPublicFlags(flag Flag) User {
+func (u *userImpl) SetPublicFlags(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -743,10 +744,10 @@ func (u *userImpl) UnsetPublicFlags() User {
 	return u
 }
 
-func (u *userImpl) AddPublicFlag(flag Flag) User {
+func (u *userImpl) AddPublicFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -759,10 +760,10 @@ func (u *userImpl) AddPublicFlag(flag Flag) User {
 	return u
 }
 
-func (u *userImpl) RemovePublicFlag(flag Flag) User {
+func (u *userImpl) RemovePublicFlag(flag user.Flag) User {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -773,10 +774,10 @@ func (u *userImpl) RemovePublicFlag(flag Flag) User {
 	return u
 }
 
-func (u *userImpl) PublicFlagsContains(flag Flag) bool {
+func (u *userImpl) PublicFlagsContains(flag user.Flag) bool {
 	if u.validate {
 		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
+			panic(derr.NewInternalValidationError(string(user.FieldKeyPublicFlags), flag, err))
 		}
 	}
 
@@ -785,13 +786,13 @@ func (u *userImpl) PublicFlagsContains(flag Flag) bool {
 	return u.publicFlags.Get()&c == c
 }
 
-func (*userImpl) appendIfSet1(mp map[FieldKey]interface{}, key FieldKey, field dlib.OptionalField) {
+func (*userImpl) appendIfSet1(mp map[user.FieldKey]interface{}, key user.FieldKey, field dlib.OptionalField) {
 	if field.IsSet() {
 		mp[key] = field
 	}
 }
 
-func (*userImpl) appendIfSet2(mp map[FieldKey]interface{}, key FieldKey, field dlib.TriStateField) {
+func (*userImpl) appendIfSet2(mp map[user.FieldKey]interface{}, key user.FieldKey, field dlib.TriStateField) {
 	if field.IsSet() {
 		mp[key] = field
 	}

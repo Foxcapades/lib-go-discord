@@ -1,43 +1,45 @@
-package user
+package discord
 
-type Connection interface {
+import "github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
+
+type UserConnection interface {
 	// id of the connection account
 	Id() string
-	SetId(string) Connection
+	SetId(string) UserConnection
 
 	// the username of the connection account
 	Name() string
-	SetName(string) Connection
+	SetName(string) UserConnection
 
 	// the service of the connection (twitch, youtube)
 	Type() string
-	SetType(string) Connection
+	SetType(string) UserConnection
 
 	// whether the connection is revoked
 	Revoked() bool
 	RevokedIsSet() bool
-	SetRevoked(bool) Connection
-	UnsetRevoked() Connection
+	SetRevoked(bool) UserConnection
+	UnsetRevoked() UserConnection
 
 	// an array of partial server integrations
 	Integrations() []Integration
 	IntegrationsIsSet() bool
-	SetIntegrations([]Integration) Connection
-	UnsetIntegrations() Connection
+	SetIntegrations([]Integration) UserConnection
+	UnsetIntegrations() UserConnection
 
 	// whether the connection is verified
 	Verified() bool
-	SetVerified(bool) Connection
+	SetVerified(bool) UserConnection
 
 	// whether friend sync is enabled for this connection
 	FriendSync() bool
-	SetFriendSync(bool) Connection
+	SetFriendSync(bool) UserConnection
 
 	// whether activities related to this connection will be shown in presence updates
 	ShowActivity() bool
-	SetShowActivity(bool) Connection
+	SetShowActivity(bool) UserConnection
 
 	// visibility of this connection
-	Visibility() ConnectionVisibility
-	SetVisibility(ConnectionVisibility) Connection
+	Visibility() user.ConnectionVisibility
+	SetVisibility(user.ConnectionVisibility) UserConnection
 }

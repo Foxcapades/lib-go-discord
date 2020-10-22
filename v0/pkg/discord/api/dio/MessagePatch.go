@@ -2,7 +2,7 @@ package dio
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel/message"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 )
 
 type MessagePatch interface {

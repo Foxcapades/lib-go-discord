@@ -1,6 +1,8 @@
-package guild
+package discord
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+)
 
 // VoiceState
 // TODO: Document me
@@ -22,9 +24,9 @@ type VoiceState interface {
 	SetUserID(id dlib.Snowflake) VoiceState
 
 	// the guild member this voice state is for
-	Member() Member
+	Member() GuildMember
 	MemberIsSet() bool
-	SetMember(member Member) VoiceState
+	SetMember(member GuildMember) VoiceState
 	UnsetMember() VoiceState
 
 	// the session id for this voice state

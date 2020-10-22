@@ -2,7 +2,6 @@ package api
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -17,5 +16,5 @@ type GuildAPI interface {
 	// id.
 	//
 	// If the user is not in the guild, then the guild must be Discoverable.
-	GetGuildPreview(id dlib.Snowflake) (guild.Preview, error)
+	GetGuildPreview(id dlib.Snowflake) (discord.GuildPreview, error)
 }

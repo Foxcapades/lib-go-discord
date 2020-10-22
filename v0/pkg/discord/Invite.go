@@ -1,9 +1,7 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/invite"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 )
 
 type Invite interface {
@@ -36,10 +34,10 @@ type Invite interface {
 	// Channel returns the current value of this record's `channel` field.
 	//
 	// The `channel` field contains the channel this invite is for.
-	Channel() channel.Channel
+	Channel() Channel
 
 	// SetChannel overwrites the current value of this record's `channel` field.
-	SetChannel(channel.Channel) Invite
+	SetChannel(Channel) Invite
 
 	// Inviter returns the current value of this record's `inviter` field.
 	//
@@ -47,14 +45,14 @@ type Invite interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use InviterIsSet to check if the field is present before use.
-	Inviter() user.User
+	Inviter() User
 
 	// InviterIsSet returns whether this record's `inviter` field is currently
 	// present.
 	InviterIsSet() bool
 
 	// SetInviter overwrites the current value of this record's `inviter` field.
-	SetInviter(user.User) Invite
+	SetInviter(User) Invite
 
 	// UnsetInviter removes this record's `inviter` field.
 	UnsetInviter() Invite
@@ -65,7 +63,7 @@ type Invite interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use TargetUserIsSet to check if the field is present before use.
-	TargetUser() user.User
+	TargetUser() User
 
 	// TargetUserIsSet returns whether this record's `target_user` field is
 	// currently present.
@@ -73,7 +71,7 @@ type Invite interface {
 
 	// SetTargetUser overwrites the current value of this record's `target_user`
 	// field.
-	SetTargetUser(user.User) Invite
+	SetTargetUser(User) Invite
 
 	// UnsetTargetUser removes this record's `target_user` field.
 	UnsetTargetUser() Invite
