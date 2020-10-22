@@ -1,4 +1,4 @@
-package message
+package discord
 
 import (
 	"errors"
@@ -9,23 +9,23 @@ var (
 	ErrBadMsgFlag = errors.New("unrecognized message flag value")
 )
 
-type Flag uint8
+type MessageFlag uint8
 
 const (
-	FlagCrossposted Flag = 1 << iota
+	FlagCrossposted MessageFlag = 1 << iota
 	FlagIsCrossposted
 	FlagSuppressEmbeds
 	FlagSourceMessageDeleted
 	FlagUrgent
 )
 
-const maxFlags Flag = 0b0001_1111
+const maxFlags MessageFlag = 0b0001_1111
 
-func (f Flag) IsValid() bool {
+func (f MessageFlag) IsValid() bool {
 	return nil == f.Validate()
 }
 
-func (f Flag) Validate() error {
+func (f MessageFlag) Validate() error {
 	if f > maxFlags {
 		return ErrBadMsgFlag
 	}
@@ -33,20 +33,20 @@ func (f Flag) Validate() error {
 	return nil
 }
 
-func (f Flag) Add(flag Flag) Flag {
+func (f MessageFlag) Add(flag MessageFlag) MessageFlag {
 	return f | flag
 }
 
-func (f Flag) Remove(flag Flag) Flag {
+func (f MessageFlag) Remove(flag MessageFlag) MessageFlag {
 	return f &^ flag
 }
 
-func (f Flag) Mask(flag Flag) Flag {
+func (f MessageFlag) Mask(flag MessageFlag) MessageFlag {
 	return f & flag
 }
 
 type TriStateFlagField struct {
-	value *Flag
+	value *MessageFlag
 	null  bool
 }
 
@@ -80,7 +80,7 @@ func (t TriStateFlagField) Unset() {
 	t.null = false
 }
 
-func (t TriStateFlagField) Get() Flag {
+func (t TriStateFlagField) Get() MessageFlag {
 	if t.value == nil {
 		if t.null {
 			panic(dlib.ErrNullField)
@@ -92,7 +92,7 @@ func (t TriStateFlagField) Get() Flag {
 	return *t.value
 }
 
-func (t TriStateFlagField) Set(f Flag) {
+func (t TriStateFlagField) Set(f MessageFlag) {
 	t.value = &f
 	t.null = false
 }

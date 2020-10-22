@@ -2,6 +2,7 @@ package dio
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 )
@@ -16,14 +17,14 @@ type JSONMessagePost interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ContentIsSet to check if the field is present before use.
-	Content() message.Content
+	Content() discord.MessageContent
 
 	// ContentIsSet returns whether this request's `content` field is currently
 	// present.
 	ContentIsSet() bool
 
 	// SetContent overwrites the current value of this request's `content` field.
-	SetContent(message.Content) JSONMessagePost
+	SetContent(discord.MessageContent) JSONMessagePost
 
 	// UnsetContent removes this request's `content` field.
 	UnsetContent() JSONMessagePost

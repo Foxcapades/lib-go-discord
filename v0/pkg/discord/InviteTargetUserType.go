@@ -1,4 +1,4 @@
-package invite
+package discord
 
 import (
 	"errors"
@@ -9,17 +9,17 @@ var (
 	ErrBadTargetUserType = errors.New("unrecognized target user type value")
 )
 
-type TargetUserType uint8
+type InviteTargetUserType uint8
 
 const (
-	TargetUserTypeStream TargetUserType = 1
+	TargetUserTypeStream InviteTargetUserType = 1
 )
 
-func (t TargetUserType) IsValid() bool {
+func (t InviteTargetUserType) IsValid() bool {
 	return nil == t.Validate()
 }
 
-func (t TargetUserType) Validate() error {
+func (t InviteTargetUserType) Validate() error {
 	if t != TargetUserTypeStream {
 		return ErrBadTargetUserType
 	}
@@ -28,7 +28,7 @@ func (t TargetUserType) Validate() error {
 }
 
 type OptionalTargetUserType struct {
-	value *TargetUserType
+	value *InviteTargetUserType
 }
 
 func (o OptionalTargetUserType) IsSet() bool {
@@ -43,7 +43,7 @@ func (o OptionalTargetUserType) Unset() {
 	o.value = nil
 }
 
-func (o OptionalTargetUserType) Get() TargetUserType {
+func (o OptionalTargetUserType) Get() InviteTargetUserType {
 	if o.value == nil {
 		panic(dlib.ErrUnsetField)
 	}
@@ -51,6 +51,6 @@ func (o OptionalTargetUserType) Get() TargetUserType {
 	return *o.value
 }
 
-func (o OptionalTargetUserType) Set(t TargetUserType) {
+func (o OptionalTargetUserType) Set(t InviteTargetUserType) {
 	o.value = &t
 }

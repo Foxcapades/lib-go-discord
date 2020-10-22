@@ -1,4 +1,4 @@
-package channel
+package discord
 
 import "errors"
 
@@ -6,11 +6,11 @@ var (
 	ErrBadChannelType = errors.New("unrecognized channel type value")
 )
 
-type Type uint8
+type ChannelType uint8
 
 const (
 	// A text channel within a server
-	TypeGuildText Type = iota
+	TypeGuildText ChannelType = iota
 
 	// A direct message between users
 	TypeDM
@@ -31,11 +31,11 @@ const (
 	TypeGuildStore
 )
 
-func (t Type) IsValid() bool {
+func (t ChannelType) IsValid() bool {
 	return nil == t.Validate()
 }
 
-func (t Type) Validate() error {
+func (t ChannelType) Validate() error {
 	if t > TypeGuildStore {
 		return ErrBadChannelType
 	}

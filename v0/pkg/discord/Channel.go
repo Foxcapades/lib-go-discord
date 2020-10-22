@@ -20,10 +20,10 @@ type Channel interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field contains the type of the channel.
-	Type() channel.Type
+	Type() ChannelType
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(channel.Type) Channel
+	SetType(ChannelType) Channel
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//

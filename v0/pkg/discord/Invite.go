@@ -1,9 +1,5 @@
 package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/invite"
-)
-
 type Invite interface {
 	// Code returns the current value of this record's `code` field.
 	//
@@ -84,7 +80,7 @@ type Invite interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use TargetUserTypeIsSet to check if the field is present before use.
-	TargetUserType() invite.TargetUserType
+	TargetUserType() InviteTargetUserType
 
 	// TargetUserTypeIsSet returns whether this record's `target_user_type` field
 	// is currently present.
@@ -92,7 +88,7 @@ type Invite interface {
 
 	// SetTargetUserType overwrites the current value of this record's
 	// `target_user_type` field.
-	SetTargetUserType(invite.TargetUserType) Invite
+	SetTargetUserType(InviteTargetUserType) Invite
 
 	// UnsetTargetUserType removes this record's `target_user_type` field.
 	UnsetTargetUserType() Invite

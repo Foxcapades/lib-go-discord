@@ -1,6 +1,7 @@
 package dio
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -35,13 +36,13 @@ type ChannelPatch interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use TypeIsSet to check if the field is present before use.
-	Type() channel.Type
+	Type() discord.ChannelType
 
 	// TypeIsSet returns whether this record's `type` field is currently present.
 	TypeIsSet() bool
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(channel.Type) ChannelPatch
+	SetType(discord.ChannelType) ChannelPatch
 
 	// UnsetType removes this record's `type` field.
 	UnsetType() ChannelPatch

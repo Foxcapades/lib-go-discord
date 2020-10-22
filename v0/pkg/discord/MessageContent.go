@@ -1,4 +1,4 @@
-package message
+package discord
 
 import (
 	"errors"
@@ -9,13 +9,13 @@ var (
 	ErrBadContentLength = errors.New("content length must not exceed 2000 characters")
 )
 
-type Content string
+type MessageContent string
 
-func (c Content) IsValid() bool {
+func (c MessageContent) IsValid() bool {
 	return nil == c.Validate()
 }
 
-func (c Content) Validate() error {
+func (c MessageContent) Validate() error {
 	if len(c) > 2000 {
 		return ErrBadContentLength
 	}
@@ -24,7 +24,7 @@ func (c Content) Validate() error {
 }
 
 type TriStateContentField struct {
-	value *Content
+	value *MessageContent
 	null  bool
 }
 
@@ -58,7 +58,7 @@ func (t TriStateContentField) Unset() {
 	t.null = false
 }
 
-func (t TriStateContentField) Get() Content {
+func (t TriStateContentField) Get() MessageContent {
 	if t.value == nil {
 		if t.null {
 			panic(dlib.ErrNullField)
@@ -70,7 +70,7 @@ func (t TriStateContentField) Get() Content {
 	return *t.value
 }
 
-func (t TriStateContentField) Set(c Content) {
+func (t TriStateContentField) Set(c MessageContent) {
 	t.value = &c
 	t.null = false
 }

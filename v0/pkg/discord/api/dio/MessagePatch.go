@@ -2,6 +2,7 @@ package dio
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 )
 
@@ -16,7 +17,7 @@ type MessagePatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use ContentIsReadable to check if the field is
 	// present and non-null before use.
-	Content() message.Content
+	Content() discord.MessageContent
 
 	// ContentIsNull returns whether this request's `content` field is currently
 	// null.
@@ -31,7 +32,7 @@ type MessagePatch interface {
 	ContentIsReadable() bool
 
 	// SetContent overwrites the current value of this request's `content` field.
-	SetContent(message.Content) MessagePatch
+	SetContent(discord.MessageContent) MessagePatch
 
 	// SetNullContent overwrites the current value of this request's `content`
 	// field with `null`.
@@ -78,7 +79,7 @@ type MessagePatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use FlagsIsReadable to check if the field is
 	// present and non-null before use.
-	Flags() message.Flag
+	Flags() discord.MessageFlag
 
 	// FlagsIsNull returns whether this request's `flags` field is currently null.
 	FlagsIsNull() bool
@@ -98,7 +99,7 @@ type MessagePatch interface {
 	//     patch.SetFlags(msg.GetFlags().Remove(message.FlagSuppressEmbeds))
 	//
 	//     patch.SetFlags(msg.GetFlags().Add(message.FlagSuppressEmbeds))
-	SetFlags(message.Flag) MessagePatch
+	SetFlags(discord.MessageFlag) MessagePatch
 
 	// SetNullFlags overwrites the current value of this request's `flags` field
 	// with `null`.
@@ -115,8 +116,8 @@ func NewMessagePatch(validate bool) MessagePatch {
 type messagePatch struct {
 	validate bool
 
-	cont  message.TriStateContentField
-	flag  message.TriStateFlagField
+	cont  discord.TriStateContentField
+	flag  discord.TriStateFlagField
 	embed message.TriStateEmbedField
 }
 
@@ -150,7 +151,7 @@ func (m *messagePatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(out)
 }
 
-func (m *messagePatch) Content() message.Content {
+func (m *messagePatch) Content() discord.MessageContent {
 	return m.cont.Get()
 }
 
@@ -166,7 +167,7 @@ func (m *messagePatch) ContentIsReadable() bool {
 	return m.cont.IsReadable()
 }
 
-func (m *messagePatch) SetContent(content message.Content) MessagePatch {
+func (m *messagePatch) SetContent(content discord.MessageContent) MessagePatch {
 	if m.validate {
 		if err := content.Validate(); err != nil {
 			panic(err)
@@ -218,7 +219,7 @@ func (m *messagePatch) UnsetEmbed() MessagePatch {
 	return m
 }
 
-func (m *messagePatch) Flags() message.Flag {
+func (m *messagePatch) Flags() discord.MessageFlag {
 	return m.flag.Get()
 }
 
@@ -234,7 +235,7 @@ func (m *messagePatch) FlagsIsReadable() bool {
 	return m.flag.IsReadable()
 }
 
-func (m *messagePatch) SetFlags(flag message.Flag) MessagePatch {
+func (m *messagePatch) SetFlags(flag discord.MessageFlag) MessagePatch {
 	if m.validate {
 		if err := flag.Validate(); err != nil {
 			panic(err)

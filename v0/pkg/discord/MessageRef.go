@@ -1,8 +1,8 @@
-package message
+package discord
 
 import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
-type Reference interface {
+type MessageRef interface {
 	// MessageID returns the current value of this record's `message_id` field.
 	//
 	// The `message_id` field contains the id of the originating message.
@@ -17,10 +17,10 @@ type Reference interface {
 
 	// SetMessageID overwrites the current value of this record's `message_id`
 	// field.
-	SetMessageID(dlib.Snowflake) Reference
+	SetMessageID(dlib.Snowflake) MessageRef
 
 	// UnsetMessageID removes this record's `message_id` field.
-	UnsetMessageID() Reference
+	UnsetMessageID() MessageRef
 
 	// ChannelID returns the current value of this record's `channel_id` field.
 	//
@@ -30,7 +30,7 @@ type Reference interface {
 
 	// SetChannelID overwrites the current value of this record's `channel_id`
 	// field.
-	SetChannelID(dlib.Snowflake) Reference
+	SetChannelID(dlib.Snowflake) MessageRef
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -45,8 +45,8 @@ type Reference interface {
 	GuildIDIsSet() bool
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) Reference
+	SetGuildID(dlib.Snowflake) MessageRef
 
 	// UnsetGuildID removes this record's `guild_id` field.
-	UnsetGuildID() Reference
+	UnsetGuildID() MessageRef
 }

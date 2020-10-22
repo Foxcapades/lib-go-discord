@@ -1,4 +1,4 @@
-package message
+package discord
 
 import "errors"
 
@@ -6,12 +6,12 @@ var (
 	ErrBadMsgType = errors.New("unrecognized message type value")
 )
 
-// Type
+// MessageType
 // TODO: Document me
-type Type uint8
+type MessageType uint8
 
 const (
-	MsgTypeDefault Type = iota
+	MsgTypeDefault MessageType = iota
 	MsgTypeRecipientAdd
 	MsgTypeRecipientRemove
 	MsgTypeCall
@@ -24,15 +24,15 @@ const (
 	MsgTypeUserPremiumGuildSubscriptionTier2
 	MsgTypeUserPremiumGuildSubscriptionTier3
 	MsgTypeChannelFollowAdd
-	MsgTypeGuildDiscoveryDisqualified Type = 1 + iota
+	MsgTypeGuildDiscoveryDisqualified MessageType = 1 + iota
 	MsgTypeGuildDiscoveryRequalified
 )
 
-func (m Type) IsValid() bool {
+func (m MessageType) IsValid() bool {
 	return nil == m.Validate()
 }
 
-func (m Type) Validate() error {
+func (m MessageType) Validate() error {
 	if m > 15 || m == 13 {
 		return ErrBadMsgType
 	}

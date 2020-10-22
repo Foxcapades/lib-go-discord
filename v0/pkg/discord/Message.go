@@ -1,7 +1,6 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
@@ -89,10 +88,10 @@ type Message interface {
 	// Content returns the current value of this record's `content` field.
 	//
 	// The `content` field contains the contents of the message.
-	Content() message.Content
+	Content() MessageContent
 
 	// SetContent overwrites the current value of this record's `content` field.
-	SetContent(message.Content) Message
+	SetContent(MessageContent) Message
 	//contents of the message
 
 	// Timestamp returns the current value of this record's `timestamp` field.
@@ -185,7 +184,7 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use MentionChannelsIsSet to check if the field is present before use.
-	MentionChannels() []channel.Mention
+	MentionChannels() []ChannelMention
 
 	// MentionChannelsIsSet returns whether this record's `mention_channels` field
 	// is currently present.
@@ -193,7 +192,7 @@ type Message interface {
 
 	// SetMentionChannels overwrites the current value of this record's
 	// `mention_channels` field.
-	SetMentionChannels([]channel.Mention) Message
+	SetMentionChannels([]ChannelMention) Message
 
 	// UnsetMentionChannels removes this record's `mention_channels` field.
 	UnsetMentionChannels() Message
@@ -282,10 +281,10 @@ type Message interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field contains the type of message.
-	Type() message.Type
+	Type() MessageType
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(message.Type) Message
+	SetType(MessageType) Message
 
 	// Activity returns the current value of this record's `activity` field.
 	//
@@ -332,7 +331,7 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use MessageReferenceIsSet to check if the field is present before use.
-	MessageReference() message.Reference
+	MessageReference() MessageRef
 
 	// MessageReferenceIsSet returns whether this record's `message_reference`
 	// field is currently present.
@@ -340,7 +339,7 @@ type Message interface {
 
 	// SetMessageReference overwrites the current value of this record's
 	// `message_reference` field.
-	SetMessageReference(message.Reference) Message
+	SetMessageReference(MessageRef) Message
 
 	// UnsetMessageReference removes this record's `message_reference` field.
 	UnsetMessageReference() Message
@@ -351,22 +350,22 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use FlagsIsSet to check if the field is present before use.
-	Flags() message.Flag
+	Flags() MessageFlag
 
 	// FlagsIsSet returns whether this record's `flags` field is currently
 	// present.
 	FlagsIsSet() bool
 
 	// SetFlags overwrites the current value of this record's `flags` field.
-	SetFlags(message.Flag) Message
+	SetFlags(MessageFlag) Message
 
 	// UnsetFlags removes this record's `flags` field.
 	UnsetFlags() Message
 	//message flags combined as a bitfield
 
-	AddFlag(message.Flag) Message
+	AddFlag(MessageFlag) Message
 
-	RemoveFlag(message.Flag) Message
+	RemoveFlag(MessageFlag) Message
 
-	FlagsContains(message.Flag) bool
+	FlagsContains(MessageFlag) bool
 }
