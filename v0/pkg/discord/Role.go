@@ -1,8 +1,9 @@
-package comm
+package discord
 
 import (
 	"encoding/json"
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
@@ -38,8 +39,8 @@ type Role interface {
 	SetName(name string) Role
 
 	// integer representation of hexadecimal color code
-	Color() Color
-	SetColor(color Color) Role
+	Color() comm.Color
+	SetColor(color comm.Color) Role
 	SetRawColor(val uint32) Role
 
 	// if this role is pinned in the user listing
@@ -51,11 +52,11 @@ type Role interface {
 	SetPosition(pos uint16) Role
 
 	// permission bit set
-	Permissions() Permission
-	SetPermissions(perm Permission) Role
-	AddPermission(perm Permission) Role
-	RemovePermission(perm Permission) Role
-	PermissionsContains(perm Permission) bool
+	Permissions() comm.Permission
+	SetPermissions(perm comm.Permission) Role
+	AddPermission(perm comm.Permission) Role
+	RemovePermission(perm comm.Permission) Role
+	PermissionsContains(perm comm.Permission) bool
 
 	// whether this role is managed by an integration
 	Managed() bool
@@ -76,7 +77,7 @@ type Role interface {
 func NewRole(validate bool) Role {
 	return &roleImpl{
 		validate: validate,
-		color:    NewColor(),
+		color:    comm.NewColor(),
 	}
 }
 
@@ -91,10 +92,10 @@ type roleImpl struct {
 
 	id          dlib.Snowflake
 	name        string
-	color       Color
+	color       comm.Color
 	hoist       bool
 	position    uint16
-	permissions Permission
+	permissions comm.Permission
 	managed     bool
 	mentionable bool
 }
@@ -172,11 +173,11 @@ func (r *roleImpl) SetName(name string) Role {
 	return r
 }
 
-func (r *roleImpl) Color() Color {
+func (r *roleImpl) Color() comm.Color {
 	return r.color
 }
 
-func (r *roleImpl) SetColor(color Color) Role {
+func (r *roleImpl) SetColor(color comm.Color) Role {
 	if color == nil {
 		panic(ErrNilColor)
 	}
@@ -212,11 +213,11 @@ func (r *roleImpl) SetPosition(pos uint16) Role {
 	return r
 }
 
-func (r *roleImpl) Permissions() Permission {
+func (r *roleImpl) Permissions() comm.Permission {
 	return r.permissions
 }
 
-func (r *roleImpl) SetPermissions(perm Permission) Role {
+func (r *roleImpl) SetPermissions(perm comm.Permission) Role {
 	if r.validate {
 		if err := perm.Validate(); err != nil {
 			panic(err)
@@ -228,7 +229,7 @@ func (r *roleImpl) SetPermissions(perm Permission) Role {
 	return r
 }
 
-func (r *roleImpl) AddPermission(perm Permission) Role {
+func (r *roleImpl) AddPermission(perm comm.Permission) Role {
 	if r.validate {
 		if err := perm.Validate(); err != nil {
 			panic(err)
@@ -240,7 +241,7 @@ func (r *roleImpl) AddPermission(perm Permission) Role {
 	return r
 }
 
-func (r *roleImpl) RemovePermission(perm Permission) Role {
+func (r *roleImpl) RemovePermission(perm comm.Permission) Role {
 	if r.validate {
 		if err := perm.Validate(); err != nil {
 			panic(err)
@@ -252,7 +253,7 @@ func (r *roleImpl) RemovePermission(perm Permission) Role {
 	return r
 }
 
-func (r *roleImpl) PermissionsContains(perm Permission) bool {
+func (r *roleImpl) PermissionsContains(perm comm.Permission) bool {
 	if r.validate {
 		if err := perm.Validate(); err != nil {
 			panic(err)

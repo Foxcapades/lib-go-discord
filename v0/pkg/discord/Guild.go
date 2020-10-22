@@ -279,10 +279,10 @@ type Guild interface {
 	// Roles returns the current value of this record's `roles` field.
 	//
 	// The `roles` field contains the roles in the guild.
-	Roles() []comm.Role
+	Roles() []Role
 
 	// SetRoles overwrites the current value of this record's `roles` field.
-	SetRoles([]comm.Role) Guild
+	SetRoles([]Role) Guild
 
 	// Emojis returns the current value of this record's `emojis` field.
 	//

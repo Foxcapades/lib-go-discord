@@ -1,7 +1,6 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -48,14 +47,14 @@ type Emoji interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use RolesIsSet to check if the field is present before use.
-	Roles() []comm.Role
+	Roles() []Role
 
 	// RolesIsSet returns whether this record's `roles` field is currently
 	// present.
 	RolesIsSet() bool
 
 	// SetRoles overwrites the current value of this record's `roles` field.
-	SetRoles([]comm.Role) Emoji
+	SetRoles([]Role) Emoji
 
 	// UnsetRoles removes this record's `roles` field.
 	UnsetRoles() Emoji

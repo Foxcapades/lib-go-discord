@@ -162,11 +162,11 @@ type Message interface {
 	//
 	// The `mention_roles` field contains the roles specifically mentioned in this
 	// message.
-	MentionRoles() []comm.Role
+	MentionRoles() []Role
 
 	// SetMentionRoles overwrites the current value of this record's
 	// `mention_roles` field.
-	SetMentionRoles([]comm.Role) Message
+	SetMentionRoles([]Role) Message
 
 	// MentionChannels returns the current value of this record's
 	// `mention_channels` field.

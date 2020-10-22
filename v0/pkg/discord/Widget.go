@@ -1,4 +1,4 @@
-package guild
+package discord
 
 import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 
