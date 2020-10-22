@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/api/dio"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"

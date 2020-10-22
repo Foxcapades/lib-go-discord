@@ -14,7 +14,7 @@ func TestUserImpl_MarshalJSON(t *testing.T) {
 				Convey("the `id` field value is 0", func() {
 					target := NewUser(true).
 						SetUsername("hello").
-						SetDiscriminator("1234")
+						SetDiscriminator(1234)
 
 					a, b := target.MarshalJSON()
 

@@ -85,7 +85,7 @@ type User interface {
 	//
 	// Getting this field from the Discord API requires the `identify` OAuth2
 	// scope.
-	Discriminator() string
+	Discriminator() Discriminator
 
 	// SetDiscriminator overwrites the current value of this user record's
 	// `discriminator` field with the given param value.
@@ -368,7 +368,7 @@ func (u *userImpl) MarshalJSON() ([]byte, error) {
 		out[FieldKeyUsername] = u.username
 	}
 
-	if u.discriminator == "" {
+	if u.discriminator == 0 {
 		return nil, ErrNoDiscriminator
 	} else {
 		out[FieldKeyDiscriminator] = u.discriminator
@@ -457,8 +457,8 @@ func (u *userImpl) SetUsername(name Username) User {
 	return u
 }
 
-func (u *userImpl) Discriminator() string {
-	return string(u.discriminator)
+func (u *userImpl) Discriminator() Discriminator {
+	return u.discriminator
 }
 
 func (u *userImpl) SetDiscriminator(code Discriminator) User {
