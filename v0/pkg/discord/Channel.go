@@ -89,13 +89,13 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use NameIsSet to check if the field is present before use.
-	Name() channel.Name
+	Name() ChannelName
 
 	// NameIsSet returns whether this record's `name` field is currently present.
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(channel.Name) Channel
+	SetName(ChannelName) Channel
 
 	// UnsetName removes this record's `name` field.
 	UnsetName() Channel
@@ -107,7 +107,7 @@ type Channel interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use TopicIsReadable to check if the field is
 	// present and non-null before use.
-	Topic() channel.Topic
+	Topic() ChannelTopic
 
 	// TopicIsNull returns whether this record's `topic` field is currently null.
 	TopicIsNull() bool
@@ -121,7 +121,7 @@ type Channel interface {
 	TopicIsReadable() bool
 
 	// SetTopic overwrites the current value of this record's `topic` field.
-	SetTopic(channel.Topic) Channel
+	SetTopic(ChannelTopic) Channel
 
 	// SetNullTopic overwrites the current value of this record's `topic` field
 	// with `null`.

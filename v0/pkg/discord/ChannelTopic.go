@@ -1,4 +1,4 @@
-package channel
+package discord
 
 import "errors"
 
@@ -6,13 +6,13 @@ var (
 	ErrBadTopicLength = errors.New("channel topics cannot be longer than 1024 characters")
 )
 
-type Topic string
+type ChannelTopic string
 
-func (t Topic) IsValid() bool {
+func (t ChannelTopic) IsValid() bool {
 	return nil == t.Validate()
 }
 
-func (t Topic) Validate() error {
+func (t ChannelTopic) Validate() error {
 	if len(t) > 1024 {
 		return ErrBadTopicLength
 	}

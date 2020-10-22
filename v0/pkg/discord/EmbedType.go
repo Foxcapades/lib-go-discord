@@ -1,4 +1,4 @@
-package embed
+package discord
 
 import "errors"
 
@@ -6,48 +6,48 @@ var (
 	ErrBadEmbedType = errors.New("unrecognized embed type value")
 )
 
-// Type
+// EmbedType
 // TODO: Document me
 //
 // Embed types are "loosely defined" and, for the most part, are not used by our
 // clients for rendering. Embed attributes power what is rendered. Embed types
 // should be considered deprecated and might be removed in a future API version.
-type Type string
+type EmbedType string
 
 const (
 	// Generic embed rendered from embed attributes.
-	TypeRich Type = "rich"
+	EmbedTypeRich EmbedType = "rich"
 
 	// Image embed.
-	TypeImage Type = "image"
+	EmbedTypeImage EmbedType = "image"
 
 	// Video embed.
-	TypeVideo Type = "video"
+	EmbedTypeVideo EmbedType = "video"
 
 	// Animated gif image embed rendered as a video embed.
-	TypeGifV Type = "gifv"
+	EmbedTypeGifV EmbedType = "gifv"
 
 	// Article embed.
-	TypeArticle Type = "article"
+	EmbedTypeArticle EmbedType = "article"
 
 	// Link embed.
-	TypeLink Type = "link"
+	EmbedTypeLink EmbedType = "link"
 )
 
-func (e Type) IsValid() bool {
+func (e EmbedType) IsValid() bool {
 	return nil == e.Validate()
 }
 
-var embedTypes = []Type{
-	TypeRich,
-	TypeImage,
-	TypeVideo,
-	TypeGifV,
-	TypeArticle,
-	TypeLink,
+var embedTypes = []EmbedType{
+	EmbedTypeRich,
+	EmbedTypeImage,
+	EmbedTypeVideo,
+	EmbedTypeGifV,
+	EmbedTypeArticle,
+	EmbedTypeLink,
 }
 
-func (e Type) Validate() error {
+func (e EmbedType) Validate() error {
 	for i := range embedTypes {
 		if e == embedTypes[i] {
 			return nil

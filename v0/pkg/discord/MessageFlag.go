@@ -12,11 +12,11 @@ var (
 type MessageFlag uint8
 
 const (
-	FlagCrossposted MessageFlag = 1 << iota
-	FlagIsCrossposted
-	FlagSuppressEmbeds
-	FlagSourceMessageDeleted
-	FlagUrgent
+	MsgFlagCrossposted MessageFlag = 1 << iota
+	MsgFlagIsCrossposted
+	MsgFlagSuppressEmbeds
+	MsgFlagSourceMessageDeleted
+	MsgFlagUrgent
 )
 
 const maxFlags MessageFlag = 0b0001_1111

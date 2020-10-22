@@ -209,10 +209,10 @@ type Message interface {
 	// Embeds returns the current value of this record's `embeds` field.
 	//
 	// The `embeds` field contains any embedded content.
-	Embeds() []message.Embed
+	Embeds() []MessageEmbed
 
 	// SetEmbeds overwrites the current value of this record's `embeds` field.
-	SetEmbeds([]message.Embed) Message
+	SetEmbeds([]MessageEmbed) Message
 
 	// Reactions returns the current value of this record's `reactions` field.
 	//

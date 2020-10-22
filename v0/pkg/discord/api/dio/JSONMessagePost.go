@@ -71,7 +71,7 @@ type JSONMessagePost interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use EmbedIsSet to check if the field is present before use.
-	Embed() message.Embed
+	Embed() discord.MessageEmbed
 
 	// EmbedIsSet returns whether this request's `embed` field is currently present.
 	EmbedIsSet() bool
@@ -81,7 +81,7 @@ type JSONMessagePost interface {
 	// For the embed object, you can set every field except `type` (it will be
 	// rich regardless of if you try to set it), provider, video, and any height,
 	// width, or proxy_url values for images.
-	SetEmbed(message.Embed) JSONMessagePost
+	SetEmbed(discord.MessageEmbed) JSONMessagePost
 
 	// UnsetEmbed removes this request's `embed` field.
 	UnsetEmbed() JSONMessagePost

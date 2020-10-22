@@ -16,13 +16,13 @@ type ChannelPatch interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use NameIsSet to check if the field is present before use.
-	Name() channel.Name
+	Name() discord.ChannelName
 
 	// NameIsSet returns whether this record's `name` field is currently present.
 	NameIsSet() bool
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(channel.Name) ChannelPatch
+	SetName(discord.ChannelName) ChannelPatch
 
 	// UnsetName removes this record's `name` field.
 	UnsetName() ChannelPatch
@@ -90,7 +90,7 @@ type ChannelPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use TopicIsReadable to check if the field is
 	// present and non-null before use.
-	Topic() channel.Topic
+	Topic() discord.ChannelTopic
 
 	// TopicIsNull returns whether this record's `topic` field is currently null.
 	TopicIsNull() bool
@@ -104,7 +104,7 @@ type ChannelPatch interface {
 	TopicIsReadable() bool
 
 	// SetTopic overwrites the current value of this record's `topic` field.
-	SetTopic(channel.Topic) ChannelPatch
+	SetTopic(discord.ChannelTopic) ChannelPatch
 
 	// SetNullTopic overwrites the current value of this record's `topic` field
 	// with `null`.

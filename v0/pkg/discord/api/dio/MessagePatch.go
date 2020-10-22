@@ -48,7 +48,7 @@ type MessagePatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use EmbedIsReadable to check if the field is
 	// present and non-null before use.
-	Embed() message.Embed
+	Embed() discord.MessageEmbed
 
 	// EmbedIsNull returns whether this request's `embed` field is currently null.
 	EmbedIsNull() bool
@@ -62,7 +62,7 @@ type MessagePatch interface {
 	EmbedIsReadable() bool
 
 	// SetEmbed overwrites the current value of this request's `embed` field.
-	SetEmbed(message.Embed) MessagePatch
+	SetEmbed(discord.MessageEmbed) MessagePatch
 
 	// SetNullEmbed overwrites the current value of this request's `embed` field
 	// with `null`.
@@ -93,12 +93,12 @@ type MessagePatch interface {
 
 	// SetFlags overwrites the current value of this request's `flags` field.
 	//
-	// Only the message.FlagSuppressEmbeds may be changed on a messages flags.
+	// Only the message.MsgFlagSuppressEmbeds may be changed on a messages flags.
 	//
 	// Example usages:
-	//     patch.SetFlags(msg.GetFlags().Remove(message.FlagSuppressEmbeds))
+	//     patch.SetFlags(msg.GetFlags().Remove(message.MsgFlagSuppressEmbeds))
 	//
-	//     patch.SetFlags(msg.GetFlags().Add(message.FlagSuppressEmbeds))
+	//     patch.SetFlags(msg.GetFlags().Add(message.MsgFlagSuppressEmbeds))
 	SetFlags(discord.MessageFlag) MessagePatch
 
 	// SetNullFlags overwrites the current value of this request's `flags` field
@@ -118,7 +118,7 @@ type messagePatch struct {
 
 	cont  discord.TriStateContentField
 	flag  discord.TriStateFlagField
-	embed message.TriStateEmbedField
+	embed discord.TriStateEmbedField
 }
 
 func (m *messagePatch) MarshalJSON() ([]byte, error) {
@@ -188,7 +188,7 @@ func (m *messagePatch) UnsetContent() MessagePatch {
 	return m
 }
 
-func (m *messagePatch) Embed() message.Embed {
+func (m *messagePatch) Embed() discord.MessageEmbed {
 	return m.embed.Get()
 }
 
@@ -204,7 +204,7 @@ func (m *messagePatch) EmbedIsReadable() bool {
 	return m.embed.IsReadable()
 }
 
-func (m *messagePatch) SetEmbed(embed message.Embed) MessagePatch {
+func (m *messagePatch) SetEmbed(embed discord.MessageEmbed) MessagePatch {
 	m.embed.Set(embed)
 	return m
 }

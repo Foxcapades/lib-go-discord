@@ -1,7 +1,6 @@
-package webhook
+package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
@@ -17,10 +16,10 @@ type Webhook interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field contains the type of the webhook.
-	Type() Type
+	Type() WebhookType
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(Type) Webhook
+	SetType(WebhookType) Webhook
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -56,13 +55,13 @@ type Webhook interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use UserIsSet to check if the field is present before use.
-	User() discord.User
+	User() User
 
 	// UserIsSet returns whether this record's `user` field is currently present.
 	UserIsSet() bool
 
 	// SetUser overwrites the current value of this record's `user` field.
-	SetUser(discord.User) Webhook
+	SetUser(User) Webhook
 
 	// UnsetUser removes this record's `user` field.
 	UnsetUser() Webhook

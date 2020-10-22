@@ -10,25 +10,25 @@ type ChannelType uint8
 
 const (
 	// A text channel within a server
-	TypeGuildText ChannelType = iota
+	ChannelTypeGuildText ChannelType = iota
 
 	// A direct message between users
-	TypeDM
+	ChannelTypeDM
 
 	// A voice channel within a server
-	TypeGuildVoice
+	ChannelTypeGuildVoice
 
 	// A direct message between multiple users
-	TypeGroupDM
+	ChannelTypeGroupDM
 
 	// An organizational category that contains up to 50 channels
-	TypeGuildCategory
+	ChannelTypeGuildCategory
 
 	// A channel that users can follow and crosspost into their own server
-	TypeGuildNews
+	ChannelTypeGuildNews
 
 	// A channel in which game developers can sell their game on Discord
-	TypeGuildStore
+	ChannelTypeGuildStore
 )
 
 func (t ChannelType) IsValid() bool {
@@ -36,7 +36,7 @@ func (t ChannelType) IsValid() bool {
 }
 
 func (t ChannelType) Validate() error {
-	if t > TypeGuildStore {
+	if t > ChannelTypeGuildStore {
 		return ErrBadChannelType
 	}
 

@@ -1,4 +1,4 @@
-package message
+package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
@@ -7,9 +7,9 @@ import (
 	"time"
 )
 
-// Embed
+// MessageEmbed
 // TODO: document me
-type Embed interface {
+type MessageEmbed interface {
 	// Title returns the current value of this record's `title` field.
 	//
 	// The `title` field contains the title of this embed.
@@ -23,10 +23,10 @@ type Embed interface {
 	TitleIsSet() bool
 
 	// SetTitle overwrites the current value of this record's `title` field.
-	SetTitle(string) Embed
+	SetTitle(string) MessageEmbed
 
 	// UnsetTitle removes this record's `title` field.
-	UnsetTitle() Embed
+	UnsetTitle() MessageEmbed
 
 	// Type returns the current value of this record's `type` field.
 	//
@@ -35,16 +35,16 @@ type Embed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use TypeIsSet to check if the field is present before use.
-	Type() embed.Type
+	Type() EmbedType
 
 	// TypeIsSet returns whether this record's `type` field is currently present.
 	TypeIsSet() bool
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(embed.Type) Embed
+	SetType(EmbedType) MessageEmbed
 
 	// UnsetType removes this record's `type` field.
-	UnsetType() Embed
+	UnsetType() MessageEmbed
 
 	// Description returns the current value of this record's `description` field.
 	//
@@ -60,10 +60,10 @@ type Embed interface {
 
 	// SetDescription overwrites the current value of this record's `description`
 	// field.
-	SetDescription(string) Embed
+	SetDescription(string) MessageEmbed
 
 	// UnsetDescription removes this record's `description` field.
-	UnsetDescription() Embed
+	UnsetDescription() MessageEmbed
 
 	// URL returns the current value of this record's `url` field.
 	//
@@ -77,10 +77,10 @@ type Embed interface {
 	URLIsSet() bool
 
 	// SetURL overwrites the current value of this record's `url` field.
-	SetURL(string) Embed
+	SetURL(string) MessageEmbed
 
 	// UnsetURL removes this record's `url` field.
-	UnsetURL() Embed
+	UnsetURL() MessageEmbed
 
 	// Timestamp returns the current value of this record's `timestamp` field.
 	//
@@ -96,10 +96,10 @@ type Embed interface {
 
 	// SetTimestamp overwrites the current value of this record's `timestamp`
 	// field.
-	SetTimestamp(time.Time) Embed
+	SetTimestamp(time.Time) MessageEmbed
 
 	// UnsetTimestamp removes this record's `timestamp` field.
-	UnsetTimestamp() Embed
+	UnsetTimestamp() MessageEmbed
 
 	// Color returns the current value of this record's `color` field.
 	//
@@ -114,10 +114,10 @@ type Embed interface {
 	ColorIsSet() bool
 
 	// SetColor overwrites the current value of this record's `color` field.
-	SetColor(comm.Color) Embed
+	SetColor(comm.Color) MessageEmbed
 
 	// UnsetColor removes this record's `color` field.
-	UnsetColor() Embed
+	UnsetColor() MessageEmbed
 
 	// Footer returns the current value of this record's `footer` field.
 	//
@@ -132,10 +132,10 @@ type Embed interface {
 	FooterIsSet() bool
 
 	// SetFooter overwrites the current value of this record's `footer` field.
-	SetFooter(embed.Footer) Embed
+	SetFooter(embed.Footer) MessageEmbed
 
 	// UnsetFooter removes this record's `footer` field.
-	UnsetFooter() Embed
+	UnsetFooter() MessageEmbed
 
 	// Image returns the current value of this record's `image` field.
 	//
@@ -150,10 +150,10 @@ type Embed interface {
 	ImageIsSet() bool
 
 	// SetImage overwrites the current value of this record's `image` field.
-	SetImage(embed.Image) Embed
+	SetImage(embed.Image) MessageEmbed
 
 	// UnsetImage removes this record's `image` field.
-	UnsetImage() Embed
+	UnsetImage() MessageEmbed
 
 	// Thumbnail returns the current value of this record's `thumbnail` field.
 	//
@@ -169,10 +169,10 @@ type Embed interface {
 
 	// SetThumbnail overwrites the current value of this record's `thumbnail`
 	// field.
-	SetThumbnail(embed.Thumbnail) Embed
+	SetThumbnail(embed.Thumbnail) MessageEmbed
 
 	// UnsetThumbnail removes this record's `thumbnail` field.
-	UnsetThumbnail() Embed
+	UnsetThumbnail() MessageEmbed
 
 	// Video returns the current value of this record's `video` field.
 	//
@@ -187,10 +187,10 @@ type Embed interface {
 	VideoIsSet() bool
 
 	// SetVideo overwrites the current value of this record's `video` field.
-	SetVideo(embed.Video) Embed
+	SetVideo(embed.Video) MessageEmbed
 
 	// UnsetVideo removes this record's `video` field.
-	UnsetVideo() Embed
+	UnsetVideo() MessageEmbed
 
 	// Provider returns the current value of this record's `provider` field.
 	//
@@ -205,10 +205,10 @@ type Embed interface {
 	ProviderIsSet() bool
 
 	// SetProvider overwrites the current value of this record's `provider` field.
-	SetProvider(embed.Provider) Embed
+	SetProvider(embed.Provider) MessageEmbed
 
 	// UnsetProvider removes this record's `provider` field.
-	UnsetProvider() Embed
+	UnsetProvider() MessageEmbed
 
 	// Author returns the current value of this record's `author` field.
 	//
@@ -223,10 +223,10 @@ type Embed interface {
 	AuthorIsSet() bool
 
 	// SetAuthor overwrites the current value of this record's `author` field.
-	SetAuthor(embed.Author) Embed
+	SetAuthor(embed.Author) MessageEmbed
 
 	// UnsetAuthor removes this record's `author` field.
-	UnsetAuthor() Embed
+	UnsetAuthor() MessageEmbed
 
 	// Fields returns the current value of this record's `fields` field.
 	//
@@ -241,15 +241,15 @@ type Embed interface {
 	FieldsIsSet() bool
 
 	// SetFields overwrites the current value of this record's `fields` field.
-	SetFields([]embed.Field) Embed
+	SetFields([]embed.Field) MessageEmbed
 
 	// UnsetFields removes this record's `fields` field.
-	UnsetFields() Embed
+	UnsetFields() MessageEmbed
 }
 
 
 type TriStateEmbedField struct {
-	value Embed
+	value MessageEmbed
 	null  bool
 }
 
@@ -283,7 +283,7 @@ func (t TriStateEmbedField) Unset() {
 	t.null = false
 }
 
-func (t TriStateEmbedField) Get() Embed {
+func (t TriStateEmbedField) Get() MessageEmbed {
 	if t.value == nil {
 		if t.null {
 			panic(dlib.ErrNullField)
@@ -295,7 +295,7 @@ func (t TriStateEmbedField) Get() Embed {
 	return t.value
 }
 
-func (t TriStateEmbedField) Set(e Embed) {
+func (t TriStateEmbedField) Set(e MessageEmbed) {
 	if e == nil {
 		panic(dlib.ErrSetNilTriStateVal)
 	}
