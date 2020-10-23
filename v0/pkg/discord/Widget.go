@@ -1,8 +1,14 @@
 package discord
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+)
 
 type Widget interface {
+	json.Marshaler
+	json.Unmarshaler
+
 	// Enabled returns the value of the `enabled` field currently set on this
 	// guild widget.
 	//
@@ -34,4 +40,73 @@ type Widget interface {
 	// SetNullChannelID sets the current value of this guild widget's `channel_id`
 	// field to `null`.
 	SetNullChannelID() Widget
+}
+
+func NewWidget() Widget {
+	out := new(widgetImpl)
+	out.id.SetNull()
+	return out
+}
+
+type widgetImpl struct {
+	enabled bool
+	id      dlib.NullableSnowflake
+}
+
+func (w *widgetImpl) MarshalJSON() ([]byte, error) {
+	out := make(map[FieldKey]interface{}, 2)
+	out[FieldKeyEnabled] = w.enabled
+	out[FieldKeyChannelID] = w.id
+	return json.Marshal(out)
+}
+
+func (w *widgetImpl) UnmarshalJSON(bytes []byte) error {
+	tmp := make(map[FieldKey]json.RawMessage, 2)
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	if val, ok := tmp[FieldKeyEnabled]; ok {
+		if err := json.Unmarshal(val, &w.enabled); err != nil {
+			return err
+		}
+	}
+
+	if val, ok := tmp[FieldKeyChannelID]; ok {
+		if err := w.id.UnmarshalJSON(val); err != nil {
+			return err
+		}
+	} else {
+		w.id.SetNull()
+	}
+
+	return nil
+}
+
+func (w *widgetImpl) Enabled() bool {
+	return w.enabled
+}
+
+func (w *widgetImpl) SetEnabled(b bool) Widget {
+	w.enabled = b
+	return w
+}
+
+func (w *widgetImpl) ChannelID() dlib.Snowflake {
+	return w.id.Get()
+}
+
+func (w *widgetImpl) ChannelIDIsNull() bool {
+	return w.id.IsNull()
+}
+
+func (w *widgetImpl) SetChannelID(id dlib.Snowflake) Widget {
+	w.id.Set(id)
+	return w
+}
+
+func (w *widgetImpl) SetNullChannelID() Widget {
+	w.id.SetNull()
+	return w
 }

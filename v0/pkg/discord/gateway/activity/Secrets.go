@@ -66,9 +66,9 @@ func NewSecrets() Secrets {
 }
 
 type secretsImpl struct {
-	join     dlib.StrOptionalField
-	spectate dlib.StrOptionalField
-	match    dlib.StrOptionalField
+	join     dlib.OptionalString
+	spectate dlib.OptionalString
+	match    dlib.OptionalString
 }
 
 func (s *secretsImpl) MarshalJSON() ([]byte, error) {

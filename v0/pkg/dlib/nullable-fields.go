@@ -31,36 +31,36 @@ type NullableField interface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I8NullableField struct {
+type NullableInt8 struct {
 	value int8
 	isSet bool
 }
 
-func (i I8NullableField) IsNull() bool {
+func (i NullableInt8) IsNull() bool {
 	return !i.isSet
 }
 
-func (i I8NullableField) IsNotNull() bool {
+func (i NullableInt8) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *I8NullableField) SetNull() NullableField {
+func (i *NullableInt8) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I8NullableField) Set(val int8) NullableField {
+func (i *NullableInt8) Set(val int8) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I8NullableField) Get() int8 {
+func (i NullableInt8) Get() int8 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -68,7 +68,7 @@ func (i I8NullableField) Get() int8 {
 	return i.value
 }
 
-func (i *I8NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableInt8) UnmarshalJSON(bytes []byte) error {
 	var tmp *int8
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -83,7 +83,7 @@ func (i *I8NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I8NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableInt8) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -93,36 +93,36 @@ func (i *I8NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I16NullableField struct {
+type NullableInt16 struct {
 	value int16
 	isSet bool
 }
 
-func (i I16NullableField) IsNull() bool {
+func (i NullableInt16) IsNull() bool {
 	return !i.isSet
 }
 
-func (i I16NullableField) IsNotNull() bool {
+func (i NullableInt16) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *I16NullableField) SetNull() NullableField {
+func (i *NullableInt16) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I16NullableField) Set(val int16) NullableField {
+func (i *NullableInt16) Set(val int16) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I16NullableField) Get() int16 {
+func (i NullableInt16) Get() int16 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -130,7 +130,7 @@ func (i I16NullableField) Get() int16 {
 	return i.value
 }
 
-func (i *I16NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableInt16) UnmarshalJSON(bytes []byte) error {
 	var tmp *int16
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -145,7 +145,7 @@ func (i *I16NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I16NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableInt16) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -155,36 +155,36 @@ func (i *I16NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I32NullableField struct {
+type NullableInt32 struct {
 	value int32
 	isSet bool
 }
 
-func (i I32NullableField) IsNull() bool {
+func (i NullableInt32) IsNull() bool {
 	return !i.isSet
 }
 
-func (i I32NullableField) IsNotNull() bool {
+func (i NullableInt32) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *I32NullableField) SetNull() NullableField {
+func (i *NullableInt32) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I32NullableField) Set(val int32) NullableField {
+func (i *NullableInt32) Set(val int32) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I32NullableField) Get() int32 {
+func (i NullableInt32) Get() int32 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -192,7 +192,7 @@ func (i I32NullableField) Get() int32 {
 	return i.value
 }
 
-func (i *I32NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableInt32) UnmarshalJSON(bytes []byte) error {
 	var tmp *int32
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -207,7 +207,7 @@ func (i *I32NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I32NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableInt32) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -217,36 +217,36 @@ func (i *I32NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I64NullableField struct {
+type NullableInt64 struct {
 	value int64
 	isSet bool
 }
 
-func (i I64NullableField) IsNull() bool {
+func (i NullableInt64) IsNull() bool {
 	return !i.isSet
 }
 
-func (i I64NullableField) IsNotNull() bool {
+func (i NullableInt64) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *I64NullableField) SetNull() NullableField {
+func (i *NullableInt64) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I64NullableField) Set(val int64) NullableField {
+func (i *NullableInt64) Set(val int64) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i I64NullableField) Get() int64 {
+func (i NullableInt64) Get() int64 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -254,7 +254,7 @@ func (i I64NullableField) Get() int64 {
 	return i.value
 }
 
-func (i *I64NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableInt64) UnmarshalJSON(bytes []byte) error {
 	var tmp *int64
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -269,7 +269,7 @@ func (i *I64NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I64NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableInt64) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -279,36 +279,36 @@ func (i *I64NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U8NullableField struct {
+type NullableUint8 struct {
 	value uint8
 	isSet bool
 }
 
-func (i U8NullableField) IsNull() bool {
+func (i NullableUint8) IsNull() bool {
 	return !i.isSet
 }
 
-func (i U8NullableField) IsNotNull() bool {
+func (i NullableUint8) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *U8NullableField) SetNull() NullableField {
+func (i *NullableUint8) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U8NullableField) Set(val uint8) NullableField {
+func (i *NullableUint8) Set(val uint8) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U8NullableField) Get() uint8 {
+func (i NullableUint8) Get() uint8 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -316,7 +316,7 @@ func (i U8NullableField) Get() uint8 {
 	return i.value
 }
 
-func (i *U8NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableUint8) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint8
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -331,7 +331,7 @@ func (i *U8NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U8NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableUint8) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -341,36 +341,36 @@ func (i *U8NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U16NullableField struct {
+type NullableUint16 struct {
 	value uint16
 	isSet bool
 }
 
-func (i U16NullableField) IsNull() bool {
+func (i NullableUint16) IsNull() bool {
 	return !i.isSet
 }
 
-func (i U16NullableField) IsNotNull() bool {
+func (i NullableUint16) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *U16NullableField) SetNull() NullableField {
+func (i *NullableUint16) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U16NullableField) Set(val uint16) NullableField {
+func (i *NullableUint16) Set(val uint16) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U16NullableField) Get() uint16 {
+func (i NullableUint16) Get() uint16 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -378,7 +378,7 @@ func (i U16NullableField) Get() uint16 {
 	return i.value
 }
 
-func (i *U16NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableUint16) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint16
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -393,7 +393,7 @@ func (i *U16NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U16NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableUint16) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -403,36 +403,36 @@ func (i *U16NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U32NullableField struct {
+type NullableUint32 struct {
 	value uint32
 	isSet bool
 }
 
-func (i U32NullableField) IsNull() bool {
+func (i NullableUint32) IsNull() bool {
 	return !i.isSet
 }
 
-func (i U32NullableField) IsNotNull() bool {
+func (i NullableUint32) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *U32NullableField) SetNull() NullableField {
+func (i *NullableUint32) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U32NullableField) Set(val uint32) NullableField {
+func (i *NullableUint32) Set(val uint32) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U32NullableField) Get() uint32 {
+func (i NullableUint32) Get() uint32 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -440,7 +440,7 @@ func (i U32NullableField) Get() uint32 {
 	return i.value
 }
 
-func (i *U32NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableUint32) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint32
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -455,7 +455,7 @@ func (i *U32NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U32NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableUint32) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -465,36 +465,36 @@ func (i *U32NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U64NullableField struct {
+type NullableUint64 struct {
 	value uint64
 	isSet bool
 }
 
-func (i U64NullableField) IsNull() bool {
+func (i NullableUint64) IsNull() bool {
 	return !i.isSet
 }
 
-func (i U64NullableField) IsNotNull() bool {
+func (i NullableUint64) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *U64NullableField) SetNull() NullableField {
+func (i *NullableUint64) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U64NullableField) Set(val uint64) NullableField {
+func (i *NullableUint64) Set(val uint64) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i U64NullableField) Get() uint64 {
+func (i NullableUint64) Get() uint64 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -502,7 +502,7 @@ func (i U64NullableField) Get() uint64 {
 	return i.value
 }
 
-func (i *U64NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableUint64) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint64
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -517,7 +517,7 @@ func (i *U64NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U64NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableUint64) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -527,36 +527,36 @@ func (i *U64NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type F32NullableField struct {
+type NullableFloat32 struct {
 	value float32
 	isSet bool
 }
 
-func (i F32NullableField) IsNull() bool {
+func (i NullableFloat32) IsNull() bool {
 	return !i.isSet
 }
 
-func (i F32NullableField) IsNotNull() bool {
+func (i NullableFloat32) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *F32NullableField) SetNull() NullableField {
+func (i *NullableFloat32) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *F32NullableField) Set(val float32) NullableField {
+func (i *NullableFloat32) Set(val float32) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i F32NullableField) Get() float32 {
+func (i NullableFloat32) Get() float32 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -564,7 +564,7 @@ func (i F32NullableField) Get() float32 {
 	return i.value
 }
 
-func (i *F32NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableFloat32) UnmarshalJSON(bytes []byte) error {
 	var tmp *float32
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -579,7 +579,7 @@ func (i *F32NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *F32NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableFloat32) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -589,36 +589,36 @@ func (i *F32NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type F64NullableField struct {
+type NullableFloat64 struct {
 	value float64
 	isSet bool
 }
 
-func (i F64NullableField) IsNull() bool {
+func (i NullableFloat64) IsNull() bool {
 	return !i.isSet
 }
 
-func (i F64NullableField) IsNotNull() bool {
+func (i NullableFloat64) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *F64NullableField) SetNull() NullableField {
+func (i *NullableFloat64) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *F64NullableField) Set(val float64) NullableField {
+func (i *NullableFloat64) Set(val float64) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i F64NullableField) Get() float64 {
+func (i NullableFloat64) Get() float64 {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -626,7 +626,7 @@ func (i F64NullableField) Get() float64 {
 	return i.value
 }
 
-func (i *F64NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableFloat64) UnmarshalJSON(bytes []byte) error {
 	var tmp *float64
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -641,7 +641,7 @@ func (i *F64NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *F64NullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableFloat64) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -651,36 +651,36 @@ func (i *F64NullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type BoolNullableField struct {
+type NullableBool struct {
 	value bool
 	isSet bool
 }
 
-func (i BoolNullableField) IsNull() bool {
+func (i NullableBool) IsNull() bool {
 	return !i.isSet
 }
 
-func (i BoolNullableField) IsNotNull() bool {
+func (i NullableBool) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *BoolNullableField) SetNull() NullableField {
+func (i *NullableBool) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *BoolNullableField) Set(val bool) NullableField {
+func (i *NullableBool) Set(val bool) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i BoolNullableField) Get() bool {
+func (i NullableBool) Get() bool {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -688,7 +688,7 @@ func (i BoolNullableField) Get() bool {
 	return i.value
 }
 
-func (i *BoolNullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableBool) UnmarshalJSON(bytes []byte) error {
 	var tmp *bool
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -703,7 +703,7 @@ func (i *BoolNullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *BoolNullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableBool) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -713,36 +713,36 @@ func (i *BoolNullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type StrNullableField struct {
+type NullableString struct {
 	value string
 	isSet bool
 }
 
-func (i StrNullableField) IsNull() bool {
+func (i NullableString) IsNull() bool {
 	return !i.isSet
 }
 
-func (i StrNullableField) IsNotNull() bool {
+func (i NullableString) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *StrNullableField) SetNull() NullableField {
+func (i *NullableString) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *StrNullableField) Set(val string) NullableField {
+func (i *NullableString) Set(val string) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i StrNullableField) Get() string {
+func (i NullableString) Get() string {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -750,7 +750,7 @@ func (i StrNullableField) Get() string {
 	return i.value
 }
 
-func (i *StrNullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableString) UnmarshalJSON(bytes []byte) error {
 	var tmp *string
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -765,7 +765,7 @@ func (i *StrNullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *StrNullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableString) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -775,36 +775,36 @@ func (i *StrNullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type SnowflakeNullableField struct {
+type NullableSnowflake struct {
 	value Snowflake
 	isSet bool
 }
 
-func (i SnowflakeNullableField) IsNull() bool {
+func (i NullableSnowflake) IsNull() bool {
 	return !i.isSet
 }
 
-func (i SnowflakeNullableField) IsNotNull() bool {
+func (i NullableSnowflake) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *SnowflakeNullableField) SetNull() NullableField {
+func (i *NullableSnowflake) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *SnowflakeNullableField) Set(val Snowflake) NullableField {
+func (i *NullableSnowflake) Set(val Snowflake) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i SnowflakeNullableField) Get() Snowflake {
+func (i NullableSnowflake) Get() Snowflake {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -812,7 +812,7 @@ func (i SnowflakeNullableField) Get() Snowflake {
 	return i.value
 }
 
-func (i *SnowflakeNullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableSnowflake) UnmarshalJSON(bytes []byte) error {
 	var tmp *Snowflake
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -827,7 +827,7 @@ func (i *SnowflakeNullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *SnowflakeNullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableSnowflake) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}
@@ -837,36 +837,36 @@ func (i *SnowflakeNullableField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type TimeNullableField struct {
+type NullableTime struct {
 	value time.Time
 	isSet bool
 }
 
-func (i TimeNullableField) IsNull() bool {
+func (i NullableTime) IsNull() bool {
 	return !i.isSet
 }
 
-func (i TimeNullableField) IsNotNull() bool {
+func (i NullableTime) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *TimeNullableField) SetNull() NullableField {
+func (i *NullableTime) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *TimeNullableField) Set(val time.Time) NullableField {
+func (i *NullableTime) Set(val time.Time) NullableField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw wrapped field value.
+// Get returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i TimeNullableField) Get() time.Time {
+func (i NullableTime) Get() time.Time {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -874,7 +874,7 @@ func (i TimeNullableField) Get() time.Time {
 	return i.value
 }
 
-func (i *TimeNullableField) UnmarshalJSON(bytes []byte) error {
+func (i *NullableTime) UnmarshalJSON(bytes []byte) error {
 	var tmp *time.Time
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -889,7 +889,7 @@ func (i *TimeNullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *TimeNullableField) MarshalJSON() ([]byte, error) {
+func (i *NullableTime) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}

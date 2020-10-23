@@ -11,6 +11,8 @@ var (
 		" TriStateField's Set method")
 )
 
+// TriStateField represents a field which may be absent, null, or containing a
+// value.
 type TriStateField interface {
 	json.Marshaler
 	json.Unmarshaler
@@ -30,58 +32,88 @@ type TriStateField interface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I8TriStateField struct {
-	value int8
-	flags flag
+// TriStateInt8 represents a(n) int8 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateInt8 struct {
+	value *int8
+	null  bool
 }
 
-func (i I8TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateInt8) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i I8TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateInt8) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i I8TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateInt8) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i I8TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateInt8) IsSet() bool {
+	return i.value != nil
 }
 
-func (i I8TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateInt8) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *I8TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateInt8) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *I8TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateInt8) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *I8TriStateField) Set(val int8) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateInt8) Set(val int8) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i I8TriStateField) Get() int8 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateInt8) Get() int8 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i I8TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateInt8) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -93,16 +125,19 @@ func (i I8TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i I8TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateInt8) UnmarshalJSON(bytes []byte) error {
 	var tmp *int8
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -110,58 +145,88 @@ func (i I8TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I16TriStateField struct {
-	value int16
-	flags flag
+// TriStateInt16 represents a(n) int16 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateInt16 struct {
+	value *int16
+	null  bool
 }
 
-func (i I16TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateInt16) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i I16TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateInt16) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i I16TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateInt16) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i I16TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateInt16) IsSet() bool {
+	return i.value != nil
 }
 
-func (i I16TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateInt16) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *I16TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateInt16) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *I16TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateInt16) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *I16TriStateField) Set(val int16) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateInt16) Set(val int16) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i I16TriStateField) Get() int16 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateInt16) Get() int16 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i I16TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateInt16) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -173,16 +238,19 @@ func (i I16TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i I16TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateInt16) UnmarshalJSON(bytes []byte) error {
 	var tmp *int16
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -190,58 +258,88 @@ func (i I16TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I32TriStateField struct {
-	value int32
-	flags flag
+// TriStateInt32 represents a(n) int32 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateInt32 struct {
+	value *int32
+	null  bool
 }
 
-func (i I32TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateInt32) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i I32TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateInt32) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i I32TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateInt32) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i I32TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateInt32) IsSet() bool {
+	return i.value != nil
 }
 
-func (i I32TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateInt32) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *I32TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateInt32) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *I32TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateInt32) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *I32TriStateField) Set(val int32) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateInt32) Set(val int32) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i I32TriStateField) Get() int32 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateInt32) Get() int32 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i I32TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateInt32) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -253,16 +351,19 @@ func (i I32TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i I32TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateInt32) UnmarshalJSON(bytes []byte) error {
 	var tmp *int32
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -270,58 +371,88 @@ func (i I32TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I64TriStateField struct {
-	value int64
-	flags flag
+// TriStateInt64 represents a(n) int64 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateInt64 struct {
+	value *int64
+	null  bool
 }
 
-func (i I64TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateInt64) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i I64TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateInt64) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i I64TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateInt64) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i I64TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateInt64) IsSet() bool {
+	return i.value != nil
 }
 
-func (i I64TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateInt64) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *I64TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateInt64) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *I64TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateInt64) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *I64TriStateField) Set(val int64) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateInt64) Set(val int64) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i I64TriStateField) Get() int64 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateInt64) Get() int64 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i I64TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateInt64) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -333,16 +464,19 @@ func (i I64TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i I64TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateInt64) UnmarshalJSON(bytes []byte) error {
 	var tmp *int64
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -350,58 +484,88 @@ func (i I64TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U8TriStateField struct {
-	value uint8
-	flags flag
+// TriStateUint8 represents a(n) uint8 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateUint8 struct {
+	value *uint8
+	null  bool
 }
 
-func (i U8TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateUint8) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i U8TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateUint8) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i U8TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateUint8) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i U8TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateUint8) IsSet() bool {
+	return i.value != nil
 }
 
-func (i U8TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateUint8) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *U8TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateUint8) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *U8TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateUint8) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *U8TriStateField) Set(val uint8) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateUint8) Set(val uint8) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i U8TriStateField) Get() uint8 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateUint8) Get() uint8 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i U8TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateUint8) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -413,16 +577,19 @@ func (i U8TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i U8TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateUint8) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint8
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -430,58 +597,88 @@ func (i U8TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U16TriStateField struct {
-	value uint16
-	flags flag
+// TriStateUint16 represents a(n) uint16 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateUint16 struct {
+	value *uint16
+	null  bool
 }
 
-func (i U16TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateUint16) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i U16TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateUint16) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i U16TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateUint16) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i U16TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateUint16) IsSet() bool {
+	return i.value != nil
 }
 
-func (i U16TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateUint16) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *U16TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateUint16) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *U16TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateUint16) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *U16TriStateField) Set(val uint16) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateUint16) Set(val uint16) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i U16TriStateField) Get() uint16 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateUint16) Get() uint16 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i U16TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateUint16) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -493,16 +690,19 @@ func (i U16TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i U16TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateUint16) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint16
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -510,58 +710,88 @@ func (i U16TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U32TriStateField struct {
-	value uint32
-	flags flag
+// TriStateUint32 represents a(n) uint32 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateUint32 struct {
+	value *uint32
+	null  bool
 }
 
-func (i U32TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateUint32) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i U32TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateUint32) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i U32TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateUint32) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i U32TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateUint32) IsSet() bool {
+	return i.value != nil
 }
 
-func (i U32TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateUint32) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *U32TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateUint32) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *U32TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateUint32) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *U32TriStateField) Set(val uint32) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateUint32) Set(val uint32) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i U32TriStateField) Get() uint32 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateUint32) Get() uint32 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i U32TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateUint32) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -573,16 +803,19 @@ func (i U32TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i U32TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateUint32) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint32
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -590,58 +823,88 @@ func (i U32TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U64TriStateField struct {
-	value uint64
-	flags flag
+// TriStateUint64 represents a(n) uint64 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateUint64 struct {
+	value *uint64
+	null  bool
 }
 
-func (i U64TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateUint64) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i U64TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateUint64) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i U64TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateUint64) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i U64TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateUint64) IsSet() bool {
+	return i.value != nil
 }
 
-func (i U64TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateUint64) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *U64TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateUint64) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *U64TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateUint64) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *U64TriStateField) Set(val uint64) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateUint64) Set(val uint64) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i U64TriStateField) Get() uint64 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateUint64) Get() uint64 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i U64TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateUint64) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -653,16 +916,19 @@ func (i U64TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i U64TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateUint64) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint64
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -670,58 +936,88 @@ func (i U64TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type F32TriStateField struct {
-	value float32
-	flags flag
+// TriStateFloat32 represents a(n) float32 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateFloat32 struct {
+	value *float32
+	null  bool
 }
 
-func (i F32TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateFloat32) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i F32TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateFloat32) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i F32TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateFloat32) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i F32TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateFloat32) IsSet() bool {
+	return i.value != nil
 }
 
-func (i F32TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateFloat32) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *F32TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateFloat32) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *F32TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateFloat32) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *F32TriStateField) Set(val float32) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateFloat32) Set(val float32) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i F32TriStateField) Get() float32 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateFloat32) Get() float32 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i F32TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateFloat32) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -733,16 +1029,19 @@ func (i F32TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i F32TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateFloat32) UnmarshalJSON(bytes []byte) error {
 	var tmp *float32
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -750,58 +1049,88 @@ func (i F32TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type F64TriStateField struct {
-	value float64
-	flags flag
+// TriStateFloat64 represents a(n) float64 field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateFloat64 struct {
+	value *float64
+	null  bool
 }
 
-func (i F64TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateFloat64) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i F64TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateFloat64) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i F64TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateFloat64) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i F64TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateFloat64) IsSet() bool {
+	return i.value != nil
 }
 
-func (i F64TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateFloat64) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *F64TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateFloat64) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *F64TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateFloat64) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *F64TriStateField) Set(val float64) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateFloat64) Set(val float64) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i F64TriStateField) Get() float64 {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateFloat64) Get() float64 {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i F64TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateFloat64) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -813,16 +1142,19 @@ func (i F64TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i F64TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateFloat64) UnmarshalJSON(bytes []byte) error {
 	var tmp *float64
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -830,58 +1162,88 @@ func (i F64TriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type BoolTriStateField struct {
-	value bool
-	flags flag
+// TriStateBool represents a(n) bool field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateBool struct {
+	value *bool
+	null  bool
 }
 
-func (i BoolTriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateBool) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i BoolTriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateBool) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i BoolTriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateBool) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i BoolTriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateBool) IsSet() bool {
+	return i.value != nil
 }
 
-func (i BoolTriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateBool) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *BoolTriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateBool) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *BoolTriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateBool) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *BoolTriStateField) Set(val bool) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateBool) Set(val bool) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i BoolTriStateField) Get() bool {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateBool) Get() bool {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i BoolTriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateBool) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -893,16 +1255,19 @@ func (i BoolTriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i BoolTriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateBool) UnmarshalJSON(bytes []byte) error {
 	var tmp *bool
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -910,58 +1275,88 @@ func (i BoolTriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type StrTriStateField struct {
-	value string
-	flags flag
+// TriStateString represents a(n) string field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateString struct {
+	value *string
+	null  bool
 }
 
-func (i StrTriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateString) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i StrTriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateString) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i StrTriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateString) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i StrTriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateString) IsSet() bool {
+	return i.value != nil
 }
 
-func (i StrTriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateString) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *StrTriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateString) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *StrTriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateString) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *StrTriStateField) Set(val string) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateString) Set(val string) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i StrTriStateField) Get() string {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateString) Get() string {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i StrTriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateString) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -973,16 +1368,19 @@ func (i StrTriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i StrTriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateString) UnmarshalJSON(bytes []byte) error {
 	var tmp *string
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -990,58 +1388,88 @@ func (i StrTriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type SnowflakeTriStateField struct {
-	value Snowflake
-	flags flag
+// TriStateSnowflake represents a(n) Snowflake field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateSnowflake struct {
+	value *Snowflake
+	null  bool
 }
 
-func (i SnowflakeTriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateSnowflake) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i SnowflakeTriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateSnowflake) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i SnowflakeTriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateSnowflake) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i SnowflakeTriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateSnowflake) IsSet() bool {
+	return i.value != nil
 }
 
-func (i SnowflakeTriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateSnowflake) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *SnowflakeTriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateSnowflake) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *SnowflakeTriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateSnowflake) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *SnowflakeTriStateField) Set(val Snowflake) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateSnowflake) Set(val Snowflake) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i SnowflakeTriStateField) Get() Snowflake {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateSnowflake) Get() Snowflake {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i SnowflakeTriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateSnowflake) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -1053,16 +1481,19 @@ func (i SnowflakeTriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i SnowflakeTriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateSnowflake) UnmarshalJSON(bytes []byte) error {
 	var tmp *Snowflake
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
@@ -1070,58 +1501,88 @@ func (i SnowflakeTriStateField) UnmarshalJSON(bytes []byte) error {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type TimeTriStateField struct {
-	value time.Time
-	flags flag
+// TriStateTime represents a(n) time.Time field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateTime struct {
+	value *time.Time
+	null  bool
 }
 
-func (i TimeTriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateTime) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i TimeTriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateTime) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i TimeTriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateTime) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i TimeTriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateTime) IsSet() bool {
+	return i.value != nil
 }
 
-func (i TimeTriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateTime) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *TimeTriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateTime) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *TimeTriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriStateTime) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *TimeTriStateField) Set(val time.Time) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateTime) Set(val time.Time) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i TimeTriStateField) Get() time.Time {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateTime) Get() time.Time {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i TimeTriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateTime) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -1133,38 +1594,20 @@ func (i TimeTriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i TimeTriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriStateTime) UnmarshalJSON(bytes []byte) error {
 	var tmp *time.Time
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-type flag uint8
-
-const (
-	flagPresent flag = 1 << iota
-	flagNotNull
-)
-
-func isSet(val, test flag) bool {
-	return val & test == test
-}
-
-func add(val, add flag) flag {
-	return val | add
-}
-
-func sub(val, sub flag) flag {
-	return val & ^sub
 }

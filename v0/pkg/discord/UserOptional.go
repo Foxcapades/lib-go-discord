@@ -35,10 +35,10 @@ func (i *OptionalUser) Set(val User) dlib.OptionalField {
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i OptionalUser) Value() User {
+func (i OptionalUser) Get() User {
 	if !i.isSet {
 		panic(dlib.ErrUnsetField)
 	}

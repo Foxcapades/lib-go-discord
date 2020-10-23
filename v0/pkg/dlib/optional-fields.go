@@ -32,36 +32,36 @@ type OptionalField interface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I8OptionalField struct {
+type OptionalInt8 struct {
 	value int8
 	isSet bool
 }
 
-func (i I8OptionalField) IsSet() bool {
+func (i OptionalInt8) IsSet() bool {
 	return i.isSet
 }
 
-func (i I8OptionalField) IsUnset() bool {
+func (i OptionalInt8) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *I8OptionalField) Unset() OptionalField {
+func (i *OptionalInt8) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I8OptionalField) Set(val int8) OptionalField {
+func (i *OptionalInt8) Set(val int8) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I8OptionalField) Get() int8 {
+func (i OptionalInt8) Get() int8 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -69,7 +69,7 @@ func (i I8OptionalField) Get() int8 {
 	return i.value
 }
 
-func (i *I8OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalInt8) UnmarshalJSON(bytes []byte) error {
 	var tmp int8
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -82,7 +82,7 @@ func (i *I8OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I8OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalInt8) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -92,36 +92,36 @@ func (i *I8OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I16OptionalField struct {
+type OptionalInt16 struct {
 	value int16
 	isSet bool
 }
 
-func (i I16OptionalField) IsSet() bool {
+func (i OptionalInt16) IsSet() bool {
 	return i.isSet
 }
 
-func (i I16OptionalField) IsUnset() bool {
+func (i OptionalInt16) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *I16OptionalField) Unset() OptionalField {
+func (i *OptionalInt16) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I16OptionalField) Set(val int16) OptionalField {
+func (i *OptionalInt16) Set(val int16) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I16OptionalField) Get() int16 {
+func (i OptionalInt16) Get() int16 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -129,7 +129,7 @@ func (i I16OptionalField) Get() int16 {
 	return i.value
 }
 
-func (i *I16OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalInt16) UnmarshalJSON(bytes []byte) error {
 	var tmp int16
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -142,7 +142,7 @@ func (i *I16OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I16OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalInt16) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -152,36 +152,36 @@ func (i *I16OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I32OptionalField struct {
+type OptionalInt32 struct {
 	value int32
 	isSet bool
 }
 
-func (i I32OptionalField) IsSet() bool {
+func (i OptionalInt32) IsSet() bool {
 	return i.isSet
 }
 
-func (i I32OptionalField) IsUnset() bool {
+func (i OptionalInt32) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *I32OptionalField) Unset() OptionalField {
+func (i *OptionalInt32) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I32OptionalField) Set(val int32) OptionalField {
+func (i *OptionalInt32) Set(val int32) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I32OptionalField) Get() int32 {
+func (i OptionalInt32) Get() int32 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -189,7 +189,7 @@ func (i I32OptionalField) Get() int32 {
 	return i.value
 }
 
-func (i *I32OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalInt32) UnmarshalJSON(bytes []byte) error {
 	var tmp int32
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -202,7 +202,7 @@ func (i *I32OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I32OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalInt32) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -212,36 +212,36 @@ func (i *I32OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type I64OptionalField struct {
+type OptionalInt64 struct {
 	value int64
 	isSet bool
 }
 
-func (i I64OptionalField) IsSet() bool {
+func (i OptionalInt64) IsSet() bool {
 	return i.isSet
 }
 
-func (i I64OptionalField) IsUnset() bool {
+func (i OptionalInt64) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *I64OptionalField) Unset() OptionalField {
+func (i *OptionalInt64) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *I64OptionalField) Set(val int64) OptionalField {
+func (i *OptionalInt64) Set(val int64) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i I64OptionalField) Get() int64 {
+func (i OptionalInt64) Get() int64 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -249,7 +249,7 @@ func (i I64OptionalField) Get() int64 {
 	return i.value
 }
 
-func (i *I64OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalInt64) UnmarshalJSON(bytes []byte) error {
 	var tmp int64
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -262,7 +262,7 @@ func (i *I64OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *I64OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalInt64) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -272,36 +272,36 @@ func (i *I64OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U8OptionalField struct {
+type OptionalUint8 struct {
 	value uint8
 	isSet bool
 }
 
-func (i U8OptionalField) IsSet() bool {
+func (i OptionalUint8) IsSet() bool {
 	return i.isSet
 }
 
-func (i U8OptionalField) IsUnset() bool {
+func (i OptionalUint8) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *U8OptionalField) Unset() OptionalField {
+func (i *OptionalUint8) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U8OptionalField) Set(val uint8) OptionalField {
+func (i *OptionalUint8) Set(val uint8) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U8OptionalField) Get() uint8 {
+func (i OptionalUint8) Get() uint8 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -309,7 +309,7 @@ func (i U8OptionalField) Get() uint8 {
 	return i.value
 }
 
-func (i *U8OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalUint8) UnmarshalJSON(bytes []byte) error {
 	var tmp uint8
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -322,7 +322,7 @@ func (i *U8OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U8OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalUint8) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -332,36 +332,36 @@ func (i *U8OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U16OptionalField struct {
+type OptionalUint16 struct {
 	value uint16
 	isSet bool
 }
 
-func (i U16OptionalField) IsSet() bool {
+func (i OptionalUint16) IsSet() bool {
 	return i.isSet
 }
 
-func (i U16OptionalField) IsUnset() bool {
+func (i OptionalUint16) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *U16OptionalField) Unset() OptionalField {
+func (i *OptionalUint16) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U16OptionalField) Set(val uint16) OptionalField {
+func (i *OptionalUint16) Set(val uint16) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U16OptionalField) Get() uint16 {
+func (i OptionalUint16) Get() uint16 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -369,7 +369,7 @@ func (i U16OptionalField) Get() uint16 {
 	return i.value
 }
 
-func (i *U16OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalUint16) UnmarshalJSON(bytes []byte) error {
 	var tmp uint16
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -382,7 +382,7 @@ func (i *U16OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U16OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalUint16) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -392,36 +392,36 @@ func (i *U16OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U32OptionalField struct {
+type OptionalUint32 struct {
 	value uint32
 	isSet bool
 }
 
-func (i U32OptionalField) IsSet() bool {
+func (i OptionalUint32) IsSet() bool {
 	return i.isSet
 }
 
-func (i U32OptionalField) IsUnset() bool {
+func (i OptionalUint32) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *U32OptionalField) Unset() OptionalField {
+func (i *OptionalUint32) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U32OptionalField) Set(val uint32) OptionalField {
+func (i *OptionalUint32) Set(val uint32) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U32OptionalField) Get() uint32 {
+func (i OptionalUint32) Get() uint32 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -429,7 +429,7 @@ func (i U32OptionalField) Get() uint32 {
 	return i.value
 }
 
-func (i *U32OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalUint32) UnmarshalJSON(bytes []byte) error {
 	var tmp uint32
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -442,7 +442,7 @@ func (i *U32OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U32OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalUint32) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -452,36 +452,36 @@ func (i *U32OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type U64OptionalField struct {
+type OptionalUint64 struct {
 	value uint64
 	isSet bool
 }
 
-func (i U64OptionalField) IsSet() bool {
+func (i OptionalUint64) IsSet() bool {
 	return i.isSet
 }
 
-func (i U64OptionalField) IsUnset() bool {
+func (i OptionalUint64) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *U64OptionalField) Unset() OptionalField {
+func (i *OptionalUint64) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *U64OptionalField) Set(val uint64) OptionalField {
+func (i *OptionalUint64) Set(val uint64) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i U64OptionalField) Get() uint64 {
+func (i OptionalUint64) Get() uint64 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -489,7 +489,7 @@ func (i U64OptionalField) Get() uint64 {
 	return i.value
 }
 
-func (i *U64OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalUint64) UnmarshalJSON(bytes []byte) error {
 	var tmp uint64
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -502,7 +502,7 @@ func (i *U64OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *U64OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalUint64) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -512,36 +512,36 @@ func (i *U64OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type F32OptionalField struct {
+type OptionalFloat32 struct {
 	value float32
 	isSet bool
 }
 
-func (i F32OptionalField) IsSet() bool {
+func (i OptionalFloat32) IsSet() bool {
 	return i.isSet
 }
 
-func (i F32OptionalField) IsUnset() bool {
+func (i OptionalFloat32) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *F32OptionalField) Unset() OptionalField {
+func (i *OptionalFloat32) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *F32OptionalField) Set(val float32) OptionalField {
+func (i *OptionalFloat32) Set(val float32) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i F32OptionalField) Get() float32 {
+func (i OptionalFloat32) Get() float32 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -549,7 +549,7 @@ func (i F32OptionalField) Get() float32 {
 	return i.value
 }
 
-func (i *F32OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalFloat32) UnmarshalJSON(bytes []byte) error {
 	var tmp float32
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -562,7 +562,7 @@ func (i *F32OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *F32OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalFloat32) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -572,36 +572,36 @@ func (i *F32OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type F64OptionalField struct {
+type OptionalFloat64 struct {
 	value float64
 	isSet bool
 }
 
-func (i F64OptionalField) IsSet() bool {
+func (i OptionalFloat64) IsSet() bool {
 	return i.isSet
 }
 
-func (i F64OptionalField) IsUnset() bool {
+func (i OptionalFloat64) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *F64OptionalField) Unset() OptionalField {
+func (i *OptionalFloat64) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *F64OptionalField) Set(val float64) OptionalField {
+func (i *OptionalFloat64) Set(val float64) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i F64OptionalField) Get() float64 {
+func (i OptionalFloat64) Get() float64 {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -609,7 +609,7 @@ func (i F64OptionalField) Get() float64 {
 	return i.value
 }
 
-func (i *F64OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalFloat64) UnmarshalJSON(bytes []byte) error {
 	var tmp float64
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -622,7 +622,7 @@ func (i *F64OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *F64OptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalFloat64) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -632,36 +632,36 @@ func (i *F64OptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type BoolOptionalField struct {
+type OptionalBool struct {
 	value bool
 	isSet bool
 }
 
-func (i BoolOptionalField) IsSet() bool {
+func (i OptionalBool) IsSet() bool {
 	return i.isSet
 }
 
-func (i BoolOptionalField) IsUnset() bool {
+func (i OptionalBool) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *BoolOptionalField) Unset() OptionalField {
+func (i *OptionalBool) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *BoolOptionalField) Set(val bool) OptionalField {
+func (i *OptionalBool) Set(val bool) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i BoolOptionalField) Get() bool {
+func (i OptionalBool) Get() bool {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -669,7 +669,7 @@ func (i BoolOptionalField) Get() bool {
 	return i.value
 }
 
-func (i *BoolOptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalBool) UnmarshalJSON(bytes []byte) error {
 	var tmp bool
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -682,7 +682,7 @@ func (i *BoolOptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *BoolOptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalBool) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -692,36 +692,36 @@ func (i *BoolOptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type StrOptionalField struct {
+type OptionalString struct {
 	value string
 	isSet bool
 }
 
-func (i StrOptionalField) IsSet() bool {
+func (i OptionalString) IsSet() bool {
 	return i.isSet
 }
 
-func (i StrOptionalField) IsUnset() bool {
+func (i OptionalString) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *StrOptionalField) Unset() OptionalField {
+func (i *OptionalString) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *StrOptionalField) Set(val string) OptionalField {
+func (i *OptionalString) Set(val string) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i StrOptionalField) Get() string {
+func (i OptionalString) Get() string {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -729,7 +729,7 @@ func (i StrOptionalField) Get() string {
 	return i.value
 }
 
-func (i *StrOptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalString) UnmarshalJSON(bytes []byte) error {
 	var tmp string
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -742,7 +742,7 @@ func (i *StrOptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *StrOptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalString) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -752,36 +752,36 @@ func (i *StrOptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type SnowflakeOptionalField struct {
+type OptionalSnowflake struct {
 	value Snowflake
 	isSet bool
 }
 
-func (i SnowflakeOptionalField) IsSet() bool {
+func (i OptionalSnowflake) IsSet() bool {
 	return i.isSet
 }
 
-func (i SnowflakeOptionalField) IsUnset() bool {
+func (i OptionalSnowflake) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *SnowflakeOptionalField) Unset() OptionalField {
+func (i *OptionalSnowflake) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *SnowflakeOptionalField) Set(val Snowflake) OptionalField {
+func (i *OptionalSnowflake) Set(val Snowflake) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i SnowflakeOptionalField) Get() Snowflake {
+func (i OptionalSnowflake) Get() Snowflake {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -789,7 +789,7 @@ func (i SnowflakeOptionalField) Get() Snowflake {
 	return i.value
 }
 
-func (i *SnowflakeOptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalSnowflake) UnmarshalJSON(bytes []byte) error {
 	var tmp Snowflake
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -802,7 +802,7 @@ func (i *SnowflakeOptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *SnowflakeOptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalSnowflake) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -812,36 +812,36 @@ func (i *SnowflakeOptionalField) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type TimeOptionalField struct {
+type OptionalTime struct {
 	value time.Time
 	isSet bool
 }
 
-func (i TimeOptionalField) IsSet() bool {
+func (i OptionalTime) IsSet() bool {
 	return i.isSet
 }
 
-func (i TimeOptionalField) IsUnset() bool {
+func (i OptionalTime) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *TimeOptionalField) Unset() OptionalField {
+func (i *OptionalTime) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *TimeOptionalField) Set(val time.Time) OptionalField {
+func (i *OptionalTime) Set(val time.Time) OptionalField {
 	i.isSet = true
 	i.value = val
 
 	return i
 }
 
-// Value returns the raw value contained by this field.
+// Get returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i TimeOptionalField) Get() time.Time {
+func (i OptionalTime) Get() time.Time {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -849,7 +849,7 @@ func (i TimeOptionalField) Get() time.Time {
 	return i.value
 }
 
-func (i *TimeOptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *OptionalTime) UnmarshalJSON(bytes []byte) error {
 	var tmp time.Time
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -862,7 +862,7 @@ func (i *TimeOptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *TimeOptionalField) MarshalJSON() ([]byte, error) {
+func (i *OptionalTime) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}

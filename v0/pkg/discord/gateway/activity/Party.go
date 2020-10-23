@@ -79,9 +79,9 @@ type tmpParty struct {
 }
 
 type partyImpl struct {
-	id dlib.StrOptionalField
-	cur dlib.U16OptionalField
-	max dlib.U16OptionalField
+	id dlib.OptionalString
+	cur dlib.OptionalUint16
+	max dlib.OptionalUint16
 }
 
 func (p *partyImpl) MarshalJSON() ([]byte, error) {

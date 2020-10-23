@@ -342,16 +342,16 @@ type userImpl struct {
 	id            dlib.Snowflake
 	username      user.Username
 	discriminator user.Discriminator
-	avatar        dlib.StrNullableField
-	bot           dlib.BoolOptionalField
-	system        dlib.BoolOptionalField
-	mfaEnabled    dlib.BoolOptionalField
-	locale        dlib.StrOptionalField
-	verified      dlib.BoolOptionalField
-	email         dlib.StrTriStateField
-	flags         dlib.U32OptionalField
-	premiumType   dlib.U8OptionalField
-	publicFlags   dlib.U32OptionalField
+	avatar        dlib.NullableString
+	bot           dlib.OptionalBool
+	system        dlib.OptionalBool
+	mfaEnabled    dlib.OptionalBool
+	locale        dlib.OptionalString
+	verified      dlib.OptionalBool
+	email         dlib.TriStateString
+	flags         dlib.OptionalUint32
+	premiumType   dlib.OptionalUint8
+	publicFlags   dlib.OptionalUint32
 }
 
 func (u *userImpl) MarshalJSON() ([]byte, error) {
@@ -360,7 +360,7 @@ func (u *userImpl) MarshalJSON() ([]byte, error) {
 	if u.id.RawValue() == 0 {
 		return nil, ErrNoId
 	} else {
-		out[FieldKeyId] = u.id
+		out[FieldKeyID] = u.id
 	}
 
 	if u.username == "" {
@@ -410,7 +410,7 @@ func (u *userImpl) UnmarshalJSON(bytes []byte) (err error) {
 	}
 
 	singles := map[FieldKey]interface{}{
-		FieldKeyId:            &u.id,
+		FieldKeyID:            &u.id,
 		FieldKeyUsername:      &u.username,
 		FieldKeyDiscriminator: &u.discriminator,
 	}

@@ -32,7 +32,7 @@ func NewBan(validate bool) Ban {
 type banImpl struct {
 	validate bool
 
-	reason dlib.StrNullableField
+	reason dlib.NullableString
 	user   User
 }
 

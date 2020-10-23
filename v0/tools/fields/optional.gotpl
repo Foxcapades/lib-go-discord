@@ -35,26 +35,26 @@ type OptionalField interface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type {{ $type.Name }}OptionalField struct {
+type Optional{{ $type.Name }} struct {
 	value {{ $type.Type }}
 	isSet bool
 }
 
-func (i {{ $type.Name }}OptionalField) IsSet() bool {
+func (i Optional{{ $type.Name }}) IsSet() bool {
 	return i.isSet
 }
 
-func (i {{ $type.Name }}OptionalField) IsUnset() bool {
+func (i Optional{{ $type.Name }}) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *{{ $type.Name }}OptionalField) Unset() OptionalField {
+func (i *Optional{{ $type.Name }}) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *{{ $type.Name }}OptionalField) Set(val {{ $type.Type }}) OptionalField {
+func (i *Optional{{ $type.Name }}) Set(val {{ $type.Type }}) OptionalField {
 	i.isSet = true
 	i.value = val
 
@@ -64,7 +64,7 @@ func (i *{{ $type.Name }}OptionalField) Set(val {{ $type.Type }}) OptionalField 
 // Value returns the raw value contained by this field.
 //
 // If this field is unset, this method will panic.
-func (i {{ $type.Name }}OptionalField) Get() {{ $type.Type }} {
+func (i Optional{{ $type.Name }}) Get() {{ $type.Type }} {
 	if !i.isSet {
 		panic(ErrUnsetField)
 	}
@@ -72,7 +72,7 @@ func (i {{ $type.Name }}OptionalField) Get() {{ $type.Type }} {
 	return i.value
 }
 
-func (i *{{ $type.Name }}OptionalField) UnmarshalJSON(bytes []byte) error {
+func (i *Optional{{ $type.Name }}) UnmarshalJSON(bytes []byte) error {
 	var tmp {{ $type.Type }}
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -85,7 +85,7 @@ func (i *{{ $type.Name }}OptionalField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *{{ $type.Name }}OptionalField) MarshalJSON() ([]byte, error) {
+func (i *Optional{{ $type.Name }}) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}

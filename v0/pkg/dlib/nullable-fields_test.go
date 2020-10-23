@@ -9,19 +9,19 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestI8NullableField(t *testing.T) {
-	Convey("I8NullableField", t, func() {
+func TestNullableInt8
+	Convey("NullableInt8
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target I8NullableField
+					var target NullableInt8
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target I8NullableField
+					var target NullableInt8
 
 					target.SetNull()
 
@@ -36,7 +36,7 @@ func TestI8NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target I8NullableField
+					var target NullableInt8
 
 					target.Set(120)
 
@@ -48,13 +48,13 @@ func TestI8NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target I8NullableField
+					var target NullableInt8
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target I8NullableField
+					var target NullableInt8
 
 					target.SetNull()
 
@@ -69,7 +69,7 @@ func TestI8NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target I8NullableField
+					var target NullableInt8
 
 					target.Set(120)
 
@@ -80,7 +80,7 @@ func TestI8NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target I8NullableField
+				var target NullableInt8
 
 				target.Set(120)
 
@@ -89,7 +89,7 @@ func TestI8NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target I8NullableField
+				var target NullableInt8
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -97,7 +97,7 @@ func TestI8NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target I8NullableField
+				var target NullableInt8
 
 				a, b := target.MarshalJSON()
 
@@ -106,7 +106,7 @@ func TestI8NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target I8NullableField
+				var target NullableInt8
 
 				target.Set(120)
 
@@ -120,19 +120,19 @@ func TestI8NullableField(t *testing.T) {
 	})
 }
 
-func TestI16NullableField(t *testing.T) {
-	Convey("I16NullableField", t, func() {
+func TestNullableInt16
+	Convey("NullableInt16
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target I16NullableField
+					var target NullableInt16
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target I16NullableField
+					var target NullableInt16
 
 					target.SetNull()
 
@@ -147,7 +147,7 @@ func TestI16NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target I16NullableField
+					var target NullableInt16
 
 					target.Set(32_215)
 
@@ -159,13 +159,13 @@ func TestI16NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target I16NullableField
+					var target NullableInt16
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target I16NullableField
+					var target NullableInt16
 
 					target.SetNull()
 
@@ -180,7 +180,7 @@ func TestI16NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target I16NullableField
+					var target NullableInt16
 
 					target.Set(32_215)
 
@@ -191,7 +191,7 @@ func TestI16NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target I16NullableField
+				var target NullableInt16
 
 				target.Set(32_215)
 
@@ -200,7 +200,7 @@ func TestI16NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target I16NullableField
+				var target NullableInt16
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -208,7 +208,7 @@ func TestI16NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target I16NullableField
+				var target NullableInt16
 
 				a, b := target.MarshalJSON()
 
@@ -217,7 +217,7 @@ func TestI16NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target I16NullableField
+				var target NullableInt16
 
 				target.Set(32_215)
 
@@ -231,19 +231,19 @@ func TestI16NullableField(t *testing.T) {
 	})
 }
 
-func TestI32NullableField(t *testing.T) {
-	Convey("I32NullableField", t, func() {
+func TestNullableInt32
+	Convey("NullableInt32
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target I32NullableField
+					var target NullableInt32
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target I32NullableField
+					var target NullableInt32
 
 					target.SetNull()
 
@@ -258,7 +258,7 @@ func TestI32NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target I32NullableField
+					var target NullableInt32
 
 					target.Set(3_331_115)
 
@@ -270,13 +270,13 @@ func TestI32NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target I32NullableField
+					var target NullableInt32
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target I32NullableField
+					var target NullableInt32
 
 					target.SetNull()
 
@@ -291,7 +291,7 @@ func TestI32NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target I32NullableField
+					var target NullableInt32
 
 					target.Set(3_331_115)
 
@@ -302,7 +302,7 @@ func TestI32NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target I32NullableField
+				var target NullableInt32
 
 				target.Set(3_331_115)
 
@@ -311,7 +311,7 @@ func TestI32NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target I32NullableField
+				var target NullableInt32
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -319,7 +319,7 @@ func TestI32NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target I32NullableField
+				var target NullableInt32
 
 				a, b := target.MarshalJSON()
 
@@ -328,7 +328,7 @@ func TestI32NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target I32NullableField
+				var target NullableInt32
 
 				target.Set(3_331_115)
 
@@ -342,19 +342,19 @@ func TestI32NullableField(t *testing.T) {
 	})
 }
 
-func TestI64NullableField(t *testing.T) {
-	Convey("I64NullableField", t, func() {
+func TestNullableInt64
+	Convey("NullableInt64
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target I64NullableField
+					var target NullableInt64
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target I64NullableField
+					var target NullableInt64
 
 					target.SetNull()
 
@@ -369,7 +369,7 @@ func TestI64NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target I64NullableField
+					var target NullableInt64
 
 					target.Set(123_456_789_123)
 
@@ -381,13 +381,13 @@ func TestI64NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target I64NullableField
+					var target NullableInt64
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target I64NullableField
+					var target NullableInt64
 
 					target.SetNull()
 
@@ -402,7 +402,7 @@ func TestI64NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target I64NullableField
+					var target NullableInt64
 
 					target.Set(123_456_789_123)
 
@@ -413,7 +413,7 @@ func TestI64NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target I64NullableField
+				var target NullableInt64
 
 				target.Set(123_456_789_123)
 
@@ -422,7 +422,7 @@ func TestI64NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target I64NullableField
+				var target NullableInt64
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -430,7 +430,7 @@ func TestI64NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target I64NullableField
+				var target NullableInt64
 
 				a, b := target.MarshalJSON()
 
@@ -439,7 +439,7 @@ func TestI64NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target I64NullableField
+				var target NullableInt64
 
 				target.Set(123_456_789_123)
 
@@ -453,19 +453,19 @@ func TestI64NullableField(t *testing.T) {
 	})
 }
 
-func TestU8NullableField(t *testing.T) {
-	Convey("U8NullableField", t, func() {
+func TestNullableUint8
+	Convey("NullableUint8
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target U8NullableField
+					var target NullableUint8
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target U8NullableField
+					var target NullableUint8
 
 					target.SetNull()
 
@@ -480,7 +480,7 @@ func TestU8NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target U8NullableField
+					var target NullableUint8
 
 					target.Set(250)
 
@@ -492,13 +492,13 @@ func TestU8NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target U8NullableField
+					var target NullableUint8
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target U8NullableField
+					var target NullableUint8
 
 					target.SetNull()
 
@@ -513,7 +513,7 @@ func TestU8NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target U8NullableField
+					var target NullableUint8
 
 					target.Set(250)
 
@@ -524,7 +524,7 @@ func TestU8NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target U8NullableField
+				var target NullableUint8
 
 				target.Set(250)
 
@@ -533,7 +533,7 @@ func TestU8NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target U8NullableField
+				var target NullableUint8
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -541,7 +541,7 @@ func TestU8NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target U8NullableField
+				var target NullableUint8
 
 				a, b := target.MarshalJSON()
 
@@ -550,7 +550,7 @@ func TestU8NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target U8NullableField
+				var target NullableUint8
 
 				target.Set(250)
 
@@ -564,19 +564,19 @@ func TestU8NullableField(t *testing.T) {
 	})
 }
 
-func TestU16NullableField(t *testing.T) {
-	Convey("U16NullableField", t, func() {
+func TestNullableUint16
+	Convey("NullableUint16
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target U16NullableField
+					var target NullableUint16
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target U16NullableField
+					var target NullableUint16
 
 					target.SetNull()
 
@@ -591,7 +591,7 @@ func TestU16NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target U16NullableField
+					var target NullableUint16
 
 					target.Set(62_000)
 
@@ -603,13 +603,13 @@ func TestU16NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target U16NullableField
+					var target NullableUint16
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target U16NullableField
+					var target NullableUint16
 
 					target.SetNull()
 
@@ -624,7 +624,7 @@ func TestU16NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target U16NullableField
+					var target NullableUint16
 
 					target.Set(62_000)
 
@@ -635,7 +635,7 @@ func TestU16NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target U16NullableField
+				var target NullableUint16
 
 				target.Set(62_000)
 
@@ -644,7 +644,7 @@ func TestU16NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target U16NullableField
+				var target NullableUint16
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -652,7 +652,7 @@ func TestU16NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target U16NullableField
+				var target NullableUint16
 
 				a, b := target.MarshalJSON()
 
@@ -661,7 +661,7 @@ func TestU16NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target U16NullableField
+				var target NullableUint16
 
 				target.Set(62_000)
 
@@ -675,19 +675,19 @@ func TestU16NullableField(t *testing.T) {
 	})
 }
 
-func TestU32NullableField(t *testing.T) {
-	Convey("U32NullableField", t, func() {
+func TestNullableUint32
+	Convey("NullableUint32
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target U32NullableField
+					var target NullableUint32
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target U32NullableField
+					var target NullableUint32
 
 					target.SetNull()
 
@@ -702,7 +702,7 @@ func TestU32NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target U32NullableField
+					var target NullableUint32
 
 					target.Set(10_880_000)
 
@@ -714,13 +714,13 @@ func TestU32NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target U32NullableField
+					var target NullableUint32
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target U32NullableField
+					var target NullableUint32
 
 					target.SetNull()
 
@@ -735,7 +735,7 @@ func TestU32NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target U32NullableField
+					var target NullableUint32
 
 					target.Set(10_880_000)
 
@@ -746,7 +746,7 @@ func TestU32NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target U32NullableField
+				var target NullableUint32
 
 				target.Set(10_880_000)
 
@@ -755,7 +755,7 @@ func TestU32NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target U32NullableField
+				var target NullableUint32
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -763,7 +763,7 @@ func TestU32NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target U32NullableField
+				var target NullableUint32
 
 				a, b := target.MarshalJSON()
 
@@ -772,7 +772,7 @@ func TestU32NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target U32NullableField
+				var target NullableUint32
 
 				target.Set(10_880_000)
 
@@ -786,19 +786,19 @@ func TestU32NullableField(t *testing.T) {
 	})
 }
 
-func TestU64NullableField(t *testing.T) {
-	Convey("U64NullableField", t, func() {
+func TestNullableUint64
+	Convey("NullableUint64
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target U64NullableField
+					var target NullableUint64
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target U64NullableField
+					var target NullableUint64
 
 					target.SetNull()
 
@@ -813,7 +813,7 @@ func TestU64NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target U64NullableField
+					var target NullableUint64
 
 					target.Set(999_999_999_999)
 
@@ -825,13 +825,13 @@ func TestU64NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target U64NullableField
+					var target NullableUint64
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target U64NullableField
+					var target NullableUint64
 
 					target.SetNull()
 
@@ -846,7 +846,7 @@ func TestU64NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target U64NullableField
+					var target NullableUint64
 
 					target.Set(999_999_999_999)
 
@@ -857,7 +857,7 @@ func TestU64NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target U64NullableField
+				var target NullableUint64
 
 				target.Set(999_999_999_999)
 
@@ -866,7 +866,7 @@ func TestU64NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target U64NullableField
+				var target NullableUint64
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -874,7 +874,7 @@ func TestU64NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target U64NullableField
+				var target NullableUint64
 
 				a, b := target.MarshalJSON()
 
@@ -883,7 +883,7 @@ func TestU64NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target U64NullableField
+				var target NullableUint64
 
 				target.Set(999_999_999_999)
 
@@ -897,19 +897,19 @@ func TestU64NullableField(t *testing.T) {
 	})
 }
 
-func TestF32NullableField(t *testing.T) {
-	Convey("F32NullableField", t, func() {
+func TestNullableFloat32
+	Convey("NullableFloat32
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target F32NullableField
+					var target NullableFloat32
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target F32NullableField
+					var target NullableFloat32
 
 					target.SetNull()
 
@@ -924,7 +924,7 @@ func TestF32NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target F32NullableField
+					var target NullableFloat32
 
 					target.Set(1.234512)
 
@@ -936,13 +936,13 @@ func TestF32NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target F32NullableField
+					var target NullableFloat32
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target F32NullableField
+					var target NullableFloat32
 
 					target.SetNull()
 
@@ -957,7 +957,7 @@ func TestF32NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target F32NullableField
+					var target NullableFloat32
 
 					target.Set(1.234512)
 
@@ -968,7 +968,7 @@ func TestF32NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target F32NullableField
+				var target NullableFloat32
 
 				target.Set(1.234512)
 
@@ -977,7 +977,7 @@ func TestF32NullableField(t *testing.T) {
 			// [0.00001]
 
 			Convey("panics when no value is set", func() {
-				var target F32NullableField
+				var target NullableFloat32
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -985,7 +985,7 @@ func TestF32NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target F32NullableField
+				var target NullableFloat32
 
 				a, b := target.MarshalJSON()
 
@@ -994,7 +994,7 @@ func TestF32NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target F32NullableField
+				var target NullableFloat32
 
 				target.Set(1.234512)
 
@@ -1008,19 +1008,19 @@ func TestF32NullableField(t *testing.T) {
 	})
 }
 
-func TestF64NullableField(t *testing.T) {
-	Convey("F64NullableField", t, func() {
+func TestNullableFloat64
+	Convey("NullableFloat64
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target F64NullableField
+					var target NullableFloat64
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target F64NullableField
+					var target NullableFloat64
 
 					target.SetNull()
 
@@ -1035,7 +1035,7 @@ func TestF64NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target F64NullableField
+					var target NullableFloat64
 
 					target.Set(12345.123456789)
 
@@ -1047,13 +1047,13 @@ func TestF64NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target F64NullableField
+					var target NullableFloat64
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target F64NullableField
+					var target NullableFloat64
 
 					target.SetNull()
 
@@ -1068,7 +1068,7 @@ func TestF64NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target F64NullableField
+					var target NullableFloat64
 
 					target.Set(12345.123456789)
 
@@ -1079,7 +1079,7 @@ func TestF64NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target F64NullableField
+				var target NullableFloat64
 
 				target.Set(12345.123456789)
 
@@ -1088,7 +1088,7 @@ func TestF64NullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target F64NullableField
+				var target NullableFloat64
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -1096,7 +1096,7 @@ func TestF64NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target F64NullableField
+				var target NullableFloat64
 
 				a, b := target.MarshalJSON()
 
@@ -1105,7 +1105,7 @@ func TestF64NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target F64NullableField
+				var target NullableFloat64
 
 				target.Set(12345.1234567891)
 
@@ -1119,19 +1119,19 @@ func TestF64NullableField(t *testing.T) {
 	})
 }
 
-func TestBoolNullableField(t *testing.T) {
-	Convey("BoolNullableField", t, func() {
+func TestNullableBool
+	Convey("NullableBool
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target BoolNullableField
+					var target NullableBool
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target BoolNullableField
+					var target NullableBool
 
 					target.SetNull()
 
@@ -1146,7 +1146,7 @@ func TestBoolNullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target BoolNullableField
+					var target NullableBool
 
 					target.Set(true)
 
@@ -1158,13 +1158,13 @@ func TestBoolNullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target BoolNullableField
+					var target NullableBool
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target BoolNullableField
+					var target NullableBool
 
 					target.SetNull()
 
@@ -1179,7 +1179,7 @@ func TestBoolNullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target BoolNullableField
+					var target NullableBool
 
 					target.Set(true)
 
@@ -1190,7 +1190,7 @@ func TestBoolNullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target BoolNullableField
+				var target NullableBool
 
 				target.Set(true)
 
@@ -1199,7 +1199,7 @@ func TestBoolNullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target BoolNullableField
+				var target NullableBool
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -1207,7 +1207,7 @@ func TestBoolNullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target BoolNullableField
+				var target NullableBool
 
 				a, b := target.MarshalJSON()
 
@@ -1216,7 +1216,7 @@ func TestBoolNullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target BoolNullableField
+				var target NullableBool
 
 				target.Set(true)
 
@@ -1230,19 +1230,19 @@ func TestBoolNullableField(t *testing.T) {
 	})
 }
 
-func TestStrNullableField(t *testing.T) {
-	Convey("StrNullableField", t, func() {
+func TestNullableString
+	Convey("NullableString
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target StrNullableField
+					var target NullableString
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target StrNullableField
+					var target NullableString
 
 					target.SetNull()
 
@@ -1257,7 +1257,7 @@ func TestStrNullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target StrNullableField
+					var target NullableString
 
 					target.Set("hello world")
 
@@ -1269,13 +1269,13 @@ func TestStrNullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target StrNullableField
+					var target NullableString
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target StrNullableField
+					var target NullableString
 
 					target.SetNull()
 
@@ -1290,7 +1290,7 @@ func TestStrNullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target StrNullableField
+					var target NullableString
 
 					target.Set("hello world")
 
@@ -1301,7 +1301,7 @@ func TestStrNullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target StrNullableField
+				var target NullableString
 
 				target.Set("hello world")
 
@@ -1310,7 +1310,7 @@ func TestStrNullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target StrNullableField
+				var target NullableString
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -1318,7 +1318,7 @@ func TestStrNullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target StrNullableField
+				var target NullableString
 
 				a, b := target.MarshalJSON()
 
@@ -1327,7 +1327,7 @@ func TestStrNullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target StrNullableField
+				var target NullableString
 
 				target.Set("hello world")
 
@@ -1341,19 +1341,19 @@ func TestStrNullableField(t *testing.T) {
 	})
 }
 
-func TestSnowflakeNullableField(t *testing.T) {
-	Convey("SnowflakeNullableField", t, func() {
+func TestNullableSnowflake
+	Convey("NullableSnowflake
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target SnowflakeNullableField
+					var target NullableSnowflake
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target SnowflakeNullableField
+					var target NullableSnowflake
 
 					target.SetNull()
 
@@ -1368,7 +1368,7 @@ func TestSnowflakeNullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target SnowflakeNullableField
+					var target NullableSnowflake
 
 					target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
@@ -1380,13 +1380,13 @@ func TestSnowflakeNullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target SnowflakeNullableField
+					var target NullableSnowflake
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target SnowflakeNullableField
+					var target NullableSnowflake
 
 					target.SetNull()
 
@@ -1401,7 +1401,7 @@ func TestSnowflakeNullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target SnowflakeNullableField
+					var target NullableSnowflake
 
 					target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
@@ -1412,7 +1412,7 @@ func TestSnowflakeNullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target SnowflakeNullableField
+				var target NullableSnowflake
 
 				target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
@@ -1421,7 +1421,7 @@ func TestSnowflakeNullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target SnowflakeNullableField
+				var target NullableSnowflake
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -1429,7 +1429,7 @@ func TestSnowflakeNullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target SnowflakeNullableField
+				var target NullableSnowflake
 
 				a, b := target.MarshalJSON()
 
@@ -1438,7 +1438,7 @@ func TestSnowflakeNullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target SnowflakeNullableField
+				var target NullableSnowflake
 
 				target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
@@ -1452,19 +1452,19 @@ func TestSnowflakeNullableField(t *testing.T) {
 	})
 }
 
-func TestTimeNullableField(t *testing.T) {
-	Convey("TimeNullableField", t, func() {
+func TestNullableTime
+	Convey("NullableTime
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target TimeNullableField
+					var target NullableTime
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target TimeNullableField
+					var target NullableTime
 
 					target.SetNull()
 
@@ -1479,7 +1479,7 @@ func TestTimeNullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target TimeNullableField
+					var target NullableTime
 
 					target.Set(time.Unix(0, 0).UTC())
 
@@ -1491,13 +1491,13 @@ func TestTimeNullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target TimeNullableField
+					var target NullableTime
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target TimeNullableField
+					var target NullableTime
 
 					target.SetNull()
 
@@ -1512,7 +1512,7 @@ func TestTimeNullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target TimeNullableField
+					var target NullableTime
 
 					target.Set(time.Unix(0, 0).UTC())
 
@@ -1523,7 +1523,7 @@ func TestTimeNullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target TimeNullableField
+				var target NullableTime
 
 				target.Set(time.Unix(0, 0).UTC())
 
@@ -1532,7 +1532,7 @@ func TestTimeNullableField(t *testing.T) {
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target TimeNullableField
+				var target NullableTime
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -1540,7 +1540,7 @@ func TestTimeNullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target TimeNullableField
+				var target NullableTime
 
 				a, b := target.MarshalJSON()
 
@@ -1549,7 +1549,7 @@ func TestTimeNullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target TimeNullableField
+				var target NullableTime
 
 				target.Set(time.Unix(0, 0).UTC())
 

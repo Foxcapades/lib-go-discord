@@ -1,4 +1,5 @@
-{{ define "tri-state" -}}
+{{- /*gotype: github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/types.Wrapper*/ -}}
+{{- define "tri-state" -}}
 package dlib
 
 import (
@@ -12,6 +13,8 @@ var (
 		" TriStateField's Set method")
 )
 
+// TriStateField represents a field which may be absent, null, or containing a
+// value.
 type TriStateField interface {
 	json.Marshaler
 	json.Unmarshaler
@@ -33,58 +36,88 @@ type TriStateField interface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type {{ $type.Name }}TriStateField struct {
-	value {{ $type.Type }}
-	flags flag
+// TriState{{ $type.Name }} represents a(n) {{ $type.Type }} field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriState{{ $type.Name }} struct {
+	value *{{ $type.Type }}
+	null  bool
 }
 
-func (i {{ $type.Name }}TriStateField) IsNull() bool {
-	return !isSet(i.flags, flagNotNull)
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriState{{ $type.Name }}) IsNull() bool {
+	return i.value == nil && i.null
 }
 
-func (i {{ $type.Name }}TriStateField) IsNotNull() bool {
-	return isSet(i.flags, flagNotNull)
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriState{{ $type.Name }}) IsNotNull() bool {
+	return i.value != nil || !i.null
 }
 
-func (i {{ $type.Name }}TriStateField) IsUnset() bool {
-	return !isSet(i.flags, flagPresent)
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriState{{ $type.Name }}) IsUnset() bool {
+	return i.value == nil && !i.null
 }
 
-func (i {{ $type.Name }}TriStateField) IsSet() bool {
-	return isSet(i.flags, flagPresent)
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriState{{ $type.Name }}) IsSet() bool {
+	return i.value != nil
 }
 
-func (i {{ $type.Name }}TriStateField) IsReadable() bool {
-	return isSet(i.flags, flagPresent) && isSet(i.flags, flagNotNull)
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriState{{ $type.Name }}) IsReadable() bool {
+	return i.value != nil
 }
 
-func (i *{{ $type.Name }}TriStateField) SetNull() TriStateField {
-	i.flags = add(sub(i.flags, flagNotNull), flagPresent)
+// SetNull overwrites the current field value with JSON null.
+func (i *TriState{{ $type.Name }}) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
 
 	return i
 }
 
-func (i *{{ $type.Name }}TriStateField) Unset() TriStateField {
-	i.flags = sub(sub(i.flags, flagPresent), flagNotNull)
+// Unset removes the current field value entirely.
+func (i *TriState{{ $type.Name }}) Unset() TriStateField {
+	i.value = nil
+	i.null = false
 
 	return i
 }
 
-func (i *{{ $type.Name }}TriStateField) Set(val {{ $type.Type }}) TriStateField {
-	i.flags = add(add(i.flags, flagNotNull), flagPresent)
-	i.value = val
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriState{{ $type.Name }}) Set(val {{ $type.Type }}) TriStateField {
+	i.value = &val
+	i.null = false
 
 	return i
 }
 
-func (i {{ $type.Name }}TriStateField) Get() {{ $type.Type }} {
-	return i.value
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriState{{ $type.Name }}) Get() {{ $type.Type }} {
+	return *i.value
 }
 
 // MarshalJSON serializes the current field to JSON.
 //
-// If this field is unset, this method will error with
-func (i {{ $type.Name }}TriStateField) MarshalJSON() ([]byte, error) {
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriState{{ $type.Name }}) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}
@@ -96,41 +129,23 @@ func (i {{ $type.Name }}TriStateField) MarshalJSON() ([]byte, error) {
 	return json.Marshal(i.value)
 }
 
-func (i {{ $type.Name }}TriStateField) UnmarshalJSON(bytes []byte) error {
+func (i TriState{{ $type.Name }}) UnmarshalJSON(bytes []byte) error {
 	var tmp *{{ $type.Type }}
 
-	if err := json.Unmarshal(bytes, tmp); err != nil {
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
-		i.flags = add(i.flags, flagNotNull)
-		i.value = *tmp
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
 	}
 
 	return nil
 }
 
 {{- end }}
-
-////////////////////////////////////////////////////////////////////////////////
-
-type flag uint8
-
-const (
-	flagPresent flag = 1 << iota
-	flagNotNull
-)
-
-func isSet(val, test flag) bool {
-	return val & test == test
-}
-
-func add(val, add flag) flag {
-	return val | add
-}
-
-func sub(val, sub flag) flag {
-	return val & ^sub
-}
 {{ end -}}

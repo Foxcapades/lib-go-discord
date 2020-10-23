@@ -59,8 +59,8 @@ type tmpTimes struct {
 }
 
 type timestampsImpl struct {
-	start dlib.TimeOptionalField
-	end   dlib.TimeOptionalField
+	start dlib.OptionalTime
+	end   dlib.OptionalTime
 }
 
 func (t *timestampsImpl) MarshalJSON() ([]byte, error) {

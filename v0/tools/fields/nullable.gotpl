@@ -34,26 +34,26 @@ type NullableField interface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type {{ $type.Name }}NullableField struct {
+type Nullable{{ $type.Name }} struct {
 	value {{ $type.Type }}
 	isSet bool
 }
 
-func (i {{ $type.Name }}NullableField) IsNull() bool {
+func (i Nullable{{ $type.Name }}) IsNull() bool {
 	return !i.isSet
 }
 
-func (i {{ $type.Name }}NullableField) IsNotNull() bool {
+func (i Nullable{{ $type.Name }}) IsNotNull() bool {
 	return i.isSet
 }
 
-func (i *{{ $type.Name }}NullableField) SetNull() NullableField {
+func (i *Nullable{{ $type.Name }}) SetNull() NullableField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *{{ $type.Name }}NullableField) Set(val {{ $type.Type }}) NullableField {
+func (i *Nullable{{ $type.Name }}) Set(val {{ $type.Type }}) NullableField {
 	i.isSet = true
 	i.value = val
 
@@ -63,7 +63,7 @@ func (i *{{ $type.Name }}NullableField) Set(val {{ $type.Type }}) NullableField 
 // Value returns the raw wrapped field value.
 //
 // This method panics if the field is marked as null.
-func (i {{ $type.Name }}NullableField) Get() {{ $type.Type }} {
+func (i Nullable{{ $type.Name }}) Get() {{ $type.Type }} {
 	if !i.isSet {
 		panic(ErrNullField)
 	}
@@ -71,7 +71,7 @@ func (i {{ $type.Name }}NullableField) Get() {{ $type.Type }} {
 	return i.value
 }
 
-func (i *{{ $type.Name }}NullableField) UnmarshalJSON(bytes []byte) error {
+func (i *Nullable{{ $type.Name }}) UnmarshalJSON(bytes []byte) error {
 	var tmp *{{ $type.Type }}
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -86,7 +86,7 @@ func (i *{{ $type.Name }}NullableField) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (i *{{ $type.Name }}NullableField) MarshalJSON() ([]byte, error) {
+func (i *Nullable{{ $type.Name }}) MarshalJSON() ([]byte, error) {
 	if i.IsNull() {
 		return nullValue, nil
 	}

@@ -13,19 +13,19 @@ import (
 
 {{- range $type := .Types }}
 
-func Test{{ $type.Name }}NullableField(t *testing.T) {
-	Convey("{{ $type.Name }}NullableField", t, func() {
+func TestNullable{{ $type.Name }}
+	Convey("Nullable{{ $type.Name }}
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target {{ $type.Name }}NullableField
+					var target Nullable{{ $type.Name }}
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target {{ $type.Name }}NullableField
+					var target Nullable{{ $type.Name }}
 
 					target.SetNull()
 
@@ -40,7 +40,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target {{ $type.Name }}NullableField
+					var target Nullable{{ $type.Name }}
 
 					target.Set({{ $type.Testing.ValueTest.InputValue }})
 
@@ -52,13 +52,13 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target {{ $type.Name }}NullableField
+					var target Nullable{{ $type.Name }}
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target {{ $type.Name }}NullableField
+					var target Nullable{{ $type.Name }}
 
 					target.SetNull()
 
@@ -73,7 +73,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target {{ $type.Name }}NullableField
+					var target Nullable{{ $type.Name }}
 
 					target.Set({{ $type.Testing.ValueTest.InputValue }})
 
@@ -84,7 +84,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target {{ $type.Name }}NullableField
+				var target Nullable{{ $type.Name }}
 
 				target.Set({{ $type.Testing.ValueTest.InputValue }})
 
@@ -110,7 +110,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 			// {{$type.Testing.ValueTest.CompareParams}}
 
 			Convey("panics when no value is set", func() {
-				var target {{ $type.Name }}NullableField
+				var target Nullable{{ $type.Name }}
 
 				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
 			})
@@ -118,7 +118,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target {{ $type.Name }}NullableField
+				var target Nullable{{ $type.Name }}
 
 				a, b := target.MarshalJSON()
 
@@ -127,7 +127,7 @@ func Test{{ $type.Name }}NullableField(t *testing.T) {
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target {{ $type.Name }}NullableField
+				var target Nullable{{ $type.Name }}
 
 				target.Set({{ $type.Testing.JSONTest.InputValue }})
 

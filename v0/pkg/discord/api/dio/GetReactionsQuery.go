@@ -82,8 +82,8 @@ func NewGetReactionsQuery(msgId, userId dlib.Snowflake, emoji discord.Emoji) Get
 type getReactionsQuery struct {
 	userId dlib.Snowflake
 	msgId  dlib.Snowflake
-	before dlib.SnowflakeOptionalField
-	after  dlib.SnowflakeOptionalField
+	before dlib.OptionalSnowflake
+	after  dlib.OptionalSnowflake
 	limit  OptionalRecordLimit
 	emoji  discord.Emoji
 }

@@ -25,7 +25,7 @@ func wrapFloat64(i string) string {
 
 var Fields = []types.FieldDef{
 	{
-		Name: "I8",
+		Name: "Int8",
 		Type: "int8",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -42,7 +42,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "I16",
+		Name: "Int16",
 		Type: "int16",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -59,7 +59,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "I32",
+		Name: "Int32",
 		Type: "int32",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -76,7 +76,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "I64",
+		Name: "Int64",
 		Type: "int64",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -93,7 +93,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "U8",
+		Name: "Uint8",
 		Type: "uint8",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -110,7 +110,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "U16",
+		Name: "Uint16",
 		Type: "uint16",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -127,7 +127,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "U32",
+		Name: "Uint32",
 		Type: "uint32",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -144,7 +144,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "U64",
+		Name: "Uint64",
 		Type: "uint64",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -161,7 +161,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "F32",
+		Name: "Float32",
 		Type: "float32",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -180,7 +180,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "F64",
+		Name: "Float64",
 		Type: "float64",
 		Testing: types.Testing{
 			JSONTest: types.Test{
@@ -214,7 +214,7 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "Str",
+		Name: "String",
 		Type: "string",
 		Testing: types.Testing{
 			JSONTest: types.Test{
