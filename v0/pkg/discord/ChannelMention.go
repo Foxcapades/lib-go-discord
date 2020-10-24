@@ -1,25 +1,21 @@
 package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
-)
-
 type ChannelMention interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of the channel.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) ChannelMention
+	SetID(Snowflake) ChannelMention
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
 	// The `guild_id` field contains the id of the guild containing the channel.
-	GuildID() dlib.Snowflake
+	GuildID() Snowflake
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) ChannelMention
+	SetGuildID(Snowflake) ChannelMention
 
 	// Type returns the current value of this record's `type` field.
 	//

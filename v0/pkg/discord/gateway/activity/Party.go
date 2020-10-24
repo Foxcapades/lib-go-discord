@@ -2,7 +2,7 @@ package activity
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 type Party interface {
@@ -79,9 +79,9 @@ type tmpParty struct {
 }
 
 type partyImpl struct {
-	id dlib.OptionalString
-	cur dlib.OptionalUint16
-	max dlib.OptionalUint16
+	id  discord.OptionalString
+	cur discord.OptionalUint16
+	max discord.OptionalUint16
 }
 
 func (p *partyImpl) MarshalJSON() ([]byte, error) {

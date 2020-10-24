@@ -2,7 +2,7 @@ package activity
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 type Secrets interface {
@@ -66,9 +66,9 @@ func NewSecrets() Secrets {
 }
 
 type secretsImpl struct {
-	join     dlib.OptionalString
-	spectate dlib.OptionalString
-	match    dlib.OptionalString
+	join     discord.OptionalString
+	spectate discord.OptionalString
+	match    discord.OptionalString
 }
 
 func (s *secretsImpl) MarshalJSON() ([]byte, error) {

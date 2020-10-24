@@ -2,7 +2,6 @@ package discord
 
 import (
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 var (
@@ -45,7 +44,7 @@ func (o OptionalTargetUserType) Unset() {
 
 func (o OptionalTargetUserType) Get() InviteTargetUserType {
 	if o.value == nil {
-		panic(dlib.ErrUnsetField)
+		panic(ErrUnsetField)
 	}
 
 	return *o.value

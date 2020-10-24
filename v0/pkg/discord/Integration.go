@@ -2,7 +2,6 @@ package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/integration"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -22,8 +21,8 @@ import (
 // TODO: Document me
 type Integration interface {
 	// integration id
-	ID() dlib.Snowflake
-	SetID(id dlib.Snowflake)
+	ID() Snowflake
+	SetID(id Snowflake)
 
 	// integration name
 	Name() string
@@ -42,8 +41,8 @@ type Integration interface {
 	SetSyncing(bool) Integration
 
 	// id that this integration uses for "subscribers", or the guild id for discord integrations
-	RoleID() dlib.Snowflake
-	SetRoleID(id dlib.Snowflake) Integration
+	RoleID() Snowflake
+	SetRoleID(id Snowflake) Integration
 
 	// whether emoticons should be synced for this integration (twitch only currently)
 	EnableEmoticons() bool

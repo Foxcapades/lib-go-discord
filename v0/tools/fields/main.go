@@ -13,7 +13,7 @@ import (
 
 const (
 	tplPath = "v0/tools/fields/"
-	outPath = "v0/pkg/dlib/"
+	outPath = "v0/pkg/discord/"
 )
 
 func main() {

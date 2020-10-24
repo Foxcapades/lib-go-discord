@@ -2,10 +2,10 @@ package activity
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"time"
 
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type Timestamps interface {
@@ -59,8 +59,8 @@ type tmpTimes struct {
 }
 
 type timestampsImpl struct {
-	start dlib.OptionalTime
-	end   dlib.OptionalTime
+	start discord.OptionalTime
+	end   discord.OptionalTime
 }
 
 func (t *timestampsImpl) MarshalJSON() ([]byte, error) {

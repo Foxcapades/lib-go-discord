@@ -2,18 +2,17 @@ package dio
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"strings"
 )
 
 type GetReactionsQuery interface {
 	APIQuery
 
-	SetUserID(dlib.Snowflake) GetReactionsQuery
-	UserID() dlib.Snowflake
+	SetUserID(discord.Snowflake) GetReactionsQuery
+	UserID() discord.Snowflake
 
-	SetMessageID(dlib.Snowflake) GetReactionsQuery
-	MessageID() dlib.Snowflake
+	SetMessageID(discord.Snowflake) GetReactionsQuery
+	MessageID() discord.Snowflake
 
 	SetEmoji(discord.Emoji) GetReactionsQuery
 	GetEmoji() discord.Emoji
@@ -24,14 +23,14 @@ type GetReactionsQuery interface {
 	//
 	// If this method is called on a param that is unset, this method will panic.
 	// Use BeforeIsSet to check if the param is present before use.
-	Before() dlib.Snowflake
+	Before() discord.Snowflake
 
 	// BeforeIsSet returns whether this query's `before` param is currently
 	// present.
 	BeforeIsSet() bool
 
 	// SetBefore overwrites the current value of this query's `before` param.
-	SetBefore(dlib.Snowflake) GetReactionsQuery
+	SetBefore(discord.Snowflake) GetReactionsQuery
 
 	// UnsetBefore removes this query's `before` param.
 	UnsetBefore() GetReactionsQuery
@@ -42,13 +41,13 @@ type GetReactionsQuery interface {
 	//
 	// If this method is called on a param that is unset, this method will panic.
 	// Use AfterIsSet to check if the param is present before use.
-	After() dlib.Snowflake
+	After() discord.Snowflake
 
 	// AfterIsSet returns whether this query's `after` param is currently present.
 	AfterIsSet() bool
 
 	// SetAfter overwrites the current value of this query's `after` param.
-	SetAfter(dlib.Snowflake) GetReactionsQuery
+	SetAfter(discord.Snowflake) GetReactionsQuery
 
 	// UnsetAfter removes this query's `after` param.
 	UnsetAfter() GetReactionsQuery
@@ -71,7 +70,7 @@ type GetReactionsQuery interface {
 	UnsetLimit() GetReactionsQuery
 }
 
-func NewGetReactionsQuery(msgId, userId dlib.Snowflake, emoji discord.Emoji) GetReactionsQuery {
+func NewGetReactionsQuery(msgId, userId discord.Snowflake, emoji discord.Emoji) GetReactionsQuery {
 	return &getReactionsQuery{
 		userId: userId,
 		msgId:  msgId,
@@ -80,10 +79,10 @@ func NewGetReactionsQuery(msgId, userId dlib.Snowflake, emoji discord.Emoji) Get
 }
 
 type getReactionsQuery struct {
-	userId dlib.Snowflake
-	msgId  dlib.Snowflake
-	before dlib.OptionalSnowflake
-	after  dlib.OptionalSnowflake
+	userId discord.Snowflake
+	msgId  discord.Snowflake
+	before discord.OptionalSnowflake
+	after  discord.OptionalSnowflake
 	limit  OptionalRecordLimit
 	emoji  discord.Emoji
 }
@@ -127,21 +126,21 @@ func (g *getReactionsQuery) ToQuery() string {
 	return out.String()
 }
 
-func (g *getReactionsQuery) SetUserID(id dlib.Snowflake) GetReactionsQuery {
+func (g *getReactionsQuery) SetUserID(id discord.Snowflake) GetReactionsQuery {
 	g.userId = id
 	return g
 }
 
-func (g *getReactionsQuery) UserID() dlib.Snowflake {
+func (g *getReactionsQuery) UserID() discord.Snowflake {
 	return g.userId
 }
 
-func (g *getReactionsQuery) SetMessageID(id dlib.Snowflake) GetReactionsQuery {
+func (g *getReactionsQuery) SetMessageID(id discord.Snowflake) GetReactionsQuery {
 	g.msgId = id
 	return g
 }
 
-func (g *getReactionsQuery) MessageID() dlib.Snowflake {
+func (g *getReactionsQuery) MessageID() discord.Snowflake {
 	return g.msgId
 }
 
@@ -154,7 +153,7 @@ func (g *getReactionsQuery) GetEmoji() discord.Emoji {
 	return g.emoji
 }
 
-func (g *getReactionsQuery) Before() dlib.Snowflake {
+func (g *getReactionsQuery) Before() discord.Snowflake {
 	return g.before.Get()
 }
 
@@ -162,7 +161,7 @@ func (g *getReactionsQuery) BeforeIsSet() bool {
 	return g.before.IsSet()
 }
 
-func (g *getReactionsQuery) SetBefore(id dlib.Snowflake) GetReactionsQuery {
+func (g *getReactionsQuery) SetBefore(id discord.Snowflake) GetReactionsQuery {
 	g.before.Set(id)
 	return g
 }
@@ -172,7 +171,7 @@ func (g *getReactionsQuery) UnsetBefore() GetReactionsQuery {
 	return g
 }
 
-func (g *getReactionsQuery) After() dlib.Snowflake {
+func (g *getReactionsQuery) After() discord.Snowflake {
 	return g.after.Get()
 }
 
@@ -180,7 +179,7 @@ func (g *getReactionsQuery) AfterIsSet() bool {
 	return g.after.IsSet()
 }
 
-func (g *getReactionsQuery) SetAfter(id dlib.Snowflake) GetReactionsQuery {
+func (g *getReactionsQuery) SetAfter(id discord.Snowflake) GetReactionsQuery {
 	g.after.Set(id)
 	return g
 }

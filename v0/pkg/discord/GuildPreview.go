@@ -2,13 +2,12 @@ package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type GuildPreview interface {
 	// guild id
-	ID() dlib.Snowflake
-	SetID(id dlib.Snowflake) GuildPreview
+	ID() Snowflake
+	SetID(id Snowflake) GuildPreview
 
 	// guild name (2-100 characters)
 	Name() GuildName

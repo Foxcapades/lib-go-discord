@@ -1,15 +1,17 @@
 package message
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+)
 
 type Attachment interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the attachment's id.
-	ID() dlib.Snowflake
+	ID() discord.Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Attachment
+	SetID(discord.Snowflake) Attachment
 
 	// Filename returns the current value of this record's `filename` field.
 	//

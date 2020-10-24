@@ -1,8 +1,8 @@
 package audit
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 // TODO: The fields on this type seems pretty sus.  Are they all strings?  Are
@@ -42,21 +42,21 @@ type OptionalEntryInfo interface {
 	//
 	// Applies to action type(s): MEMBER_MOVE, MESSAGE_PIN, MESSAGE_UNPIN,
 	// MESSAGE_DELETE
-	ChannelID() dlib.Snowflake
+	ChannelID() discord.Snowflake
 
 	// SetChannelID overwrites the current value of this record's `channel_id`
 	// field.
-	SetChannelID(dlib.Snowflake) OptionalEntryInfo
+	SetChannelID(discord.Snowflake) OptionalEntryInfo
 
 	// MessageID returns the current value of this record's `message_id` field.
 	//
 	// The `message_id` field contains the id of the message that was targeted.
 	//
 	// Applies to action type(s): MESSAGE_PIN, MESSAGE_UNPIN
-	MessageID() dlib.Snowflake
+	MessageID() discord.Snowflake
 
 	// SetMessageID overwrites the current value of this record's `message_id` field.
-	SetMessageID(dlib.Snowflake) OptionalEntryInfo
+	SetMessageID(discord.Snowflake) OptionalEntryInfo
 
 	// Count returns the current value of this record's `count` field.
 	//
@@ -75,10 +75,10 @@ type OptionalEntryInfo interface {
 	//
 	// Applies to action type(s): CHANNEL_OVERWRITE_CREATE,
 	// CHANNEL_OVERWRITE_UPDATE, CHANNEL_OVERWRITE_DELETE
-	ID() dlib.Snowflake
+	ID() discord.Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) OptionalEntryInfo
+	SetID(discord.Snowflake) OptionalEntryInfo
 
 	// Type returns the current value of this record's `type` field.
 	//

@@ -1,8 +1,8 @@
 package permission
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 // Overwrite
@@ -11,10 +11,10 @@ type Overwrite interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field
-	ID() dlib.Snowflake
+	ID() discord.Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Overwrite
+	SetID(discord.Snowflake) Overwrite
 
 	// Type returns the current value of this record's `type` field.
 	//

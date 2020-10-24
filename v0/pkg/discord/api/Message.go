@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/api/dio"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 var (
@@ -30,7 +29,7 @@ type MessageAPI interface {
 	// to be present on the current user.
 	//
 	// Returns a message object on success.
-	GetMessage(id dlib.Snowflake) (discord.Message, error)
+	GetMessage(id discord.Snowflake) (discord.Message, error)
 
 	// PostJSONMessage creates a new message for a guild text or DM channel.
 	//
@@ -98,7 +97,7 @@ type MessageAPI interface {
 	// other messages, to be present for the current user.
 	//
 	// Returns a message object.
-	CrosspostMessage(id dlib.Snowflake) (discord.Message, error)
+	CrosspostMessage(id discord.Snowflake) (discord.Message, error)
 
 	// CreateReaction adds a reaction to the message with the given ID.
 	//
@@ -106,17 +105,17 @@ type MessageAPI interface {
 	// on the current user. Additionally, if nobody else has reacted to the
 	// message using this emoji, this endpoint requires the 'ADD_REACTIONS'
 	// permission to be present on the current user.
-	CreateReaction(msgId dlib.Snowflake, emoji discord.Emoji) error
+	CreateReaction(msgId discord.Snowflake, emoji discord.Emoji) error
 
 	// DeleteOwnReaction delete a reaction the current user has made for the
 	// message.
-	DeleteOwnReaction(msgId dlib.Snowflake, emoji discord.Emoji) error
+	DeleteOwnReaction(msgId discord.Snowflake, emoji discord.Emoji) error
 
 	// DeleteUserReaction deletes another user's reaction.
 	//
 	// This endpoint requires the 'MANAGE_MESSAGES' permission to be present on
 	// the current user.
-	DeleteUserReaction(msgId, userId dlib.Snowflake, emoji discord.Emoji) error
+	DeleteUserReaction(msgId, userId discord.Snowflake, emoji discord.Emoji) error
 
 	// GetReactions returns a list of users that reacted with this emoji.
 	GetReactions(query dio.GetReactionsQuery) ([]discord.User, error)
@@ -127,14 +126,14 @@ type MessageAPI interface {
 	// the current user.
 	//
 	// Fires a Message MessageReaction Remove All Gateway event.
-	DeleteAllReactions(id dlib.Snowflake) error
+	DeleteAllReactions(id discord.Snowflake) error
 
 	// DeleteAllReactionsFor deletes all the reactions for the given emoji on a
 	// message.
 	//
 	// This endpoint requires the MANAGE_MESSAGES permission to be present on the
 	// current user. Fires a Message MessageReaction Remove Emoji Gateway event.
-	DeleteAllReactionsFor(msgId dlib.Snowflake, emoji discord.Emoji) error
+	DeleteAllReactionsFor(msgId discord.Snowflake, emoji discord.Emoji) error
 
 	// EditMessage patches a previously sent message.
 	//
@@ -150,7 +149,7 @@ type MessageAPI interface {
 	// Fires a Message Update Gateway event.
 	//
 	// Returns a message object.
-	EditMessage(id dlib.Snowflake, patch dio.MessagePatch) (discord.Message, error)
+	EditMessage(id discord.Snowflake, patch dio.MessagePatch) (discord.Message, error)
 
 	// DeleteMessage deletes an existing message.
 	//
@@ -159,7 +158,7 @@ type MessageAPI interface {
 	// permission.
 	//
 	// Fires a Message Delete Gateway event.
-	DeleteMessage(id dlib.Snowflake) error
+	DeleteMessage(id discord.Snowflake) error
 
 	// BulkDeleteMessage deletes multiple messages in a single request.
 	//
@@ -174,5 +173,5 @@ type MessageAPI interface {
 	// This endpoint will not delete messages older than 2 weeks, and will fail
 	// with a 400 BAD REQUEST if any message provided is older than that or if any
 	// duplicate message IDs are provided.
-	BulkDeleteMessages([]dlib.Snowflake) error
+	BulkDeleteMessages([]discord.Snowflake) error
 }

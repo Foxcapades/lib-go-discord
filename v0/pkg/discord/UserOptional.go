@@ -2,7 +2,6 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type OptionalUser struct {
@@ -18,13 +17,13 @@ func (i OptionalUser) IsUnset() bool {
 	return !i.isSet
 }
 
-func (i *OptionalUser) Unset() dlib.OptionalField {
+func (i *OptionalUser) Unset() OptionalField {
 	i.isSet = false
 
 	return i
 }
 
-func (i *OptionalUser) Set(val User) dlib.OptionalField {
+func (i *OptionalUser) Set(val User) OptionalField {
 	if val == nil {
 		panic(ErrSetNilUser)
 	}
@@ -40,7 +39,7 @@ func (i *OptionalUser) Set(val User) dlib.OptionalField {
 // If this field is unset, this method will panic.
 func (i OptionalUser) Get() User {
 	if !i.isSet {
-		panic(dlib.ErrUnsetField)
+		panic(ErrUnsetField)
 	}
 
 	return i.value
@@ -61,7 +60,7 @@ func (i *OptionalUser) UnmarshalJSON(bytes []byte) error {
 
 func (i *OptionalUser) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
-		return nil, dlib.ErrSerializeUnset
+		return nil, ErrSerializeUnset
 	}
 
 	return json.Marshal(i.value)

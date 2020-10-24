@@ -2,7 +2,6 @@ package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -285,9 +284,9 @@ func (t TriStateEmbedField) Unset() {
 func (t TriStateEmbedField) Get() MessageEmbed {
 	if t.value == nil {
 		if t.null {
-			panic(dlib.ErrNullField)
+			panic(ErrNullField)
 		} else {
-			panic(dlib.ErrUnsetField)
+			panic(ErrUnsetField)
 		}
 	}
 
@@ -296,7 +295,7 @@ func (t TriStateEmbedField) Get() MessageEmbed {
 
 func (t TriStateEmbedField) Set(e MessageEmbed) {
 	if e == nil {
-		panic(dlib.ErrSetNilTriStateVal)
+		panic(ErrSetNilTriStateVal)
 	}
 
 	t.value = e

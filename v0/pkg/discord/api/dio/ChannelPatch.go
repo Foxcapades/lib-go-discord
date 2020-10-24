@@ -4,7 +4,6 @@ import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type ChannelPatch interface {
@@ -228,7 +227,7 @@ type ChannelPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use ParentIDIsReadable to check if the field is
 	// present and non-null before use.
-	ParentID() dlib.Snowflake
+	ParentID() discord.Snowflake
 
 	// ParentIDIsNull returns whether this record's `parent_id` field is currently
 	// null.
@@ -244,7 +243,7 @@ type ChannelPatch interface {
 
 	// SetParentID overwrites the current value of this record's `parent_id`
 	// field.
-	SetParentID(dlib.Snowflake) ChannelPatch
+	SetParentID(discord.Snowflake) ChannelPatch
 
 	// SetNullParentID overwrites the current value of this record's `parent_id`
 	// field with `null`.

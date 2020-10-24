@@ -6,7 +6,6 @@ import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/derr"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 // ╔════════════════════════════════════════════════════════════════════════╗ //
@@ -59,11 +58,11 @@ type User interface {
 	//
 	// Getting this field from the Discord API requires the `identify` OAuth2
 	// scope.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// SetID overwrites the current value of this user record's `id` field with
 	// the given param value.
-	SetID(snowflake dlib.Snowflake) User
+	SetID(snowflake Snowflake) User
 
 	// Username returns the value of the `username` field currently set on this
 	// user record.
@@ -339,19 +338,19 @@ func NewUser(validate bool) User {
 type userImpl struct {
 	validate bool
 
-	id            dlib.Snowflake
+	id            Snowflake
 	username      user.Username
 	discriminator user.Discriminator
-	avatar        dlib.NullableString
-	bot           dlib.OptionalBool
-	system        dlib.OptionalBool
-	mfaEnabled    dlib.OptionalBool
-	locale        dlib.OptionalString
-	verified      dlib.OptionalBool
-	email         dlib.TriStateString
-	flags         dlib.OptionalUint32
-	premiumType   dlib.OptionalUint8
-	publicFlags   dlib.OptionalUint32
+	avatar        NullableString
+	bot           OptionalBool
+	system        OptionalBool
+	mfaEnabled    OptionalBool
+	locale        OptionalString
+	verified      OptionalBool
+	email         TriStateString
+	flags         OptionalUint32
+	premiumType   OptionalUint8
+	publicFlags   OptionalUint32
 }
 
 func (u *userImpl) MarshalJSON() ([]byte, error) {
@@ -432,11 +431,11 @@ func (u *userImpl) UnmarshalJSON(bytes []byte) (err error) {
 	return nil
 }
 
-func (u *userImpl) ID() dlib.Snowflake {
+func (u *userImpl) ID() Snowflake {
 	return u.id
 }
 
-func (u *userImpl) SetID(id dlib.Snowflake) User {
+func (u *userImpl) SetID(id Snowflake) User {
 	u.id = id
 
 	return u
@@ -786,13 +785,13 @@ func (u *userImpl) PublicFlagsContains(flag user.Flag) bool {
 	return u.publicFlags.Get()&c == c
 }
 
-func (*userImpl) appendIfSet1(mp map[FieldKey]interface{}, key FieldKey, field dlib.OptionalField) {
+func (*userImpl) appendIfSet1(mp map[FieldKey]interface{}, key FieldKey, field OptionalField) {
 	if field.IsSet() {
 		mp[key] = field
 	}
 }
 
-func (*userImpl) appendIfSet2(mp map[FieldKey]interface{}, key FieldKey, field dlib.TriStateField) {
+func (*userImpl) appendIfSet2(mp map[FieldKey]interface{}, key FieldKey, field TriStateField) {
 	if field.IsSet() {
 		mp[key] = field
 	}

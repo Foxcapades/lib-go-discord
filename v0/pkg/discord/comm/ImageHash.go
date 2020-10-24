@@ -2,7 +2,7 @@ package comm
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 type ImageHash string
@@ -34,7 +34,7 @@ func (n NullableImageHash) IsNotNull() bool {
 	return n.hash != nil
 }
 
-func (n *NullableImageHash) SetNull() dlib.NullableField {
+func (n *NullableImageHash) SetNull() discord.NullableField {
 	n.hash = nil
 	return n
 }

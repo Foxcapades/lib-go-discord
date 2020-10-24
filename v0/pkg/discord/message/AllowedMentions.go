@@ -1,6 +1,8 @@
 package message
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+)
 
 type AllowedMentions interface {
 	// Parse returns the current value of this record's `parse` field.
@@ -16,17 +18,17 @@ type AllowedMentions interface {
 	//
 	// The `roles` field contains an array of role_ids to mention (Max size of
 	// 100).
-	Roles() []dlib.Snowflake
+	Roles() []discord.Snowflake
 
 	// SetRoles overwrites the current value of this record's `roles` field.
-	SetRoles([]dlib.Snowflake) AllowedMentions
+	SetRoles([]discord.Snowflake) AllowedMentions
 
 	// Users returns the current value of this record's `users` field.
 	//
 	// The `users` field contains an array of user_ids to mention (Max size of
 	// 100).
-	Users() []dlib.Snowflake
+	Users() []discord.Snowflake
 
 	// SetUsers overwrites the current value of this record's `users` field.
-	SetUsers([]dlib.Snowflake) AllowedMentions
+	SetUsers([]discord.Snowflake) AllowedMentions
 }

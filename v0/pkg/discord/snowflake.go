@@ -1,4 +1,4 @@
-package dlib
+package discord
 
 import (
 	"encoding/json"

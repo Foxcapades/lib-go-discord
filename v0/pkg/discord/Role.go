@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 // ╔════════════════════════════════════════════════════════════════════════╗ //
@@ -31,8 +29,8 @@ type Role interface {
 	json.Unmarshaler
 
 	// role id
-	ID() dlib.Snowflake
-	SetID(id dlib.Snowflake) Role
+	ID() Snowflake
+	SetID(id Snowflake) Role
 
 	// role name
 	Name() string
@@ -90,7 +88,7 @@ func NewRole(validate bool) Role {
 type roleImpl struct {
 	validate bool
 
-	id          dlib.Snowflake
+	id          Snowflake
 	name        string
 	color       comm.Color
 	hoist       bool
@@ -153,11 +151,11 @@ func (r *roleImpl) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (r *roleImpl) ID() dlib.Snowflake {
+func (r *roleImpl) ID() Snowflake {
 	return r.id
 }
 
-func (r *roleImpl) SetID(id dlib.Snowflake) Role {
+func (r *roleImpl) SetID(id Snowflake) Role {
 	r.id = id
 
 	return r

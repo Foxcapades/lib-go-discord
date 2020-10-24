@@ -3,7 +3,6 @@ package discord
 import (
 	"encoding/json"
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 var (
@@ -32,7 +31,7 @@ func NewBan(validate bool) Ban {
 type banImpl struct {
 	validate bool
 
-	reason dlib.NullableString
+	reason NullableString
 	user   User
 }
 

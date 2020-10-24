@@ -4,7 +4,6 @@ import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm/image"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type GuildPatch interface {
@@ -167,7 +166,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use AFKChannelIDIsReadable to check if the field is
 	// present and non-null before use.
-	AFKChannelID() dlib.Snowflake
+	AFKChannelID() discord.Snowflake
 
 	// AFKChannelIDIsNull returns whether this request's `afk_channel_id` field is
 	// currently null.
@@ -183,7 +182,7 @@ type GuildPatch interface {
 
 	// SetAFKChannelID overwrites the current value of this request's
 	// `afk_channel_id` field.
-	SetAFKChannelID(dlib.Snowflake) GuildPatch
+	SetAFKChannelID(discord.Snowflake) GuildPatch
 
 	// SetNullAFKChannelID overwrites the current value of this request's
 	// `afk_channel_id` field with `null`.
@@ -248,14 +247,14 @@ type GuildPatch interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use OwnerIDIsSet to check if the field is present before use.
-	OwnerID() dlib.Snowflake
+	OwnerID() discord.Snowflake
 
 	// OwnerIDIsSet returns whether this request's `owner_id` field is currently
 	// present.
 	OwnerIDIsSet() bool
 
 	// SetOwnerID overwrites the current value of this request's `owner_id` field.
-	SetOwnerID(dlib.Snowflake) GuildPatch
+	SetOwnerID(discord.Snowflake) GuildPatch
 
 	// UnsetOwnerID removes this request's `owner_id` field.
 	UnsetOwnerID() GuildPatch
@@ -331,7 +330,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use SystemChannelIDIsReadable to check if the field is
 	// present and non-null before use.
-	SystemChannelID() dlib.Snowflake
+	SystemChannelID() discord.Snowflake
 
 	// SystemChannelIDIsNull returns whether this request's `system_channel_id` field is currently null.
 	SystemChannelIDIsNull() bool
@@ -344,7 +343,7 @@ type GuildPatch interface {
 	SystemChannelIDIsReadable() bool
 
 	// SetSystemChannelID overwrites the current value of this request's `system_channel_id` field.
-	SetSystemChannelID(dlib.Snowflake) GuildPatch
+	SetSystemChannelID(discord.Snowflake) GuildPatch
 
 	// SetNullSystemChannelID overwrites the current value of this request's `system_channel_id` field
 	// with `null`.
@@ -360,7 +359,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use RulesChannelIDIsReadable to check if the field is
 	// present and non-null before use.
-	RulesChannelID() dlib.Snowflake
+	RulesChannelID() discord.Snowflake
 
 	// RulesChannelIDIsNull returns whether this request's `rules_channel_id` field is currently null.
 	RulesChannelIDIsNull() bool
@@ -373,7 +372,7 @@ type GuildPatch interface {
 	RulesChannelIDIsReadable() bool
 
 	// SetRulesChannelID overwrites the current value of this request's `rules_channel_id` field.
-	SetRulesChannelID(dlib.Snowflake) GuildPatch
+	SetRulesChannelID(discord.Snowflake) GuildPatch
 
 	// SetNullRulesChannelID overwrites the current value of this request's `rules_channel_id` field
 	// with `null`.
@@ -389,7 +388,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use PublicUpdatesChannelIDIsReadable to check if the field is
 	// present and non-null before use.
-	PublicUpdatesChannelID() dlib.Snowflake
+	PublicUpdatesChannelID() discord.Snowflake
 
 	// PublicUpdatesChannelIDIsNull returns whether this request's `public_updates_channel_id` field is currently null.
 	PublicUpdatesChannelIDIsNull() bool
@@ -402,7 +401,7 @@ type GuildPatch interface {
 	PublicUpdatesChannelIDIsReadable() bool
 
 	// SetPublicUpdatesChannelID overwrites the current value of this request's `public_updates_channel_id` field.
-	SetPublicUpdatesChannelID(dlib.Snowflake) GuildPatch
+	SetPublicUpdatesChannelID(discord.Snowflake) GuildPatch
 
 	// SetNullPublicUpdatesChannelID overwrites the current value of this request's `public_updates_channel_id` field
 	// with `null`.

@@ -2,13 +2,12 @@ package discord
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type UserApplication interface {
 	// the id of the app
-	ID() dlib.Snowflake
-	SetID(id dlib.Snowflake) UserApplication
+	ID() Snowflake
+	SetID(id Snowflake) UserApplication
 
 	// the name of the app
 	Name() string

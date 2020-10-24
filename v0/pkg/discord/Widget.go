@@ -2,7 +2,6 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type Widget interface {
@@ -27,7 +26,7 @@ type Widget interface {
 	// If the guild widget's `channel_id` field is null when this method is
 	// called, this method will panic.  Check the field's null state with the
 	// ChannelIDIsNull method.
-	ChannelID() dlib.Snowflake
+	ChannelID() Snowflake
 
 	// ChannelIDIsNull returns whether the current value of this guild widget
 	// object's `channel_id` field is `null`.
@@ -35,7 +34,7 @@ type Widget interface {
 
 	// SetChannelID overwrites the current value of this guild widget's
 	// `channel_id` field with the given param value.
-	SetChannelID(id dlib.Snowflake) Widget
+	SetChannelID(id Snowflake) Widget
 
 	// SetNullChannelID sets the current value of this guild widget's `channel_id`
 	// field to `null`.
@@ -50,7 +49,7 @@ func NewWidget() Widget {
 
 type widgetImpl struct {
 	enabled bool
-	id      dlib.NullableSnowflake
+	id      NullableSnowflake
 }
 
 func (w *widgetImpl) MarshalJSON() ([]byte, error) {
@@ -93,7 +92,7 @@ func (w *widgetImpl) SetEnabled(b bool) Widget {
 	return w
 }
 
-func (w *widgetImpl) ChannelID() dlib.Snowflake {
+func (w *widgetImpl) ChannelID() Snowflake {
 	return w.id.Get()
 }
 
@@ -101,7 +100,7 @@ func (w *widgetImpl) ChannelIDIsNull() bool {
 	return w.id.IsNull()
 }
 
-func (w *widgetImpl) SetChannelID(id dlib.Snowflake) Widget {
+func (w *widgetImpl) SetChannelID(id Snowflake) Widget {
 	w.id.Set(id)
 	return w
 }

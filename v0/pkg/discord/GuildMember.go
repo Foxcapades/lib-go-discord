@@ -1,12 +1,17 @@
 package discord
 
 import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
 type GuildMember interface {
+	json.Marshaler
+	json.Unmarshaler
+	comm.Validatable
+
 	// the user this guild member represents
 	// The field user won't be included in the member object attached to MESSAGE_CREATE and MESSAGE_UPDATE gateway events.
 	User() User
@@ -21,8 +26,8 @@ type GuildMember interface {
 	SetNullNick() GuildMember
 
 	// array of role object ids
-	Roles() []dlib.Snowflake
-	SetRoles(roleIds []dlib.Snowflake) GuildMember
+	Roles() []Snowflake
+	SetRoles(roleIds []Snowflake) GuildMember
 
 	// when the user joined the guild
 	JoinedAt() time.Time
@@ -43,4 +48,8 @@ type GuildMember interface {
 	// whether the user is muted in voice channels
 	Mute() bool
 	SetMute(bool) GuildMember
+}
+
+func NewGuildMember(validate bool) GuildMember {
+	panic("implement me")
 }

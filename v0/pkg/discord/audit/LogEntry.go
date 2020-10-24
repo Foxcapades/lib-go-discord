@@ -1,6 +1,8 @@
 package audit
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+)
 
 type LogEntry interface {
 	// TargetID returns the current value of this record's `target_id` field.
@@ -45,18 +47,18 @@ type LogEntry interface {
 	// UserID returns the current value of this record's `user_id` field.
 	//
 	// The `user_id` field contains the id of the user who made the changes.
-	UserID() dlib.Snowflake
+	UserID() discord.Snowflake
 
 	// SetUserID overwrites the current value of this record's `user_id` field.
-	SetUserID(dlib.Snowflake) LogEntry
+	SetUserID(discord.Snowflake) LogEntry
 
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of the entry.
-	ID() dlib.Snowflake
+	ID() discord.Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) LogEntry
+	SetID(discord.Snowflake) LogEntry
 
 	// ActionType returns the current value of this record's `action_type` field.
 	//

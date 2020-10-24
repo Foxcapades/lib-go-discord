@@ -3,7 +3,6 @@ package discord
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -12,20 +11,20 @@ type Message interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of the message.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Message
+	SetID(Snowflake) Message
 
 	// ChannelID returns the current value of this record's `channel_id` field.
 	//
 	// The `channel_id` field contains the id of the channel the message was sent
 	// in.
-	ChannelID() dlib.Snowflake
+	ChannelID() Snowflake
 
 	// SetChannelID overwrites the current value of this record's `channel_id`
 	// field.
-	SetChannelID(dlib.Snowflake) Message
+	SetChannelID(Snowflake) Message
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -33,14 +32,14 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use GuildIDIsSet to check if the field is present before use.
-	GuildID() dlib.Snowflake
+	GuildID() Snowflake
 
 	// GuildIDIsSet returns whether this record's `guild_id` field is currently
 	// present.
 	GuildIDIsSet() bool
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) Message
+	SetGuildID(Snowflake) Message
 
 	// UnsetGuildID removes this record's `guild_id` field.
 	UnsetGuildID() Message
@@ -265,7 +264,7 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use WebhookIDIsSet to check if the field is present before use.
-	WebhookID() dlib.Snowflake
+	WebhookID() Snowflake
 
 	// WebhookIDIsSet returns whether this record's `webhook_id` field is
 	// currently present.
@@ -273,7 +272,7 @@ type Message interface {
 
 	// SetWebhookID overwrites the current value of this record's `webhook_id`
 	// field.
-	SetWebhookID(dlib.Snowflake) Message
+	SetWebhookID(Snowflake) Message
 
 	// UnsetWebhookID removes this record's `webhook_id` field.
 	UnsetWebhookID() Message

@@ -2,7 +2,6 @@ package discord
 
 import (
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 var (
@@ -83,9 +82,9 @@ func (t TriStateFlagField) Unset() {
 func (t TriStateFlagField) Get() MessageFlag {
 	if t.value == nil {
 		if t.null {
-			panic(dlib.ErrNullField)
+			panic(ErrNullField)
 		} else {
-			panic(dlib.ErrUnsetField)
+			panic(ErrUnsetField)
 		}
 	}
 

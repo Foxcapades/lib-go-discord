@@ -1,6 +1,8 @@
 package activity
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+)
 
 type Emoji interface {
 	// Name returns the current value of this record's `name` field.
@@ -17,13 +19,13 @@ type Emoji interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use IDIsSet to check if the field is present before use.
-	ID() dlib.Snowflake
+	ID() discord.Snowflake
 
 	// IDIsSet returns whether this record's `id` field is currently present.
 	IDIsSet() bool
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Emoji
+	SetID(discord.Snowflake) Emoji
 
 	// UnsetID removes this record's `id` field.
 	UnsetID() Emoji

@@ -2,7 +2,6 @@ package discord_test
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -25,7 +24,7 @@ func TestUserImpl_MarshalJSON(t *testing.T) {
 
 				Convey("the `username` field value is empty", func() {
 					target := discord.NewUser(true).
-						SetID(dlib.Snowflake{}).
+						SetID(discord.Snowflake{}).
 						SetDiscriminator(1234)
 
 					a, b := target.MarshalJSON()
@@ -36,7 +35,7 @@ func TestUserImpl_MarshalJSON(t *testing.T) {
 
 				Convey("the `discriminator` field value is 0", func() {
 					target := discord.NewUser(true).
-						SetID(dlib.Snowflake{}).
+						SetID(discord.Snowflake{}).
 						SetDiscriminator(1234)
 
 					a, b := target.MarshalJSON()

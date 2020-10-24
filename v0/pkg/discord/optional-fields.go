@@ -1,4 +1,4 @@
-package dlib
+package discord
 
 import (
 	"encoding/json"
@@ -10,6 +10,8 @@ var (
 	ErrUnsetField = errors.New("cannot get a value from an absent field; " +
 		"use the *IsSet method before attempting to unwrap a nullable field")
 	ErrSerializeUnset = errors.New("cannot serialize an absent field")
+	ErrSetNilOptionalVal = errors.New("attempted to set a nil value using an" +
+		" OptionalField's Set method")
 )
 
 type OptionContainer interface {

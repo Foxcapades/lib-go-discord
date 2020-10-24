@@ -1,8 +1,8 @@
 package gateway
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/gateway/activity"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -90,13 +90,13 @@ type Activity interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ApplicationIDIsSet to check if the field is present before use.
-	ApplicationID() dlib.Snowflake
+	ApplicationID() discord.Snowflake
 
 	// ApplicationIDIsSet returns whether this record's `application_id` field is currently present.
 	ApplicationIDIsSet() bool
 
 	// SetApplicationID overwrites the current value of this record's `application_id` field.
-	SetApplicationID(dlib.Snowflake) Activity
+	SetApplicationID(discord.Snowflake) Activity
 
 	// UnsetApplicationID removes this record's `application_id` field.
 	UnsetApplicationID() Activity

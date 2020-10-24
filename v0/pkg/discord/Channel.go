@@ -4,7 +4,6 @@ import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -12,10 +11,10 @@ type Channel interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of this channel.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Channel
+	SetID(Snowflake) Channel
 
 	// Type returns the current value of this record's `type` field.
 	//
@@ -31,14 +30,14 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use GuildIDIsSet to check if the field is present before use.
-	GuildID() dlib.Snowflake
+	GuildID() Snowflake
 
 	// GuildIDIsSet returns whether this record's `guild_id` field is currently
 	// present.
 	GuildIDIsSet() bool
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) Channel
+	SetGuildID(Snowflake) Channel
 
 	// UnsetGuildID removes this record's `guild_id` field.
 	UnsetGuildID() Channel
@@ -156,7 +155,7 @@ type Channel interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use LastMessageIDIsReadable to check if the field
 	// is present and non-null before use.
-	LastMessageID() dlib.Snowflake
+	LastMessageID() Snowflake
 
 	// LastMessageIDIsNull returns whether this record's `last_message_id` field
 	// is currently null.
@@ -172,7 +171,7 @@ type Channel interface {
 
 	// SetLastMessageID overwrites the current value of this record's
 	// `last_message_id` field.
-	SetLastMessageID(dlib.Snowflake) Channel
+	SetLastMessageID(Snowflake) Channel
 
 	// SetNullLastMessageID overwrites the current value of this record's
 	// `last_message_id` field with `null`.
@@ -294,14 +293,14 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use OwnerIDIsSet to check if the field is present before use.
-	OwnerID() dlib.Snowflake
+	OwnerID() Snowflake
 
 	// OwnerIDIsSet returns whether this record's `owner_id` field is currently
 	// present.
 	OwnerIDIsSet() bool
 
 	// SetOwnerID overwrites the current value of this record's `owner_id` field.
-	SetOwnerID(dlib.Snowflake) Channel
+	SetOwnerID(Snowflake) Channel
 
 	// UnsetOwnerID removes this record's `owner_id` field.
 	UnsetOwnerID() Channel
@@ -314,7 +313,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ApplicationIDIsSet to check if the field is present before use.
-	ApplicationID() dlib.Snowflake
+	ApplicationID() Snowflake
 
 	// ApplicationIDIsSet returns whether this record's `application_id` field is
 	// currently present.
@@ -322,7 +321,7 @@ type Channel interface {
 
 	// SetApplicationID overwrites the current value of this record's
 	// `application_id` field.
-	SetApplicationID(dlib.Snowflake) Channel
+	SetApplicationID(Snowflake) Channel
 
 	// UnsetApplicationID removes this record's `application_id` field.
 	UnsetApplicationID() Channel
@@ -335,7 +334,7 @@ type Channel interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use ParentIDIsReadable to check if the field is
 	// present and non-null before use.
-	ParentID() dlib.Snowflake
+	ParentID() Snowflake
 
 	// ParentIDIsNull returns whether this record's `parent_id` field is currently
 	// null.
@@ -351,7 +350,7 @@ type Channel interface {
 
 	// SetParentID overwrites the current value of this record's `parent_id`
 	// field.
-	SetParentID(dlib.Snowflake) Channel
+	SetParentID(Snowflake) Channel
 
 	// SetNullParentID overwrites the current value of this record's `parent_id`
 	// field with `null`.

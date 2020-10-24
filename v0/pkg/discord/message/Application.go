@@ -1,15 +1,17 @@
 package message
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+)
 
 type Application interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of the application.
-	ID() dlib.Snowflake
+	ID() discord.Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Application
+	SetID(discord.Snowflake) Application
 
 	// CoverImage returns the current value of this record's `cover_image` field.
 	//

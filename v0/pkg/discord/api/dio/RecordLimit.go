@@ -2,7 +2,7 @@ package dio
 
 import (
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"strconv"
 )
 
@@ -50,7 +50,7 @@ func (o *OptionalRecordLimit) Set(limit RecordLimit) {
 
 func (o *OptionalRecordLimit) Get() RecordLimit {
 	if o.value == nil {
-		panic(dlib.ErrUnsetField)
+		panic(discord.ErrUnsetField)
 	}
 
 	return *o.value

@@ -3,7 +3,6 @@ package discord
 import (
 	"encoding/json"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type Webhook interface {
@@ -13,10 +12,10 @@ type Webhook interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of the webhook.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Webhook
+	SetID(Snowflake) Webhook
 
 	// Type returns the current value of this record's `type` field.
 	//
@@ -32,14 +31,14 @@ type Webhook interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use GuildIDIsSet to check if the field is present before use.
-	GuildID() dlib.Snowflake
+	GuildID() Snowflake
 
 	// GuildIDIsSet returns whether this record's `guild_id` field is currently
 	// present.
 	GuildIDIsSet() bool
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) Webhook
+	SetGuildID(Snowflake) Webhook
 
 	// UnsetGuildID removes this record's `guild_id` field.
 	UnsetGuildID() Webhook
@@ -47,11 +46,11 @@ type Webhook interface {
 	// ChannelID returns the current value of this record's `channel_id` field.
 	//
 	// The `channel_id` field contains the channel id this webhook is for.
-	ChannelID() dlib.Snowflake
+	ChannelID() Snowflake
 
 	// SetChannelID overwrites the current value of this record's `channel_id`
 	// field.
-	SetChannelID(dlib.Snowflake) Webhook
+	SetChannelID(Snowflake) Webhook
 
 	// User returns the current value of this record's `user` field.
 	//
@@ -135,7 +134,7 @@ type Webhook interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use ApplicationIDIsNull to check if the field is null before use.
-	ApplicationID() dlib.Snowflake
+	ApplicationID() Snowflake
 
 	// ApplicationIDIsNull returns whether this record's `application_id` field is
 	// currently null.
@@ -143,7 +142,7 @@ type Webhook interface {
 
 	// SetApplicationID overwrites the current value of this record's
 	// `application_id` field.
-	SetApplicationID(dlib.Snowflake) Webhook
+	SetApplicationID(Snowflake) Webhook
 
 	// SetNullApplicationID overwrites the current value of this record's
 	// `application_id` field with `null`.
@@ -151,15 +150,15 @@ type Webhook interface {
 }
 
 type webhookImpl struct {
-	id        dlib.Snowflake
+	id        Snowflake
 	kind      WebhookType
-	guildID   dlib.OptionalSnowflake
-	channelID dlib.Snowflake
+	guildID   OptionalSnowflake
+	channelID Snowflake
 	user      OptionalUser
-	name      dlib.NullableString
+	name      NullableString
 	avatar    comm.NullableImageHash
-	token     dlib.OptionalString
-	appID     dlib.NullableSnowflake
+	token     OptionalString
+	appID     NullableSnowflake
 }
 
 func (w *webhookImpl) MarshalJSON() ([]byte, error) {
@@ -193,8 +192,10 @@ func (w *webhookImpl) UnmarshalJSON(bytes []byte) error {
 	}
 
 	for k, u := range unm {
-		if err := u.UnmarshalJSON(tmp[k]); err != nil {
-			return err
+		if _, ok := tmp[k]; ok {
+			if err := u.UnmarshalJSON(tmp[k]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -207,11 +208,11 @@ func (w *webhookImpl) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (w *webhookImpl) ID() dlib.Snowflake {
+func (w *webhookImpl) ID() Snowflake {
 	return w.id
 }
 
-func (w *webhookImpl) SetID(id dlib.Snowflake) Webhook {
+func (w *webhookImpl) SetID(id Snowflake) Webhook {
 	w.id = id
 	return w
 }
@@ -225,7 +226,7 @@ func (w *webhookImpl) SetType(kind WebhookType) Webhook {
 	return w
 }
 
-func (w *webhookImpl) GuildID() dlib.Snowflake {
+func (w *webhookImpl) GuildID() Snowflake {
 	return w.guildID.Get()
 }
 
@@ -233,7 +234,7 @@ func (w *webhookImpl) GuildIDIsSet() bool {
 	return w.guildID.IsSet()
 }
 
-func (w *webhookImpl) SetGuildID(id dlib.Snowflake) Webhook {
+func (w *webhookImpl) SetGuildID(id Snowflake) Webhook {
 	w.guildID.Set(id)
 	return w
 }
@@ -243,11 +244,11 @@ func (w *webhookImpl) UnsetGuildID() Webhook {
 	return w
 }
 
-func (w *webhookImpl) ChannelID() dlib.Snowflake {
+func (w *webhookImpl) ChannelID() Snowflake {
 	return w.channelID
 }
 
-func (w *webhookImpl) SetChannelID(id dlib.Snowflake) Webhook {
+func (w *webhookImpl) SetChannelID(id Snowflake) Webhook {
 	w.channelID = id
 	return w
 }
@@ -324,7 +325,7 @@ func (w *webhookImpl) UnsetToken() Webhook {
 	return w
 }
 
-func (w *webhookImpl) ApplicationID() dlib.Snowflake {
+func (w *webhookImpl) ApplicationID() Snowflake {
 	return w.appID.Get()
 }
 
@@ -332,7 +333,7 @@ func (w *webhookImpl) ApplicationIDIsNull() bool {
 	return w.appID.IsNull()
 }
 
-func (w *webhookImpl) SetApplicationID(id dlib.Snowflake) Webhook {
+func (w *webhookImpl) SetApplicationID(id Snowflake) Webhook {
 	w.appID.Set(id)
 	return w
 }

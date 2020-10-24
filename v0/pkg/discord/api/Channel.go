@@ -3,14 +3,13 @@ package api
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/api/dio"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 type ChannelAPI interface {
 	// Get a channel by ID.
 	//
 	// Returns a channel object.
-	Get(id dlib.Snowflake) (discord.Channel, error)
+	Get(id discord.Snowflake) (discord.Channel, error)
 
 	// Patch updates a channel's settings.
 	//
@@ -20,7 +19,7 @@ type ChannelAPI interface {
 	// Channel Update events will fire for each child channel that also changes.
 	//
 	// Returns a channel on success, and a 400 BAD REQUEST on invalid parameters.
-	Patch(dlib.Snowflake, dio.ChannelPatch) (discord.Channel, error)
+	Patch(discord.Snowflake, dio.ChannelPatch) (discord.Channel, error)
 
 	// Delete a channel, or close a private message.
 	//
@@ -39,7 +38,7 @@ type ChannelAPI interface {
 	//
 	// For Community guilds, the Rules or Guidelines channel and the Community
 	// Updates channel cannot be deleted.
-	Delete(id dlib.Snowflake) error
+	Delete(id discord.Snowflake) error
 
 	// EditPermissions updates the channel permission overwrites for a user or
 	// role in a channel.
@@ -47,7 +46,7 @@ type ChannelAPI interface {
 	// Only usable for guild channels.
 	//
 	// Requires the MANAGE_ROLES permission.
-	EditPermissions(id dlib.Snowflake, patch dio.ChannelPermissionPatch) error
+	EditPermissions(id discord.Snowflake, patch dio.ChannelPermissionPatch) error
 
 	// GetInvites returns a list of invite objects (with invite metadata) for the
 	// channel.
@@ -55,7 +54,7 @@ type ChannelAPI interface {
 	// Only usable for guild channels.
 	//
 	// Requires the MANAGE_CHANNELS permission.
-	GetInvites(id dlib.Snowflake) ([]discord.Invite, error)
+	GetInvites(id discord.Snowflake) ([]discord.Invite, error)
 
 	Messages() MessageAPI
 }

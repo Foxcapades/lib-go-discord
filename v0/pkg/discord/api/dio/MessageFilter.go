@@ -1,6 +1,8 @@
 package dio
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+)
 
 // The before, after, and around keys are mutually exclusive, only one may be
 // passed at a time.
@@ -9,14 +11,14 @@ type MessageFilter interface {
 	//
 	// If this method is called on a param that is unset, this method will panic.
 	// Use AroundIsSet to check if the param is present before use.
-	Around() dlib.Snowflake
+	Around() discord.Snowflake
 
 	// AroundIsSet returns whether this filter's `around` param is currently
 	// present.
 	AroundIsSet() bool
 
 	// SetAround overwrites the current value of this filter's `around` param.
-	SetAround(dlib.Snowflake) MessageFilter
+	SetAround(discord.Snowflake) MessageFilter
 
 	// UnsetAround removes this filter's `around` param.
 	UnsetAround() MessageFilter
@@ -27,13 +29,13 @@ type MessageFilter interface {
 	//
 	// If this method is called on a param that is unset, this method will panic.
 	// Use BeforeIsSet to check if the param is present before use.
-	Before() dlib.Snowflake
+	Before() discord.Snowflake
 
 	// BeforeIsSet returns whether this record's `before` param is currently present.
 	BeforeIsSet() bool
 
 	// SetBefore overwrites the current value of this record's `before` param.
-	SetBefore(dlib.Snowflake) MessageFilter
+	SetBefore(discord.Snowflake) MessageFilter
 
 	// UnsetBefore removes this record's `before` param.
 	UnsetBefore() MessageFilter
@@ -44,13 +46,13 @@ type MessageFilter interface {
 	//
 	// If this method is called on a param that is unset, this method will panic.
 	// Use AfterIsSet to check if the param is present before use.
-	After() dlib.Snowflake
+	After() discord.Snowflake
 
 	// AfterIsSet returns whether this record's `after` param is currently present.
 	AfterIsSet() bool
 
 	// SetAfter overwrites the current value of this record's `after` param.
-	SetAfter(dlib.Snowflake) MessageFilter
+	SetAfter(discord.Snowflake) MessageFilter
 
 	// UnsetAfter removes this record's `after` param.
 	UnsetAfter() MessageFilter

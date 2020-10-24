@@ -1,9 +1,5 @@
 package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
-)
-
 type Emoji interface {
 	// ID returns the current value of this record's `id` field.
 	//
@@ -11,13 +7,13 @@ type Emoji interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use IDIsNull to check if the field is null before use.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// IDIsNull returns whether this record's `id` field is currently null.
 	IDIsNull() bool
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Emoji
+	SetID(Snowflake) Emoji
 
 	// SetNullID overwrites the current value of this record's `id` field
 	// with `null`.

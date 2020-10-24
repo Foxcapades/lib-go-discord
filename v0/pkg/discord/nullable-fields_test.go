@@ -1,11 +1,10 @@
-package dlib_test
+package discord_test
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"strconv"
-	"testing"
 	"time"
 
-	. "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -15,13 +14,13 @@ func TestNullableInt8
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt8
+					var target discord.NullableInt8
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt8
+					var target discord.NullableInt8
 
 					target.SetNull()
 
@@ -36,7 +35,7 @@ func TestNullableInt8
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt8
+					var target discord.NullableInt8
 
 					target.Set(120)
 
@@ -48,13 +47,13 @@ func TestNullableInt8
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt8
+					var target discord.NullableInt8
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt8
+					var target discord.NullableInt8
 
 					target.SetNull()
 
@@ -69,7 +68,7 @@ func TestNullableInt8
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt8
+					var target discord.NullableInt8
 
 					target.Set(120)
 
@@ -80,7 +79,7 @@ func TestNullableInt8
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableInt8
+				var target discord.NullableInt8
 
 				target.Set(120)
 
@@ -89,15 +88,15 @@ func TestNullableInt8
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableInt8
+				var target discord.NullableInt8
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableInt8
+				var target discord.NullableInt8
 
 				a, b := target.MarshalJSON()
 
@@ -106,7 +105,7 @@ func TestNullableInt8
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableInt8
+				var target discord.NullableInt8
 
 				target.Set(120)
 
@@ -126,13 +125,13 @@ func TestNullableInt16
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt16
+					var target discord.NullableInt16
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt16
+					var target discord.NullableInt16
 
 					target.SetNull()
 
@@ -147,7 +146,7 @@ func TestNullableInt16
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt16
+					var target discord.NullableInt16
 
 					target.Set(32_215)
 
@@ -159,13 +158,13 @@ func TestNullableInt16
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt16
+					var target discord.NullableInt16
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt16
+					var target discord.NullableInt16
 
 					target.SetNull()
 
@@ -180,7 +179,7 @@ func TestNullableInt16
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt16
+					var target discord.NullableInt16
 
 					target.Set(32_215)
 
@@ -191,7 +190,7 @@ func TestNullableInt16
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableInt16
+				var target discord.NullableInt16
 
 				target.Set(32_215)
 
@@ -200,15 +199,15 @@ func TestNullableInt16
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableInt16
+				var target discord.NullableInt16
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableInt16
+				var target discord.NullableInt16
 
 				a, b := target.MarshalJSON()
 
@@ -217,7 +216,7 @@ func TestNullableInt16
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableInt16
+				var target discord.NullableInt16
 
 				target.Set(32_215)
 
@@ -237,13 +236,13 @@ func TestNullableInt32
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt32
+					var target discord.NullableInt32
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt32
+					var target discord.NullableInt32
 
 					target.SetNull()
 
@@ -258,7 +257,7 @@ func TestNullableInt32
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt32
+					var target discord.NullableInt32
 
 					target.Set(3_331_115)
 
@@ -270,13 +269,13 @@ func TestNullableInt32
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt32
+					var target discord.NullableInt32
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt32
+					var target discord.NullableInt32
 
 					target.SetNull()
 
@@ -291,7 +290,7 @@ func TestNullableInt32
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt32
+					var target discord.NullableInt32
 
 					target.Set(3_331_115)
 
@@ -302,7 +301,7 @@ func TestNullableInt32
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableInt32
+				var target discord.NullableInt32
 
 				target.Set(3_331_115)
 
@@ -311,15 +310,15 @@ func TestNullableInt32
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableInt32
+				var target discord.NullableInt32
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableInt32
+				var target discord.NullableInt32
 
 				a, b := target.MarshalJSON()
 
@@ -328,7 +327,7 @@ func TestNullableInt32
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableInt32
+				var target discord.NullableInt32
 
 				target.Set(3_331_115)
 
@@ -348,13 +347,13 @@ func TestNullableInt64
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt64
+					var target discord.NullableInt64
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt64
+					var target discord.NullableInt64
 
 					target.SetNull()
 
@@ -369,7 +368,7 @@ func TestNullableInt64
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt64
+					var target discord.NullableInt64
 
 					target.Set(123_456_789_123)
 
@@ -381,13 +380,13 @@ func TestNullableInt64
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableInt64
+					var target discord.NullableInt64
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableInt64
+					var target discord.NullableInt64
 
 					target.SetNull()
 
@@ -402,7 +401,7 @@ func TestNullableInt64
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableInt64
+					var target discord.NullableInt64
 
 					target.Set(123_456_789_123)
 
@@ -413,7 +412,7 @@ func TestNullableInt64
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableInt64
+				var target discord.NullableInt64
 
 				target.Set(123_456_789_123)
 
@@ -422,15 +421,15 @@ func TestNullableInt64
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableInt64
+				var target discord.NullableInt64
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableInt64
+				var target discord.NullableInt64
 
 				a, b := target.MarshalJSON()
 
@@ -439,7 +438,7 @@ func TestNullableInt64
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableInt64
+				var target discord.NullableInt64
 
 				target.Set(123_456_789_123)
 
@@ -459,13 +458,13 @@ func TestNullableUint8
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint8
+					var target discord.NullableUint8
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint8
+					var target discord.NullableUint8
 
 					target.SetNull()
 
@@ -480,7 +479,7 @@ func TestNullableUint8
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint8
+					var target discord.NullableUint8
 
 					target.Set(250)
 
@@ -492,13 +491,13 @@ func TestNullableUint8
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint8
+					var target discord.NullableUint8
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint8
+					var target discord.NullableUint8
 
 					target.SetNull()
 
@@ -513,7 +512,7 @@ func TestNullableUint8
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint8
+					var target discord.NullableUint8
 
 					target.Set(250)
 
@@ -524,7 +523,7 @@ func TestNullableUint8
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableUint8
+				var target discord.NullableUint8
 
 				target.Set(250)
 
@@ -533,15 +532,15 @@ func TestNullableUint8
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableUint8
+				var target discord.NullableUint8
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableUint8
+				var target discord.NullableUint8
 
 				a, b := target.MarshalJSON()
 
@@ -550,7 +549,7 @@ func TestNullableUint8
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableUint8
+				var target discord.NullableUint8
 
 				target.Set(250)
 
@@ -570,13 +569,13 @@ func TestNullableUint16
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint16
+					var target discord.NullableUint16
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint16
+					var target discord.NullableUint16
 
 					target.SetNull()
 
@@ -591,7 +590,7 @@ func TestNullableUint16
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint16
+					var target discord.NullableUint16
 
 					target.Set(62_000)
 
@@ -603,13 +602,13 @@ func TestNullableUint16
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint16
+					var target discord.NullableUint16
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint16
+					var target discord.NullableUint16
 
 					target.SetNull()
 
@@ -624,7 +623,7 @@ func TestNullableUint16
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint16
+					var target discord.NullableUint16
 
 					target.Set(62_000)
 
@@ -635,7 +634,7 @@ func TestNullableUint16
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableUint16
+				var target discord.NullableUint16
 
 				target.Set(62_000)
 
@@ -644,15 +643,15 @@ func TestNullableUint16
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableUint16
+				var target discord.NullableUint16
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableUint16
+				var target discord.NullableUint16
 
 				a, b := target.MarshalJSON()
 
@@ -661,7 +660,7 @@ func TestNullableUint16
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableUint16
+				var target discord.NullableUint16
 
 				target.Set(62_000)
 
@@ -681,13 +680,13 @@ func TestNullableUint32
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint32
+					var target discord.NullableUint32
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint32
+					var target discord.NullableUint32
 
 					target.SetNull()
 
@@ -702,7 +701,7 @@ func TestNullableUint32
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint32
+					var target discord.NullableUint32
 
 					target.Set(10_880_000)
 
@@ -714,13 +713,13 @@ func TestNullableUint32
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint32
+					var target discord.NullableUint32
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint32
+					var target discord.NullableUint32
 
 					target.SetNull()
 
@@ -735,7 +734,7 @@ func TestNullableUint32
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint32
+					var target discord.NullableUint32
 
 					target.Set(10_880_000)
 
@@ -746,7 +745,7 @@ func TestNullableUint32
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableUint32
+				var target discord.NullableUint32
 
 				target.Set(10_880_000)
 
@@ -755,15 +754,15 @@ func TestNullableUint32
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableUint32
+				var target discord.NullableUint32
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableUint32
+				var target discord.NullableUint32
 
 				a, b := target.MarshalJSON()
 
@@ -772,7 +771,7 @@ func TestNullableUint32
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableUint32
+				var target discord.NullableUint32
 
 				target.Set(10_880_000)
 
@@ -792,13 +791,13 @@ func TestNullableUint64
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint64
+					var target discord.NullableUint64
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint64
+					var target discord.NullableUint64
 
 					target.SetNull()
 
@@ -813,7 +812,7 @@ func TestNullableUint64
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint64
+					var target discord.NullableUint64
 
 					target.Set(999_999_999_999)
 
@@ -825,13 +824,13 @@ func TestNullableUint64
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableUint64
+					var target discord.NullableUint64
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableUint64
+					var target discord.NullableUint64
 
 					target.SetNull()
 
@@ -846,7 +845,7 @@ func TestNullableUint64
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableUint64
+					var target discord.NullableUint64
 
 					target.Set(999_999_999_999)
 
@@ -857,7 +856,7 @@ func TestNullableUint64
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableUint64
+				var target discord.NullableUint64
 
 				target.Set(999_999_999_999)
 
@@ -866,15 +865,15 @@ func TestNullableUint64
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableUint64
+				var target discord.NullableUint64
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableUint64
+				var target discord.NullableUint64
 
 				a, b := target.MarshalJSON()
 
@@ -883,7 +882,7 @@ func TestNullableUint64
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableUint64
+				var target discord.NullableUint64
 
 				target.Set(999_999_999_999)
 
@@ -903,13 +902,13 @@ func TestNullableFloat32
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableFloat32
+					var target discord.NullableFloat32
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableFloat32
+					var target discord.NullableFloat32
 
 					target.SetNull()
 
@@ -924,7 +923,7 @@ func TestNullableFloat32
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableFloat32
+					var target discord.NullableFloat32
 
 					target.Set(1.234512)
 
@@ -936,13 +935,13 @@ func TestNullableFloat32
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableFloat32
+					var target discord.NullableFloat32
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableFloat32
+					var target discord.NullableFloat32
 
 					target.SetNull()
 
@@ -957,7 +956,7 @@ func TestNullableFloat32
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableFloat32
+					var target discord.NullableFloat32
 
 					target.Set(1.234512)
 
@@ -968,7 +967,7 @@ func TestNullableFloat32
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableFloat32
+				var target discord.NullableFloat32
 
 				target.Set(1.234512)
 
@@ -977,15 +976,15 @@ func TestNullableFloat32
 			// [0.00001]
 
 			Convey("panics when no value is set", func() {
-				var target NullableFloat32
+				var target discord.NullableFloat32
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableFloat32
+				var target discord.NullableFloat32
 
 				a, b := target.MarshalJSON()
 
@@ -994,7 +993,7 @@ func TestNullableFloat32
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableFloat32
+				var target discord.NullableFloat32
 
 				target.Set(1.234512)
 
@@ -1014,13 +1013,13 @@ func TestNullableFloat64
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableFloat64
+					var target discord.NullableFloat64
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableFloat64
+					var target discord.NullableFloat64
 
 					target.SetNull()
 
@@ -1035,7 +1034,7 @@ func TestNullableFloat64
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableFloat64
+					var target discord.NullableFloat64
 
 					target.Set(12345.123456789)
 
@@ -1047,13 +1046,13 @@ func TestNullableFloat64
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableFloat64
+					var target discord.NullableFloat64
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableFloat64
+					var target discord.NullableFloat64
 
 					target.SetNull()
 
@@ -1068,7 +1067,7 @@ func TestNullableFloat64
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableFloat64
+					var target discord.NullableFloat64
 
 					target.Set(12345.123456789)
 
@@ -1079,7 +1078,7 @@ func TestNullableFloat64
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableFloat64
+				var target discord.NullableFloat64
 
 				target.Set(12345.123456789)
 
@@ -1088,15 +1087,15 @@ func TestNullableFloat64
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableFloat64
+				var target discord.NullableFloat64
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableFloat64
+				var target discord.NullableFloat64
 
 				a, b := target.MarshalJSON()
 
@@ -1105,7 +1104,7 @@ func TestNullableFloat64
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableFloat64
+				var target discord.NullableFloat64
 
 				target.Set(12345.1234567891)
 
@@ -1125,13 +1124,13 @@ func TestNullableBool
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableBool
+					var target discord.NullableBool
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableBool
+					var target discord.NullableBool
 
 					target.SetNull()
 
@@ -1146,7 +1145,7 @@ func TestNullableBool
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableBool
+					var target discord.NullableBool
 
 					target.Set(true)
 
@@ -1158,13 +1157,13 @@ func TestNullableBool
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableBool
+					var target discord.NullableBool
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableBool
+					var target discord.NullableBool
 
 					target.SetNull()
 
@@ -1179,7 +1178,7 @@ func TestNullableBool
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableBool
+					var target discord.NullableBool
 
 					target.Set(true)
 
@@ -1190,7 +1189,7 @@ func TestNullableBool
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableBool
+				var target discord.NullableBool
 
 				target.Set(true)
 
@@ -1199,15 +1198,15 @@ func TestNullableBool
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableBool
+				var target discord.NullableBool
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableBool
+				var target discord.NullableBool
 
 				a, b := target.MarshalJSON()
 
@@ -1216,7 +1215,7 @@ func TestNullableBool
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableBool
+				var target discord.NullableBool
 
 				target.Set(true)
 
@@ -1236,13 +1235,13 @@ func TestNullableString
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableString
+					var target discord.NullableString
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableString
+					var target discord.NullableString
 
 					target.SetNull()
 
@@ -1257,7 +1256,7 @@ func TestNullableString
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableString
+					var target discord.NullableString
 
 					target.Set("hello world")
 
@@ -1269,13 +1268,13 @@ func TestNullableString
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableString
+					var target discord.NullableString
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableString
+					var target discord.NullableString
 
 					target.SetNull()
 
@@ -1290,7 +1289,7 @@ func TestNullableString
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableString
+					var target discord.NullableString
 
 					target.Set("hello world")
 
@@ -1301,7 +1300,7 @@ func TestNullableString
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableString
+				var target discord.NullableString
 
 				target.Set("hello world")
 
@@ -1310,15 +1309,15 @@ func TestNullableString
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableString
+				var target discord.NullableString
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableString
+				var target discord.NullableString
 
 				a, b := target.MarshalJSON()
 
@@ -1327,7 +1326,7 @@ func TestNullableString
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableString
+				var target discord.NullableString
 
 				target.Set("hello world")
 
@@ -1347,19 +1346,19 @@ func TestNullableSnowflake
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableSnowflake
+					var target discord.NullableSnowflake
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableSnowflake
+					var target discord.NullableSnowflake
 
 					target.SetNull()
 
 					So(target.IsNull(), ShouldBeTrue)
 
-					target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {out := discord.Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 					target.SetNull()
 
 					So(target.IsNull(), ShouldBeTrue)
@@ -1368,9 +1367,9 @@ func TestNullableSnowflake
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableSnowflake
+					var target discord.NullableSnowflake
 
-					target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {out := discord.Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
 					So(target.IsNull(), ShouldBeFalse)
 				})
@@ -1380,19 +1379,19 @@ func TestNullableSnowflake
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableSnowflake
+					var target discord.NullableSnowflake
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableSnowflake
+					var target discord.NullableSnowflake
 
 					target.SetNull()
 
 					So(target.IsNotNull(), ShouldBeFalse)
 
-					target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {out := discord.Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 					target.SetNull()
 
 					So(target.IsNotNull(), ShouldBeFalse)
@@ -1401,9 +1400,9 @@ func TestNullableSnowflake
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableSnowflake
+					var target discord.NullableSnowflake
 
-					target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {out := discord.Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
 					So(target.IsNotNull(), ShouldBeTrue)
 				})
@@ -1412,24 +1411,24 @@ func TestNullableSnowflake
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableSnowflake
+				var target discord.NullableSnowflake
 
-				target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
+				target.Set(func() discord.Snowflake {out := discord.Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
 				So(target.Get().RawValue(),ShouldEqual,123456789123)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableSnowflake
+				var target discord.NullableSnowflake
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableSnowflake
+				var target discord.NullableSnowflake
 
 				a, b := target.MarshalJSON()
 
@@ -1438,9 +1437,9 @@ func TestNullableSnowflake
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableSnowflake
+				var target discord.NullableSnowflake
 
-				target.Set(func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
+				target.Set(func() discord.Snowflake {out := discord.Snowflake{}; out.SetRawValue(123_456_789_123); return out}())
 
 				a, b := target.MarshalJSON()
 
@@ -1458,13 +1457,13 @@ func TestNullableTime
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {
 				Convey("when first constructed", func() {
-					var target NullableTime
+					var target discord.NullableTime
 
 					So(target.IsNull(), ShouldBeTrue)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableTime
+					var target discord.NullableTime
 
 					target.SetNull()
 
@@ -1479,7 +1478,7 @@ func TestNullableTime
 
 			Convey("returns false", func() {
 				Convey("when a value is set", func() {
-					var target NullableTime
+					var target discord.NullableTime
 
 					target.Set(time.Unix(0, 0).UTC())
 
@@ -1491,13 +1490,13 @@ func TestNullableTime
 		Convey(".IsNotNull()", func() {
 			Convey("returns false", func() {
 				Convey("when first constructed", func() {
-					var target NullableTime
+					var target discord.NullableTime
 
 					So(target.IsNotNull(), ShouldBeFalse)
 				})
 
 				Convey("when set to null", func() {
-					var target NullableTime
+					var target discord.NullableTime
 
 					target.SetNull()
 
@@ -1512,7 +1511,7 @@ func TestNullableTime
 
 			Convey("returns true", func() {
 				Convey("when a value is set", func() {
-					var target NullableTime
+					var target discord.NullableTime
 
 					target.Set(time.Unix(0, 0).UTC())
 
@@ -1523,7 +1522,7 @@ func TestNullableTime
 
 		Convey(".Get()", func() {
 			Convey("returns the set value", func() {
-				var target NullableTime
+				var target discord.NullableTime
 
 				target.Set(time.Unix(0, 0).UTC())
 
@@ -1532,15 +1531,15 @@ func TestNullableTime
 			// []
 
 			Convey("panics when no value is set", func() {
-				var target NullableTime
+				var target discord.NullableTime
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() {target.Get()}, ShouldPanicWith, discord.ErrNullField)
 			})
 		})
 
 		Convey(".MarshalJSON()", func() {
 			Convey("returns null when the field is null", func() {
-				var target NullableTime
+				var target discord.NullableTime
 
 				a, b := target.MarshalJSON()
 
@@ -1549,7 +1548,7 @@ func TestNullableTime
 			})
 
 			Convey("returns the serialized value when the field is not null", func() {
-				var target NullableTime
+				var target discord.NullableTime
 
 				target.Set(time.Unix(0, 0).UTC())
 

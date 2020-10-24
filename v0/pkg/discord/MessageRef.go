@@ -1,7 +1,5 @@
 package discord
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
-
 type MessageRef interface {
 	// MessageID returns the current value of this record's `message_id` field.
 	//
@@ -9,7 +7,7 @@ type MessageRef interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use MessageIDIsSet to check if the field is present before use.
-	MessageID() dlib.Snowflake
+	MessageID() Snowflake
 
 	// MessageIDIsSet returns whether this record's `message_id` field is
 	// currently present.
@@ -17,7 +15,7 @@ type MessageRef interface {
 
 	// SetMessageID overwrites the current value of this record's `message_id`
 	// field.
-	SetMessageID(dlib.Snowflake) MessageRef
+	SetMessageID(Snowflake) MessageRef
 
 	// UnsetMessageID removes this record's `message_id` field.
 	UnsetMessageID() MessageRef
@@ -26,11 +24,11 @@ type MessageRef interface {
 	//
 	// The `channel_id` field contains the id of the originating message's
 	// channel.
-	ChannelID() dlib.Snowflake
+	ChannelID() Snowflake
 
 	// SetChannelID overwrites the current value of this record's `channel_id`
 	// field.
-	SetChannelID(dlib.Snowflake) MessageRef
+	SetChannelID(Snowflake) MessageRef
 
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
@@ -38,14 +36,14 @@ type MessageRef interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use GuildIDIsSet to check if the field is present before use.
-	GuildID() dlib.Snowflake
+	GuildID() Snowflake
 
 	// GuildIDIsSet returns whether this record's `guild_id` field is currently
 	// present.
 	GuildIDIsSet() bool
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) MessageRef
+	SetGuildID(Snowflake) MessageRef
 
 	// UnsetGuildID removes this record's `guild_id` field.
 	UnsetGuildID() MessageRef

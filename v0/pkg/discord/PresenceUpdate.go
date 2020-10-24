@@ -3,7 +3,6 @@ package discord
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/gateway"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 )
 
 
@@ -33,10 +32,10 @@ type PresenceUpdate interface {
 	// GuildID returns the current value of this record's `guild_id` field.
 	//
 	// The `guild_id` field contains the
-	GuildID() dlib.Snowflake
+	GuildID() Snowflake
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
-	SetGuildID(dlib.Snowflake) PresenceUpdate
+	SetGuildID(Snowflake) PresenceUpdate
 
 	// Status returns the current value of this record's `status` field.
 	//

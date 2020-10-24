@@ -3,7 +3,6 @@ package discord
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
 	"time"
 )
 
@@ -11,10 +10,10 @@ type Guild interface {
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the guild id.
-	ID() dlib.Snowflake
+	ID() Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
-	SetID(dlib.Snowflake) Guild
+	SetID(Snowflake) Guild
 
 	// Name returns the current value of this record's `name` field.
 	//
@@ -126,10 +125,10 @@ type Guild interface {
 	// OwnerID returns the current value of this record's `owner_id` field.
 	//
 	// The `owner_id` field contains the id of the owner.
-	OwnerID() dlib.Snowflake
+	OwnerID() Snowflake
 
 	// SetOwnerID overwrites the current value of this record's `owner_id` field.
-	SetOwnerID(dlib.Snowflake) Guild
+	SetOwnerID(Snowflake) Guild
 
 	// Permissions returns the current value of this record's `permissions` field.
 	//
@@ -166,7 +165,7 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use AFKChannelIDIsNull to check if the field is null before use.
-	AFKChannelID() dlib.Snowflake
+	AFKChannelID() Snowflake
 
 	// AFKChannelIDIsNull returns whether this record's `afk_channel_id` field is
 	// currently null.
@@ -174,7 +173,7 @@ type Guild interface {
 
 	// SetAFKChannelID overwrites the current value of this record's
 	// `afk_channel_id` field.
-	SetAFKChannelID(dlib.Snowflake) Guild
+	SetAFKChannelID(Snowflake) Guild
 
 	// SetNullAFKChannelID overwrites the current value of this record's
 	// `afk_channel_id` field with `null`.
@@ -218,7 +217,7 @@ type Guild interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use WidgetChannelIDIsReadable to check if the
 	// field is present and non-null before use.
-	WidgetChannelID() dlib.Snowflake
+	WidgetChannelID() Snowflake
 
 	// WidgetChannelIDIsNull returns whether this record's `widget_channel_id`
 	// field is currently null.
@@ -234,7 +233,7 @@ type Guild interface {
 
 	// SetWidgetChannelID overwrites the current value of this record's
 	// `widget_channel_id` field.
-	SetWidgetChannelID(dlib.Snowflake) Guild
+	SetWidgetChannelID(Snowflake) Guild
 
 	// SetNullWidgetChannelID overwrites the current value of this record's
 	// `widget_channel_id` field with `null`.
@@ -317,7 +316,7 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use ApplicationIDIsNull to check if the field is null before use.
-	ApplicationID() dlib.Snowflake
+	ApplicationID() Snowflake
 
 	// ApplicationIDIsNull returns whether this record's `application_id` field is
 	// currently null.
@@ -325,7 +324,7 @@ type Guild interface {
 
 	// SetApplicationID overwrites the current value of this record's
 	// `application_id` field.
-	SetApplicationID(dlib.Snowflake) Guild
+	SetApplicationID(Snowflake) Guild
 
 	// SetNullApplicationID overwrites the current value of this record's
 	// `application_id` field with `null`.
@@ -339,7 +338,7 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use SystemChannelIDIsNull to check if the field is null before use.
-	SystemChannelID() dlib.Snowflake
+	SystemChannelID() Snowflake
 
 	// SystemChannelIDIsNull returns whether this record's `system_channel_id`
 	// field is currently null.
@@ -347,7 +346,7 @@ type Guild interface {
 
 	// SetSystemChannelID overwrites the current value of this record's
 	// `system_channel_id` field.
-	SetSystemChannelID(dlib.Snowflake) Guild
+	SetSystemChannelID(Snowflake) Guild
 
 	// SetNullSystemChannelID overwrites the current value of this record's
 	// `system_channel_id` field with `null`.
@@ -383,7 +382,7 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use RulesChannelIDIsNull to check if the field is null before use.
-	RulesChannelID() dlib.Snowflake
+	RulesChannelID() Snowflake
 
 	// RulesChannelIDIsNull returns whether this record's `rules_channel_id` field
 	// is currently null.
@@ -391,7 +390,7 @@ type Guild interface {
 
 	// SetRulesChannelID overwrites the current value of this record's
 	// `rules_channel_id` field.
-	SetRulesChannelID(dlib.Snowflake) Guild
+	SetRulesChannelID(Snowflake) Guild
 
 	// SetNullRulesChannelID overwrites the current value of this record's
 	// `rules_channel_id` field with `null`.
@@ -725,7 +724,7 @@ type Guild interface {
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use PublicUpdatesChannelIDIsNull to check if the field is null
 	// before use.
-	PublicUpdatesChannelID() dlib.Snowflake
+	PublicUpdatesChannelID() Snowflake
 
 	// PublicUpdatesChannelIDIsNull returns whether this record's
 	// `public_updates_channel_id` field is currently null.
@@ -733,7 +732,7 @@ type Guild interface {
 
 	// SetPublicUpdatesChannelID overwrites the current value of this record's
 	// `public_updates_channel_id` field.
-	SetPublicUpdatesChannelID(dlib.Snowflake) Guild
+	SetPublicUpdatesChannelID(Snowflake) Guild
 
 	// SetNullPublicUpdatesChannelID overwrites the current value of this record's
 	// `public_updates_channel_id` field with `null`.
