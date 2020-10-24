@@ -1,20 +1,23 @@
-{{- /*gotype: github.com/foxcapades/lib-go-discord/tools/fields/internal/types.Wrapper*/ -}}
+{{- /*gotype: github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/types.Wrapper*/ -}}
 {{ define "nullable-test" -}}
-package dlib_test
+package types_test
 
 import (
 	"strconv"
 	"testing"
 	"time"
 
-	. "github.com/foxcapades/lib-go-discord/v0/pkg/dlib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/build"
+
+	. "github.com/foxcapades/lib-go-discord/v0/internal/types"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 {{- range $type := .Types }}
 
-func TestNullable{{ $type.Name }}
-	Convey("Nullable{{ $type.Name }}
+func TestNullable{{ $type.Name }}(t *testing.T) {
+	Convey("Nullable{{ $type.Name }}", t, func() {
 
 		Convey(".IsNull()", func() {
 			Convey("returns true", func() {

@@ -13,7 +13,7 @@ import (
 
 const (
 	tplPath = "v0/tools/fields/"
-	outPath = "v0/pkg/discord/"
+	outPath = "v0/internal/types/"
 )
 
 func main() {
@@ -26,10 +26,10 @@ func main() {
 		ParseGlob(tplPath + "*.gotpl"))
 
 	files := map[string]string{
-		"nullable-fields.go":      "nullable",
-		"nullable-fields_test.go": "nullable-test",
-		"optional-fields.go":      "optional",
-		"tri-state-fields.go":     "tri-state",
+		"x-gen-NullableFields.go":      "nullable",
+		"x-gen-NullableFields_test.go": "nullable-test",
+		"x-gen-OptionalFields.go":      "optional",
+		"x-gen-TriStateFields.go":      "tri-state",
 	}
 
 	for k, v := range files {

@@ -1,10 +1,13 @@
+{{- /*gotype: github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/types.Wrapper*/ -}}
 {{ define "nullable" -}}
-package dlib
+package types
 
 import (
 	"encoding/json"
 	"errors"
 	"time"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 var (
@@ -35,27 +38,25 @@ type NullableField interface {
 ////////////////////////////////////////////////////////////////////////////////
 
 type Nullable{{ $type.Name }} struct {
-	value {{ $type.Type }}
-	isSet bool
+	value *{{ $type.Type }}
 }
 
 func (i Nullable{{ $type.Name }}) IsNull() bool {
-	return !i.isSet
+	return i.value == nil
 }
 
 func (i Nullable{{ $type.Name }}) IsNotNull() bool {
-	return i.isSet
+	return i.value != nil
 }
 
 func (i *Nullable{{ $type.Name }}) SetNull() NullableField {
-	i.isSet = false
+	i.value = nil
 
 	return i
 }
 
 func (i *Nullable{{ $type.Name }}) Set(val {{ $type.Type }}) NullableField {
-	i.isSet = true
-	i.value = val
+	i.value = &val
 
 	return i
 }
@@ -64,24 +65,32 @@ func (i *Nullable{{ $type.Name }}) Set(val {{ $type.Type }}) NullableField {
 //
 // This method panics if the field is marked as null.
 func (i Nullable{{ $type.Name }}) Get() {{ $type.Type }} {
-	if !i.isSet {
+	if i.value == nil {
 		panic(ErrNullField)
 	}
 
-	return i.value
+	return *i.value
 }
 
 func (i *Nullable{{ $type.Name }}) UnmarshalJSON(bytes []byte) error {
-	var tmp *{{ $type.Type }}
-
+	{{ if eq $type.Constructor "" -}}
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+	{{- else -}}
+	tmp := {{ $type.Constructor }}
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
-
+	{{ if ne $type.AssignCast "" -}}
 	if tmp != nil {
-		i.value = *tmp
-		i.isSet = true
+		t2 := ({{ $type.AssignCast }})(tmp)
+		i.value = &t2
 	}
+	{{ else -}}
+	i.value = &tmp
+	{{- end }}
+	{{- end }}
 
 	return nil
 }

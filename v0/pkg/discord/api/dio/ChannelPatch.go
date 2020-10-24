@@ -2,8 +2,6 @@ package dio
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
 )
 
 type ChannelPatch interface {
@@ -155,7 +153,7 @@ type ChannelPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use RateLimitPerUserIsReadable to check if the
 	// field is present and non-null before use.
-	RateLimitPerUser() channel.PerUserRateLimit
+	RateLimitPerUser() discord.PerUserRateLimit
 
 	// RateLimitPerUserIsNull returns whether this record's `rate_limit_per_user`
 	// field is currently null.
@@ -171,7 +169,7 @@ type ChannelPatch interface {
 
 	// SetRateLimitPerUser overwrites the current value of this record's
 	// `rate_limit_per_user` field.
-	SetRateLimitPerUser(channel.PerUserRateLimit) ChannelPatch
+	SetRateLimitPerUser(discord.PerUserRateLimit) ChannelPatch
 
 	// SetNullRateLimitPerUser overwrites the current value of this record's
 	// `rate_limit_per_user` field with `null`.
@@ -191,7 +189,7 @@ type ChannelPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use PermissionOverwritesIsReadable to check if the
 	// field is present and non-null before use.
-	PermissionOverwrites() []permission.Overwrite
+	PermissionOverwrites() []discord.PermissionOverwrite
 
 	// PermissionOverwritesIsNull returns whether this record's
 	// `permission_overwrites` field is currently null.
@@ -207,7 +205,7 @@ type ChannelPatch interface {
 
 	// SetPermissionOverwrites overwrites the current value of this record's
 	// `permission_overwrites` field.
-	SetPermissionOverwrites([]permission.Overwrite) ChannelPatch
+	SetPermissionOverwrites([]discord.PermissionOverwrite) ChannelPatch
 
 	// SetNullPermissionOverwrites overwrites the current value of this record's
 	// `permission_overwrites` field with `null`.

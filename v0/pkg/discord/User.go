@@ -3,16 +3,7 @@ package discord
 import (
 	"encoding/json"
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
-
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/derr"
 )
-
-// ╔════════════════════════════════════════════════════════════════════════╗ //
-// ║                                                                        ║ //
-// ║    Errors                                                              ║ //
-// ║                                                                        ║ //
-// ╚════════════════════════════════════════════════════════════════════════╝ //
 
 // Errors thrown by methods in this file.
 var (
@@ -36,16 +27,6 @@ var (
 
 	ErrSetNilUser = errors.New("cannot call OptionalUser.Set with a nil value")
 )
-
-// ╔════════════════════════════════════════════════════════════════════════╗ //
-// ║                                                                        ║ //
-// ║    Public Types                                                        ║ //
-// ║                                                                        ║ //
-// ╚════════════════════════════════════════════════════════════════════════╝ //
-
-// ╔════════════════════════════════════════════════════════════════════════╗ //
-// ║    User Type                                                           ║ //
-// ╚════════════════════════════════════════════════════════════════════════╝ //
 
 // User TODO: Document me
 type User interface {
@@ -76,7 +57,7 @@ type User interface {
 
 	// SetUsername overwrites the current value of this user record's `username`
 	// field with the given param value.
-	SetUsername(name user.Username) User
+	SetUsername(name Username) User
 
 	// Discriminator returns the value of the `discriminator` field currently set
 	// on this user record.
@@ -85,11 +66,11 @@ type User interface {
 	//
 	// Getting this field from the Discord API requires the `identify` OAuth2
 	// scope.
-	Discriminator() user.Discriminator
+	Discriminator() Discriminator
 
 	// SetDiscriminator overwrites the current value of this user record's
 	// `discriminator` field with the given param value.
-	SetDiscriminator(code user.Discriminator) User
+	SetDiscriminator(code Discriminator) User
 
 	// AvatarHash returns the value of the `avatar_hash` field currently set on
 	// this user record.
@@ -218,13 +199,13 @@ type User interface {
 	// If the user record's `flags` field is unset when this method is called,
 	// this method will panic.  Check for the field's existence with the
 	// FlagsIsSet method.
-	Flags() user.Flag
+	Flags() UserFlag
 
 	// FlagsIsSet returns whether the current user record's flags field exists.
 	FlagsIsSet() bool
 
 	// SetFlags overwrites the current user record's flag(s) with the given value.
-	SetFlags(user.Flag) User
+	SetFlags(UserFlag) User
 
 	// UnsetFlags removes this user record's flags field.
 	UnsetFlags() User
@@ -234,18 +215,18 @@ type User interface {
 	//
 	// If the field is unset when this method is called this method, the given
 	// parameter value will become the new field value.
-	AddFlag(user.Flag) User
+	AddFlag(UserFlag) User
 
 	// RemoveFlag removes the given user flag from this User record's current flag
 	// value(s).
 	//
 	// If the field is unset when this method is called, this method does nothing.
 	// become the new field value.
-	RemoveFlag(user.Flag) User
+	RemoveFlag(UserFlag) User
 
 	// FlagsContains returns whether or not the public flag value(s) currently set
 	// on this user record contain or equal the given value.
-	FlagsContains(user.Flag) bool
+	FlagsContains(UserFlag) bool
 
 	// PremiumType returns the value of the `premium_type` field currently set on
 	// this user record.
@@ -258,9 +239,9 @@ type User interface {
 	// If the user record's `premium_type` field is unset when this method is
 	// called, this method will panic.  Check for the field's existence with the
 	// PremiumTypeIsSet method.
-	PremiumType() user.PremiumType
+	PremiumType() UserPremiumType
 	PremiumTypeIsSet() bool
-	SetPremiumType(user.PremiumType) User
+	SetPremiumType(UserPremiumType) User
 	UnsetPremiumType() User
 
 	// PublicFlags returns the value of the `public_flags` field currently set on
@@ -274,7 +255,7 @@ type User interface {
 	// If the user record's `public_flags` field is unset when this method is
 	// called, this method will panic.  Check for the field's existence with the
 	// PublicFlagsIsSet method.
-	PublicFlags() user.Flag
+	PublicFlags() UserFlag
 
 	// PublicFlagsIsSet returns whether the current user record's public flags
 	// field exists.
@@ -282,7 +263,7 @@ type User interface {
 
 	// SetPublicFlags overwrites the current user record's public flag(s) with the
 	// given value.
-	SetPublicFlags(user.Flag) User
+	SetPublicFlags(UserFlag) User
 
 	// UnsetPublicFlags removes this user record's flags field.
 	UnsetPublicFlags() User
@@ -292,507 +273,16 @@ type User interface {
 	//
 	// If the field is unset when this method is called this method, the given
 	// parameter value will become the new field value.
-	AddPublicFlag(user.Flag) User
+	AddPublicFlag(UserFlag) User
 
 	// RemovePublicFlag removes the given user flag from this User record's
 	// current public flag value(s).
 	//
 	// If the field is unset when this method is called, this method does nothing.
 	// become the new field value.
-	RemovePublicFlag(user.Flag) User
+	RemovePublicFlag(UserFlag) User
 
 	// PublicFlagsContains returns whether or not the public flag value(s)
 	// currently set on this user record contain or equal the given value.
-	PublicFlagsContains(user.Flag) bool
-}
-
-// ╔════════════════════════════════════════════════════════════════════════╗ //
-// ║                                                                        ║ //
-// ║    Public Functions                                                    ║ //
-// ║                                                                        ║ //
-// ╚════════════════════════════════════════════════════════════════════════╝ //
-
-// Returns a new, empty User instance.
-//
-// Data Validation
-//
-// The "validate" flag enables/disables internal input validation.  This will
-// check that values being set via the type's setter methods are valid according
-// to the documented Discord restrictions.
-//
-// Note: internal input validation does not guarantee that Discord will accept
-// the value, there are undocumented internal checks that the Discord API does
-// in addition to the documented checks.  This feature is primarily intended to
-// help catch internal bugs and/or avoid making requests with obviously bad
-// data.
-func NewUser(validate bool) User {
-	return &userImpl{validate: validate}
-}
-
-// ╔════════════════════════════════════════════════════════════════════════╗ //
-// ║                                                                        ║ //
-// ║    Private Types                                                       ║ //
-// ║                                                                        ║ //
-// ╚════════════════════════════════════════════════════════════════════════╝ //
-
-type userImpl struct {
-	validate bool
-
-	id            Snowflake
-	username      user.Username
-	discriminator user.Discriminator
-	avatar        NullableString
-	bot           OptionalBool
-	system        OptionalBool
-	mfaEnabled    OptionalBool
-	locale        OptionalString
-	verified      OptionalBool
-	email         TriStateString
-	flags         OptionalUint32
-	premiumType   OptionalUint8
-	publicFlags   OptionalUint32
-}
-
-func (u *userImpl) MarshalJSON() ([]byte, error) {
-	out := make(map[FieldKey]interface{}, 10)
-
-	if u.id.RawValue() == 0 {
-		return nil, ErrNoId
-	} else {
-		out[FieldKeyID] = u.id
-	}
-
-	if u.username == "" {
-		return nil, ErrNoUsername
-	} else {
-		out[FieldKeyUsername] = u.username
-	}
-
-	if u.discriminator == 0 {
-		return nil, ErrNoDiscriminator
-	} else {
-		out[FieldKeyDiscriminator] = u.discriminator
-	}
-
-	out[FieldKeyAvatar] = u.avatar
-	u.appendIfSet1(out, FieldKeyBot, &u.bot)
-	u.appendIfSet1(out, FieldKeySystem, &u.system)
-	u.appendIfSet1(out, FieldKeyMFAEnabled, &u.mfaEnabled)
-	u.appendIfSet1(out, FieldKeyLocale, &u.locale)
-	u.appendIfSet1(out, FieldKeyVerified, &u.verified)
-	u.appendIfSet2(out, FieldKeyEmail, &u.email)
-	u.appendIfSet1(out, FieldKeyFlags, &u.flags)
-	u.appendIfSet1(out, FieldKeyPremiumType, &u.premiumType)
-	u.appendIfSet1(out, FieldKeyPublicFlags, &u.publicFlags)
-
-	return json.Marshal(out)
-}
-
-func (u *userImpl) UnmarshalJSON(bytes []byte) (err error) {
-	in := make(map[string]json.RawMessage, 10)
-
-	if err = json.Unmarshal(bytes, &in); err != nil {
-		return
-	}
-
-	multis := map[FieldKey]json.Unmarshaler{
-		FieldKeyAvatar:      &u.avatar,
-		FieldKeyBot:         &u.bot,
-		FieldKeySystem:      &u.system,
-		FieldKeyMFAEnabled:  &u.mfaEnabled,
-		FieldKeyLocale:      &u.locale,
-		FieldKeyVerified:    &u.verified,
-		FieldKeyEmail:       &u.email,
-		FieldKeyFlags:       &u.flags,
-		FieldKeyPremiumType: &u.premiumType,
-		FieldKeyPublicFlags: &u.publicFlags,
-	}
-
-	singles := map[FieldKey]interface{}{
-		FieldKeyID:            &u.id,
-		FieldKeyUsername:      &u.username,
-		FieldKeyDiscriminator: &u.discriminator,
-	}
-
-	for k, v := range in {
-		key := FieldKey(k)
-
-		if f, ok := singles[key]; ok {
-			err = json.Unmarshal(v, f)
-		} else if f, ok := multis[key]; ok {
-			err = f.UnmarshalJSON(v)
-		}
-
-		if err != nil {
-			return
-		}
-	}
-
-	return nil
-}
-
-func (u *userImpl) ID() Snowflake {
-	return u.id
-}
-
-func (u *userImpl) SetID(id Snowflake) User {
-	u.id = id
-
-	return u
-}
-
-func (u *userImpl) Username() string {
-	return string(u.username)
-}
-
-func (u *userImpl) SetUsername(name user.Username) User {
-	if u.validate {
-		if err := name.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyUsername), name, err))
-		}
-	}
-
-	u.username = name
-
-	return u
-}
-
-func (u *userImpl) Discriminator() user.Discriminator {
-	return u.discriminator
-}
-
-func (u *userImpl) SetDiscriminator(code user.Discriminator) User {
-	if u.validate {
-		if err := code.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyDiscriminator), code, err))
-		}
-	}
-
-	u.discriminator = code
-
-	return u
-}
-
-func (u *userImpl) AvatarHash() string {
-	return u.avatar.Get()
-}
-
-func (u *userImpl) AvatarHashIsNull() bool {
-	return u.avatar.IsNull()
-}
-
-func (u *userImpl) SetAvatarHash(s string) User {
-	u.avatar.Set(s)
-
-	return u
-}
-
-func (u *userImpl) SetNullAvatarHash() User {
-	u.avatar.SetNull()
-
-	return u
-}
-
-func (u *userImpl) BotFlag() bool {
-	return u.bot.Get()
-}
-
-func (u *userImpl) BotFlagIsSet() bool {
-	return u.bot.IsSet()
-}
-
-func (u *userImpl) SetBotFlag(b bool) User {
-	u.bot.Set(b)
-
-	return u
-}
-
-func (u *userImpl) UnsetBotFlag() User {
-	u.bot.Unset()
-
-	return u
-}
-
-func (u *userImpl) SystemFlag() bool {
-	return u.system.Get()
-}
-
-func (u *userImpl) SystemFlagIsSet() bool {
-	return u.system.IsSet()
-}
-
-func (u *userImpl) SetSystemFlag(b bool) User {
-	u.system.Set(b)
-
-	return u
-}
-
-func (u *userImpl) UnsetSystemFlag() User {
-	u.system.Unset()
-
-	return u
-}
-
-func (u *userImpl) MFAEnabled() bool {
-	return u.mfaEnabled.Get()
-}
-
-func (u *userImpl) MFAEnabledIsSet() bool {
-	return u.mfaEnabled.IsSet()
-}
-
-func (u *userImpl) SetMFAEnabled(b bool) User {
-	u.mfaEnabled.Set(b)
-
-	return u
-}
-
-func (u *userImpl) UnsetMFAEnabled() User {
-	u.mfaEnabled.Unset()
-
-	return u
-}
-
-func (u *userImpl) Locale() string {
-	return u.locale.Get()
-}
-
-func (u *userImpl) LocaleIsSet() bool {
-	return u.locale.IsSet()
-}
-
-func (u *userImpl) SetLocale(s string) User {
-	u.locale.Set(s)
-
-	return u
-}
-
-func (u *userImpl) UnsetLocale() User {
-	u.locale.Unset()
-
-	return u
-}
-
-func (u *userImpl) VerifiedFlag() bool {
-	return u.verified.Get()
-}
-
-func (u *userImpl) VerifiedFlagIsSet() bool {
-	return u.verified.IsSet()
-}
-
-func (u *userImpl) SetVerifiedFlag(b bool) User {
-	u.verified.Set(b)
-
-	return u
-}
-
-func (u *userImpl) UnsetVerifiedFlag() User {
-	u.verified.Unset()
-
-	return u
-}
-
-func (u *userImpl) Email() string {
-	return u.email.Get()
-}
-
-func (u *userImpl) EmailIsSet() bool {
-	return u.email.IsSet()
-}
-
-func (u *userImpl) EmailIsNull() bool {
-	return u.email.IsNull()
-}
-
-func (u *userImpl) SetEmail(s string) User {
-	u.email.Set(s)
-
-	return u
-}
-
-func (u *userImpl) UnsetEmail() User {
-	u.email.Unset()
-
-	return u
-}
-
-func (u *userImpl) SetNullEmail() User {
-	u.email.SetNull()
-
-	return u
-}
-
-func (u *userImpl) Flags() user.Flag {
-	return user.Flag(u.flags.Get())
-}
-
-func (u *userImpl) FlagsIsSet() bool {
-	return u.flags.IsSet()
-}
-
-func (u *userImpl) SetFlags(flag user.Flag) User {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
-		}
-	}
-
-	u.flags.Set(uint32(flag))
-
-	return u
-}
-
-func (u *userImpl) UnsetFlags() User {
-	u.flags.Unset()
-
-	return u
-}
-
-func (u *userImpl) AddFlag(flag user.Flag) User {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
-		}
-	}
-
-	if u.flags.IsSet() {
-		u.flags.Set(u.flags.Get() | uint32(flag))
-	} else {
-		u.flags.Set(uint32(flag))
-	}
-
-	return u
-}
-
-func (u *userImpl) RemoveFlag(flag user.Flag) User {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
-		}
-	}
-
-	if u.flags.IsSet() {
-		u.flags.Set(u.flags.Get() & ^uint32(flag))
-	}
-
-	return u
-}
-
-func (u *userImpl) FlagsContains(flag user.Flag) bool {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyFlags), flag, err))
-		}
-	}
-
-	if u.flags.IsSet() {
-		return u.flags.Get()|uint32(flag) == uint32(flag)
-	}
-
-	return false
-}
-
-func (u *userImpl) PremiumType() user.PremiumType {
-	return user.PremiumType(u.premiumType.Get())
-}
-
-func (u *userImpl) PremiumTypeIsSet() bool {
-	return u.premiumType.IsSet()
-}
-
-func (u *userImpl) SetPremiumType(val user.PremiumType) User {
-	if u.validate {
-		if err := val.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPremiumType), val, err))
-		}
-	}
-
-	u.premiumType.Set(uint8(val))
-
-	return u
-}
-
-func (u *userImpl) UnsetPremiumType() User {
-	u.premiumType.Unset()
-
-	return u
-}
-
-func (u *userImpl) PublicFlags() user.Flag {
-	return user.Flag(u.publicFlags.Get())
-}
-
-func (u *userImpl) PublicFlagsIsSet() bool {
-	return u.publicFlags.IsSet()
-}
-
-func (u *userImpl) SetPublicFlags(flag user.Flag) User {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
-		}
-	}
-
-	u.publicFlags.Set(uint32(flag))
-	return u
-}
-
-func (u *userImpl) UnsetPublicFlags() User {
-	u.publicFlags.Unset()
-	return u
-}
-
-func (u *userImpl) AddPublicFlag(flag user.Flag) User {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
-		}
-	}
-
-	if u.publicFlags.IsSet() {
-		u.publicFlags.Set(uint32(flag) | u.publicFlags.Get())
-	} else {
-		u.publicFlags.Set(uint32(flag))
-	}
-
-	return u
-}
-
-func (u *userImpl) RemovePublicFlag(flag user.Flag) User {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
-		}
-	}
-
-	if u.publicFlags.IsSet() {
-		u.publicFlags.Set(u.publicFlags.Get() & ^uint32(flag))
-	}
-
-	return u
-}
-
-func (u *userImpl) PublicFlagsContains(flag user.Flag) bool {
-	if u.validate {
-		if err := flag.Validate(); err != nil {
-			panic(derr.NewInternalValidationError(string(FieldKeyPublicFlags), flag, err))
-		}
-	}
-
-	c := uint32(flag)
-
-	return u.publicFlags.Get()&c == c
-}
-
-func (*userImpl) appendIfSet1(mp map[FieldKey]interface{}, key FieldKey, field OptionalField) {
-	if field.IsSet() {
-		mp[key] = field
-	}
-}
-
-func (*userImpl) appendIfSet2(mp map[FieldKey]interface{}, key FieldKey, field TriStateField) {
-	if field.IsSet() {
-		mp[key] = field
-	}
+	PublicFlagsContains(UserFlag) bool
 }

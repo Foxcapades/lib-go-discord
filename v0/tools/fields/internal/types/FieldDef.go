@@ -8,4 +8,8 @@ type FieldDef struct {
 	Type string
 
 	Testing Testing
+
+	Constructor string
+
+	AssignCast string
 }

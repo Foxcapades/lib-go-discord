@@ -2,8 +2,6 @@ package dio
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm/image"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 )
 
 type GuildPatch interface {
@@ -63,7 +61,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use VerificationLevelIsReadable to check if the
 	// field is present and non-null before use.
-	VerificationLevel() guild.VerificationLevel
+	VerificationLevel() discord.VerificationLevel
 
 	// VerificationLevelIsNull returns whether this request's `verification_level`
 	// field is currently null.
@@ -79,7 +77,7 @@ type GuildPatch interface {
 
 	// SetVerificationLevel overwrites the current value of this request's
 	// `verification_level` field.
-	SetVerificationLevel(guild.VerificationLevel) GuildPatch
+	SetVerificationLevel(discord.VerificationLevel) GuildPatch
 
 	// SetNullVerificationLevel overwrites the current value of this request's
 	// `verification_level` field with `null`.
@@ -218,7 +216,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use IconIsReadable to check if the field is
 	// present and non-null before use.
-	Icon() image.Data
+	Icon() discord.ImageData
 
 	// IconIsNull returns whether this request's `icon` field is currently null.
 	IconIsNull() bool
@@ -231,7 +229,7 @@ type GuildPatch interface {
 	IconIsReadable() bool
 
 	// SetIcon overwrites the current value of this request's `icon` field.
-	SetIcon(image.Data) GuildPatch
+	SetIcon(discord.ImageData) GuildPatch
 
 	// SetNullIcon overwrites the current value of this request's `icon` field
 	// with `null`.
@@ -267,7 +265,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use SplashIsReadable to check if the field is
 	// present and non-null before use.
-	Splash() image.Data
+	Splash() discord.ImageData
 
 	// SplashIsNull returns whether this request's `splash` field is currently
 	// null.
@@ -282,7 +280,7 @@ type GuildPatch interface {
 	SplashIsReadable() bool
 
 	// SetSplash overwrites the current value of this request's `splash` field.
-	SetSplash(image.Data) GuildPatch
+	SetSplash(discord.ImageData) GuildPatch
 
 	// SetNullSplash overwrites the current value of this request's `splash` field
 	// with `null`.
@@ -299,7 +297,7 @@ type GuildPatch interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use BannerIsReadable to check if the field is
 	// present and non-null before use.
-	Banner() image.Data
+	Banner() discord.ImageData
 
 	// BannerIsNull returns whether this request's `banner` field is currently
 	// null.
@@ -314,7 +312,7 @@ type GuildPatch interface {
 	BannerIsReadable() bool
 
 	// SetBanner overwrites the current value of this request's `banner` field.
-	SetBanner(image.Data) GuildPatch
+	SetBanner(discord.ImageData) GuildPatch
 
 	// SetNullBanner overwrites the current value of this request's `banner` field
 	// with `null`.

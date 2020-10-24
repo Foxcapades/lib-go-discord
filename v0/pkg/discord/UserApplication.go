@@ -1,9 +1,5 @@
 package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-)
-
 type UserApplication interface {
 	// the id of the app
 	ID() Snowflake
@@ -14,9 +10,9 @@ type UserApplication interface {
 	SetName(name string) UserApplication
 
 	// the icon hash of the app
-	Icon() comm.ImageHash
+	Icon() ImageHash
 	IconIsNull() bool
-	SetIcon(hash comm.ImageHash) UserApplication
+	SetIcon(hash ImageHash) UserApplication
 	SetNullIcon() UserApplication
 
 	// the description of the app

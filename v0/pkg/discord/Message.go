@@ -1,8 +1,6 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 	"time"
 )
 
@@ -199,11 +197,11 @@ type Message interface {
 	// Attachments returns the current value of this record's `attachments` field.
 	//
 	// The `attachments` field contains any attached files.
-	Attachments() []message.Attachment
+	Attachments() []MessageAttachment
 
 	// SetAttachments overwrites the current value of this record's `attachments`
 	// field.
-	SetAttachments([]message.Attachment) Message
+	SetAttachments([]MessageAttachment) Message
 
 	// Embeds returns the current value of this record's `embeds` field.
 	//
@@ -238,13 +236,13 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use NonceIsSet to check if the field is present before use.
-	Nonce() comm.Nonce
+	Nonce() Nonce
 
 	// NonceIsSet returns whether this record's `nonce` field is currently present.
 	NonceIsSet() bool
 
 	// SetNonce overwrites the current value of this record's `nonce` field.
-	SetNonce(comm.Nonce) Message
+	SetNonce(Nonce) Message
 
 	// UnsetNonce removes this record's `nonce` field.
 	UnsetNonce() Message
@@ -291,14 +289,14 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ActivityIsSet to check if the field is present before use.
-	Activity() message.Activity
+	Activity() MessageActivity
 
 	// ActivityIsSet returns whether this record's `activity` field is currently
 	// present.
 	ActivityIsSet() bool
 
 	// SetActivity overwrites the current value of this record's `activity` field.
-	SetActivity(message.Activity) Message
+	SetActivity(MessageActivity) Message
 
 	// UnsetActivity removes this record's `activity` field.
 	UnsetActivity() Message
@@ -309,7 +307,7 @@ type Message interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ApplicationIsSet to check if the field is present before use.
-	Application() message.Application
+	Application() MessageApplication
 
 	// ApplicationIsSet returns whether this record's `application` field is
 	// currently present.
@@ -317,7 +315,7 @@ type Message interface {
 
 	// SetApplication overwrites the current value of this record's `application`
 	// field.
-	SetApplication(message.Application) Message
+	SetApplication(MessageApplication) Message
 
 	// UnsetApplication removes this record's `application` field.
 	UnsetApplication() Message

@@ -1,11 +1,13 @@
 {{- /*gotype: github.com/foxcapades/lib-go-discord/v0/tools/fields/internal/types.Wrapper*/ -}}
 {{- define "tri-state" -}}
-package dlib
+package types
 
 import (
 	"encoding/json"
 	"errors"
 	"time"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 var (
@@ -130,14 +132,23 @@ func (i TriState{{ $type.Name }}) MarshalJSON() ([]byte, error) {
 }
 
 func (i TriState{{ $type.Name }}) UnmarshalJSON(bytes []byte) error {
+	{{ if ne $type.Constructor "" -}}
+	tmp := {{ $type.Constructor }}
+	{{ else -}}
 	var tmp *{{ $type.Type }}
+	{{ end }}
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 
 	if tmp != nil {
+		{{ if ne $type.AssignCast "" -}}
+		t2 := ({{ $type.AssignCast }})(tmp)
+		i.value = &t2
+		{{ else -}}
 		i.value = tmp
+		{{- end }}
 		i.null = false
 	} else {
 		i.value = nil

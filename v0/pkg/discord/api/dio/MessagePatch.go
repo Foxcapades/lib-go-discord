@@ -2,7 +2,9 @@ package dio
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 )
 
 type MessagePatch interface {
@@ -115,35 +117,35 @@ func NewMessagePatch(validate bool) MessagePatch {
 type messagePatch struct {
 	validate bool
 
-	cont  discord.TriStateContentField
-	flag  discord.TriStateFlagField
-	embed discord.TriStateEmbedField
+	cont  types.TriStateString
+	flag  types.TriStateUint8
+	embed types.TriStateAny
 }
 
 func (m *messagePatch) MarshalJSON() ([]byte, error) {
-	out := make(map[discord.FieldKey]interface{})
+	out := make(map[serial.Key]interface{})
 
 	if m.cont.IsSet() {
 		if m.cont.IsNull() {
-			out[discord.FieldKeyContent] = nil
+			out[serial.KeyContent] = nil
 		} else {
-			out[discord.FieldKeyContent] = m.cont.Get()
+			out[serial.KeyContent] = m.cont.Get()
 		}
 	}
 
 	if m.flag.IsSet() {
 		if m.flag.IsNull() {
-			out[discord.FieldKeyFlags] = nil
+			out[serial.KeyFlags] = nil
 		} else {
-			out[discord.FieldKeyFlags] = m.flag.Get()
+			out[serial.KeyFlags] = m.flag.Get()
 		}
 	}
 
 	if m.embed.IsSet() {
 		if m.embed.IsNull() {
-			out[discord.FieldKeyEmbed] = nil
+			out[serial.KeyEmbed] = nil
 		} else {
-			out[discord.FieldKeyEmbed] = m.embed.Get()
+			out[serial.KeyEmbed] = m.embed.Get()
 		}
 	}
 
@@ -151,7 +153,7 @@ func (m *messagePatch) MarshalJSON() ([]byte, error) {
 }
 
 func (m *messagePatch) Content() discord.MessageContent {
-	return m.cont.Get()
+	return discord.MessageContent(m.cont.Get())
 }
 
 func (m *messagePatch) ContentIsNull() bool {
@@ -173,7 +175,7 @@ func (m *messagePatch) SetContent(content discord.MessageContent) MessagePatch {
 		}
 	}
 
-	m.cont.Set(content)
+	m.cont.Set(string(content))
 	return m
 }
 
@@ -188,7 +190,7 @@ func (m *messagePatch) UnsetContent() MessagePatch {
 }
 
 func (m *messagePatch) Embed() discord.MessageEmbed {
-	return m.embed.Get()
+	return m.embed.Get().(discord.MessageEmbed)
 }
 
 func (m *messagePatch) EmbedIsNull() bool {
@@ -219,7 +221,7 @@ func (m *messagePatch) UnsetEmbed() MessagePatch {
 }
 
 func (m *messagePatch) Flags() discord.MessageFlag {
-	return m.flag.Get()
+	return discord.MessageFlag(m.flag.Get())
 }
 
 func (m *messagePatch) FlagsIsNull() bool {
@@ -241,7 +243,7 @@ func (m *messagePatch) SetFlags(flag discord.MessageFlag) MessagePatch {
 		}
 	}
 
-	m.flag.Set(flag)
+	m.flag.Set(uint8(flag))
 	return m
 }
 

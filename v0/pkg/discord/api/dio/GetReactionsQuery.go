@@ -1,6 +1,7 @@
 package dio
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"strings"
 )
@@ -81,8 +82,8 @@ func NewGetReactionsQuery(msgId, userId discord.Snowflake, emoji discord.Emoji) 
 type getReactionsQuery struct {
 	userId discord.Snowflake
 	msgId  discord.Snowflake
-	before discord.OptionalSnowflake
-	after  discord.OptionalSnowflake
+	before types.OptionalAny
+	after  types.OptionalAny
 	limit  OptionalRecordLimit
 	emoji  discord.Emoji
 }
@@ -96,7 +97,7 @@ func (g *getReactionsQuery) ToQuery() string {
 		out.WriteByte(queryStart)
 		out.WriteString(queryBefore)
 		out.WriteByte(queryValSep)
-		out.WriteString(g.before.Get().String())
+		out.WriteString(g.before.Get().(discord.Snowflake).String())
 	}
 
 	if g.after.IsSet() {
@@ -108,7 +109,7 @@ func (g *getReactionsQuery) ToQuery() string {
 
 		out.WriteString(queryAfter)
 		out.WriteByte(queryValSep)
-		out.WriteString(g.after.Get().String())
+		out.WriteString(g.after.Get().(discord.Snowflake).String())
 	}
 
 	if g.limit.IsSet() {
@@ -154,7 +155,7 @@ func (g *getReactionsQuery) GetEmoji() discord.Emoji {
 }
 
 func (g *getReactionsQuery) Before() discord.Snowflake {
-	return g.before.Get()
+	return g.before.Get().(discord.Snowflake)
 }
 
 func (g *getReactionsQuery) BeforeIsSet() bool {
@@ -172,7 +173,7 @@ func (g *getReactionsQuery) UnsetBefore() GetReactionsQuery {
 }
 
 func (g *getReactionsQuery) After() discord.Snowflake {
-	return g.after.Get()
+	return g.after.Get().(discord.Snowflake)
 }
 
 func (g *getReactionsQuery) AfterIsSet() bool {

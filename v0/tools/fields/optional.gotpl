@@ -1,10 +1,12 @@
 {{ define "optional" -}}
-package dlib
+package types
 
 import (
 	"encoding/json"
 	"errors"
 	"time"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 var (
@@ -38,27 +40,25 @@ type OptionalField interface {
 ////////////////////////////////////////////////////////////////////////////////
 
 type Optional{{ $type.Name }} struct {
-	value {{ $type.Type }}
-	isSet bool
+	value *{{ $type.Type }}
 }
 
 func (i Optional{{ $type.Name }}) IsSet() bool {
-	return i.isSet
+	return i.value != nil
 }
 
 func (i Optional{{ $type.Name }}) IsUnset() bool {
-	return !i.isSet
+	return i.value == nil
 }
 
 func (i *Optional{{ $type.Name }}) Unset() OptionalField {
-	i.isSet = false
+	i.value = nil
 
 	return i
 }
 
 func (i *Optional{{ $type.Name }}) Set(val {{ $type.Type }}) OptionalField {
-	i.isSet = true
-	i.value = val
+	i.value = &val
 
 	return i
 }
@@ -67,22 +67,30 @@ func (i *Optional{{ $type.Name }}) Set(val {{ $type.Type }}) OptionalField {
 //
 // If this field is unset, this method will panic.
 func (i Optional{{ $type.Name }}) Get() {{ $type.Type }} {
-	if !i.isSet {
+	if i.value == nil {
 		panic(ErrUnsetField)
 	}
 
-	return i.value
+	return *i.value
 }
 
 func (i *Optional{{ $type.Name }}) UnmarshalJSON(bytes []byte) error {
-	var tmp {{ $type.Type }}
-
+	{{ if eq $type.Constructor "" -}}
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+	{{- else -}}
+	tmp := {{ $type.Constructor }}
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
-
-	i.value = tmp
-	i.isSet = true
+	{{ if ne $type.AssignCast "" -}}
+	t2 := ({{ $type.AssignCast }})(tmp)
+	i.value = &t2
+	{{ else -}}
+	i.value = &tmp
+	{{- end }}
+	{{- end }}
 
 	return nil
 }

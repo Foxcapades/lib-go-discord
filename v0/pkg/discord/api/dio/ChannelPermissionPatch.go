@@ -1,8 +1,7 @@
 package dio
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 type ChannelPermissionPatch interface {
@@ -12,13 +11,13 @@ type ChannelPermissionPatch interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use AllowIsSet to check if the field is present before use.
-	Allow() comm.Permission
+	Allow() discord.Permission
 
 	// AllowIsSet returns whether this request's `allow` field is currently present.
 	AllowIsSet() bool
 
 	// SetAllow overwrites the current value of this request's `allow` field.
-	SetAllow(comm.Permission) ChannelPermissionPatch
+	SetAllow(discord.Permission) ChannelPermissionPatch
 
 	// UnsetAllow removes this request's `allow` field.
 	UnsetAllow() ChannelPermissionPatch
@@ -29,13 +28,13 @@ type ChannelPermissionPatch interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use DenyIsSet to check if the field is present before use.
-	Deny() comm.Permission
+	Deny() discord.Permission
 
 	// DenyIsSet returns whether this request's `deny` field is currently present.
 	DenyIsSet() bool
 
 	// SetDeny overwrites the current value of this request's `deny` field.
-	SetDeny(comm.Permission) ChannelPermissionPatch
+	SetDeny(discord.Permission) ChannelPermissionPatch
 
 	// UnsetDeny removes this request's `deny` field.
 	UnsetDeny() ChannelPermissionPatch
@@ -44,8 +43,8 @@ type ChannelPermissionPatch interface {
 	//
 	// The `type` field contains the permission type being changed, either role or
 	// user.
-	Type() permission.Type
+	Type() discord.Type
 
 	// SetType overwrites the current value of this request's `type` field.
-	SetType(permission.Type) ChannelPermissionPatch
+	SetType(discord.Type) ChannelPermissionPatch
 }

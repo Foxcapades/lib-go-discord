@@ -1,14 +1,14 @@
 package discord_test
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/build"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
 func TestWidgetImpl_UnmarshalJSON(t *testing.T) {
 	Convey("Widget.UnmarshalJSON", t, func() {
-		target1 := discord.NewWidget()
+		target1 := build.NewWidget()
 		data1 := `{"enabled": true, "channel_id": null}`
 
 		err := target1.UnmarshalJSON([]byte(data1))
@@ -16,7 +16,7 @@ func TestWidgetImpl_UnmarshalJSON(t *testing.T) {
 		So(target1.Enabled(), ShouldBeTrue)
 		So(target1.ChannelIDIsNull(), ShouldBeTrue)
 
-		target2 := discord.NewWidget()
+		target2 := build.NewWidget()
 		data2 := `{"enabled": false, "channel_id": "123456"}`
 
 		err = target2.UnmarshalJSON([]byte(data2))

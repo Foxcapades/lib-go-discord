@@ -2,15 +2,15 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
 	"time"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 type GuildMember interface {
 	json.Marshaler
 	json.Unmarshaler
-	comm.Validatable
+	lib.Validatable
 
 	// the user this guild member represents
 	// The field user won't be included in the member object attached to MESSAGE_CREATE and MESSAGE_UPDATE gateway events.
@@ -20,9 +20,9 @@ type GuildMember interface {
 	UnsetUser() GuildMember
 
 	// this users guild nickname
-	Nick() user.Nickname
+	Nick() UserNickname
 	NickIsNull() bool
-	SetNick(user.Nickname) GuildMember
+	SetNick(UserNickname) GuildMember
 	SetNullNick() GuildMember
 
 	// array of role object ids

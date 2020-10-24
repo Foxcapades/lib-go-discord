@@ -25,31 +25,3 @@ func (t InviteTargetUserType) Validate() error {
 
 	return nil
 }
-
-type OptionalTargetUserType struct {
-	value *InviteTargetUserType
-}
-
-func (o OptionalTargetUserType) IsSet() bool {
-	return o.value != nil
-}
-
-func (o OptionalTargetUserType) IsUnset() bool {
-	return o.value == nil
-}
-
-func (o OptionalTargetUserType) Unset() {
-	o.value = nil
-}
-
-func (o OptionalTargetUserType) Get() InviteTargetUserType {
-	if o.value == nil {
-		panic(ErrUnsetField)
-	}
-
-	return *o.value
-}
-
-func (o OptionalTargetUserType) Set(t InviteTargetUserType) {
-	o.value = &t
-}

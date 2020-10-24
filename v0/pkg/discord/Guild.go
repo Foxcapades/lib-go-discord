@@ -1,8 +1,6 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
 	"time"
 )
 
@@ -30,13 +28,13 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use IconIsNull to check if the field is null before use.
-	Icon() comm.ImageHash
+	Icon() ImageHash
 
 	// IconIsNull returns whether this record's `icon` field is currently null.
 	IconIsNull() bool
 
 	// SetIcon overwrites the current value of this record's `icon` field.
-	SetIcon(comm.ImageHash) Guild
+	SetIcon(ImageHash) Guild
 
 	// SetNullIcon overwrites the current value of this record's `icon` field
 	// with `null`.
@@ -49,7 +47,7 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use IconHashIsNull to check if the field is null before use.
-	IconHash() comm.ImageHash
+	IconHash() ImageHash
 
 	// IconHashIsNull returns whether this record's `icon_hash` field is currently
 	// null.
@@ -57,7 +55,7 @@ type Guild interface {
 
 	// SetIconHash overwrites the current value of this record's `icon_hash`
 	// field.
-	SetIconHash(comm.ImageHash) Guild
+	SetIconHash(ImageHash) Guild
 
 	// SetNullIconHash overwrites the current value of this record's `icon_hash`
 	// field with `null`.
@@ -69,14 +67,14 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use SplashIsNull to check if the field is null before use.
-	Splash() comm.ImageHash
+	Splash() ImageHash
 
 	// SplashIsNull returns whether this record's `splash` field is currently
 	// null.
 	SplashIsNull() bool
 
 	// SetSplash overwrites the current value of this record's `splash` field.
-	SetSplash(comm.ImageHash) Guild
+	SetSplash(ImageHash) Guild
 
 	// SetNullSplash overwrites the current value of this record's `splash` field
 	// with `null`.
@@ -90,7 +88,7 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use DiscoverySplashIsNull to check if the field is null before use.
-	DiscoverySplash() comm.ImageHash
+	DiscoverySplash() ImageHash
 
 	// DiscoverySplashIsNull returns whether this record's `discovery_splash`
 	// field is currently null.
@@ -98,7 +96,7 @@ type Guild interface {
 
 	// SetDiscoverySplash overwrites the current value of this record's
 	// `discovery_splash` field.
-	SetDiscoverySplash(comm.ImageHash) Guild
+	SetDiscoverySplash(ImageHash) Guild
 
 	// SetNullDiscoverySplash overwrites the current value of this record's
 	// `discovery_splash` field with `null`.
@@ -137,7 +135,7 @@ type Guild interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use PermissionsIsSet to check if the field is present before use.
-	Permissions() comm.Permission
+	Permissions() Permission
 
 	// PermissionsIsSet returns whether this record's `permissions` field is
 	// currently present.
@@ -145,7 +143,7 @@ type Guild interface {
 
 	// SetPermissions overwrites the current value of this record's `permissions`
 	// field.
-	SetPermissions(comm.Permission) Guild
+	SetPermissions(Permission) Guild
 
 	// UnsetPermissions removes this record's `permissions` field.
 	UnsetPermissions() Guild
@@ -247,11 +245,11 @@ type Guild interface {
 	//
 	// The `verification_level` field contains the verification level required for
 	// the guild.
-	VerificationLevel() guild.VerificationLevel
+	VerificationLevel() VerificationLevel
 
 	// SetVerificationLevel overwrites the current value of this record's
 	// `verification_level` field.
-	SetVerificationLevel(guild.VerificationLevel) Guild
+	SetVerificationLevel(VerificationLevel) Guild
 
 	// DefaultMessageNotifications returns the current value of this record's
 	// `default_message_notifications` field.
@@ -302,11 +300,11 @@ type Guild interface {
 	// MFALevel returns the current value of this record's `mfa_level` field.
 	//
 	// The `mfa_level` field contains the required MFA level for the guild.
-	MFALevel() guild.MFALevel
+	MFALevel() MFALevel
 
 	// SetMFALevel overwrites the current value of this record's `mfa_level`
 	// field.
-	SetMFALevel(guild.MFALevel) Guild
+	SetMFALevel(MFALevel) Guild
 
 	// ApplicationID returns the current value of this record's `application_id`
 	// field.
@@ -356,23 +354,23 @@ type Guild interface {
 	// `system_channel_flags` field.
 	//
 	// The `system_channel_flags` field contains the system channel flags.
-	SystemChannelFlags() guild.SystemChannelFlag
+	SystemChannelFlags() SystemChannelFlag
 
 	// SetSystemChannelFlags overwrites the current value of this record's
 	// `system_channel_flags` field.
-	SetSystemChannelFlags(guild.SystemChannelFlag) Guild
+	SetSystemChannelFlags(SystemChannelFlag) Guild
 
 	// AddSystemChannelFlag adds the given flag to this record's current
 	// `system_channel_flags` value.
-	AddSystemChannelFlag(guild.SystemChannelFlag) Guild
+	AddSystemChannelFlag(SystemChannelFlag) Guild
 
 	// RemoveSystemChannelFlag removes the given flag to this record's current
 	// `system_channel_flags` value.
-	RemoveSystemChannelFlag(guild.SystemChannelFlag) Guild
+	RemoveSystemChannelFlag(SystemChannelFlag) Guild
 
 	// SystemChannelFlagsContains returns whether the given flag is already in
 	// this record's `system_channel_flags` value.
-	SystemChannelFlagsContains(guild.SystemChannelFlag) bool
+	SystemChannelFlagsContains(SystemChannelFlag) bool
 
 	// RulesChannelID returns the current value of this record's
 	// `rules_channel_id` field.
@@ -656,14 +654,14 @@ type Guild interface {
 	//
 	// If this method is called on a field with a null value, this method will
 	// panic.  Use BannerIsNull to check if the field is null before use.
-	Banner() comm.ImageHash
+	Banner() ImageHash
 
 	// BannerIsNull returns whether this record's `banner` field is currently
 	// null.
 	BannerIsNull() bool
 
 	// SetBanner overwrites the current value of this record's `banner` field.
-	SetBanner(comm.ImageHash) Guild
+	SetBanner(ImageHash) Guild
 
 	// SetNullBanner overwrites the current value of this record's `banner` field
 	// with `null`.
@@ -673,11 +671,11 @@ type Guild interface {
 	// field.
 	//
 	// The `premium_tier` field contains the premium tier (Server Boost level).
-	PremiumTier() guild.PremiumTier
+	PremiumTier() PremiumTier
 
 	// SetPremiumTier overwrites the current value of this record's `premium_tier`
 	// field.
-	SetPremiumTier(guild.PremiumTier) Guild
+	SetPremiumTier(PremiumTier) Guild
 
 	// PremiumSubscriptionCount returns the current value of this record's
 	// `premium_subscription_count` field.

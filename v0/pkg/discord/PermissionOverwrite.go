@@ -1,0 +1,37 @@
+package discord
+
+// PermissionOverwrite
+// TODO: document me
+type PermissionOverwrite interface {
+	// ID returns the current value of this record's `id` field.
+	//
+	// The `id` field
+	ID() Snowflake
+
+	// SetID overwrites the current value of this record's `id` field.
+	SetID(Snowflake) PermissionOverwrite
+
+	// Type returns the current value of this record's `type` field.
+	//
+	// The `type` field
+	Type() Type
+
+	// SetType overwrites the current value of this record's `type` field.
+	SetType(Type) PermissionOverwrite
+
+	// Allow returns the current value of this record's `allow` field.
+	//
+	// The `allow` field
+	Allow() Permission
+
+	// SetAllow overwrites the current value of this record's `allow` field.
+	SetAllow(Permission) PermissionOverwrite
+
+	// Deny returns the current value of this record's `deny` field.
+	//
+	// The `deny` field
+	Deny() Permission
+
+	// SetDeny overwrites the current value of this record's `deny` field.
+	SetDeny(Permission) PermissionOverwrite
+}

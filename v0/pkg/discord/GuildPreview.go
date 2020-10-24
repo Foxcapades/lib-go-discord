@@ -1,9 +1,5 @@
 package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-)
-
 type GuildPreview interface {
 	// guild id
 	ID() Snowflake
@@ -14,21 +10,21 @@ type GuildPreview interface {
 	SetName(name GuildName) GuildPreview
 
 	// icon hash
-	Icon() comm.ImageHash
+	Icon() ImageHash
 	IconIsNull() bool
-	SetIcon(hash comm.ImageHash) GuildPreview
+	SetIcon(hash ImageHash) GuildPreview
 	SetNullIcon() GuildPreview
 
 	// splash hash
-	Splash() comm.ImageHash
+	Splash() ImageHash
 	SplashIsNull() bool
-	SetSplash(hash comm.ImageHash) GuildPreview
+	SetSplash(hash ImageHash) GuildPreview
 	SetNullSplash() GuildPreview
 
 	// splash hash
-	DiscoverySplash() comm.ImageHash
+	DiscoverySplash() ImageHash
 	DiscoverySplashIsNull() bool
-	SetDiscoverySplash(hash comm.ImageHash) GuildPreview
+	SetDiscoverySplash(hash ImageHash) GuildPreview
 	SetNullDiscoverySplash() GuildPreview
 
 	// custom guild emojis

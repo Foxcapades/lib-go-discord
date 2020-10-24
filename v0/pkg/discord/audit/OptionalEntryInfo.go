@@ -2,7 +2,6 @@ package audit
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
 )
 
 // TODO: The fields on this type seems pretty sus.  Are they all strings?  Are
@@ -87,10 +86,10 @@ type OptionalEntryInfo interface {
 	//
 	// Applies to action type(s): CHANNEL_OVERWRITE_CREATE,
 	// CHANNEL_OVERWRITE_UPDATE, CHANNEL_OVERWRITE_DELETE
-	Type() permission.Type
+	Type() discord.Type
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(permission.Type) OptionalEntryInfo
+	SetType(discord.Type) OptionalEntryInfo
 
 	// RoleName returns the current value of this record's `role_name` field.
 	//

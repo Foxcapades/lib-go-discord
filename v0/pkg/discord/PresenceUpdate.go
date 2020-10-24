@@ -1,11 +1,5 @@
 package discord
 
-import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/gateway"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/guild"
-)
-
-
 // A user's presence is their current state on a guild. This event is sent when
 // a user's presence or info, such as name or avatar, is updated.
 //
@@ -40,16 +34,16 @@ type PresenceUpdate interface {
 	// Status returns the current value of this record's `status` field.
 	//
 	// The `status` field contains the
-	Status() guild.PresenceStatus
+	Status() PresenceStatus
 
 	// SetStatus overwrites the current value of this record's `status` field.
-	SetStatus(guild.PresenceStatus) PresenceUpdate
+	SetStatus(PresenceStatus) PresenceUpdate
 
 	// Activities returns the current value of this record's `activities` field.
 	//
 	// The `activities` field contains the
-	Activities() []gateway.Activity
+	Activities() []Activity
 
 	// SetActivities overwrites the current value of this record's `activities` field.
-	SetActivities([]gateway.Activity) PresenceUpdate
+	SetActivities([]Activity) PresenceUpdate
 }

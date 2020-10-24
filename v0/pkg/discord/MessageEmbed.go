@@ -1,8 +1,9 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
 	"time"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 // MessageEmbed
@@ -105,14 +106,14 @@ type MessageEmbed interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use ColorIsSet to check if the field is present before use.
-	Color() comm.Color
+	Color() lib.Color
 
 	// ColorIsSet returns whether this record's `color` field is currently
 	// present.
 	ColorIsSet() bool
 
 	// SetColor overwrites the current value of this record's `color` field.
-	SetColor(comm.Color) MessageEmbed
+	SetColor(lib.Color) MessageEmbed
 
 	// UnsetColor removes this record's `color` field.
 	UnsetColor() MessageEmbed
@@ -243,61 +244,4 @@ type MessageEmbed interface {
 
 	// UnsetFields removes this record's `fields` field.
 	UnsetFields() MessageEmbed
-}
-
-
-type TriStateEmbedField struct {
-	value MessageEmbed
-	null  bool
-}
-
-func (t TriStateEmbedField) IsSet() bool {
-	return t.value != nil
-}
-
-func (t TriStateEmbedField) IsUnset() bool {
-	return t.value == nil && !t.null
-}
-
-func (t TriStateEmbedField) IsNull() bool {
-	return t.value == nil && t.null
-}
-
-func (t TriStateEmbedField) IsNotNull() bool {
-	return !t.null
-}
-
-func (t TriStateEmbedField) IsReadable() bool {
-	return t.value != nil
-}
-
-func (t TriStateEmbedField) SetNull() {
-	t.value = nil
-	t.null = true
-}
-
-func (t TriStateEmbedField) Unset() {
-	t.value = nil
-	t.null = false
-}
-
-func (t TriStateEmbedField) Get() MessageEmbed {
-	if t.value == nil {
-		if t.null {
-			panic(ErrNullField)
-		} else {
-			panic(ErrUnsetField)
-		}
-	}
-
-	return t.value
-}
-
-func (t TriStateEmbedField) Set(e MessageEmbed) {
-	if e == nil {
-		panic(ErrSetNilTriStateVal)
-	}
-
-	t.value = e
-	t.null = false
 }

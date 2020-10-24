@@ -1,13 +1,17 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/channel"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/permission"
+	"encoding/json"
 	"time"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 type Channel interface {
+	json.Marshaler
+	json.Unmarshaler
+	lib.Validatable
+
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of this channel.
@@ -68,7 +72,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use PermissionOverwritesIsSet to check if the field is present before use.
-	PermissionOverwrites() []permission.Overwrite
+	PermissionOverwrites() []PermissionOverwrite
 
 	// PermissionOverwritesIsSet returns whether this record's
 	// `permission_overwrites` field is currently present.
@@ -76,7 +80,7 @@ type Channel interface {
 
 	// SetPermissionOverwrites overwrites the current value of this record's
 	// `permission_overwrites` field.
-	SetPermissionOverwrites([]permission.Overwrite) Channel
+	SetPermissionOverwrites([]PermissionOverwrite) Channel
 
 	// UnsetPermissionOverwrites removes this record's `permission_overwrites`
 	// field.
@@ -186,14 +190,14 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use BitrateIsSet to check if the field is present before use.
-	Bitrate() channel.Bitrate
+	Bitrate() Bitrate
 
 	// BitrateIsSet returns whether this record's `bitrate` field is currently
 	// present.
 	BitrateIsSet() bool
 
 	// SetBitrate overwrites the current value of this record's `bitrate` field.
-	SetBitrate(channel.Bitrate) Channel
+	SetBitrate(Bitrate) Channel
 
 	// UnsetBitrate removes this record's `bitrate` field.
 	UnsetBitrate() Channel
@@ -204,7 +208,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use UserLimitIsSet to check if the field is present before use.
-	UserLimit() channel.UserLimit
+	UserLimit() UserLimit
 
 	// UserLimitIsSet returns whether this record's `user_limit` field is
 	// currently present.
@@ -212,7 +216,7 @@ type Channel interface {
 
 	// SetUserLimit overwrites the current value of this record's `user_limit`
 	// field.
-	SetUserLimit(channel.UserLimit) Channel
+	SetUserLimit(UserLimit) Channel
 
 	// UnsetUserLimit removes this record's `user_limit` field.
 	UnsetUserLimit() Channel
@@ -226,7 +230,7 @@ type Channel interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use RateLimitPerUserIsSet to check if the field is present before use.
-	RateLimitPerUser() channel.PerUserRateLimit
+	RateLimitPerUser() PerUserRateLimit
 
 	// RateLimitPerUserIsSet returns whether this record's `rate_limit_per_user`
 	// field is currently present.
@@ -234,7 +238,7 @@ type Channel interface {
 
 	// SetRateLimitPerUser overwrites the current value of this record's
 	// `rate_limit_per_user` field.
-	SetRateLimitPerUser(channel.PerUserRateLimit) Channel
+	SetRateLimitPerUser(PerUserRateLimit) Channel
 
 	// UnsetRateLimitPerUser removes this record's `rate_limit_per_user` field.
 	UnsetRateLimitPerUser() Channel
@@ -265,7 +269,7 @@ type Channel interface {
 	// If this method is called on a field that is unset or contains a null value,
 	// this method will panic.  Use IconIsReadable to check if the field is
 	// present and non-null before use.
-	Icon() comm.ImageHash
+	Icon() ImageHash
 
 	// IconIsNull returns whether this record's `icon` field is currently null.
 	IconIsNull() bool
@@ -278,7 +282,7 @@ type Channel interface {
 	IconIsReadable() bool
 
 	// SetIcon overwrites the current value of this record's `icon` field.
-	SetIcon(comm.ImageHash) Channel
+	SetIcon(ImageHash) Channel
 
 	// SetNullIcon overwrites the current value of this record's `icon` field
 	// with `null`.

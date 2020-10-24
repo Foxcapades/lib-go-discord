@@ -232,11 +232,13 @@ var Fields = []types.FieldDef{
 	},
 	{
 		Name: "Snowflake",
-		Type: "Snowflake",
+		Type: "discord.Snowflake",
+		Constructor: "NewSnowflakeImpl(false)", // TODO: validation should be on all types
+		AssignCast: "discord.Snowflake",
 		Testing: types.Testing{
 			JSONTest: types.Test{
 				ActualTransform: wrapString,
-				InputValue:      "func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}()",
+				InputValue:      "func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}()",
 				ExpectValue:     `"123456789123"`,
 				Comparison:      soEqual,
 			},
@@ -244,7 +246,7 @@ var Fields = []types.FieldDef{
 				ActualTransform: func(s string) string {
 					return s + ".RawValue()"
 				},
-				InputValue:  "func() Snowflake {out := Snowflake{}; out.SetRawValue(123_456_789_123); return out}()",
+				InputValue:  "func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}()",
 				ExpectValue: "123456789123",
 				Comparison:  soEqual,
 			},
@@ -264,6 +266,86 @@ var Fields = []types.FieldDef{
 				InputValue: "time.Unix(0, 0).UTC()",
 				ExpectValue: "time.Unix(0, 0).UTC()",
 				Comparison: soResemble,
+			},
+		},
+	},
+	{
+		Name: "VerificationLevel",
+		Type: "discord.VerificationLevel",
+		Testing: types.Testing{
+			JSONTest:  types.Test{
+				InputValue: "discord.VerificationLevelLow",
+				ExpectValue: `[]byte{'1'}`,
+				Comparison: soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue: "discord.VerificationLevelHigh",
+				ExpectValue: "discord.VerificationLevelHigh",
+				Comparison: soEqual,
+			},
+		},
+	},
+	{
+		Name: "MessageNotificationLevel",
+		Type: "discord.MessageNotificationLevel",
+		Testing: types.Testing{
+			JSONTest:  types.Test{
+				InputValue: "discord.MsgNoteLvlAllMessages",
+				ExpectValue: `[]byte{'0'}`,
+				Comparison: soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue: "discord.MsgNoteLvlOnlyMentions",
+				ExpectValue: "discord.MsgNoteLvlOnlyMentions",
+				Comparison: soEqual,
+			},
+		},
+	},
+	{
+		Name: "ExplicitContentFilterLevel",
+		Type: "discord.ExplicitContentFilterLevel",
+		Testing: types.Testing{
+			JSONTest:  types.Test{
+				InputValue: "discord.ExpConFilterLvlMembersWithoutRoles",
+				ExpectValue: `[]byte{'1'}`,
+				Comparison: soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue: "discord.ExpConFilterLvlDisabled",
+				ExpectValue: "discord.ExpConFilterLvlDisabled",
+				Comparison: soEqual,
+			},
+		},
+	},
+	{
+		Name: "ChannelTopic",
+		Type: "discord.ChannelTopic",
+		Testing: types.Testing{
+			JSONTest:  types.Test{
+				InputValue: `"testing"`,
+				ExpectValue: `[]byte("\"testing\"")`,
+				Comparison: soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue: `"testing"`,
+				ExpectValue: `discord.ChannelTopic("testing")`,
+				Comparison: soEqual,
+			},
+		},
+	},
+	{
+		Name: "Any",
+		Type: "interface{}",
+		Testing: types.Testing{
+			JSONTest:  types.Test{
+				InputValue: `nil`,
+				ExpectValue: `[]byte("null")`,
+				Comparison: soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue: `nil`,
+				ExpectValue: `nil`,
+				Comparison: soEqual,
 			},
 		},
 	},

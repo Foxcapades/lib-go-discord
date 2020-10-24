@@ -3,8 +3,6 @@ package dio
 import (
 	"encoding/json"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/comm"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/message"
 )
 
 type JSONMessagePost interface {
@@ -36,14 +34,14 @@ type JSONMessagePost interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use NonceIsSet to check if the field is present before use.
-	Nonce() comm.Nonce
+	Nonce() discord.Nonce
 
 	// NonceIsSet returns whether this request's `nonce` field is currently
 	// present.
 	NonceIsSet() bool
 
 	// SetNonce overwrites the current value of this request's `nonce` field.
-	SetNonce(comm.Nonce) JSONMessagePost
+	SetNonce(discord.Nonce) JSONMessagePost
 
 	// UnsetNonce removes this request's `nonce` field.
 	UnsetNonce() JSONMessagePost
@@ -92,13 +90,13 @@ type JSONMessagePost interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use AllowedMentionsIsSet to check if the field is present before use.
-	AllowedMentions() message.AllowedMentions
+	AllowedMentions() discord.AllowedMentions
 
 	// AllowedMentionsIsSet returns whether this request's `allowed_mentions` field is currently present.
 	AllowedMentionsIsSet() bool
 
 	// SetAllowedMentions overwrites the current value of this request's `allowed_mentions` field.
-	SetAllowedMentions(message.AllowedMentions) JSONMessagePost
+	SetAllowedMentions(discord.AllowedMentions) JSONMessagePost
 
 	// UnsetAllowedMentions removes this request's `allowed_mentions` field.
 	UnsetAllowedMentions() JSONMessagePost

@@ -1,7 +1,5 @@
 package discord
 
-import "github.com/foxcapades/lib-go-discord/v0/pkg/discord/user"
-
 type UserConnection interface {
 	// id of the connection account
 	Id() string
@@ -40,6 +38,6 @@ type UserConnection interface {
 	SetShowActivity(bool) UserConnection
 
 	// visibility of this connection
-	Visibility() user.ConnectionVisibility
-	SetVisibility(user.ConnectionVisibility) UserConnection
+	Visibility() ConnectionVisibility
+	SetVisibility(ConnectionVisibility) UserConnection
 }
