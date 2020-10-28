@@ -3,6 +3,8 @@ package discord
 import (
 	"encoding/json"
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
 )
 
 var (
@@ -12,6 +14,11 @@ var (
 type Ban interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
 
 	// the reason for the ban
 	Reason() string

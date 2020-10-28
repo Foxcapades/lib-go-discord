@@ -1,10 +1,15 @@
-package types
+package guild
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
+
+func NewIcon() GuildIcon {
+	return new(IconImpl)
+}
 
 type IconImpl struct {
 	Root ImageData
@@ -60,7 +65,7 @@ func (i *IconImpl) UnmarshalJSON(in []byte) (err error) {
 		return
 	}
 
-	i.Root, err = NewJSONImageData(in)
+	i.Root, err = types.NewJSONImageData(in)
 
 	return
 }

@@ -1,6 +1,9 @@
 package discord
 
-import "errors"
+import (
+	"errors"
+	"github.com/francoispqt/gojay"
+)
 
 var (
 	ErrBadChannelType = errors.New("unrecognized channel type value")
@@ -43,3 +46,12 @@ func (t ChannelType) Validate() error {
 	return nil
 }
 
+func DecodeChannelType(dec *gojay.Decoder) (ChannelType, error) {
+	var tmp uint8
+
+	if err := dec.DecodeUint8(&tmp); err != nil {
+		return 0, err
+	}
+
+	return ChannelType(tmp), nil
+}

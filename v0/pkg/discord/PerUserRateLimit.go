@@ -1,6 +1,9 @@
 package discord
 
-import "errors"
+import (
+	"errors"
+	"github.com/francoispqt/gojay"
+)
 
 var (
 	ErrBadUserRateLimit = errors.New("per_user_rate_limit values cannot be " +
@@ -21,5 +24,12 @@ func (p PerUserRateLimit) Validate() error {
 	return nil
 }
 
+func DecodeUserRateLimit(dec *gojay.Decoder) (*PerUserRateLimit, error) {
+	var tmp *uint16
 
+	if err := dec.Uint16Null(&tmp); err != nil {
+		return nil, err
+	}
 
+	return (*PerUserRateLimit)(tmp), nil
+}

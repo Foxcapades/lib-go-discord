@@ -1,7 +1,11 @@
 package discord
 
 import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"time"
+
+	"github.com/francoispqt/gojay"
 )
 
 // Activity
@@ -10,6 +14,14 @@ import (
 //
 // Bots are only able to send name, type, and optionally url.
 type Activity interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
+
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the activity's name.
@@ -245,16 +257,16 @@ type Activity interface {
 	//
 	// If this method is called on a field that is unset, this method will panic.
 	// Use InstancedIsSet to check if the field is present before use.
-	Instanced() bool
+	Instance() bool
 
 	// InstancedIsSet returns whether this record's `instanced` field is currently present.
-	InstancedIsSet() bool
+	InstanceIsSet() bool
 
 	// SetInstanced overwrites the current value of this record's `instanced` field.
-	SetInstanced(bool) Activity
+	SetInstance(bool) Activity
 
 	// UnsetInstanced removes this record's `instanced` field.
-	UnsetInstanced() Activity
+	UnsetInstance() Activity
 
 	// Flags returns the current value of this record's `flags` field.
 	//

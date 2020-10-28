@@ -1,7 +1,8 @@
-package types
+package guild
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 
@@ -17,7 +18,7 @@ func NewWidgetImpl() (out *WidgetImpl) {
 
 type WidgetImpl struct {
 	enabled bool
-	id      NullableSnowflake
+	id      types.NullableSnowflake
 }
 
 func (w *WidgetImpl) MarshalJSON() ([]byte, error) {
@@ -77,4 +78,3 @@ func (w *WidgetImpl) SetNullChannelID() Widget {
 	w.id.SetNull()
 	return w
 }
-

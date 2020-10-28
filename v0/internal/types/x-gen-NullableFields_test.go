@@ -87,14 +87,14 @@ func TestNullableInt8(t *testing.T) {
 
 				target.Set(120)
 
-				So(target.Get(),ShouldEqual,120)
+				So(target.Get(), ShouldEqual, 120)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableInt8
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -115,8 +115,7 @@ func TestNullableInt8(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"120")
+				So(string(a), ShouldEqual, "120")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -198,14 +197,14 @@ func TestNullableInt16(t *testing.T) {
 
 				target.Set(32_215)
 
-				So(target.Get(),ShouldEqual,32_215)
+				So(target.Get(), ShouldEqual, 32_215)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableInt16
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -226,8 +225,7 @@ func TestNullableInt16(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"32215")
+				So(string(a), ShouldEqual, "32215")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -309,14 +307,14 @@ func TestNullableInt32(t *testing.T) {
 
 				target.Set(3_331_115)
 
-				So(target.Get(),ShouldEqual,3_331_115)
+				So(target.Get(), ShouldEqual, 3_331_115)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableInt32
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -337,8 +335,7 @@ func TestNullableInt32(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"3331115")
+				So(string(a), ShouldEqual, "3331115")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -420,14 +417,14 @@ func TestNullableInt64(t *testing.T) {
 
 				target.Set(123_456_789_123)
 
-				So(target.Get(),ShouldEqual,123_456_789_123)
+				So(target.Get(), ShouldEqual, 123_456_789_123)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableInt64
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -448,8 +445,7 @@ func TestNullableInt64(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"123456789123")
+				So(string(a), ShouldEqual, "123456789123")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -531,14 +527,14 @@ func TestNullableUint8(t *testing.T) {
 
 				target.Set(250)
 
-				So(target.Get(),ShouldEqual,250)
+				So(target.Get(), ShouldEqual, 250)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableUint8
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -559,8 +555,7 @@ func TestNullableUint8(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"250")
+				So(string(a), ShouldEqual, "250")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -642,14 +637,14 @@ func TestNullableUint16(t *testing.T) {
 
 				target.Set(62_000)
 
-				So(target.Get(),ShouldEqual,62_000)
+				So(target.Get(), ShouldEqual, 62_000)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableUint16
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -670,8 +665,7 @@ func TestNullableUint16(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"62000")
+				So(string(a), ShouldEqual, "62000")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -753,14 +747,14 @@ func TestNullableUint32(t *testing.T) {
 
 				target.Set(10_880_000)
 
-				So(target.Get(),ShouldEqual,10_880_000)
+				So(target.Get(), ShouldEqual, 10_880_000)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableUint32
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -781,8 +775,7 @@ func TestNullableUint32(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"10880000")
+				So(string(a), ShouldEqual, "10880000")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -864,14 +857,14 @@ func TestNullableUint64(t *testing.T) {
 
 				target.Set(999_999_999_999)
 
-				So(target.Get(),ShouldEqual,999_999_999_999)
+				So(target.Get(), ShouldEqual, 999_999_999_999)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableUint64
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -892,8 +885,7 @@ func TestNullableUint64(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"999999999999")
+				So(string(a), ShouldEqual, "999999999999")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -975,14 +967,14 @@ func TestNullableFloat32(t *testing.T) {
 
 				target.Set(1.234512)
 
-				So(target.Get(),ShouldAlmostEqual,1.234512, 0.00001)
+				So(target.Get(), ShouldAlmostEqual, 1.234512, 0.00001)
 			})
 			// [0.00001]
 
 			Convey("panics when no value is set", func() {
 				var target NullableFloat32
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1003,8 +995,13 @@ func TestNullableFloat32(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(func() float32 {v, e := strconv.ParseFloat(string(a), 32); if e != nil {panic(e)}; return float32(v)}(),ShouldAlmostEqual,1.234512, 0.00001)
+				So(func() float32 {
+					v, e := strconv.ParseFloat(string(a), 32)
+					if e != nil {
+						panic(e)
+					}
+					return float32(v)
+				}(), ShouldAlmostEqual, 1.234512, 0.00001)
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1086,14 +1083,14 @@ func TestNullableFloat64(t *testing.T) {
 
 				target.Set(12345.123456789)
 
-				So(target.Get(),ShouldAlmostEqual,12345.123456789)
+				So(target.Get(), ShouldAlmostEqual, 12345.123456789)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableFloat64
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1114,8 +1111,13 @@ func TestNullableFloat64(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(func() float64 {v, e := strconv.ParseFloat(string(a), 64); if e != nil {panic(e)}; return v}(),ShouldAlmostEqual,12345.1234567891)
+				So(func() float64 {
+					v, e := strconv.ParseFloat(string(a), 64)
+					if e != nil {
+						panic(e)
+					}
+					return v
+				}(), ShouldAlmostEqual, 12345.1234567891)
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1197,14 +1199,14 @@ func TestNullableBool(t *testing.T) {
 
 				target.Set(true)
 
-				So(target.Get(),ShouldEqual,true)
+				So(target.Get(), ShouldEqual, true)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableBool
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1225,8 +1227,7 @@ func TestNullableBool(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"true")
+				So(string(a), ShouldEqual, "true")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1308,14 +1309,14 @@ func TestNullableString(t *testing.T) {
 
 				target.Set("hello world")
 
-				So(target.Get(),ShouldEqual,"hello world")
+				So(target.Get(), ShouldEqual, "hello world")
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableString
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1336,8 +1337,7 @@ func TestNullableString(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"\"hello world\"")
+				So(string(a), ShouldEqual, "\"hello world\"")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1362,7 +1362,11 @@ func TestNullableSnowflake(t *testing.T) {
 
 					So(target.IsNull(), ShouldBeTrue)
 
-					target.Set(func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {
+						out := build.NewSnowflake(false)
+						out.SetRawValue(123_456_789_123)
+						return out
+					}())
 					target.SetNull()
 
 					So(target.IsNull(), ShouldBeTrue)
@@ -1373,7 +1377,11 @@ func TestNullableSnowflake(t *testing.T) {
 				Convey("when a value is set", func() {
 					var target NullableSnowflake
 
-					target.Set(func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {
+						out := build.NewSnowflake(false)
+						out.SetRawValue(123_456_789_123)
+						return out
+					}())
 
 					So(target.IsNull(), ShouldBeFalse)
 				})
@@ -1395,7 +1403,11 @@ func TestNullableSnowflake(t *testing.T) {
 
 					So(target.IsNotNull(), ShouldBeFalse)
 
-					target.Set(func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {
+						out := build.NewSnowflake(false)
+						out.SetRawValue(123_456_789_123)
+						return out
+					}())
 					target.SetNull()
 
 					So(target.IsNotNull(), ShouldBeFalse)
@@ -1406,7 +1418,11 @@ func TestNullableSnowflake(t *testing.T) {
 				Convey("when a value is set", func() {
 					var target NullableSnowflake
 
-					target.Set(func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}())
+					target.Set(func() discord.Snowflake {
+						out := build.NewSnowflake(false)
+						out.SetRawValue(123_456_789_123)
+						return out
+					}())
 
 					So(target.IsNotNull(), ShouldBeTrue)
 				})
@@ -1417,16 +1433,20 @@ func TestNullableSnowflake(t *testing.T) {
 			Convey("returns the set value", func() {
 				var target NullableSnowflake
 
-				target.Set(func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}())
+				target.Set(func() discord.Snowflake {
+					out := build.NewSnowflake(false)
+					out.SetRawValue(123_456_789_123)
+					return out
+				}())
 
-				So(target.Get().RawValue(),ShouldEqual,123456789123)
+				So(target.Get().RawValue(), ShouldEqual, 123456789123)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableSnowflake
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1443,12 +1463,15 @@ func TestNullableSnowflake(t *testing.T) {
 			Convey("returns the serialized value when the field is not null", func() {
 				var target NullableSnowflake
 
-				target.Set(func() discord.Snowflake {out := build.NewSnowflake(false); out.SetRawValue(123_456_789_123); return out}())
+				target.Set(func() discord.Snowflake {
+					out := build.NewSnowflake(false)
+					out.SetRawValue(123_456_789_123)
+					return out
+				}())
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"123456789123")
+				So(string(a), ShouldEqual, "123456789123")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1530,14 +1553,14 @@ func TestNullableTime(t *testing.T) {
 
 				target.Set(time.Unix(0, 0).UTC())
 
-				So(target.Get(),ShouldResemble,time.Unix(0, 0).UTC())
+				So(target.Get(), ShouldResemble, time.Unix(0, 0).UTC())
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableTime
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1558,8 +1581,7 @@ func TestNullableTime(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(string(a),ShouldEqual,"\"1970-01-01T00:00:00Z\"")
+				So(string(a), ShouldEqual, "\"1970-01-01T00:00:00Z\"")
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1641,14 +1663,14 @@ func TestNullableVerificationLevel(t *testing.T) {
 
 				target.Set(discord.VerificationLevelHigh)
 
-				So(target.Get(),ShouldEqual,discord.VerificationLevelHigh)
+				So(target.Get(), ShouldEqual, discord.VerificationLevelHigh)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableVerificationLevel
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1669,8 +1691,7 @@ func TestNullableVerificationLevel(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(a,ShouldResemble,[]byte{'1'})
+				So(a, ShouldResemble, []byte{'1'})
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1752,14 +1773,14 @@ func TestNullableMessageNotificationLevel(t *testing.T) {
 
 				target.Set(discord.MsgNoteLvlOnlyMentions)
 
-				So(target.Get(),ShouldEqual,discord.MsgNoteLvlOnlyMentions)
+				So(target.Get(), ShouldEqual, discord.MsgNoteLvlOnlyMentions)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableMessageNotificationLevel
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1780,8 +1801,7 @@ func TestNullableMessageNotificationLevel(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(a,ShouldResemble,[]byte{'0'})
+				So(a, ShouldResemble, []byte{'0'})
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1863,14 +1883,14 @@ func TestNullableExplicitContentFilterLevel(t *testing.T) {
 
 				target.Set(discord.ExpConFilterLvlDisabled)
 
-				So(target.Get(),ShouldEqual,discord.ExpConFilterLvlDisabled)
+				So(target.Get(), ShouldEqual, discord.ExpConFilterLvlDisabled)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableExplicitContentFilterLevel
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -1891,8 +1911,7 @@ func TestNullableExplicitContentFilterLevel(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(a,ShouldResemble,[]byte{'1'})
+				So(a, ShouldResemble, []byte{'1'})
 				So(b, ShouldBeNil)
 			})
 		})
@@ -1974,14 +1993,14 @@ func TestNullableChannelTopic(t *testing.T) {
 
 				target.Set("testing")
 
-				So(target.Get(),ShouldEqual,discord.ChannelTopic("testing"))
+				So(target.Get(), ShouldEqual, discord.ChannelTopic("testing"))
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableChannelTopic
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -2002,8 +2021,7 @@ func TestNullableChannelTopic(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
-
-				So(a,ShouldResemble,[]byte("\"testing\""))
+				So(a, ShouldResemble, []byte("\"testing\""))
 				So(b, ShouldBeNil)
 			})
 		})
@@ -2085,14 +2103,14 @@ func TestNullableAny(t *testing.T) {
 
 				target.Set(nil)
 
-				So(target.Get(),ShouldEqual,nil)
+				So(target.Get(), ShouldEqual, nil)
 			})
 			// []
 
 			Convey("panics when no value is set", func() {
 				var target NullableAny
 
-				So(func() {target.Get()}, ShouldPanicWith, ErrNullField)
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
 			})
 		})
 
@@ -2113,8 +2131,447 @@ func TestNullableAny(t *testing.T) {
 
 				a, b := target.MarshalJSON()
 
+				So(a, ShouldResemble, []byte("null"))
+				So(b, ShouldBeNil)
+			})
+		})
+	})
+}
 
-				So(a,ShouldResemble,[]byte("null"))
+func TestNullableActivityEmoji(t *testing.T) {
+	Convey("NullableActivityEmoji", t, func() {
+
+		Convey(".IsNull()", func() {
+			Convey("returns true", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivityEmoji
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivityEmoji
+
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+			})
+
+			Convey("returns false", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivityEmoji
+
+					target.Set(nil)
+
+					So(target.IsNull(), ShouldBeFalse)
+				})
+			})
+		})
+
+		Convey(".IsNotNull()", func() {
+			Convey("returns false", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivityEmoji
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivityEmoji
+
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+			})
+
+			Convey("returns true", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivityEmoji
+
+					target.Set(nil)
+
+					So(target.IsNotNull(), ShouldBeTrue)
+				})
+			})
+		})
+
+		Convey(".Get()", func() {
+			Convey("returns the set value", func() {
+				var target NullableActivityEmoji
+
+				target.Set(nil)
+
+				So(target.Get(), ShouldEqual, nil)
+			})
+			// []
+
+			Convey("panics when no value is set", func() {
+				var target NullableActivityEmoji
+
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
+			})
+		})
+
+		Convey(".MarshalJSON()", func() {
+			Convey("returns null when the field is null", func() {
+				var target NullableActivityEmoji
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte{'n', 'u', 'l', 'l'})
+				So(b, ShouldBeNil)
+			})
+
+			Convey("returns the serialized value when the field is not null", func() {
+				var target NullableActivityEmoji
+
+				target.Set(nil)
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte("null"))
+				So(b, ShouldBeNil)
+			})
+		})
+	})
+}
+
+func TestNullableActivityParty(t *testing.T) {
+	Convey("NullableActivityParty", t, func() {
+
+		Convey(".IsNull()", func() {
+			Convey("returns true", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivityParty
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivityParty
+
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+			})
+
+			Convey("returns false", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivityParty
+
+					target.Set(nil)
+
+					So(target.IsNull(), ShouldBeFalse)
+				})
+			})
+		})
+
+		Convey(".IsNotNull()", func() {
+			Convey("returns false", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivityParty
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivityParty
+
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+			})
+
+			Convey("returns true", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivityParty
+
+					target.Set(nil)
+
+					So(target.IsNotNull(), ShouldBeTrue)
+				})
+			})
+		})
+
+		Convey(".Get()", func() {
+			Convey("returns the set value", func() {
+				var target NullableActivityParty
+
+				target.Set(nil)
+
+				So(target.Get(), ShouldEqual, nil)
+			})
+			// []
+
+			Convey("panics when no value is set", func() {
+				var target NullableActivityParty
+
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
+			})
+		})
+
+		Convey(".MarshalJSON()", func() {
+			Convey("returns null when the field is null", func() {
+				var target NullableActivityParty
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte{'n', 'u', 'l', 'l'})
+				So(b, ShouldBeNil)
+			})
+
+			Convey("returns the serialized value when the field is not null", func() {
+				var target NullableActivityParty
+
+				target.Set(nil)
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte("null"))
+				So(b, ShouldBeNil)
+			})
+		})
+	})
+}
+
+func TestNullableActivityAssets(t *testing.T) {
+	Convey("NullableActivityAssets", t, func() {
+
+		Convey(".IsNull()", func() {
+			Convey("returns true", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivityAssets
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivityAssets
+
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+			})
+
+			Convey("returns false", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivityAssets
+
+					target.Set(nil)
+
+					So(target.IsNull(), ShouldBeFalse)
+				})
+			})
+		})
+
+		Convey(".IsNotNull()", func() {
+			Convey("returns false", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivityAssets
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivityAssets
+
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+			})
+
+			Convey("returns true", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivityAssets
+
+					target.Set(nil)
+
+					So(target.IsNotNull(), ShouldBeTrue)
+				})
+			})
+		})
+
+		Convey(".Get()", func() {
+			Convey("returns the set value", func() {
+				var target NullableActivityAssets
+
+				target.Set(nil)
+
+				So(target.Get(), ShouldEqual, nil)
+			})
+			// []
+
+			Convey("panics when no value is set", func() {
+				var target NullableActivityAssets
+
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
+			})
+		})
+
+		Convey(".MarshalJSON()", func() {
+			Convey("returns null when the field is null", func() {
+				var target NullableActivityAssets
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte{'n', 'u', 'l', 'l'})
+				So(b, ShouldBeNil)
+			})
+
+			Convey("returns the serialized value when the field is not null", func() {
+				var target NullableActivityAssets
+
+				target.Set(nil)
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte("null"))
+				So(b, ShouldBeNil)
+			})
+		})
+	})
+}
+
+func TestNullableActivitySecrets(t *testing.T) {
+	Convey("NullableActivitySecrets", t, func() {
+
+		Convey(".IsNull()", func() {
+			Convey("returns true", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivitySecrets
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivitySecrets
+
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNull(), ShouldBeTrue)
+				})
+			})
+
+			Convey("returns false", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivitySecrets
+
+					target.Set(nil)
+
+					So(target.IsNull(), ShouldBeFalse)
+				})
+			})
+		})
+
+		Convey(".IsNotNull()", func() {
+			Convey("returns false", func() {
+				Convey("when first constructed", func() {
+					var target NullableActivitySecrets
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+
+				Convey("when set to null", func() {
+					var target NullableActivitySecrets
+
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+
+					target.Set(nil)
+					target.SetNull()
+
+					So(target.IsNotNull(), ShouldBeFalse)
+				})
+			})
+
+			Convey("returns true", func() {
+				Convey("when a value is set", func() {
+					var target NullableActivitySecrets
+
+					target.Set(nil)
+
+					So(target.IsNotNull(), ShouldBeTrue)
+				})
+			})
+		})
+
+		Convey(".Get()", func() {
+			Convey("returns the set value", func() {
+				var target NullableActivitySecrets
+
+				target.Set(nil)
+
+				So(target.Get(), ShouldEqual, nil)
+			})
+			// []
+
+			Convey("panics when no value is set", func() {
+				var target NullableActivitySecrets
+
+				So(func() { target.Get() }, ShouldPanicWith, ErrNullField)
+			})
+		})
+
+		Convey(".MarshalJSON()", func() {
+			Convey("returns null when the field is null", func() {
+				var target NullableActivitySecrets
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte{'n', 'u', 'l', 'l'})
+				So(b, ShouldBeNil)
+			})
+
+			Convey("returns the serialized value when the field is not null", func() {
+				var target NullableActivitySecrets
+
+				target.Set(nil)
+
+				a, b := target.MarshalJSON()
+
+				So(a, ShouldResemble, []byte("null"))
 				So(b, ShouldBeNil)
 			})
 		})

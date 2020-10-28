@@ -2,11 +2,23 @@ package discord
 
 import (
 	"encoding/json"
+	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
+)
+
+var (
+	ErrCurrentIsGtMax = errors.New("activity party's current_size is greater than its max size")
 )
 
 type ActivityParty interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//
@@ -33,19 +45,6 @@ type ActivityParty interface {
 	// Use CurrentSizeIsSet to check if the field is present before use.
 	CurrentSize() uint16
 
-	// CurrentSizeIsSet returns whether this record's `size` field is currently
-	// present.
-	CurrentSizeIsSet() bool
-
-	// SetCurrentSize overwrites the current first value of this record's `size`
-	// field.
-	SetCurrentSize(uint16) ActivityParty
-
-	// UnsetCurrentSize removes this record's `size` field.
-	//
-	// NOTE: This will also unset the MaxSize value.
-	UnsetCurrentSize() ActivityParty
-
 	// MaxSize returns the current second value of this record's `size` field.
 	//
 	// The `size` field contains the party's current and maximum size.
@@ -54,17 +53,14 @@ type ActivityParty interface {
 	// Use MaxSizeIsSet to check if the field is present before use.
 	MaxSize() uint16
 
-	// MaxSizeIsSet returns whether this record's `size` field is currently
+	// SizesAreSet returns whether this record's `size` field is currently
 	// present.
-	MaxSizeIsSet() bool
+	SizesAreSet() bool
 
-	// SetMaxSize overwrites the current second value of this record's `size`
+	// SetCurrentSize overwrites the current first value of this record's `size`
 	// field.
-	SetMaxSize(uint16) ActivityParty
+	SetSizes(current, max uint16) ActivityParty
 
-	// UnsetMaxSize removes this record's `size` field.
-	//
-	// NOTE: This will also unset the CurrentSize value.
-	UnsetMaxSize() ActivityParty
+	// UnsetCurrentSize removes this record's `size` field.
+	UnsetSizes() ActivityParty
 }
-

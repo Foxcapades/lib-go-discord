@@ -50,7 +50,7 @@ func (l LogEvent) IsValid() bool {
 	return nil == l.Validate()
 }
 
-func (l LogEvent) Validate() error {
+func (l LogEvent) Validate() []error {
 	if l > 82 || l < 1 {
 		return ErrBadLogEvent
 	}
@@ -78,4 +78,3 @@ func (l LogEvent) Validate() error {
 
 	return ErrBadLogEvent
 }
-

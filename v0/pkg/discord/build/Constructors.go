@@ -1,32 +1,56 @@
 package build
 
 import (
-	t "github.com/foxcapades/lib-go-discord/v0/internal/types"
-	."github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"image"
 	"io"
+
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/activity"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/channel"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/guild"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/user"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/voice"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+
+	t "github.com/foxcapades/lib-go-discord/v0/internal/types"
+	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 ///  A  ////////////////////////////////////////////////////////////////////////
 
+func NewActivity() Activity {
+	return activity.NewActivity()
+}
+
+func NewActivityAssets() ActivityAssets {
+	return activity.NewAssets()
+}
+
+func NewActivityEmoji() ActivityEmoji {
+	return activity.NewEmoji()
+}
+
 func NewActivityParty() ActivityParty {
-	return new(t.ActivityPartyImpl)
+	return activity.NewParty()
 }
 
 func NewActivitySecrets() ActivitySecrets {
-	return new(t.ActivitySecretsImpl)
+	return activity.NewSecrets()
 }
 
-func NewTimestamps() ActivityTimestamps {
-	return new(t.ActivityTimestampsImpl)
+func NewActivityTimestamps() ActivityTimestamps {
+	return activity.NewTimestamps()
 }
 
 ///  B  ////////////////////////////////////////////////////////////////////////
 
-func NewBan(validate bool) Ban {
-	// FIXME: this should be done with a BanImpl constructor.
-	return &t.BanImpl{Validate: validate}
+func NewBan() Ban {
+	return guild.NewBan()
+}
+
+///  C  ////////////////////////////////////////////////////////////////////////
+
+func NewChannel() Channel {
+	return channel.NewChannel()
 }
 
 ///  I  ////////////////////////////////////////////////////////////////////////
@@ -66,7 +90,7 @@ func NewIcon(in io.ReadSeeker) (out GuildIcon, err error) {
 		return
 	}
 
-	out = &t.IconImpl{Root: inner}
+	out = &guild.IconImpl{Root: inner}
 
 	if inner.Height() > IconMaxHeight || inner.Width() > IconMaxWidth {
 		return out, ErrBadIconSize
@@ -145,7 +169,7 @@ func NewJSONImageData(in []byte) (ImageData, error) {
 
 // NewRole
 func NewRole(validate bool) Role {
-	return (&t.RoleImpl{
+	return (&guild.RoleImpl{
 		Validate: validate,
 	}).SetColor(lib.NewColor())
 }
@@ -162,8 +186,8 @@ func NewRole(validate bool) Role {
 // Note: The Snowflake instance this method creates is empty, and as such is
 // invalid.  The snowflake will need to have values set via setters or
 // unmarshaler methods to become valid.
-func NewSnowflake(validate bool) Snowflake {
-	return new(t.SnowflakeImpl)
+func NewSnowflake() Snowflake {
+	return t.NewSnowflake()
 }
 
 ///  U  ////////////////////////////////////////////////////////////////////////
@@ -181,8 +205,8 @@ func NewSnowflake(validate bool) Snowflake {
 // in addition to the documented checks.  This feature is primarily intended to
 // help catch internal bugs and/or avoid making requests with obviously bad
 // data.
-func NewUser(validate bool) User {
-	return t.NewUserImpl(validate)
+func NewUser() User {
+	return user.NewUser()
 }
 
 ///  V  ////////////////////////////////////////////////////////////////////////
@@ -190,13 +214,13 @@ func NewUser(validate bool) User {
 // NewVoiceRegion
 // TODO: Document me
 func NewVoiceRegion() VoiceRegion {
-	return new(t.VoiceRegionImpl)
+	return new(voice.VoiceRegionImpl)
 }
 
 func NewVoiceState(validate bool) VoiceState {
-	return &t.VoiceStateImpl{Validate: validate}
+	return &voice.VoiceStateImpl{Validate: validate}
 }
 
 func NewWidget() Widget {
-	return t.NewWidgetImpl()
+	return guild.NewWidgetImpl()
 }

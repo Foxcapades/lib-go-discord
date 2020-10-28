@@ -2,6 +2,7 @@ package types
 
 import (
 	"encoding/json"
+	"github.com/francoispqt/gojay"
 	"strconv"
 	"time"
 
@@ -18,35 +19,74 @@ const (
 	workIdShift uint8 = 17
 	procIdShift uint8 = 12
 
-	ns2ms uint64 = 1_000_000
+	ns2ms = 1_000_000
 )
 
-func NewSnowflakeImpl(validate bool) *SnowflakeImpl {
-	return &SnowflakeImpl{validate: validate}
+func NewSnowflake() Snowflake {
+	return new(snowflake)
 }
 
-type SnowflakeImpl struct {
-	validate bool
-	raw      uint64
+// DecodeSnowflake attempts to decode a JSON representation of a Snowflake via
+// gojay.
+//
+// This method may return nil if the input json value was `null`.
+func DecodeSnowflake(dec *gojay.Decoder) (Snowflake, error) {
+	var tmp *string
+
+	if err := dec.StringNull(&tmp); err != nil {
+		return nil, err
+	}
+
+	if tmp == nil {
+		return nil, nil
+	}
+
+	sn := NewSnowflake()
+
+	if err := sn.UnmarshalString(*tmp); err != nil {
+		return nil, err
+	}
+
+	return sn, nil
 }
 
-func (s *SnowflakeImpl) RawValue() uint64 {
+// UnmarshalJSONSnowflake attempts to unmarshal a JSON representation of a
+// Snowflake via the standard library json package.
+func UnmarshalJSONSnowflake(buf []byte) (out Snowflake, err error) {
+	var tmp *string
+
+	if err = json.Unmarshal(buf, &tmp); err != nil {
+		return
+	}
+
+	if tmp == nil {
+		return
+	}
+
+	out = NewSnowflake()
+
+	if err = out.UnmarshalString(*tmp); err != nil {
+		return nil, err
+	}
+
+	return
+}
+
+type snowflake struct {
+	raw uint64
+}
+
+func (s *snowflake) RawValue() uint64 {
 	return s.raw
 }
 
-func (s *SnowflakeImpl) SetRawValue(val uint64) Snowflake {
+func (s *snowflake) SetRawValue(val uint64) Snowflake {
 	s.raw = val
-
-	if s.validate {
-		if err := s.Validate(); err != nil {
-			panic(err)
-		}
-	}
 
 	return s
 }
 
-func (s *SnowflakeImpl) Timestamp() time.Time {
+func (s *snowflake) Timestamp() time.Time {
 	tmp := (s.raw >> timeShift) + EpochMillis
 	sec := tmp / 1000
 	nano := (tmp % 1000) * ns2ms
@@ -54,12 +94,8 @@ func (s *SnowflakeImpl) Timestamp() time.Time {
 	return time.Unix(int64(sec), int64(nano))
 }
 
-func (s *SnowflakeImpl) SetTimestamp(t time.Time) Snowflake {
+func (s *snowflake) SetTimestamp(t time.Time) Snowflake {
 	tmp := uint64(t.UnixNano())/ns2ms - EpochMillis
-
-	if s.validate && tmp&MaxTimestamp > 0 {
-		panic(ErrSnowflakeBitLoss)
-	}
 
 	s.raw &= ^timeMask
 	s.raw |= (tmp << timeShift) & timeMask
@@ -67,66 +103,48 @@ func (s *SnowflakeImpl) SetTimestamp(t time.Time) Snowflake {
 	return s
 }
 
-func (s *SnowflakeImpl) InternalWorkerID() uint8 {
+func (s *snowflake) InternalWorkerID() uint8 {
 	return uint8((s.raw & workIdMask) >> workIdShift)
 }
 
-func (s *SnowflakeImpl) SetInternalWorkerID(id uint8) Snowflake {
-	if s.validate && id&MaxWorkerID > 0 {
-		panic(ErrSnowflakeBitLoss)
-	}
-
+func (s *snowflake) SetInternalWorkerID(id uint8) Snowflake {
 	s.raw &= ^workIdMask
 	s.raw |= (uint64(id) << workIdShift) & workIdMask
 
 	return s
 }
 
-func (s *SnowflakeImpl) InternalProcessID() uint8 {
+func (s *snowflake) InternalProcessID() uint8 {
 	return uint8((s.raw & procIdMask) >> procIdShift)
 }
 
-func (s *SnowflakeImpl) SetInternalProcessID(id uint8) Snowflake {
-	if s.validate && id&MaxProcessID > 0 {
-		panic(ErrSnowflakeBitLoss)
-	}
-
+func (s *snowflake) SetInternalProcessID(id uint8) Snowflake {
 	s.raw &= ^procIdMask
 	s.raw |= (uint64(id) << procIdShift) & procIdMask
 
 	return s
 }
 
-func (s *SnowflakeImpl) CounterValue() uint16 {
+func (s *snowflake) CounterValue() uint16 {
 	return uint16(s.raw & countMask)
 }
 
-func (s *SnowflakeImpl) SetCounterValue(id uint16) Snowflake {
-	if s.validate && id&MaxCounterValue > 0 {
-		panic(ErrSnowflakeBitLoss)
-	}
-
+func (s *snowflake) SetCounterValue(id uint16) Snowflake {
 	s.raw &= ^countMask
 	s.raw |= uint64(id) & countMask
 
 	return s
 }
 
-func (s *SnowflakeImpl) String() string {
+func (s *snowflake) String() string {
 	return strconv.FormatUint(s.raw, 10)
 }
 
-func (s *SnowflakeImpl) MarshalJSON() ([]byte, error) {
-	if s.validate {
-		if err := s.Validate(); err != nil {
-			return nil, err
-		}
-	}
-
+func (s *snowflake) MarshalJSON() ([]byte, error) {
 	return []byte(s.String()), nil
 }
 
-func (s *SnowflakeImpl) UnmarshalJSON(bytes []byte) (err error) {
+func (s *snowflake) UnmarshalJSON(bytes []byte) (err error) {
 	var tmp string
 
 	if err = json.Unmarshal(bytes, &tmp); err != nil {
@@ -136,24 +154,20 @@ func (s *SnowflakeImpl) UnmarshalJSON(bytes []byte) (err error) {
 	return s.UnmarshalString(tmp)
 }
 
-func (s *SnowflakeImpl) UnmarshalString(val string) (err error) {
+func (s *snowflake) UnmarshalString(val string) (err error) {
 	s.raw, err = strconv.ParseUint(val, 10, 64)
 	if err != nil {
 		return err
 	}
 
-	if s.validate {
-		err = s.Validate()
-	}
-
 	return
 }
 
-func (s *SnowflakeImpl) IsValid() bool {
+func (s *snowflake) IsValid() bool {
 	return nil == s.Validate()
 }
 
-func (s *SnowflakeImpl) Validate() error {
+func (s *snowflake) Validate() error {
 	if s.raw == 0 {
 		return ErrEmptySnowflake
 	}

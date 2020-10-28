@@ -2,6 +2,7 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/francoispqt/gojay"
 	"time"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
@@ -10,6 +11,10 @@ import (
 type Channel interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
 	lib.Validatable
 
 	// ID returns the current value of this record's `id` field.
@@ -18,6 +23,8 @@ type Channel interface {
 	ID() Snowflake
 
 	// SetID overwrites the current value of this record's `id` field.
+	//
+	// Passing a nil value here will cause this method to panic.
 	SetID(Snowflake) Channel
 
 	// Type returns the current value of this record's `type` field.
@@ -41,6 +48,8 @@ type Channel interface {
 	GuildIDIsSet() bool
 
 	// SetGuildID overwrites the current value of this record's `guild_id` field.
+	//
+	// Passing a nil value here will cause this method to panic.
 	SetGuildID(Snowflake) Channel
 
 	// UnsetGuildID removes this record's `guild_id` field.
@@ -80,6 +89,9 @@ type Channel interface {
 
 	// SetPermissionOverwrites overwrites the current value of this record's
 	// `permission_overwrites` field.
+	//
+	// Passing a nil value here will not unset the field, it will instead be set
+	// to an empty array due to Go's handling of nil slices.
 	SetPermissionOverwrites([]PermissionOverwrite) Channel
 
 	// UnsetPermissionOverwrites removes this record's `permission_overwrites`
@@ -175,6 +187,8 @@ type Channel interface {
 
 	// SetLastMessageID overwrites the current value of this record's
 	// `last_message_id` field.
+	//
+	// Passing a nil value here will cause this method to panic.
 	SetLastMessageID(Snowflake) Channel
 
 	// SetNullLastMessageID overwrites the current value of this record's
@@ -257,6 +271,9 @@ type Channel interface {
 
 	// SetRecipients overwrites the current value of this record's `recipients`
 	// field.
+	//
+	// Passing a nil value here will not unset the field, it will instead be set
+	// to an empty array due to Go's handling of nil slices.
 	SetRecipients([]User) Channel
 
 	// UnsetRecipients removes this record's `recipients` field.
@@ -304,6 +321,8 @@ type Channel interface {
 	OwnerIDIsSet() bool
 
 	// SetOwnerID overwrites the current value of this record's `owner_id` field.
+	//
+	// Passing a nil value here will cause this method to panic.
 	SetOwnerID(Snowflake) Channel
 
 	// UnsetOwnerID removes this record's `owner_id` field.
@@ -325,6 +344,8 @@ type Channel interface {
 
 	// SetApplicationID overwrites the current value of this record's
 	// `application_id` field.
+	//
+	// Passing a nil value here will cause this method to panic.
 	SetApplicationID(Snowflake) Channel
 
 	// UnsetApplicationID removes this record's `application_id` field.
@@ -354,6 +375,8 @@ type Channel interface {
 
 	// SetParentID overwrites the current value of this record's `parent_id`
 	// field.
+	//
+	// Passing a nil value here will cause this method to panic.
 	SetParentID(Snowflake) Channel
 
 	// SetNullParentID overwrites the current value of this record's `parent_id`

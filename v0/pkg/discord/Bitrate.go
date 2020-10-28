@@ -1,6 +1,9 @@
 package discord
 
-import "errors"
+import (
+	"errors"
+	"github.com/francoispqt/gojay"
+)
 
 var (
 	ErrBadBitrate = errors.New("bitrates must be between 8000 to 96000 (128000 for VIP servers) inclusive")
@@ -20,5 +23,12 @@ func (b Bitrate) Validate() error {
 	return nil
 }
 
+func DecodeBitrate(dec *gojay.Decoder) (*Bitrate, error) {
+	var tmp *uint32
 
+	if err := dec.Uint32Null(&tmp); err != nil {
+		return nil, err
+	}
 
+	return (*Bitrate)(tmp), nil
+}

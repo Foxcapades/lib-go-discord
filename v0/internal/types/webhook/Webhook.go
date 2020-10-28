@@ -1,7 +1,8 @@
-package types
+package webhook
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 
@@ -11,17 +12,17 @@ import (
 type WebhookImpl struct {
 	id        Snowflake
 	kind      WebhookType
-	guildID   OptionalSnowflake
+	guildID   types.OptionalSnowflake
 	channelID Snowflake
-	user      OptionalAny
-	name      NullableString
-	avatar    NullableString
-	token     OptionalString
-	appID     NullableSnowflake
+	user      types.OptionalAny
+	name      types.NullableString
+	avatar    types.NullableString
+	token     types.OptionalString
+	appID     types.NullableSnowflake
 }
 
 func (w *WebhookImpl) MarshalJSON() ([]byte, error) {
-	return json.Marshal(make(OutBuilder, 9).
+	return json.Marshal(make(types.OutBuilder, 9).
 		AppendRaw(serial.KeyID, w.id).
 		AppendRaw(serial.KeyType, w.kind).
 		AppendOptional(serial.KeyGuildID, &w.guildID).
@@ -201,4 +202,3 @@ func (w *WebhookImpl) SetNullApplicationID() Webhook {
 	w.appID.SetNull()
 	return w
 }
-

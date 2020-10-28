@@ -1,7 +1,8 @@
-package types
+package voice
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
@@ -10,22 +11,22 @@ import (
 type VoiceStateImpl struct {
 	Validate bool
 
-	guildID    OptionalSnowflake
-	channelID  NullableSnowflake
+	guildID    types.OptionalSnowflake
+	channelID  types.NullableSnowflake
 	userID     Snowflake
-	member     OptionalAny
+	member     types.OptionalAny
 	sessionId  string
 	deaf       bool
 	mute       bool
 	selfDeaf   bool
 	selfMute   bool
-	selfStream OptionalBool
+	selfStream types.OptionalBool
 	selfVideo  bool
 	suppress   bool
 }
 
 func (v *VoiceStateImpl) MarshalJSON() ([]byte, error) {
-	return json.Marshal(make(OutBuilder, 12).
+	return json.Marshal(make(types.OutBuilder, 12).
 		AppendOptional(serial.KeyGuildID, &v.guildID).
 		AppendNullable(serial.KeyChannelID, &v.channelID).
 		AppendRaw(serial.KeyUserID, &v.userID).
@@ -227,4 +228,3 @@ func (v *VoiceStateImpl) SetSuppress(b bool) VoiceState {
 	v.suppress = b
 	return v
 }
-

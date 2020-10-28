@@ -1,6 +1,20 @@
 package discord
 
+import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
+)
+
 type ActivityEmoji interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
+
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the emoji.

@@ -11,7 +11,7 @@ import (
 var (
 	ErrUnsetField = errors.New("cannot get a value from an absent field; " +
 		"use the *IsSet method before attempting to unwrap a nullable field")
-	ErrSerializeUnset = errors.New("cannot serialize an absent field")
+	ErrSerializeUnset    = errors.New("cannot serialize an absent field")
 	ErrSetNilOptionalVal = errors.New("attempted to set a nil value using an" +
 		" OptionalField's Set method")
 )
@@ -708,13 +708,12 @@ func (i OptionalSnowflake) Get() discord.Snowflake {
 }
 
 func (i *OptionalSnowflake) UnmarshalJSON(bytes []byte) error {
-	tmp := NewSnowflakeImpl(false)
+	tmp := NewSnowflake()
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
 	t2 := (discord.Snowflake)(tmp)
 	i.value = &t2
-	
 
 	return nil
 }
@@ -1038,6 +1037,218 @@ func (i *OptionalAny) UnmarshalJSON(bytes []byte) error {
 }
 
 func (i *OptionalAny) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type OptionalActivityEmoji struct {
+	value *discord.ActivityEmoji
+}
+
+func (i OptionalActivityEmoji) IsSet() bool {
+	return i.value != nil
+}
+
+func (i OptionalActivityEmoji) IsUnset() bool {
+	return i.value == nil
+}
+
+func (i *OptionalActivityEmoji) Unset() OptionalField {
+	i.value = nil
+
+	return i
+}
+
+func (i *OptionalActivityEmoji) Set(val discord.ActivityEmoji) OptionalField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw value contained by this field.
+//
+// If this field is unset, this method will panic.
+func (i OptionalActivityEmoji) Get() discord.ActivityEmoji {
+	if i.value == nil {
+		panic(ErrUnsetField)
+	}
+
+	return *i.value
+}
+
+func (i *OptionalActivityEmoji) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *OptionalActivityEmoji) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type OptionalActivityParty struct {
+	value *discord.ActivityParty
+}
+
+func (i OptionalActivityParty) IsSet() bool {
+	return i.value != nil
+}
+
+func (i OptionalActivityParty) IsUnset() bool {
+	return i.value == nil
+}
+
+func (i *OptionalActivityParty) Unset() OptionalField {
+	i.value = nil
+
+	return i
+}
+
+func (i *OptionalActivityParty) Set(val discord.ActivityParty) OptionalField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw value contained by this field.
+//
+// If this field is unset, this method will panic.
+func (i OptionalActivityParty) Get() discord.ActivityParty {
+	if i.value == nil {
+		panic(ErrUnsetField)
+	}
+
+	return *i.value
+}
+
+func (i *OptionalActivityParty) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *OptionalActivityParty) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type OptionalActivityAssets struct {
+	value *discord.ActivityAssets
+}
+
+func (i OptionalActivityAssets) IsSet() bool {
+	return i.value != nil
+}
+
+func (i OptionalActivityAssets) IsUnset() bool {
+	return i.value == nil
+}
+
+func (i *OptionalActivityAssets) Unset() OptionalField {
+	i.value = nil
+
+	return i
+}
+
+func (i *OptionalActivityAssets) Set(val discord.ActivityAssets) OptionalField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw value contained by this field.
+//
+// If this field is unset, this method will panic.
+func (i OptionalActivityAssets) Get() discord.ActivityAssets {
+	if i.value == nil {
+		panic(ErrUnsetField)
+	}
+
+	return *i.value
+}
+
+func (i *OptionalActivityAssets) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *OptionalActivityAssets) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type OptionalActivitySecrets struct {
+	value *discord.ActivitySecrets
+}
+
+func (i OptionalActivitySecrets) IsSet() bool {
+	return i.value != nil
+}
+
+func (i OptionalActivitySecrets) IsUnset() bool {
+	return i.value == nil
+}
+
+func (i *OptionalActivitySecrets) Unset() OptionalField {
+	i.value = nil
+
+	return i
+}
+
+func (i *OptionalActivitySecrets) Set(val discord.ActivitySecrets) OptionalField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw value contained by this field.
+//
+// If this field is unset, this method will panic.
+func (i OptionalActivitySecrets) Get() discord.ActivitySecrets {
+	if i.value == nil {
+		panic(ErrUnsetField)
+	}
+
+	return *i.value
+}
+
+func (i *OptionalActivitySecrets) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *OptionalActivitySecrets) MarshalJSON() ([]byte, error) {
 	if i.IsUnset() {
 		return nil, ErrSerializeUnset
 	}

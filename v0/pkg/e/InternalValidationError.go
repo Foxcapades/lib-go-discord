@@ -1,4 +1,4 @@
-package derr
+package e
 
 type InternalValidationError interface {
 	error
@@ -9,9 +9,9 @@ type InternalValidationError interface {
 }
 
 func NewInternalValidationError(
-		field string,
-		value interface{},
-		cause error,
+	field string,
+	value interface{},
+	cause error,
 ) InternalValidationError {
 	return &internalValidationError{
 		field: field,
@@ -20,7 +20,7 @@ func NewInternalValidationError(
 	}
 }
 
-type internalValidationError struct{
+type internalValidationError struct {
 	field string
 	value interface{}
 	cause error
@@ -41,4 +41,3 @@ func (i *internalValidationError) Value() interface{} {
 func (i *internalValidationError) Field() string {
 	return i.field
 }
-

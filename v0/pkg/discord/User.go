@@ -3,6 +3,8 @@ package discord
 import (
 	"encoding/json"
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
 )
 
 // Errors thrown by methods in this file.
@@ -32,6 +34,11 @@ var (
 type User interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
 
 	// ID returns the value of the `id` field currently set on this user record.
 	//

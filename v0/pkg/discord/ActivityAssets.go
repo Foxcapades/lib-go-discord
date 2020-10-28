@@ -1,6 +1,17 @@
 package discord
 
+import (
+	"encoding/json"
+	"github.com/francoispqt/gojay"
+)
+
 type ActivityAssets interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
 	// LargeImage returns the current value of this record's `large_image` field.
 	//
 	// The `large_image` field contains the id for a large asset of the activity,

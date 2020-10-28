@@ -1,4 +1,4 @@
-package types
+package voice
 
 import (
 	"encoding/json"

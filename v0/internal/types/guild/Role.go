@@ -1,4 +1,4 @@
-package types
+package guild
 
 import (
 	"encoding/json"

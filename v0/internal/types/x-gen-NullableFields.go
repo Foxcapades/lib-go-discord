@@ -705,7 +705,7 @@ func (i NullableSnowflake) Get() discord.Snowflake {
 }
 
 func (i *NullableSnowflake) UnmarshalJSON(bytes []byte) error {
-	tmp := NewSnowflakeImpl(false)
+	tmp := NewSnowflake()
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
 	}
@@ -713,7 +713,6 @@ func (i *NullableSnowflake) UnmarshalJSON(bytes []byte) error {
 		t2 := (discord.Snowflake)(tmp)
 		i.value = &t2
 	}
-	
 
 	return nil
 }
@@ -1046,4 +1045,216 @@ func (i *NullableAny) MarshalJSON() ([]byte, error) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-var nullValue = []byte("null");
+type NullableActivityEmoji struct {
+	value *discord.ActivityEmoji
+}
+
+func (i NullableActivityEmoji) IsNull() bool {
+	return i.value == nil
+}
+
+func (i NullableActivityEmoji) IsNotNull() bool {
+	return i.value != nil
+}
+
+func (i *NullableActivityEmoji) SetNull() NullableField {
+	i.value = nil
+
+	return i
+}
+
+func (i *NullableActivityEmoji) Set(val discord.ActivityEmoji) NullableField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw wrapped field value.
+//
+// This method panics if the field is marked as null.
+func (i NullableActivityEmoji) Get() discord.ActivityEmoji {
+	if i.value == nil {
+		panic(ErrNullField)
+	}
+
+	return *i.value
+}
+
+func (i *NullableActivityEmoji) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *NullableActivityEmoji) MarshalJSON() ([]byte, error) {
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type NullableActivityParty struct {
+	value *discord.ActivityParty
+}
+
+func (i NullableActivityParty) IsNull() bool {
+	return i.value == nil
+}
+
+func (i NullableActivityParty) IsNotNull() bool {
+	return i.value != nil
+}
+
+func (i *NullableActivityParty) SetNull() NullableField {
+	i.value = nil
+
+	return i
+}
+
+func (i *NullableActivityParty) Set(val discord.ActivityParty) NullableField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw wrapped field value.
+//
+// This method panics if the field is marked as null.
+func (i NullableActivityParty) Get() discord.ActivityParty {
+	if i.value == nil {
+		panic(ErrNullField)
+	}
+
+	return *i.value
+}
+
+func (i *NullableActivityParty) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *NullableActivityParty) MarshalJSON() ([]byte, error) {
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type NullableActivityAssets struct {
+	value *discord.ActivityAssets
+}
+
+func (i NullableActivityAssets) IsNull() bool {
+	return i.value == nil
+}
+
+func (i NullableActivityAssets) IsNotNull() bool {
+	return i.value != nil
+}
+
+func (i *NullableActivityAssets) SetNull() NullableField {
+	i.value = nil
+
+	return i
+}
+
+func (i *NullableActivityAssets) Set(val discord.ActivityAssets) NullableField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw wrapped field value.
+//
+// This method panics if the field is marked as null.
+func (i NullableActivityAssets) Get() discord.ActivityAssets {
+	if i.value == nil {
+		panic(ErrNullField)
+	}
+
+	return *i.value
+}
+
+func (i *NullableActivityAssets) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *NullableActivityAssets) MarshalJSON() ([]byte, error) {
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type NullableActivitySecrets struct {
+	value *discord.ActivitySecrets
+}
+
+func (i NullableActivitySecrets) IsNull() bool {
+	return i.value == nil
+}
+
+func (i NullableActivitySecrets) IsNotNull() bool {
+	return i.value != nil
+}
+
+func (i *NullableActivitySecrets) SetNull() NullableField {
+	i.value = nil
+
+	return i
+}
+
+func (i *NullableActivitySecrets) Set(val discord.ActivitySecrets) NullableField {
+	i.value = &val
+
+	return i
+}
+
+// Value returns the raw wrapped field value.
+//
+// This method panics if the field is marked as null.
+func (i NullableActivitySecrets) Get() discord.ActivitySecrets {
+	if i.value == nil {
+		panic(ErrNullField)
+	}
+
+	return *i.value
+}
+
+func (i *NullableActivitySecrets) UnmarshalJSON(bytes []byte) error {
+	if err := json.Unmarshal(bytes, &i.value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (i *NullableActivitySecrets) MarshalJSON() ([]byte, error) {
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+var nullValue = []byte("null")

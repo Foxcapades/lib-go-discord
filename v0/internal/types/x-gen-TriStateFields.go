@@ -129,7 +129,6 @@ func (i TriStateInt8) MarshalJSON() ([]byte, error) {
 
 func (i TriStateInt8) UnmarshalJSON(bytes []byte) error {
 	var tmp *int8
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -243,7 +242,6 @@ func (i TriStateInt16) MarshalJSON() ([]byte, error) {
 
 func (i TriStateInt16) UnmarshalJSON(bytes []byte) error {
 	var tmp *int16
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -357,7 +355,6 @@ func (i TriStateInt32) MarshalJSON() ([]byte, error) {
 
 func (i TriStateInt32) UnmarshalJSON(bytes []byte) error {
 	var tmp *int32
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -471,7 +468,6 @@ func (i TriStateInt64) MarshalJSON() ([]byte, error) {
 
 func (i TriStateInt64) UnmarshalJSON(bytes []byte) error {
 	var tmp *int64
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -585,7 +581,6 @@ func (i TriStateUint8) MarshalJSON() ([]byte, error) {
 
 func (i TriStateUint8) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint8
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -699,7 +694,6 @@ func (i TriStateUint16) MarshalJSON() ([]byte, error) {
 
 func (i TriStateUint16) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint16
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -813,7 +807,6 @@ func (i TriStateUint32) MarshalJSON() ([]byte, error) {
 
 func (i TriStateUint32) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint32
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -927,7 +920,6 @@ func (i TriStateUint64) MarshalJSON() ([]byte, error) {
 
 func (i TriStateUint64) UnmarshalJSON(bytes []byte) error {
 	var tmp *uint64
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1041,7 +1033,6 @@ func (i TriStateFloat32) MarshalJSON() ([]byte, error) {
 
 func (i TriStateFloat32) UnmarshalJSON(bytes []byte) error {
 	var tmp *float32
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1155,7 +1146,6 @@ func (i TriStateFloat64) MarshalJSON() ([]byte, error) {
 
 func (i TriStateFloat64) UnmarshalJSON(bytes []byte) error {
 	var tmp *float64
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1269,7 +1259,6 @@ func (i TriStateBool) MarshalJSON() ([]byte, error) {
 
 func (i TriStateBool) UnmarshalJSON(bytes []byte) error {
 	var tmp *bool
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1383,7 +1372,6 @@ func (i TriStateString) MarshalJSON() ([]byte, error) {
 
 func (i TriStateString) UnmarshalJSON(bytes []byte) error {
 	var tmp *string
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1496,8 +1484,7 @@ func (i TriStateSnowflake) MarshalJSON() ([]byte, error) {
 }
 
 func (i TriStateSnowflake) UnmarshalJSON(bytes []byte) error {
-	tmp := NewSnowflakeImpl(false)
-	
+	tmp := NewSnowflake()
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1506,7 +1493,7 @@ func (i TriStateSnowflake) UnmarshalJSON(bytes []byte) error {
 	if tmp != nil {
 		t2 := (discord.Snowflake)(tmp)
 		i.value = &t2
-		
+
 		i.null = false
 	} else {
 		i.value = nil
@@ -1613,7 +1600,6 @@ func (i TriStateTime) MarshalJSON() ([]byte, error) {
 
 func (i TriStateTime) UnmarshalJSON(bytes []byte) error {
 	var tmp *time.Time
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1727,7 +1713,6 @@ func (i TriStateVerificationLevel) MarshalJSON() ([]byte, error) {
 
 func (i TriStateVerificationLevel) UnmarshalJSON(bytes []byte) error {
 	var tmp *discord.VerificationLevel
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1841,7 +1826,6 @@ func (i TriStateMessageNotificationLevel) MarshalJSON() ([]byte, error) {
 
 func (i TriStateMessageNotificationLevel) UnmarshalJSON(bytes []byte) error {
 	var tmp *discord.MessageNotificationLevel
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -1955,7 +1939,6 @@ func (i TriStateExplicitContentFilterLevel) MarshalJSON() ([]byte, error) {
 
 func (i TriStateExplicitContentFilterLevel) UnmarshalJSON(bytes []byte) error {
 	var tmp *discord.ExplicitContentFilterLevel
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -2069,7 +2052,6 @@ func (i TriStateChannelTopic) MarshalJSON() ([]byte, error) {
 
 func (i TriStateChannelTopic) UnmarshalJSON(bytes []byte) error {
 	var tmp *discord.ChannelTopic
-	
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err
@@ -2183,7 +2165,458 @@ func (i TriStateAny) MarshalJSON() ([]byte, error) {
 
 func (i TriStateAny) UnmarshalJSON(bytes []byte) error {
 	var tmp *interface{}
-	
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	if tmp != nil {
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
+	}
+
+	return nil
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// TriStateActivityEmoji represents a(n) discord.ActivityEmoji field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateActivityEmoji struct {
+	value *discord.ActivityEmoji
+	null  bool
+}
+
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateActivityEmoji) IsNull() bool {
+	return i.value == nil && i.null
+}
+
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateActivityEmoji) IsNotNull() bool {
+	return i.value != nil || !i.null
+}
+
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateActivityEmoji) IsUnset() bool {
+	return i.value == nil && !i.null
+}
+
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateActivityEmoji) IsSet() bool {
+	return i.value != nil
+}
+
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateActivityEmoji) IsReadable() bool {
+	return i.value != nil
+}
+
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateActivityEmoji) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
+
+	return i
+}
+
+// Unset removes the current field value entirely.
+func (i *TriStateActivityEmoji) Unset() TriStateField {
+	i.value = nil
+	i.null = false
+
+	return i
+}
+
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateActivityEmoji) Set(val discord.ActivityEmoji) TriStateField {
+	i.value = &val
+	i.null = false
+
+	return i
+}
+
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateActivityEmoji) Get() discord.ActivityEmoji {
+	return *i.value
+}
+
+// MarshalJSON serializes the current field to JSON.
+//
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateActivityEmoji) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+func (i TriStateActivityEmoji) UnmarshalJSON(bytes []byte) error {
+	var tmp *discord.ActivityEmoji
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	if tmp != nil {
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
+	}
+
+	return nil
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// TriStateActivityParty represents a(n) discord.ActivityParty field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateActivityParty struct {
+	value *discord.ActivityParty
+	null  bool
+}
+
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateActivityParty) IsNull() bool {
+	return i.value == nil && i.null
+}
+
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateActivityParty) IsNotNull() bool {
+	return i.value != nil || !i.null
+}
+
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateActivityParty) IsUnset() bool {
+	return i.value == nil && !i.null
+}
+
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateActivityParty) IsSet() bool {
+	return i.value != nil
+}
+
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateActivityParty) IsReadable() bool {
+	return i.value != nil
+}
+
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateActivityParty) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
+
+	return i
+}
+
+// Unset removes the current field value entirely.
+func (i *TriStateActivityParty) Unset() TriStateField {
+	i.value = nil
+	i.null = false
+
+	return i
+}
+
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateActivityParty) Set(val discord.ActivityParty) TriStateField {
+	i.value = &val
+	i.null = false
+
+	return i
+}
+
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateActivityParty) Get() discord.ActivityParty {
+	return *i.value
+}
+
+// MarshalJSON serializes the current field to JSON.
+//
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateActivityParty) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+func (i TriStateActivityParty) UnmarshalJSON(bytes []byte) error {
+	var tmp *discord.ActivityParty
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	if tmp != nil {
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
+	}
+
+	return nil
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// TriStateActivityAssets represents a(n) discord.ActivityAssets field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateActivityAssets struct {
+	value *discord.ActivityAssets
+	null  bool
+}
+
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateActivityAssets) IsNull() bool {
+	return i.value == nil && i.null
+}
+
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateActivityAssets) IsNotNull() bool {
+	return i.value != nil || !i.null
+}
+
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateActivityAssets) IsUnset() bool {
+	return i.value == nil && !i.null
+}
+
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateActivityAssets) IsSet() bool {
+	return i.value != nil
+}
+
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateActivityAssets) IsReadable() bool {
+	return i.value != nil
+}
+
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateActivityAssets) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
+
+	return i
+}
+
+// Unset removes the current field value entirely.
+func (i *TriStateActivityAssets) Unset() TriStateField {
+	i.value = nil
+	i.null = false
+
+	return i
+}
+
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateActivityAssets) Set(val discord.ActivityAssets) TriStateField {
+	i.value = &val
+	i.null = false
+
+	return i
+}
+
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateActivityAssets) Get() discord.ActivityAssets {
+	return *i.value
+}
+
+// MarshalJSON serializes the current field to JSON.
+//
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateActivityAssets) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+func (i TriStateActivityAssets) UnmarshalJSON(bytes []byte) error {
+	var tmp *discord.ActivityAssets
+
+	if err := json.Unmarshal(bytes, &tmp); err != nil {
+		return err
+	}
+
+	if tmp != nil {
+		i.value = tmp
+		i.null = false
+	} else {
+		i.value = nil
+		i.null = true
+	}
+
+	return nil
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// TriStateActivitySecrets represents a(n) discord.ActivitySecrets field which may
+// be one of 3 states: filled, nil, or absent entirely.
+type TriStateActivitySecrets struct {
+	value *discord.ActivitySecrets
+	null  bool
+}
+
+// IsNull returns whether the value of the current field is nil (JSON null).
+//
+// This will return false if the field contains a value or is unset.
+func (i TriStateActivitySecrets) IsNull() bool {
+	return i.value == nil && i.null
+}
+
+// IsNotNull returns whether the value of the current field is not nil (JSON
+// null).
+//
+// This will return false if the field is null or is absent.
+func (i TriStateActivitySecrets) IsNotNull() bool {
+	return i.value != nil || !i.null
+}
+
+// IsUnset returns whether the value of the current field is absent/unset.
+//
+// Returns false if the field contains a value or is null.
+func (i TriStateActivitySecrets) IsUnset() bool {
+	return i.value == nil && !i.null
+}
+
+// IsSet returns whether the value of the current field is present.
+//
+// Returns false if the field is absent or is null.
+func (i TriStateActivitySecrets) IsSet() bool {
+	return i.value != nil
+}
+
+// IsReadable returns whether the field is present and readable.
+//
+// Returns false if the field is unset or is null.
+func (i TriStateActivitySecrets) IsReadable() bool {
+	return i.value != nil
+}
+
+// SetNull overwrites the current field value with JSON null.
+func (i *TriStateActivitySecrets) SetNull() TriStateField {
+	i.value = nil
+	i.null = true
+
+	return i
+}
+
+// Unset removes the current field value entirely.
+func (i *TriStateActivitySecrets) Unset() TriStateField {
+	i.value = nil
+	i.null = false
+
+	return i
+}
+
+// Set overwrites the current field value with the given value.
+//
+// If the type is nillable and a nil value is passed here, this method will
+// panic.
+func (i *TriStateActivitySecrets) Set(val discord.ActivitySecrets) TriStateField {
+	i.value = &val
+	i.null = false
+
+	return i
+}
+
+// Get returns the current field value.
+//
+// If the current field is unset or is null, this method will panic.  Check if
+// this method is safe to call by using the IsReadable method.
+func (i TriStateActivitySecrets) Get() discord.ActivitySecrets {
+	return *i.value
+}
+
+// MarshalJSON serializes the current field to JSON.
+//
+// If this field is unset, this method will return an ErrSerializeUnset error.
+func (i TriStateActivitySecrets) MarshalJSON() ([]byte, error) {
+	if i.IsUnset() {
+		return nil, ErrSerializeUnset
+	}
+
+	if i.IsNull() {
+		return nullValue, nil
+	}
+
+	return json.Marshal(i.value)
+}
+
+func (i TriStateActivitySecrets) UnmarshalJSON(bytes []byte) error {
+	var tmp *discord.ActivitySecrets
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
 		return err

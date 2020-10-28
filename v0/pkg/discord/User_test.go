@@ -14,7 +14,7 @@ func TestUserImpl_MarshalJSON(t *testing.T) {
 		Convey("returns an error when", func() {
 			Convey("validation is enabled and", func() {
 				Convey("the `id` field value is 0", func() {
-					target := build.NewUser(true).
+					target := build.NewUser().
 						SetUsername("hello").
 						SetDiscriminator(1234)
 
@@ -25,8 +25,8 @@ func TestUserImpl_MarshalJSON(t *testing.T) {
 				})
 
 				Convey("the `username` field value is empty", func() {
-					target := build.NewUser(true).
-						SetID(build.NewSnowflake(false)).
+					target := build.NewUser().
+						SetID(build.NewSnowflake()).
 						SetDiscriminator(1234)
 
 					a, b := target.MarshalJSON()
@@ -36,8 +36,8 @@ func TestUserImpl_MarshalJSON(t *testing.T) {
 				})
 
 				Convey("the `discriminator` field value is 0", func() {
-					target := build.NewUser(true).
-						SetID(build.NewSnowflake(false)).
+					target := build.NewUser().
+						SetID(build.NewSnowflake()).
 						SetDiscriminator(1234)
 
 					a, b := target.MarshalJSON()

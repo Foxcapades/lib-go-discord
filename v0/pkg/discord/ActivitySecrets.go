@@ -2,11 +2,15 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/francoispqt/gojay"
 )
 
 type ActivitySecrets interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
 
 	// Join returns the current value of this record's `join` field.
 	//

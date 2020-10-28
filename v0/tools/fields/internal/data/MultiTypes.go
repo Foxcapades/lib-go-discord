@@ -231,10 +231,10 @@ var Fields = []types.FieldDef{
 		},
 	},
 	{
-		Name: "Snowflake",
-		Type: "discord.Snowflake",
+		Name:        "Snowflake",
+		Type:        "discord.Snowflake",
 		Constructor: "NewSnowflakeImpl(false)", // TODO: validation should be on all types
-		AssignCast: "discord.Snowflake",
+		AssignCast:  "discord.Snowflake",
 		Testing: types.Testing{
 			JSONTest: types.Test{
 				ActualTransform: wrapString,
@@ -256,16 +256,16 @@ var Fields = []types.FieldDef{
 		Name: "Time",
 		Type: "time.Time",
 		Testing: types.Testing{
-			JSONTest:  types.Test{
+			JSONTest: types.Test{
 				ActualTransform: wrapString,
-				InputValue: "time.Unix(0, 0).UTC()",
-				ExpectValue: `"\"1970-01-01T00:00:00Z\""`,
-				Comparison: soEqual,
+				InputValue:      "time.Unix(0, 0).UTC()",
+				ExpectValue:     `"\"1970-01-01T00:00:00Z\""`,
+				Comparison:      soEqual,
 			},
 			ValueTest: types.Test{
-				InputValue: "time.Unix(0, 0).UTC()",
+				InputValue:  "time.Unix(0, 0).UTC()",
 				ExpectValue: "time.Unix(0, 0).UTC()",
-				Comparison: soResemble,
+				Comparison:  soResemble,
 			},
 		},
 	},
@@ -273,15 +273,15 @@ var Fields = []types.FieldDef{
 		Name: "VerificationLevel",
 		Type: "discord.VerificationLevel",
 		Testing: types.Testing{
-			JSONTest:  types.Test{
-				InputValue: "discord.VerificationLevelLow",
+			JSONTest: types.Test{
+				InputValue:  "discord.VerificationLevelLow",
 				ExpectValue: `[]byte{'1'}`,
-				Comparison: soResemble,
+				Comparison:  soResemble,
 			},
 			ValueTest: types.Test{
-				InputValue: "discord.VerificationLevelHigh",
+				InputValue:  "discord.VerificationLevelHigh",
 				ExpectValue: "discord.VerificationLevelHigh",
-				Comparison: soEqual,
+				Comparison:  soEqual,
 			},
 		},
 	},
@@ -289,15 +289,15 @@ var Fields = []types.FieldDef{
 		Name: "MessageNotificationLevel",
 		Type: "discord.MessageNotificationLevel",
 		Testing: types.Testing{
-			JSONTest:  types.Test{
-				InputValue: "discord.MsgNoteLvlAllMessages",
+			JSONTest: types.Test{
+				InputValue:  "discord.MsgNoteLvlAllMessages",
 				ExpectValue: `[]byte{'0'}`,
-				Comparison: soResemble,
+				Comparison:  soResemble,
 			},
 			ValueTest: types.Test{
-				InputValue: "discord.MsgNoteLvlOnlyMentions",
+				InputValue:  "discord.MsgNoteLvlOnlyMentions",
 				ExpectValue: "discord.MsgNoteLvlOnlyMentions",
-				Comparison: soEqual,
+				Comparison:  soEqual,
 			},
 		},
 	},
@@ -305,15 +305,15 @@ var Fields = []types.FieldDef{
 		Name: "ExplicitContentFilterLevel",
 		Type: "discord.ExplicitContentFilterLevel",
 		Testing: types.Testing{
-			JSONTest:  types.Test{
-				InputValue: "discord.ExpConFilterLvlMembersWithoutRoles",
+			JSONTest: types.Test{
+				InputValue:  "discord.ExpConFilterLvlMembersWithoutRoles",
 				ExpectValue: `[]byte{'1'}`,
-				Comparison: soResemble,
+				Comparison:  soResemble,
 			},
 			ValueTest: types.Test{
-				InputValue: "discord.ExpConFilterLvlDisabled",
+				InputValue:  "discord.ExpConFilterLvlDisabled",
 				ExpectValue: "discord.ExpConFilterLvlDisabled",
-				Comparison: soEqual,
+				Comparison:  soEqual,
 			},
 		},
 	},
@@ -321,15 +321,15 @@ var Fields = []types.FieldDef{
 		Name: "ChannelTopic",
 		Type: "discord.ChannelTopic",
 		Testing: types.Testing{
-			JSONTest:  types.Test{
-				InputValue: `"testing"`,
+			JSONTest: types.Test{
+				InputValue:  `"testing"`,
 				ExpectValue: `[]byte("\"testing\"")`,
-				Comparison: soResemble,
+				Comparison:  soResemble,
 			},
 			ValueTest: types.Test{
-				InputValue: `"testing"`,
+				InputValue:  `"testing"`,
 				ExpectValue: `discord.ChannelTopic("testing")`,
-				Comparison: soEqual,
+				Comparison:  soEqual,
 			},
 		},
 	},
@@ -337,17 +337,80 @@ var Fields = []types.FieldDef{
 		Name: "Any",
 		Type: "interface{}",
 		Testing: types.Testing{
-			JSONTest:  types.Test{
-				InputValue: `nil`,
+			JSONTest: types.Test{
+				InputValue:  `nil`,
 				ExpectValue: `[]byte("null")`,
-				Comparison: soResemble,
+				Comparison:  soResemble,
 			},
 			ValueTest: types.Test{
-				InputValue: `nil`,
+				InputValue:  `nil`,
 				ExpectValue: `nil`,
-				Comparison: soEqual,
+				Comparison:  soEqual,
+			},
+		},
+	},
+	{ // TODO: make this a real test
+		Name: "ActivityEmoji",
+		Type: "discord.ActivityEmoji",
+		Testing: types.Testing{
+			JSONTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `[]byte("null")`,
+				Comparison:  soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `nil`,
+				Comparison:  soEqual,
+			},
+		},
+	},
+	{ // TODO: make this a real test
+		Name: "ActivityParty",
+		Type: "discord.ActivityParty",
+		Testing: types.Testing{
+			JSONTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `[]byte("null")`,
+				Comparison:  soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `nil`,
+				Comparison:  soEqual,
+			},
+		},
+	},
+	{ // TODO: make this a real test
+		Name: "ActivityAssets",
+		Type: "discord.ActivityAssets",
+		Testing: types.Testing{
+			JSONTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `[]byte("null")`,
+				Comparison:  soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `nil`,
+				Comparison:  soEqual,
+			},
+		},
+	},
+	{ // TODO: make this a real test
+		Name: "ActivitySecrets",
+		Type: "discord.ActivitySecrets",
+		Testing: types.Testing{
+			JSONTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `[]byte("null")`,
+				Comparison:  soResemble,
+			},
+			ValueTest: types.Test{
+				InputValue:  `nil`,
+				ExpectValue: `nil`,
+				Comparison:  soEqual,
 			},
 		},
 	},
 }
-
