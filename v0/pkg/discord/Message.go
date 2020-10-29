@@ -173,14 +173,14 @@ type Message interface {
 	//
 	// The `mention_roles` field contains the roles specifically mentioned in this
 	// message.
-	MentionRoles() []Role
+	MentionRoles() []Snowflake
 
 	// SetMentionRoles overwrites the current value of this record's
 	// `mention_roles` field.
 	//
 	// Note: Do to Go's handling of nil slices, passing this method a nil value
 	// will result in the json form of this type having an empty slice.
-	SetMentionRoles([]Role) Message
+	SetMentionRoles([]Snowflake) Message
 
 	// MentionChannels returns the current value of this record's
 	// `mention_channels` field.

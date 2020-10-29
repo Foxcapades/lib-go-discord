@@ -42,7 +42,7 @@ type message struct {
 	tts             bool
 	mentionEveryone bool
 	mentions        user.Slice
-	mentionRoles    guild.RoleSlice
+	mentionRoles    types.SnowflakeSlice
 	mentionChannels ChannelMentionSlice
 	attachments     AttachmentSlice
 	embeds          EmbedSlice
@@ -122,7 +122,7 @@ func (m *message) UnmarshalJSONObject(dec *gojay.Decoder, k string) (err error) 
 	case serial.KeyReactions:
 		err = dec.DecodeArray(&m.reactions)
 	case serial.KeyNonce:
-		err = dec.DecodeObject(&m.nonce)
+		m.nonce, err = DecodeNonce(dec)
 	case serial.KeyPinned:
 		err = dec.DecodeBool(&m.pinned)
 	case serial.KeyWebhookID:
@@ -414,11 +414,11 @@ func (m *message) SetMentions(users []discord.User) discord.Message {
 	return m
 }
 
-func (m *message) MentionRoles() []discord.Role {
+func (m *message) MentionRoles() []discord.Snowflake {
 	return m.mentionRoles
 }
 
-func (m *message) SetMentionRoles(roles []discord.Role) discord.Message {
+func (m *message) SetMentionRoles(roles []discord.Snowflake) discord.Message {
 	m.mentionRoles = roles
 	return m
 }
