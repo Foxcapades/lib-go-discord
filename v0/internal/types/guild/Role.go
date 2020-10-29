@@ -2,6 +2,7 @@ package guild
 
 import (
 	"encoding/json"
+	"github.com/francoispqt/gojay"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
@@ -9,9 +10,25 @@ import (
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
-type RoleImpl struct {
-	Validate bool
+type RoleSlice []Role
 
+func (r *RoleSlice) UnmarshalJSONArray(dec *gojay.Decoder) error {
+	tmp := NewRole()
+
+	if err := dec.DecodeObject(tmp); err != nil {
+		return err
+	}
+
+	*r = append(*r, tmp)
+
+	return nil
+}
+
+func NewRole() Role {
+	return new(role)
+}
+
+type role struct {
 	id          Snowflake
 	name        string
 	color       lib.Color
@@ -22,7 +39,31 @@ type RoleImpl struct {
 	mentionable bool
 }
 
-func (r *RoleImpl) MarshalJSON() ([]byte, error) {
+func (r *role) MarshalJSONObject(enc *gojay.Encoder) {
+	panic("implement me")
+}
+
+func (r *role) IsNil() bool {
+	panic("implement me")
+}
+
+func (r *role) UnmarshalJSONObject(decoder *gojay.Decoder, s string) error {
+	panic("implement me")
+}
+
+func (r *role) NKeys() int {
+	panic("implement me")
+}
+
+func (r *role) IsValid() bool {
+	panic("implement me")
+}
+
+func (r *role) Validate() error {
+	panic("implement me")
+}
+
+func (r *role) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[serial.Key]interface{}{
 		serial.KeyID:          r.id,
 		serial.KeyName:        r.name,
@@ -35,7 +76,7 @@ func (r *RoleImpl) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (r *RoleImpl) UnmarshalJSON(bytes []byte) error {
+func (r *role) UnmarshalJSON(bytes []byte) error {
 	tmp := make(map[serial.Key]json.RawMessage, 8)
 
 	if err := json.Unmarshal(bytes, &tmp); err != nil {
@@ -75,31 +116,31 @@ func (r *RoleImpl) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-func (r *RoleImpl) ID() Snowflake {
+func (r *role) ID() Snowflake {
 	return r.id
 }
 
-func (r *RoleImpl) SetID(id Snowflake) Role {
+func (r *role) SetID(id Snowflake) Role {
 	r.id = id
 
 	return r
 }
 
-func (r *RoleImpl) Name() string {
+func (r *role) Name() string {
 	return r.name
 }
 
-func (r *RoleImpl) SetName(name string) Role {
+func (r *role) SetName(name string) Role {
 	r.name = name
 
 	return r
 }
 
-func (r *RoleImpl) Color() lib.Color {
+func (r *role) Color() lib.Color {
 	return r.color
 }
 
-func (r *RoleImpl) SetColor(color lib.Color) Role {
+func (r *role) SetColor(color lib.Color) Role {
 	if color == nil {
 		panic(ErrNilColor)
 	}
@@ -109,97 +150,73 @@ func (r *RoleImpl) SetColor(color lib.Color) Role {
 	return r
 }
 
-func (r *RoleImpl) SetRawColor(val uint32) Role {
+func (r *role) SetRawColor(val uint32) Role {
 	r.color.SetRawValue(val)
 
 	return r
 }
 
-func (r *RoleImpl) Hoist() bool {
+func (r *role) Hoist() bool {
 	return r.hoist
 }
 
-func (r *RoleImpl) SetHoist(b bool) Role {
+func (r *role) SetHoist(b bool) Role {
 	r.hoist = b
 
 	return r
 }
 
-func (r *RoleImpl) Position() uint16 {
+func (r *role) Position() uint16 {
 	return r.position
 }
 
-func (r *RoleImpl) SetPosition(pos uint16) Role {
+func (r *role) SetPosition(pos uint16) Role {
 	r.position = pos
 
 	return r
 }
 
-func (r *RoleImpl) Permissions() Permission {
+func (r *role) Permissions() Permission {
 	return r.permissions
 }
 
-func (r *RoleImpl) SetPermissions(perm Permission) Role {
-	if r.Validate {
-		if err := perm.Validate(); err != nil {
-			panic(err)
-		}
-	}
-
+func (r *role) SetPermissions(perm Permission) Role {
 	r.permissions = perm
 
 	return r
 }
 
-func (r *RoleImpl) AddPermission(perm Permission) Role {
-	if r.Validate {
-		if err := perm.Validate(); err != nil {
-			panic(err)
-		}
-	}
-
+func (r *role) AddPermission(perm Permission) Role {
 	r.permissions |= perm
 
 	return r
 }
 
-func (r *RoleImpl) RemovePermission(perm Permission) Role {
-	if r.Validate {
-		if err := perm.Validate(); err != nil {
-			panic(err)
-		}
-	}
-
+func (r *role) RemovePermission(perm Permission) Role {
 	r.permissions &= ^perm
 
 	return r
 }
 
-func (r *RoleImpl) PermissionsContains(perm Permission) bool {
-	if r.Validate {
-		if err := perm.Validate(); err != nil {
-			panic(err)
-		}
-	}
-
+func (r *role) PermissionsContains(perm Permission) bool {
 	return r.permissions|perm == perm
 }
 
-func (r *RoleImpl) Managed() bool {
+func (r *role) Managed() bool {
 	return r.managed
 }
 
-func (r *RoleImpl) SetManaged(b bool) Role {
+func (r *role) SetManaged(b bool) Role {
 	r.managed = b
 
 	return r
 }
 
-func (r *RoleImpl) Mentionable() bool {
+func (r *role) Mentionable() bool {
 	return r.mentionable
 }
 
-func (r *RoleImpl) SetMentionable(b bool) Role {
+func (r *role) SetMentionable(b bool) Role {
 	r.mentionable = b
 
 	return r

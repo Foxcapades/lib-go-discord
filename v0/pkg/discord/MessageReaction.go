@@ -1,8 +1,22 @@
 package discord
 
+import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
+)
+
 // MessageReaction
 // TODO: document me
 type MessageReaction interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
+
 	// Count returns the current value of this record's `count` field.
 	//
 	// The `count` field contains the times this emoji has been used to react.

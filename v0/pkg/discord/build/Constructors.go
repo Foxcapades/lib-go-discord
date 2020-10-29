@@ -169,7 +169,7 @@ func NewJSONImageData(in []byte) (ImageData, error) {
 
 // NewRole
 func NewRole(validate bool) Role {
-	return (&guild.RoleImpl{
+	return (&guild.role{
 		Validate: validate,
 	}).SetColor(lib.NewColor())
 }

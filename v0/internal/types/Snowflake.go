@@ -22,6 +22,28 @@ const (
 	ns2ms = 1_000_000
 )
 
+type SnowflakeSlice []Snowflake
+
+func (s SnowflakeSlice) MarshalJSONArray(enc *gojay.Encoder) {
+	for i := range s {
+		enc.AddString(s[i].String())
+	}
+}
+
+func (s *SnowflakeSlice) IsNil() bool {
+	return false
+}
+
+func (s *SnowflakeSlice) UnmarshalJSONArray(dec *gojay.Decoder) error {
+	if tmp, err := DecodeSnowflake(dec); err != nil {
+		return err
+	} else {
+		*s = append(*s, tmp)
+	}
+
+	return nil
+}
+
 func NewSnowflake() Snowflake {
 	return new(snowflake)
 }

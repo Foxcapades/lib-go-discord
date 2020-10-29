@@ -2,6 +2,7 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/francoispqt/gojay"
 	"time"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
@@ -10,6 +11,10 @@ import (
 type GuildMember interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
 	lib.Validatable
 
 	// the user this guild member represents

@@ -1,6 +1,8 @@
 package discord
 
 import (
+	"encoding/json"
+	"github.com/francoispqt/gojay"
 	"time"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
@@ -9,6 +11,14 @@ import (
 // MessageEmbed
 // TODO: document me
 type MessageEmbed interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
+
 	// Title returns the current value of this record's `title` field.
 	//
 	// The `title` field contains the title of this embed.

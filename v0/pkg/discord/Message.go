@@ -1,11 +1,22 @@
 package discord
 
 import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
 	"time"
 )
 
 // Message represents a message sent in a channel within Discord.
 type Message interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Validatable
+
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the id of the message.
@@ -152,6 +163,9 @@ type Message interface {
 	Mentions() []User
 
 	// SetMentions overwrites the current value of this record's `mentions` field.
+	//
+	// Note: Do to Go's handling of nil slices, passing this method a nil value
+	// will result in the json form of this type having an empty slice.
 	SetMentions([]User) Message
 
 	// MentionRoles returns the current value of this record's `mention_roles`
@@ -163,6 +177,9 @@ type Message interface {
 
 	// SetMentionRoles overwrites the current value of this record's
 	// `mention_roles` field.
+	//
+	// Note: Do to Go's handling of nil slices, passing this method a nil value
+	// will result in the json form of this type having an empty slice.
 	SetMentionRoles([]Role) Message
 
 	// MentionChannels returns the current value of this record's
@@ -189,6 +206,9 @@ type Message interface {
 
 	// SetMentionChannels overwrites the current value of this record's
 	// `mention_channels` field.
+	//
+	// Note: Do to Go's handling of nil slices, passing this method a nil value
+	// will result in the json form of this type having an empty slice.
 	SetMentionChannels([]ChannelMention) Message
 
 	// UnsetMentionChannels removes this record's `mention_channels` field.
@@ -201,6 +221,9 @@ type Message interface {
 
 	// SetAttachments overwrites the current value of this record's `attachments`
 	// field.
+	//
+	// Note: Do to Go's handling of nil slices, passing this method a nil value
+	// will result in the json form of this type having an empty slice.
 	SetAttachments([]MessageAttachment) Message
 
 	// Embeds returns the current value of this record's `embeds` field.
@@ -209,6 +232,9 @@ type Message interface {
 	Embeds() []MessageEmbed
 
 	// SetEmbeds overwrites the current value of this record's `embeds` field.
+	//
+	// Note: Do to Go's handling of nil slices, passing this method a nil value
+	// will result in the json form of this type having an empty slice.
 	SetEmbeds([]MessageEmbed) Message
 
 	// Reactions returns the current value of this record's `reactions` field.
@@ -225,6 +251,9 @@ type Message interface {
 
 	// SetReactions overwrites the current value of this record's `reactions`
 	// field.
+	//
+	// Note: Do to Go's handling of nil slices, passing this method a nil value
+	// will result in the json form of this type having an empty slice.
 	SetReactions([]MessageReaction) Message
 
 	// UnsetReactions removes this record's `reactions` field.
@@ -358,7 +387,6 @@ type Message interface {
 
 	// UnsetFlags removes this record's `flags` field.
 	UnsetFlags() Message
-	//message flags combined as a bitfield
 
 	AddFlag(MessageFlag) Message
 
