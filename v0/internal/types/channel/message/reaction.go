@@ -13,7 +13,7 @@ func (r ReactionSlice) MarshalJSONArray(enc *gojay.Encoder) {
 	}
 }
 
-func (r *ReactionSlice) IsNil() bool {
+func (r ReactionSlice) IsNil() bool {
 	return false
 }
 

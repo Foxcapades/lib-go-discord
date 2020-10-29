@@ -11,6 +11,16 @@ import (
 
 type EmbedSlice []discord.MessageEmbed
 
+func (e EmbedSlice) MarshalJSONArray(enc *gojay.Encoder) {
+	for i := range e {
+		enc.AddObject(e[i])
+	}
+}
+
+func (e EmbedSlice) IsNil() bool {
+	return false
+}
+
 func (e *EmbedSlice) UnmarshalJSONArray(dec *gojay.Decoder) error {
 	tmp := NewEmbed()
 

@@ -7,6 +7,16 @@ import (
 
 type ChannelMentionSlice []discord.ChannelMention
 
+func (c ChannelMentionSlice) MarshalJSONArray(enc *gojay.Encoder) {
+	for i := range c {
+		enc.AddObject(c[i])
+	}
+}
+
+func (c ChannelMentionSlice) IsNil() bool {
+	return false
+}
+
 func (c *ChannelMentionSlice) UnmarshalJSONArray(dec *gojay.Decoder) error {
 	tmp := NewChannelMention()
 

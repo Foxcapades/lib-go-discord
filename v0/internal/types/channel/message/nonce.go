@@ -49,6 +49,10 @@ type nonceImpl struct {
 	nType uint8
 }
 
+func (n *nonceImpl) IsNil() bool {
+	panic("implement me")
+}
+
 func (n *nonceImpl) MarshalJSON() ([]byte, error) {
 	return json.Marshal(n.value)
 }

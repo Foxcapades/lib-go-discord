@@ -204,6 +204,31 @@ type EncWrapper interface {
 	// will be appended to the output encoder.
 	AddTriStateUint64(key serial.Key, val *uint64, null bool) EncWrapper
 
+	// AddInt64 appends the given uint64 value to the output encoder.
+	AddInt64(key serial.Key, val int64) EncWrapper
+
+	// AddOptionalInt64 appends the given int64 pointer to the output encoder
+	// only if the pointer is not nil.
+	AddOptionalInt64(key serial.Key, val *int64) EncWrapper
+
+	// AddNullableInt64 appends either the given int64 pointer or a null value
+	// to the output encoder based on whether the given pointer is nil.
+	AddNullableInt64(key serial.Key, val *int64) EncWrapper
+
+	// AddTriStateInt64 may append either the given int64 pointer or a null
+	// value to the output encoder based on whether the given pointer is nil and
+	// the value of the given null flag.
+	//
+	// If the given int64 pointer is not nil, the value will be appended to the
+	// output encoder.
+	//
+	// Else, if the null flag is false and the given pointer is nil, nothing will
+	// be appended to the output encoder.
+	//
+	// Else, if the null flag is true and the given pointer is nil, a null value
+	// will be appended to the output encoder.
+	AddTriStateInt64(key serial.Key, val *int64, null bool) EncWrapper
+
 	// AddSnowflake appends the given Snowflake value to the output encoder.
 	//
 	// If the given Snowflake value is nil, the literal string "0" will be
@@ -673,6 +698,37 @@ func (e *encWrapper) AddTriStateSlice(
 	}
 
 	return e.AddSlice(key, value)
+}
+
+func (e *encWrapper) AddInt64(key serial.Key, val int64) EncWrapper {
+	e.enc.AddInt64Key(string(key), val)
+	return e
+}
+
+func (e *encWrapper) AddOptionalInt64(key serial.Key, val *int64) EncWrapper {
+	if val != nil {
+		e.enc.AddInt64Key(string(key), *val)
+	}
+
+	return e
+}
+
+func (e *encWrapper) AddNullableInt64(key serial.Key, val *int64) EncWrapper {
+	if val == nil {
+		e.enc.AddNullKey(string(key))
+	} else {
+		e.enc.AddInt64Key(string(key), *val)
+	}
+
+	return e
+}
+
+func (e *encWrapper) AddTriStateInt64(key serial.Key, val *int64, null bool) EncWrapper {
+	if null {
+		return e.AddNullableInt64(key, val)
+	} else {
+		return e.AddOptionalInt64(key, val)
+	}
 }
 
 type emptySlice []uint8

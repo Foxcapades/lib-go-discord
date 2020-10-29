@@ -10,13 +10,14 @@ import (
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/guild"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/user"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils/gj"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/e"
+
+	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
-func NewMessage() discord.Message {
+func NewMessage() Message {
 	return new(message)
 }
 
@@ -31,12 +32,12 @@ const (
 type message struct {
 	metaFlags uint8
 
-	id              discord.Snowflake
-	channelID       discord.Snowflake
-	guildID         discord.Snowflake
-	author          discord.User
-	member          discord.GuildMember
-	content         discord.MessageContent
+	id              Snowflake
+	channelID       Snowflake
+	guildID         Snowflake
+	author          User
+	member          GuildMember
+	content         MessageContent
 	tStamp          time.Time
 	editTStamp      *time.Time
 	tts             bool
@@ -47,14 +48,14 @@ type message struct {
 	attachments     AttachmentSlice
 	embeds          EmbedSlice
 	reactions       ReactionSlice
-	nonce           discord.Nonce
+	nonce           Nonce
 	pinned          bool
-	webhookID       discord.Snowflake
-	kind            discord.MessageType
-	activity        discord.MessageActivity
-	application     discord.MessageApplication
-	msgReference    discord.MessageRef
-	flags           *discord.MessageFlag
+	webhookID       Snowflake
+	kind            MessageType
+	activity        MessageActivity
+	application     MessageApplication
+	msgReference    MessageRef
+	flags           *MessageFlag
 }
 
 func (m *message) MarshalJSON() ([]byte, error) {
@@ -66,7 +67,7 @@ func (m *message) UnmarshalJSON(in []byte) error {
 }
 
 func (m *message) MarshalJSONObject(enc *gojay.Encoder) {
-	gj.NewEncWrapper(enc).
+	tmp := gj.NewEncWrapper(enc).
 		AddSnowflake(serial.KeyID, m.id).
 		AddSnowflake(serial.KeyChannelID, m.channelID).
 		AddOptionalSnowflake(serial.KeyGuildID, m.guildID).
@@ -78,7 +79,35 @@ func (m *message) MarshalJSONObject(enc *gojay.Encoder) {
 		AddBool(serial.KeyTTS, m.tts).
 		AddBool(serial.KeyMentionEveryone, m.mentionEveryone).
 		AddSlice(serial.KeyMentions, m.mentions).
-		AddSlice(serial.KeyMentionRoles, m.mentionRoles)
+		AddSlice(serial.KeyMentionRoles, &m.mentionRoles).
+		AddOptionalSlice(
+			serial.KeyMentionChannels,
+			m.mentionChannels,
+			m.metaFlags&msgMaskAbsentMentionChans > 0,
+		).
+		AddSlice(serial.KeyAttachments, m.attachments).
+		AddSlice(serial.KeyEmbeds, m.embeds).
+		AddOptionalSlice(
+			serial.KeyReactions,
+			m.reactions,
+			m.metaFlags&msgMaskAbsentReactions > 0,
+		)
+
+	if m.nonce != nil {
+		if m.nonce.IsInteger() {
+			tmp.AddInt64(serial.KeyNonce, m.nonce.IntegerValue())
+		} else {
+			tmp.AddString(serial.KeyNonce, m.nonce.StringValue())
+		}
+	}
+
+	tmp.AddBool(serial.KeyPinned, m.pinned).
+		AddOptionalSnowflake(serial.KeyWebhookID, m.webhookID).
+		AddUint8(serial.KeyType, uint8(m.kind)).
+		AddOptionalObject(serial.KeyActivity, m.activity).
+		AddOptionalObject(serial.KeyApplication, m.application).
+		AddOptionalObject(serial.KeyMessageReference, m.msgReference).
+		AddOptionalUint8(serial.KeyFlags, (*uint8)(m.flags))
 }
 
 func (m *message) IsNil() bool {
@@ -251,11 +280,11 @@ func (m *message) Validate() error {
 	return nil
 }
 
-func (m *message) ID() discord.Snowflake {
+func (m *message) ID() Snowflake {
 	return m.id
 }
 
-func (m *message) SetID(id discord.Snowflake) discord.Message {
+func (m *message) SetID(id Snowflake) Message {
 	if id == nil {
 		panic(e.ErrSetNil)
 	}
@@ -265,11 +294,11 @@ func (m *message) SetID(id discord.Snowflake) discord.Message {
 	return m
 }
 
-func (m *message) ChannelID() discord.Snowflake {
+func (m *message) ChannelID() Snowflake {
 	return m.channelID
 }
 
-func (m *message) SetChannelID(id discord.Snowflake) discord.Message {
+func (m *message) SetChannelID(id Snowflake) Message {
 	if id == nil {
 		panic(e.ErrSetNil)
 	}
@@ -279,7 +308,7 @@ func (m *message) SetChannelID(id discord.Snowflake) discord.Message {
 	return m
 }
 
-func (m *message) GuildID() discord.Snowflake {
+func (m *message) GuildID() Snowflake {
 	if m.guildID == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -291,7 +320,7 @@ func (m *message) GuildIDIsSet() bool {
 	return m.guildID != nil
 }
 
-func (m *message) SetGuildID(id discord.Snowflake) discord.Message {
+func (m *message) SetGuildID(id Snowflake) Message {
 	if id == nil {
 		panic(e.ErrSetNil)
 	}
@@ -301,16 +330,16 @@ func (m *message) SetGuildID(id discord.Snowflake) discord.Message {
 	return m
 }
 
-func (m *message) UnsetGuildID() discord.Message {
+func (m *message) UnsetGuildID() Message {
 	m.guildID = nil
 	return m
 }
 
-func (m *message) Author() discord.User {
+func (m *message) Author() User {
 	return m.author
 }
 
-func (m *message) SetAuthor(user discord.User) discord.Message {
+func (m *message) SetAuthor(user User) Message {
 	if user == nil {
 		panic(e.ErrSetNil)
 	}
@@ -320,7 +349,7 @@ func (m *message) SetAuthor(user discord.User) discord.Message {
 	return m
 }
 
-func (m *message) Member() discord.GuildMember {
+func (m *message) Member() GuildMember {
 	if m.member == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -332,7 +361,7 @@ func (m *message) MemberIsSet() bool {
 	return m.member != nil
 }
 
-func (m *message) SetMember(member discord.GuildMember) discord.Message {
+func (m *message) SetMember(member GuildMember) Message {
 	if member == nil {
 		panic(e.ErrSetNil)
 	}
@@ -342,16 +371,16 @@ func (m *message) SetMember(member discord.GuildMember) discord.Message {
 	return m
 }
 
-func (m *message) UnsetMember() discord.Message {
+func (m *message) UnsetMember() Message {
 	m.member = nil
 	return m
 }
 
-func (m *message) Content() discord.MessageContent {
+func (m *message) Content() MessageContent {
 	return m.content
 }
 
-func (m *message) SetContent(content discord.MessageContent) discord.Message {
+func (m *message) SetContent(content MessageContent) Message {
 	m.content = content
 	return m
 }
@@ -360,7 +389,7 @@ func (m *message) Timestamp() time.Time {
 	return m.tStamp
 }
 
-func (m *message) SetTimestamp(t time.Time) discord.Message {
+func (m *message) SetTimestamp(t time.Time) Message {
 	m.tStamp = t
 	return m
 }
@@ -377,12 +406,12 @@ func (m *message) EditedTimestampIsNull() bool {
 	return m.editTStamp == nil
 }
 
-func (m *message) SetEditedTimestamp(t time.Time) discord.Message {
+func (m *message) SetEditedTimestamp(t time.Time) Message {
 	m.editTStamp = &t
 	return m
 }
 
-func (m *message) SetNullEditedTimestamp() discord.Message {
+func (m *message) SetNullEditedTimestamp() Message {
 	m.editTStamp = nil
 	return m
 }
@@ -391,7 +420,7 @@ func (m *message) TTS() bool {
 	return m.tts
 }
 
-func (m *message) SetTTS(b bool) discord.Message {
+func (m *message) SetTTS(b bool) Message {
 	m.tts = b
 	return m
 }
@@ -400,30 +429,30 @@ func (m *message) MentionEveryone() bool {
 	return m.mentionEveryone
 }
 
-func (m *message) SetMentionEveryone(b bool) discord.Message {
+func (m *message) SetMentionEveryone(b bool) Message {
 	m.mentionEveryone = b
 	return m
 }
 
-func (m *message) Mentions() []discord.User {
+func (m *message) Mentions() []User {
 	return m.mentions
 }
 
-func (m *message) SetMentions(users []discord.User) discord.Message {
+func (m *message) SetMentions(users []User) Message {
 	m.mentions = users
 	return m
 }
 
-func (m *message) MentionRoles() []discord.Snowflake {
+func (m *message) MentionRoles() []Snowflake {
 	return m.mentionRoles
 }
 
-func (m *message) SetMentionRoles(roles []discord.Snowflake) discord.Message {
+func (m *message) SetMentionRoles(roles []Snowflake) Message {
 	m.mentionRoles = roles
 	return m
 }
 
-func (m *message) MentionChannels() []discord.ChannelMention {
+func (m *message) MentionChannels() []ChannelMention {
 	if !m.MentionChannelsIsSet() {
 		panic(e.ErrGetUnset)
 	}
@@ -435,39 +464,39 @@ func (m *message) MentionChannelsIsSet() bool {
 	return m.metaFlags&msgMaskAbsentMentionChans == 0
 }
 
-func (m *message) SetMentionChannels(mentions []discord.ChannelMention) discord.Message {
+func (m *message) SetMentionChannels(mentions []ChannelMention) Message {
 	m.mentionChannels = mentions
 	m.metaFlags &= ^msgMaskAbsentMentionChans
 
 	return m
 }
 
-func (m *message) UnsetMentionChannels() discord.Message {
+func (m *message) UnsetMentionChannels() Message {
 	m.mentionChannels = nil
 	m.metaFlags |= msgMaskAbsentMentionChans
 
 	return m
 }
 
-func (m *message) Attachments() []discord.MessageAttachment {
+func (m *message) Attachments() []MessageAttachment {
 	return m.attachments
 }
 
-func (m *message) SetAttachments(attachments []discord.MessageAttachment) discord.Message {
+func (m *message) SetAttachments(attachments []MessageAttachment) Message {
 	m.attachments = attachments
 	return m
 }
 
-func (m *message) Embeds() []discord.MessageEmbed {
+func (m *message) Embeds() []MessageEmbed {
 	return m.embeds
 }
 
-func (m *message) SetEmbeds(embeds []discord.MessageEmbed) discord.Message {
+func (m *message) SetEmbeds(embeds []MessageEmbed) Message {
 	m.embeds = embeds
 	return m
 }
 
-func (m *message) Reactions() []discord.MessageReaction {
+func (m *message) Reactions() []MessageReaction {
 	if m.metaFlags&msgMaskAbsentReactions > 0 {
 		panic(e.ErrGetUnset)
 	}
@@ -479,21 +508,21 @@ func (m *message) ReactionsIsSet() bool {
 	return m.metaFlags&msgMaskAbsentReactions == 0
 }
 
-func (m *message) SetReactions(reactions []discord.MessageReaction) discord.Message {
+func (m *message) SetReactions(reactions []MessageReaction) Message {
 	m.reactions = reactions
 	m.metaFlags &= ^msgMaskAbsentReactions
 
 	return m
 }
 
-func (m *message) UnsetReactions() discord.Message {
+func (m *message) UnsetReactions() Message {
 	m.reactions = nil
 	m.metaFlags |= msgMaskAbsentReactions
 
 	return m
 }
 
-func (m *message) Nonce() discord.Nonce {
+func (m *message) Nonce() Nonce {
 	if m.nonce == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -505,7 +534,7 @@ func (m *message) NonceIsSet() bool {
 	return m.nonce != nil
 }
 
-func (m *message) SetNonce(nonce discord.Nonce) discord.Message {
+func (m *message) SetNonce(nonce Nonce) Message {
 	if nonce == nil {
 		panic(e.ErrSetNil)
 	}
@@ -515,7 +544,7 @@ func (m *message) SetNonce(nonce discord.Nonce) discord.Message {
 	return m
 }
 
-func (m *message) UnsetNonce() discord.Message {
+func (m *message) UnsetNonce() Message {
 	m.nonce = nil
 	return m
 }
@@ -524,12 +553,12 @@ func (m *message) Pinned() bool {
 	return m.pinned
 }
 
-func (m *message) SetPinned(b bool) discord.Message {
+func (m *message) SetPinned(b bool) Message {
 	m.pinned = b
 	return m
 }
 
-func (m *message) WebhookID() discord.Snowflake {
+func (m *message) WebhookID() Snowflake {
 	if m.webhookID == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -541,7 +570,7 @@ func (m *message) WebhookIDIsSet() bool {
 	return m.webhookID != nil
 }
 
-func (m *message) SetWebhookID(id discord.Snowflake) discord.Message {
+func (m *message) SetWebhookID(id Snowflake) Message {
 	if id == nil {
 		panic(e.ErrSetNil)
 	}
@@ -551,21 +580,21 @@ func (m *message) SetWebhookID(id discord.Snowflake) discord.Message {
 	return m
 }
 
-func (m *message) UnsetWebhookID() discord.Message {
+func (m *message) UnsetWebhookID() Message {
 	m.webhookID = nil
 	return m
 }
 
-func (m *message) Type() discord.MessageType {
+func (m *message) Type() MessageType {
 	return m.kind
 }
 
-func (m *message) SetType(messageType discord.MessageType) discord.Message {
+func (m *message) SetType(messageType MessageType) Message {
 	m.kind = messageType
 	return m
 }
 
-func (m *message) Activity() discord.MessageActivity {
+func (m *message) Activity() MessageActivity {
 	if m.activity == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -577,7 +606,7 @@ func (m *message) ActivityIsSet() bool {
 	return m.activity != nil
 }
 
-func (m *message) SetActivity(activity discord.MessageActivity) discord.Message {
+func (m *message) SetActivity(activity MessageActivity) Message {
 	if activity == nil {
 		panic(e.ErrSetNil)
 	}
@@ -587,12 +616,12 @@ func (m *message) SetActivity(activity discord.MessageActivity) discord.Message 
 	return m
 }
 
-func (m *message) UnsetActivity() discord.Message {
+func (m *message) UnsetActivity() Message {
 	m.activity = nil
 	return m
 }
 
-func (m *message) Application() discord.MessageApplication {
+func (m *message) Application() MessageApplication {
 	if m.application == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -604,7 +633,7 @@ func (m *message) ApplicationIsSet() bool {
 	return m.application != nil
 }
 
-func (m *message) SetApplication(application discord.MessageApplication) discord.Message {
+func (m *message) SetApplication(application MessageApplication) Message {
 	if application == nil {
 		panic(e.ErrSetNil)
 	}
@@ -614,12 +643,12 @@ func (m *message) SetApplication(application discord.MessageApplication) discord
 	return m
 }
 
-func (m *message) UnsetApplication() discord.Message {
+func (m *message) UnsetApplication() Message {
 	m.application = nil
 	return m
 }
 
-func (m *message) MessageReference() discord.MessageRef {
+func (m *message) MessageReference() MessageRef {
 	if m.msgReference == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -631,7 +660,7 @@ func (m *message) MessageReferenceIsSet() bool {
 	return m.msgReference != nil
 }
 
-func (m *message) SetMessageReference(ref discord.MessageRef) discord.Message {
+func (m *message) SetMessageReference(ref MessageRef) Message {
 	if ref == nil {
 		panic(e.ErrSetNil)
 	}
@@ -641,12 +670,12 @@ func (m *message) SetMessageReference(ref discord.MessageRef) discord.Message {
 	return m
 }
 
-func (m *message) UnsetMessageReference() discord.Message {
+func (m *message) UnsetMessageReference() Message {
 	m.msgReference = nil
 	return m
 }
 
-func (m *message) Flags() discord.MessageFlag {
+func (m *message) Flags() MessageFlag {
 	if m.flags == nil {
 		panic(e.ErrGetUnset)
 	}
@@ -658,17 +687,17 @@ func (m *message) FlagsIsSet() bool {
 	return m.flags != nil
 }
 
-func (m *message) SetFlags(flag discord.MessageFlag) discord.Message {
+func (m *message) SetFlags(flag MessageFlag) Message {
 	m.flags = &flag
 	return m
 }
 
-func (m *message) UnsetFlags() discord.Message {
+func (m *message) UnsetFlags() Message {
 	m.flags = nil
 	return m
 }
 
-func (m *message) AddFlag(flag discord.MessageFlag) discord.Message {
+func (m *message) AddFlag(flag MessageFlag) Message {
 	if m.flags == nil {
 		m.flags = &flag
 	} else {
@@ -678,7 +707,7 @@ func (m *message) AddFlag(flag discord.MessageFlag) discord.Message {
 	return m
 }
 
-func (m *message) RemoveFlag(flag discord.MessageFlag) discord.Message {
+func (m *message) RemoveFlag(flag MessageFlag) Message {
 	if m.flags != nil {
 		*m.flags &= ^flag
 	}
@@ -686,7 +715,7 @@ func (m *message) RemoveFlag(flag discord.MessageFlag) discord.Message {
 	return m
 }
 
-func (m *message) FlagsContains(flag discord.MessageFlag) bool {
+func (m *message) FlagsContains(flag MessageFlag) bool {
 	if m.flags != nil {
 		return *m.flags&flag == flag
 	}
