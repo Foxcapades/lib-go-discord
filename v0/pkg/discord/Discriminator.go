@@ -14,6 +14,21 @@ var (
 
 type Discriminator uint16
 
+func (d Discriminator) BufferSize() uint32 {
+	switch true {
+	case d < 10:
+		return 1
+	case d < 100:
+		return 2
+	case d < 1_000:
+		return 3
+	case d < 10_000:
+		return 4
+	default:
+		return 5
+	}
+}
+
 func (d *Discriminator) UnmarshalJSON(bytes []byte) error {
 	var tmp string
 
@@ -51,3 +66,6 @@ func (d Discriminator) Validate() error {
 	return nil
 }
 
+func (d Discriminator) String() string {
+	return strconv.FormatUint(uint64(d), 10)
+}

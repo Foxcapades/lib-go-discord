@@ -2,7 +2,7 @@ package activity
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/internal/types"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils/gj"
 	"time"
 
@@ -119,7 +119,7 @@ func (a *activity) UnmarshalJSONObject(d *gojay.Decoder, k string) error {
 	case KeyApplicationID:
 		var tmp string
 
-		a.appID = types.NewSnowflake()
+		a.appID = com.NewSnowflake()
 
 		if err := d.DecodeString(&tmp); err != nil {
 			return err
@@ -246,7 +246,7 @@ func (a *activity) UnmarshalJSON(bytes []byte) error {
 	}
 
 	if val, ok := tmp[KeyApplicationID]; ok {
-		a.appID = types.NewSnowflake()
+		a.appID = com.NewSnowflake()
 		if err := a.appID.UnmarshalJSON(val); err != nil {
 			return err
 		}
@@ -353,7 +353,7 @@ func (a *activity) Validate() error {
 		errs.AppendRawKeyedError(KeyFlags, a.flags.Validate())
 	}
 
-	if errs.GetSize() > 0 {
+	if errs.Len() > 0 {
 		return errs
 	}
 

@@ -15,6 +15,7 @@ type PermissionOverwrite interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
+	lib.Sized
 	lib.Validatable
 
 	// ID returns the current value of this record's `id` field.
@@ -28,10 +29,10 @@ type PermissionOverwrite interface {
 	// Type returns the current value of this record's `type` field.
 	//
 	// The `type` field
-	Type() Type
+	Type() OverwriteType
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(Type) PermissionOverwrite
+	SetType(OverwriteType) PermissionOverwrite
 
 	// Allow returns the current value of this record's `allow` field.
 	//

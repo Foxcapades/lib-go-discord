@@ -12,6 +12,10 @@ var (
 
 type ChannelName string
 
+func (n ChannelName) BufferSize() uint32 {
+	return uint32(len(n)) + 2
+}
+
 func (n ChannelName) IsValid() bool {
 	return nil == n.Validate()
 }

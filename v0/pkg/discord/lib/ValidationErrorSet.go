@@ -73,7 +73,7 @@ type ValidationErrorSet interface {
 	GetAllErrors() map[string][]string
 
 	// GetSize returns the number of errors contained in this error set.
-	GetSize() uint16
+	Len() uint16
 }
 
 func NewValidationErrorSet() ValidationErrorSet {
@@ -217,6 +217,6 @@ func (v *validationErrorSet) GetAllErrors() map[string][]string {
 	return tmp
 }
 
-func (v *validationErrorSet) GetSize() uint16 {
+func (v *validationErrorSet) Len() uint16 {
 	return v.size
 }

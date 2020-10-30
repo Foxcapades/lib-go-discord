@@ -34,6 +34,17 @@ const (
 	ChannelTypeGuildStore
 )
 
+func (t ChannelType) BufferSize() uint32 {
+	switch true {
+	case t < 10:
+		return 1
+	case t < 100:
+		return 2
+	default:
+		return 3
+	}
+}
+
 func (t ChannelType) IsValid() bool {
 	return nil == t.Validate()
 }

@@ -12,7 +12,7 @@ func (l LogReason) IsValid() bool {
 	return nil == l.Validate()
 }
 
-func (l LogReason) Validate() []error {
+func (l LogReason) Validate() error {
 	if len(l) > 512 {
 		return ErrBadReasonLength
 	}

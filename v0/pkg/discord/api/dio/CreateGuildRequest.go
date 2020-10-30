@@ -278,7 +278,7 @@ func (c *createGuildRequest) IsValid() bool {
 	return nil == c.Validate()
 }
 
-func (c *createGuildRequest) Validate() []error {
+func (c *createGuildRequest) Validate() error {
 	panic("implement me")
 }
 

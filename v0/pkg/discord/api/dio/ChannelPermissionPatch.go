@@ -43,8 +43,8 @@ type ChannelPermissionPatch interface {
 	//
 	// The `type` field contains the permission type being changed, either role or
 	// user.
-	Type() discord.Type
+	Type() discord.OverwriteType
 
 	// SetType overwrites the current value of this request's `type` field.
-	SetType(discord.Type) ChannelPermissionPatch
+	SetType(discord.OverwriteType) ChannelPermissionPatch
 }

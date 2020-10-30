@@ -46,11 +46,19 @@ const (
 	LogEventIntegrationDelete      LogEvent = 82
 )
 
+func (l LogEvent) BufferSize() uint32 {
+	if l > 1 {
+		return 2
+	}
+
+	return 1
+}
+
 func (l LogEvent) IsValid() bool {
 	return nil == l.Validate()
 }
 
-func (l LogEvent) Validate() []error {
+func (l LogEvent) Validate() error {
 	if l > 82 || l < 1 {
 		return ErrBadLogEvent
 	}

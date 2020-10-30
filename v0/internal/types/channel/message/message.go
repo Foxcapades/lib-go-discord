@@ -1,12 +1,14 @@
 package message
 
 import (
+	"bytes"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
+	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
 	"strconv"
 	"time"
 
 	"github.com/francoispqt/gojay"
 
-	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/guild"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/user"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils/gj"
@@ -26,8 +28,34 @@ const (
 	msgMaskAbsentMentionChans
 )
 
-// TODO: Slices can't be handled with a simple nil check.  There will need to be
-//       some other mechanism for tracking absent slices.  See channel.
+const (
+	// Base buffer size, not counting field values.
+	msgBufferSize = uint32(2 +               // {}
+		len(serial.KeyID) + 3 +                // "":
+		len(serial.KeyChannelID) + 4 +         // ,"":
+		len(serial.KeyGuildID) + 4 +           // ,"":
+		len(serial.KeyAuthor) + 4 +            // ,"":
+		len(serial.KeyMember) + 4 +            // ,"":
+		len(serial.KeyContent) + 4 +           // ,"":
+		len(serial.KeyTimestamp) + 4 +         // ,"":
+		len(serial.KeyEditedTimestamp) + 4 +   // ,"":
+		len(serial.KeyTTS) + 4 +               // ,"":
+		len(serial.KeyMentionEveryone) + 4 +   // ,"":
+		len(serial.KeyMentions) + 4 +          // ,"":
+		len(serial.KeyMentionRoles) + 4 +      // ,"":
+		len(serial.KeyMentionChannels) + 4 +   // ,"":
+		len(serial.KeyAttachments) + 4 +       // ,"":
+		len(serial.KeyEmbeds) + 4 +            // ,"":
+		len(serial.KeyReactions) + 4 +         // ,"":
+		len(serial.KeyNonce) + 4 +             // ,"":
+		len(serial.KeyPinned) + 4 +            // ,"":
+		len(serial.KeyWebhookID) + 4 +         // ,"":
+		len(serial.KeyType) + 4 +              // ,"":
+		len(serial.KeyActivity) + 4 +          // ,"":
+		len(serial.KeyApplication) + 4 +       // ,"":
+		len(serial.KeyMessageReference) + 4 +  // ,"":
+		len(serial.KeyFlags) + 4)              // ,"":
+)
 
 type message struct {
 	metaFlags uint8
@@ -43,7 +71,7 @@ type message struct {
 	tts             bool
 	mentionEveryone bool
 	mentions        user.Slice
-	mentionRoles    types.SnowflakeSlice
+	mentionRoles    com.SnowflakeSlice
 	mentionChannels ChannelMentionSlice
 	attachments     AttachmentSlice
 	embeds          EmbedSlice
@@ -58,12 +86,39 @@ type message struct {
 	flags           *MessageFlag
 }
 
+func (m *message) BufferSize() uint32 {
+	return msgBufferSize +
+		utils.OptionalSize(m.id) +
+		utils.OptionalSize(m.channelID) +
+		utils.OptionalSize(m.guildID) +
+		utils.OptionalSize(m.author) +
+		utils.OptionalSize(m.content) +
+		utils.OptionalTimeSize(&m.tStamp) +
+		utils.OptionalTimeSize(m.editTStamp) +
+		utils.BoolSize(m.tts) +
+		utils.BoolSize(m.mentionEveryone) +
+		utils.OptionalSize(m.mentions) +
+		utils.OptionalSize(m.mentionRoles) +
+		utils.OptionalSize(m.mentionChannels)
+}
+
 func (m *message) MarshalJSON() ([]byte, error) {
-	panic("implement me")
+	buf := bytes.NewBuffer(make([]byte, 0, m.BufferSize()))
+	enc := gojay.BorrowEncoder(buf)
+	defer enc.Release()
+
+	if err := enc.EncodeObject(m); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
 
 func (m *message) UnmarshalJSON(in []byte) error {
-	panic("implement me")
+	dec := gojay.BorrowDecoder(bytes.NewBuffer(in))
+	defer dec.Release()
+
+	return dec.DecodeObject(m)
 }
 
 func (m *message) MarshalJSONObject(enc *gojay.Encoder) {
@@ -117,11 +172,11 @@ func (m *message) IsNil() bool {
 func (m *message) UnmarshalJSONObject(dec *gojay.Decoder, k string) (err error) {
 	switch serial.Key(k) {
 	case serial.KeyID:
-		m.id, err = types.DecodeSnowflake(dec)
+		m.id, err = com.DecodeSnowflake(dec)
 	case serial.KeyChannelID:
-		m.channelID, err = types.DecodeSnowflake(dec)
+		m.channelID, err = com.DecodeSnowflake(dec)
 	case serial.KeyGuildID:
-		m.guildID, err = types.DecodeSnowflake(dec)
+		m.guildID, err = com.DecodeSnowflake(dec)
 	case serial.KeyAuthor:
 		m.author = user.NewUser()
 		err = dec.DecodeObject(m.author)
@@ -155,7 +210,7 @@ func (m *message) UnmarshalJSONObject(dec *gojay.Decoder, k string) (err error) 
 	case serial.KeyPinned:
 		err = dec.DecodeBool(&m.pinned)
 	case serial.KeyWebhookID:
-		m.webhookID, err = types.DecodeSnowflake(dec)
+		m.webhookID, err = com.DecodeSnowflake(dec)
 	case serial.KeyType:
 		err = dec.DecodeUint8((*uint8)(&m.kind))
 	case serial.KeyActivity:
@@ -273,7 +328,7 @@ func (m *message) Validate() error {
 		}
 	}
 
-	if out.GetSize() > 0 {
+	if out.Len() > 0 {
 		return out
 	}
 

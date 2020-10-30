@@ -4,6 +4,14 @@ import "github.com/francoispqt/gojay"
 
 type ImageHash string
 
+func (i *ImageHash) BufferSize() uint32 {
+	if i == nil {
+		return 4
+	}
+
+	return uint32(len(*i)) + 2
+}
+
 func DecodeImageHash(dec *gojay.Decoder) (*ImageHash, error) {
 	var tmp *string
 

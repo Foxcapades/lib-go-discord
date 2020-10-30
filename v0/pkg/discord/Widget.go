@@ -2,11 +2,19 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
 )
 
 type Widget interface {
 	json.Marshaler
 	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Sized
+	lib.Validatable
 
 	// Enabled returns the value of the `enabled` field currently set on this
 	// guild widget.

@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+func NewMember() discord.GuildMember {
+	return new(member)
+}
+
 type member struct{}
 
 func (m *member) MarshalJSON() ([]byte, error) {

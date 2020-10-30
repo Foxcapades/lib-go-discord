@@ -1,17 +1,16 @@
 package build
 
 import (
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
 	"image"
 	"io"
 
+	t "github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/activity"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/channel"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/guild"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/user"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/voice"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
-
-	t "github.com/foxcapades/lib-go-discord/v0/internal/types"
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
@@ -168,10 +167,8 @@ func NewJSONImageData(in []byte) (ImageData, error) {
 ///  R  ////////////////////////////////////////////////////////////////////////
 
 // NewRole
-func NewRole(validate bool) Role {
-	return (&guild.role{
-		Validate: validate,
-	}).SetColor(lib.NewColor())
+func NewRole() Role {
+	return guild.NewRole()
 }
 
 ///  S  ////////////////////////////////////////////////////////////////////////
@@ -187,7 +184,7 @@ func NewRole(validate bool) Role {
 // invalid.  The snowflake will need to have values set via setters or
 // unmarshaler methods to become valid.
 func NewSnowflake() Snowflake {
-	return t.NewSnowflake()
+	return com.NewSnowflake()
 }
 
 ///  U  ////////////////////////////////////////////////////////////////////////
@@ -222,5 +219,5 @@ func NewVoiceState(validate bool) VoiceState {
 }
 
 func NewWidget() Widget {
-	return guild.NewWidgetImpl()
+	return guild.NewWidget()
 }

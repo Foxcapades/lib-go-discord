@@ -3,11 +3,11 @@ package channel
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
 	"time"
 
 	"github.com/francoispqt/gojay"
 
-	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/channel/permission"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/user"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
@@ -127,13 +127,13 @@ func (c *channel) UnmarshalJSONObject(dec *gojay.Decoder, key string) (err error
 	switch Key(key) {
 
 	case KeyID:
-		c.id, err = types.DecodeSnowflake(dec)
+		c.id, err = com.DecodeSnowflake(dec)
 
 	case KeyType:
 		c.kind, err = DecodeChannelType(dec)
 
 	case KeyGuildID:
-		c.guildID, err = types.DecodeSnowflake(dec)
+		c.guildID, err = com.DecodeSnowflake(dec)
 
 	case KeyPosition:
 		return dec.Uint16Null(&c.position)
@@ -155,7 +155,7 @@ func (c *channel) UnmarshalJSONObject(dec *gojay.Decoder, key string) (err error
 		return dec.BoolNull(&c.nsfw)
 
 	case KeyLastMessageID:
-		c.lastMsgID, err = types.DecodeSnowflake(dec)
+		c.lastMsgID, err = com.DecodeSnowflake(dec)
 		if c.lastMsgID == nil {
 			c.setMetaFlag(maskNullLastMsgId)
 		}
@@ -180,13 +180,13 @@ func (c *channel) UnmarshalJSONObject(dec *gojay.Decoder, key string) (err error
 		}
 
 	case KeyOwnerID:
-		c.ownerID, err = types.DecodeSnowflake(dec)
+		c.ownerID, err = com.DecodeSnowflake(dec)
 
 	case KeyApplicationID:
-		c.appID, err = types.DecodeSnowflake(dec)
+		c.appID, err = com.DecodeSnowflake(dec)
 
 	case KeyParentID:
-		c.parentID, err = types.DecodeSnowflake(dec)
+		c.parentID, err = com.DecodeSnowflake(dec)
 		if c.parentID == nil {
 			c.setMetaFlag(maskNullParentId)
 		}
@@ -275,11 +275,11 @@ func (c *channel) UnmarshalJSON(bytes []byte) (err error) {
 
 		switch k {
 		case KeyID:
-			c.id = types.NewSnowflake()
+			c.id = com.NewSnowflake()
 			err = c.id.UnmarshalJSON(v)
 
 		case KeyGuildID:
-			c.guildID = types.NewSnowflake()
+			c.guildID = com.NewSnowflake()
 			err = c.guildID.UnmarshalJSON(v)
 
 		case KeyLastMessageID:
@@ -292,16 +292,16 @@ func (c *channel) UnmarshalJSON(bytes []byte) (err error) {
 			if tmp == nil {
 				c.SetNullLastMessageID()
 			} else {
-				c.lastMsgID = types.NewSnowflake()
+				c.lastMsgID = com.NewSnowflake()
 				err = c.lastMsgID.UnmarshalString(*tmp)
 			}
 
 		case KeyOwnerID:
-			c.ownerID = types.NewSnowflake()
+			c.ownerID = com.NewSnowflake()
 			err = c.ownerID.UnmarshalJSON(v)
 
 		case KeyApplicationID:
-			if c.appID, err = types.UnmarshalJSONSnowflake(v); err != nil {
+			if c.appID, err = com.UnmarshalJSONSnowflake(v); err != nil {
 				return
 			}
 
@@ -310,7 +310,7 @@ func (c *channel) UnmarshalJSON(bytes []byte) (err error) {
 			}
 
 		case KeyParentID:
-			if c.parentID, err = types.UnmarshalJSONSnowflake(v); err != nil {
+			if c.parentID, err = com.UnmarshalJSONSnowflake(v); err != nil {
 				return
 			}
 
@@ -366,7 +366,7 @@ func (c *channel) Validate() error {
 		}
 	}
 
-	if out.GetSize() > 0 {
+	if out.Len() > 0 {
 		return out
 	}
 

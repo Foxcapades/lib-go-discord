@@ -38,6 +38,7 @@ type User interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
+	lib.Sized
 	lib.Validatable
 
 	// ID returns the value of the `id` field currently set on this user record.
@@ -91,9 +92,9 @@ type User interface {
 	// If the user record's `avatar_hash` field is unset when this method is
 	// called, this method will panic.  Check for the field's existence with the
 	// AvatarHashIsSet method.
-	AvatarHash() string
+	AvatarHash() ImageHash
 	AvatarHashIsNull() bool
-	SetAvatarHash(string) User
+	SetAvatarHash(ImageHash) User
 	SetNullAvatarHash() User
 
 	// BotFlag returns the value of the `bot` field currently set on this user

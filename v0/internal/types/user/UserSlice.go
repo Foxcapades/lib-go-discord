@@ -8,6 +8,16 @@ import (
 
 type Slice []discord.User
 
+func (u Slice) BufferSize() uint32 {
+	out := uint32(2) + uint32(len(u) - 1) // brackets and commas
+
+	for i := range u {
+		out += u[i].BufferSize()
+	}
+
+	return out
+}
+
 func (u Slice) MarshalJSON() ([]byte, error) {
 	return json.Marshal([]discord.User(u))
 }

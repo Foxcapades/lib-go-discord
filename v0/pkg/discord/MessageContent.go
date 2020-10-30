@@ -10,6 +10,10 @@ var (
 
 type MessageContent string
 
+func (c MessageContent) BufferSize() uint32 {
+	return uint32(len(c) + 2)
+}
+
 func (c MessageContent) IsValid() bool {
 	return nil == c.Validate()
 }

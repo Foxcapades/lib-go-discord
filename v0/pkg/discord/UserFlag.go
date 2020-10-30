@@ -32,6 +32,23 @@ const (
 	UserFlagEarlyVerifiedBotDeveloper UserFlag = 1 << 17
 )
 
+func (f UserFlag) BufferSize() uint32 {
+	switch true {
+	case f < 10:
+		return 1
+	case f < 100:
+		return 2
+	case f < 1_000:
+		return 3
+	case f < 10_000:
+		return 4
+	case f < 100_000:
+		return 5
+	default:
+		return 6
+	}
+}
+
 // IsValid returns whether the current UserFlag consists exclusively of valid
 // values.
 //

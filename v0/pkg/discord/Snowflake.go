@@ -36,10 +36,12 @@ const (
 )
 
 type Snowflake interface {
-	json.Marshaler
-	json.Unmarshaler
 	fmt.Stringer
 
+	json.Marshaler
+	json.Unmarshaler
+
+	lib.Sized
 	lib.Validatable
 
 	// RawValue returns the raw uint64 value backing this Snowflake.

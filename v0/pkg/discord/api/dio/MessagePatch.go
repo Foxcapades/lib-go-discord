@@ -2,9 +2,9 @@ package dio
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/internal/types"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/e"
 )
 
 type MessagePatch interface {
@@ -117,35 +117,40 @@ func NewMessagePatch(validate bool) MessagePatch {
 type messagePatch struct {
 	validate bool
 
-	cont  types.TriStateString
-	flag  types.TriStateUint8
-	embed types.TriStateAny
+	cont  *discord.MessageContent
+	flag  *discord.MessageFlag
+	embed discord.MessageEmbed
+
+	// TODO: merge these
+	nullCont bool
+	nullFlag bool
+	nullEmbed bool
 }
 
 func (m *messagePatch) MarshalJSON() ([]byte, error) {
 	out := make(map[serial.Key]interface{})
 
-	if m.cont.IsSet() {
-		if m.cont.IsNull() {
+	if m.cont != nil {
+		if m.ContentIsNull() {
 			out[serial.KeyContent] = nil
 		} else {
-			out[serial.KeyContent] = m.cont.Get()
+			out[serial.KeyContent] = m.cont
 		}
 	}
 
-	if m.flag.IsSet() {
-		if m.flag.IsNull() {
+	if m.flag != nil {
+		if m.FlagsIsNull() {
 			out[serial.KeyFlags] = nil
 		} else {
-			out[serial.KeyFlags] = m.flag.Get()
+			out[serial.KeyFlags] = m.flag
 		}
 	}
 
-	if m.embed.IsSet() {
-		if m.embed.IsNull() {
+	if m.embed != nil {
+		if m.EmbedIsNull() {
 			out[serial.KeyEmbed] = nil
 		} else {
-			out[serial.KeyEmbed] = m.embed.Get()
+			out[serial.KeyEmbed] = m.embed
 		}
 	}
 
@@ -153,19 +158,27 @@ func (m *messagePatch) MarshalJSON() ([]byte, error) {
 }
 
 func (m *messagePatch) Content() discord.MessageContent {
-	return discord.MessageContent(m.cont.Get())
+	if m.cont == nil {
+		if m.nullCont {
+			panic(e.ErrGetNull)
+		}
+
+		panic(e.ErrGetUnset)
+	}
+
+	return *m.cont
 }
 
 func (m *messagePatch) ContentIsNull() bool {
-	return m.cont.IsNull()
+	return m.cont == nil && m.nullCont
 }
 
 func (m *messagePatch) ContentIsSet() bool {
-	return m.cont.IsSet()
+	return m.cont != nil
 }
 
 func (m *messagePatch) ContentIsReadable() bool {
-	return m.cont.IsReadable()
+	return m.cont != nil
 }
 
 func (m *messagePatch) SetContent(content discord.MessageContent) MessagePatch {
@@ -175,84 +188,112 @@ func (m *messagePatch) SetContent(content discord.MessageContent) MessagePatch {
 		}
 	}
 
-	m.cont.Set(string(content))
+	m.cont = &content
+	m.nullCont = false
+
 	return m
 }
 
 func (m *messagePatch) SetNullContent() MessagePatch {
-	m.cont.SetNull()
+	m.cont = nil
+	m.nullCont = true
+
 	return m
 }
 
 func (m *messagePatch) UnsetContent() MessagePatch {
-	m.cont.Unset()
+	m.cont = nil
+	m.nullCont = false
+
 	return m
 }
 
 func (m *messagePatch) Embed() discord.MessageEmbed {
-	return m.embed.Get().(discord.MessageEmbed)
+	if m.embed == nil {
+		if m.nullEmbed {
+			panic(e.ErrGetNull)
+		}
+
+		panic(e.ErrGetUnset)
+	}
+
+	return m.embed
 }
 
 func (m *messagePatch) EmbedIsNull() bool {
-	return m.embed.IsNull()
+	return m.embed == nil && m.nullEmbed
 }
 
 func (m *messagePatch) EmbedIsSet() bool {
-	return m.embed.IsSet()
+	return m.embed != nil
 }
 
 func (m *messagePatch) EmbedIsReadable() bool {
-	return m.embed.IsReadable()
+	return m.embed != nil
 }
 
 func (m *messagePatch) SetEmbed(embed discord.MessageEmbed) MessagePatch {
-	m.embed.Set(embed)
+	if embed == nil {
+		panic(e.ErrSetNil)
+	}
+
+	m.embed = embed
+
 	return m
 }
 
 func (m *messagePatch) SetNullEmbed() MessagePatch {
-	m.embed.SetNull()
+	m.embed = nil
+	m.nullEmbed = true
+
 	return m
 }
 
 func (m *messagePatch) UnsetEmbed() MessagePatch {
-	m.embed.Unset()
+	m.embed = nil
+	m.nullEmbed = false
+
 	return m
 }
 
 func (m *messagePatch) Flags() discord.MessageFlag {
-	return discord.MessageFlag(m.flag.Get())
+	if m.flag == nil {
+		if m.nullFlag {
+			panic(e.ErrGetNull)
+		}
+
+		panic(e.ErrGetUnset)
+	}
+
+	return *m.flag
 }
 
 func (m *messagePatch) FlagsIsNull() bool {
-	return m.flag.IsNull()
+	return m.flag == nil && m.nullFlag
 }
 
 func (m *messagePatch) FlagsIsSet() bool {
-	return m.flag.IsSet()
+	return m.flag != nil
 }
 
 func (m *messagePatch) FlagsIsReadable() bool {
-	return m.flag.IsReadable()
+	return m.flag != nil
 }
 
 func (m *messagePatch) SetFlags(flag discord.MessageFlag) MessagePatch {
-	if m.validate {
-		if err := flag.Validate(); err != nil {
-			panic(err)
-		}
-	}
-
-	m.flag.Set(uint8(flag))
+	m.flag = &flag
+	m.nullFlag = false
 	return m
 }
 
 func (m *messagePatch) SetNullFlags() MessagePatch {
-	m.flag.SetNull()
+	m.flag = nil
+	m.nullFlag = true
 	return m
 }
 
 func (m *messagePatch) UnsetFlags() MessagePatch {
-	m.flag.Unset()
+	m.flag = nil
+	m.nullFlag = false
 	return m
 }

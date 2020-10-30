@@ -10,8 +10,6 @@ var (
 	ErrBadPermission = errors.New("unrecognized permission flag")
 )
 
-// TODO: Should this be in the user package?
-
 // TODO: Document this
 type Permission uint32
 
@@ -193,6 +191,25 @@ func (p *Permission) UnmarshalJSON(b []byte) error {
 	}
 
 	return nil
+}
+
+func (p Permission) BufferSize() uint32 {
+	switch true {
+	case p > 999_999:
+		return 7
+	case p > 99_999:
+		return 6
+	case p > 9_999:
+		return 5
+	case p > 999:
+		return 4
+	case p > 99:
+		return 3
+	case p > 9:
+		return 2
+	default:
+		return 1
+	}
 }
 
 func (p Permission) IsValid() bool {

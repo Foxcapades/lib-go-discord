@@ -2,6 +2,7 @@ package discord_test
 
 import (
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/build"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/e"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
@@ -27,3 +28,25 @@ func TestWidgetImpl_UnmarshalJSON(t *testing.T) {
 	})
 }
 
+func TestWidget_ChannelID(t *testing.T) {
+	Convey("Widget.ChannelID", t, func() {
+		Convey("should panic", func() {
+			Convey("when called on a widget with a null channel id", func() {
+				target := build.NewWidget()
+
+				So(func() { target.ChannelID() }, ShouldPanicWith, e.ErrGetNull)
+			})
+		})
+
+		Convey("should return stored value", func() {
+			Convey("when called on a widget with a non-null channel id", func() {
+				target := build.NewWidget()
+				expect := build.NewSnowflake()
+
+				target.SetChannelID(expect)
+
+				So(target.ChannelID(), ShouldEqual, expect)
+			})
+		})
+	})
+}

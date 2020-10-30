@@ -1,4 +1,4 @@
-package types
+package com
 
 import (
 	"encoding/json"
@@ -22,7 +22,14 @@ const (
 	ns2ms = 1_000_000
 )
 
+const SnowflakeBufferSize = 66
+
 type SnowflakeSlice []Snowflake
+
+func (s SnowflakeSlice) BufferSize() uint32 {
+	ln := uint32(len(s))
+	return ln*SnowflakeBufferSize + 2 + (ln - 1)
+}
 
 func (s SnowflakeSlice) MarshalJSONArray(enc *gojay.Encoder) {
 	for i := range s {
@@ -96,6 +103,10 @@ func UnmarshalJSONSnowflake(buf []byte) (out Snowflake, err error) {
 
 type snowflake struct {
 	raw uint64
+}
+
+func (s *snowflake) BufferSize() uint32 {
+	return SnowflakeBufferSize
 }
 
 func (s *snowflake) RawValue() uint64 {

@@ -1,11 +1,16 @@
 package user
 
 import (
-	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/internal/types"
+	"bytes"
+
 	"github.com/francoispqt/gojay"
 
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
+	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
+	"github.com/foxcapades/lib-go-discord/v0/internal/utils/gj"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/e"
 
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
@@ -14,122 +19,162 @@ func NewUser() User {
 	return new(user)
 }
 
+const userBaseSize = uint32(2 +
+	len(serial.KeyID) + 3 +
+	len(serial.KeyUsername) + 4 +
+	len(serial.KeyDiscriminator) + 4 +
+	len(serial.KeyAvatar) + 4 +
+	len(serial.KeyBot) + 4 +
+	len(serial.KeySystem) + 4 +
+	len(serial.KeyMFAEnabled) + 4 +
+	len(serial.KeyLocale) + 4 +
+	len(serial.KeyVerified) + 4 +
+	len(serial.KeyEmail) + 4 +
+	len(serial.KeyFlags) + 4 +
+	len(serial.KeyPremiumType) + 4 +
+	len(serial.KeyPublicFlags) + 4)
+
 type user struct {
+	nullEmail bool
+
 	id            Snowflake
 	username      Username
 	discriminator Discriminator
-	avatar        types.NullableString
-	bot           types.OptionalBool
-	system        types.OptionalBool
-	mfaEnabled    types.OptionalBool
-	locale        types.OptionalString
-	verified      types.OptionalBool
-	email         types.TriStateString
-	flags         types.OptionalUint32
-	premiumType   types.OptionalUint8
-	publicFlags   types.OptionalUint32
+	avatar        *ImageHash
+	bot           *bool
+	system        *bool
+	mfaEnabled    *bool
+	locale        *string
+	verified      *bool
+	email         *string
+	flags         *UserFlag
+	premiumType   *UserPremiumType
+	publicFlags   *UserFlag
+}
+
+func (u *user) BufferSize() uint32 {
+	return userBaseSize +
+		utils.OptionalSize(u.id) +
+		utils.OptionalSize(&u.username) +
+		utils.OptionalSize(&u.discriminator) +
+		utils.OptionalSize(u.avatar) +
+		utils.OptionalBoolSize(u.bot) +
+		utils.OptionalBoolSize(u.system) +
+		utils.OptionalBoolSize(u.mfaEnabled) +
+		utils.OptionalStringSize(u.locale) +
+		utils.OptionalBoolSize(u.verified) +
+		utils.OptionalStringSize(u.email) +
+		utils.OptionalSize(u.flags) +
+		utils.OptionalSize(u.premiumType) +
+		utils.OptionalSize(u.publicFlags)
 }
 
 func (u *user) MarshalJSONObject(enc *gojay.Encoder) {
-	panic("implement me")
+	gj.NewEncWrapper(enc).
+		AddSnowflake(serial.KeyID, u.id).
+		AddString(serial.KeyUsername, string(u.username)).
+		AddString(serial.KeyDiscriminator, u.discriminator.String()).
+		AddNullableString(serial.KeyAvatar, (*string)(u.avatar)).
+		AddOptionalBool(serial.KeyBot, u.bot).
+		AddOptionalBool(serial.KeySystem, u.system).
+		AddOptionalBool(serial.KeyMFAEnabled, u.mfaEnabled).
+		AddOptionalString(serial.KeyLocale, u.locale).
+		AddOptionalBool(serial.KeyVerified, u.verified).
+		AddTriStateString(serial.KeyEmail, u.email, u.nullEmail).
+		AddOptionalUint32(serial.KeyFlags, (*uint32)(u.flags)).
+		AddOptionalUint8(serial.KeyPremiumType, (*uint8)(u.premiumType)).
+		AddOptionalUint32(serial.KeyPublicFlags, (*uint32)(u.publicFlags))
 }
 
 func (u *user) IsNil() bool {
-	panic("implement me")
+	return u == nil
 }
 
-func (u *user) UnmarshalJSONObject(dec *gojay.Decoder, key string) error {
-	panic("implement me")
+func (u *user) UnmarshalJSONObject(dec *gojay.Decoder, key string) (err error) {
+	switch serial.Key(key) {
+	case serial.KeyID:
+		u.id, err = com.DecodeSnowflake(dec)
+	case serial.KeyUsername:
+		err = dec.DecodeString((*string)(&u.username))
+	case serial.KeyDiscriminator:
+		u.discriminator, err = DecodeDiscriminator(dec)
+	case serial.KeyAvatar:
+		u.avatar, err = DecodeImageHash(dec)
+	case serial.KeyBot:
+		err = dec.BoolNull(&u.bot)
+	case serial.KeySystem:
+		err = dec.BoolNull(&u.system)
+	case serial.KeyMFAEnabled:
+		err = dec.BoolNull(&u.mfaEnabled)
+	case serial.KeyLocale:
+		err = dec.StringNull(&u.locale)
+	case serial.KeyVerified:
+		err = dec.BoolNull(&u.verified)
+	case serial.KeyEmail:
+		err = dec.StringNull(&u.email)
+		u.nullEmail = u.email == nil
+	case serial.KeyFlags:
+		u.flags, err = DecodeFlags(dec)
+	case serial.KeyPremiumType:
+		u.premiumType, err = DecodePremiumType(dec)
+	case serial.KeyPublicFlags:
+		u.publicFlags, err = DecodeFlags(dec)
+	}
+
+	return
 }
 
 func (u *user) NKeys() int {
-	panic("implement me")
+	return 0
 }
 
 func (u *user) IsValid() bool {
-	panic("implement me")
+	return nil == u.Validate()
 }
 
 func (u *user) Validate() error {
-	panic("implement me")
-}
+	out := lib.NewValidationErrorSet()
 
-func (u *user) MarshalJSON() ([]byte, error) {
-	out := make(map[serial.Key]interface{}, 10)
+	out.AppendRawKeyedError(serial.KeyID, u.id.Validate())
+	out.AppendRawKeyedError(serial.KeyUsername, u.username.Validate())
+	out.AppendRawKeyedError(serial.KeyDiscriminator, u.discriminator.Validate())
 
-	if u.id.RawValue() == 0 {
-		return nil, ErrNoId
-	} else {
-		out[serial.KeyID] = u.id
+	if u.flags != nil {
+		out.AppendRawKeyedError(serial.KeyFlags, u.flags.Validate())
 	}
 
-	if u.username == "" {
-		return nil, ErrNoUsername
-	} else {
-		out[serial.KeyUsername] = u.username
+	if u.premiumType != nil {
+		out.AppendRawKeyedError(serial.KeyPremiumType, u.premiumType.Validate())
 	}
 
-	if u.discriminator == 0 {
-		return nil, ErrNoDiscriminator
-	} else {
-		out[serial.KeyDiscriminator] = u.discriminator
+	if u.publicFlags != nil {
+		out.AppendRawKeyedError(serial.KeyPublicFlags, u.publicFlags.Validate())
 	}
 
-	out[serial.KeyAvatar] = u.avatar
-	u.appendIfSet1(out, serial.KeyBot, &u.bot)
-	u.appendIfSet1(out, serial.KeySystem, &u.system)
-	u.appendIfSet1(out, serial.KeyMFAEnabled, &u.mfaEnabled)
-	u.appendIfSet1(out, serial.KeyLocale, &u.locale)
-	u.appendIfSet1(out, serial.KeyVerified, &u.verified)
-	u.appendIfSet2(out, serial.KeyEmail, &u.email)
-	u.appendIfSet1(out, serial.KeyFlags, &u.flags)
-	u.appendIfSet1(out, serial.KeyPremiumType, &u.premiumType)
-	u.appendIfSet1(out, serial.KeyPublicFlags, &u.publicFlags)
-
-	return json.Marshal(out)
-}
-
-func (u *user) UnmarshalJSON(bytes []byte) (err error) {
-	in := make(map[string]json.RawMessage, 10)
-
-	if err = json.Unmarshal(bytes, &in); err != nil {
-		return
-	}
-
-	multis := map[serial.Key]json.Unmarshaler{
-		serial.KeyAvatar:      &u.avatar,
-		serial.KeyBot:         &u.bot,
-		serial.KeySystem:      &u.system,
-		serial.KeyMFAEnabled:  &u.mfaEnabled,
-		serial.KeyLocale:      &u.locale,
-		serial.KeyVerified:    &u.verified,
-		serial.KeyEmail:       &u.email,
-		serial.KeyFlags:       &u.flags,
-		serial.KeyPremiumType: &u.premiumType,
-		serial.KeyPublicFlags: &u.publicFlags,
-	}
-
-	singles := map[serial.Key]interface{}{
-		serial.KeyID:            &u.id,
-		serial.KeyUsername:      &u.username,
-		serial.KeyDiscriminator: &u.discriminator,
-	}
-
-	for k, v := range in {
-		key := serial.Key(k)
-
-		if f, ok := singles[key]; ok {
-			err = json.Unmarshal(v, f)
-		} else if f, ok := multis[key]; ok {
-			err = f.UnmarshalJSON(v)
-		}
-
-		if err != nil {
-			return
-		}
+	if out.Len() > 0 {
+		return out
 	}
 
 	return nil
+}
+
+func (u *user) MarshalJSON() ([]byte, error) {
+	buf := bytes.NewBuffer(make([]byte, 0, u.BufferSize()))
+	enc := gojay.BorrowEncoder(buf)
+	defer enc.Release()
+
+	if err := enc.EncodeObject(u); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
+func (u *user) UnmarshalJSON(in []byte) (err error) {
+	dec := gojay.BorrowDecoder(bytes.NewBuffer(in))
+	defer dec.Release()
+
+	return dec.DecodeObject(u)
 }
 
 func (u *user) ID() Snowflake {
@@ -138,7 +183,6 @@ func (u *user) ID() Snowflake {
 
 func (u *user) SetID(id Snowflake) User {
 	u.id = id
-
 	return u
 }
 
@@ -148,7 +192,6 @@ func (u *user) Username() string {
 
 func (u *user) SetUsername(name Username) User {
 	u.username = name
-
 	return u
 }
 
@@ -158,276 +201,285 @@ func (u *user) Discriminator() Discriminator {
 
 func (u *user) SetDiscriminator(code Discriminator) User {
 	u.discriminator = code
-
 	return u
 }
 
-func (u *user) AvatarHash() string {
-	return u.avatar.Get()
+func (u *user) AvatarHash() ImageHash {
+	if u.avatar == nil {
+		panic(e.ErrGetNull)
+	}
+
+	return *u.avatar
 }
 
 func (u *user) AvatarHashIsNull() bool {
-	return u.avatar.IsNull()
+	return u.avatar == nil
 }
 
-func (u *user) SetAvatarHash(s string) User {
-	u.avatar.Set(s)
-
+func (u *user) SetAvatarHash(s ImageHash) User {
+	u.avatar = &s
 	return u
 }
 
 func (u *user) SetNullAvatarHash() User {
-	u.avatar.SetNull()
-
+	u.avatar = nil
 	return u
 }
 
 func (u *user) BotFlag() bool {
-	return u.bot.Get()
+	if u.bot == nil {
+		panic(e.ErrGetUnset)
+	}
+
+	return *u.bot
 }
 
 func (u *user) BotFlagIsSet() bool {
-	return u.bot.IsSet()
+	return u.bot != nil
 }
 
 func (u *user) SetBotFlag(b bool) User {
-	u.bot.Set(b)
-
+	u.bot = &b
 	return u
 }
 
 func (u *user) UnsetBotFlag() User {
-	u.bot.Unset()
-
+	u.bot = nil
 	return u
 }
 
 func (u *user) SystemFlag() bool {
-	return u.system.Get()
+	if u.system == nil {
+		panic(e.ErrGetUnset)
+	}
+
+	return *u.system
 }
 
 func (u *user) SystemFlagIsSet() bool {
-	return u.system.IsSet()
+	return u.system != nil
 }
 
 func (u *user) SetSystemFlag(b bool) User {
-	u.system.Set(b)
-
+	u.system = &b
 	return u
 }
 
 func (u *user) UnsetSystemFlag() User {
-	u.system.Unset()
-
+	u.system = nil
 	return u
 }
 
 func (u *user) MFAEnabled() bool {
-	return u.mfaEnabled.Get()
+	if u.mfaEnabled == nil {
+		panic(e.ErrGetUnset)
+	}
+
+	return *u.mfaEnabled
 }
 
 func (u *user) MFAEnabledIsSet() bool {
-	return u.mfaEnabled.IsSet()
+	return u.mfaEnabled != nil
 }
 
 func (u *user) SetMFAEnabled(b bool) User {
-	u.mfaEnabled.Set(b)
-
+	u.mfaEnabled = &b
 	return u
 }
 
 func (u *user) UnsetMFAEnabled() User {
-	u.mfaEnabled.Unset()
-
+	u.mfaEnabled = nil
 	return u
 }
 
 func (u *user) Locale() string {
-	return u.locale.Get()
+	if u.locale == nil {
+		panic(e.ErrGetUnset)
+	}
+
+	return *u.locale
 }
 
 func (u *user) LocaleIsSet() bool {
-	return u.locale.IsSet()
+	return u.locale != nil
 }
 
 func (u *user) SetLocale(s string) User {
-	u.locale.Set(s)
-
+	u.locale = &s
 	return u
 }
 
 func (u *user) UnsetLocale() User {
-	u.locale.Unset()
-
+	u.locale = nil
 	return u
 }
 
 func (u *user) VerifiedFlag() bool {
-	return u.verified.Get()
+	if u.verified == nil {
+		panic(e.ErrGetUnset)
+	}
+
+	return *u.verified
 }
 
 func (u *user) VerifiedFlagIsSet() bool {
-	return u.verified.IsSet()
+	return u.verified != nil
 }
 
 func (u *user) SetVerifiedFlag(b bool) User {
-	u.verified.Set(b)
-
+	u.verified = &b
 	return u
 }
 
 func (u *user) UnsetVerifiedFlag() User {
-	u.verified.Unset()
+	u.verified = nil
 
 	return u
 }
 
 func (u *user) Email() string {
-	return u.email.Get()
+	if u.email == nil {
+		if u.nullEmail {
+			panic(e.ErrGetNull)
+		}
+
+		panic(e.ErrGetUnset)
+	}
+
+	return *u.email
 }
 
 func (u *user) EmailIsSet() bool {
-	return u.email.IsSet()
+	return u.email != nil
 }
 
 func (u *user) EmailIsNull() bool {
-	return u.email.IsNull()
+	return u.email == nil && u.nullEmail
 }
 
 func (u *user) SetEmail(s string) User {
-	u.email.Set(s)
+	u.email = &s
+	u.nullEmail = false
 
 	return u
 }
 
 func (u *user) UnsetEmail() User {
-	u.email.Unset()
+	u.email = nil
+	u.nullEmail = true
 
 	return u
 }
 
 func (u *user) SetNullEmail() User {
-	u.email.SetNull()
+	u.email = nil
+	u.nullEmail = true
 
 	return u
 }
 
 func (u *user) Flags() UserFlag {
-	return UserFlag(u.flags.Get())
+	return *u.flags
 }
 
 func (u *user) FlagsIsSet() bool {
-	return u.flags.IsSet()
+	return u.flags != nil
 }
 
 func (u *user) SetFlags(flag UserFlag) User {
-	u.flags.Set(uint32(flag))
-
+	u.flags = &flag
 	return u
 }
 
 func (u *user) UnsetFlags() User {
-	u.flags.Unset()
-
+	u.flags = nil
 	return u
 }
 
 func (u *user) AddFlag(flag UserFlag) User {
-	if u.flags.IsSet() {
-		u.flags.Set(u.flags.Get() | uint32(flag))
+	if u.flags != nil {
+		*u.flags |= flag
 	} else {
-		u.flags.Set(uint32(flag))
+		u.flags = &flag
 	}
 
 	return u
 }
 
 func (u *user) RemoveFlag(flag UserFlag) User {
-	if u.flags.IsSet() {
-		u.flags.Set(u.flags.Get() & ^uint32(flag))
+	if u.flags != nil {
+		*u.flags &= ^flag
 	}
 
 	return u
 }
 
 func (u *user) FlagsContains(flag UserFlag) bool {
-	if u.flags.IsSet() {
-		return u.flags.Get()|uint32(flag) == uint32(flag)
+	if u.flags != nil {
+		return *u.flags & flag == flag
 	}
 
 	return false
 }
 
 func (u *user) PremiumType() UserPremiumType {
-	return UserPremiumType(u.premiumType.Get())
+	return *u.premiumType
 }
 
 func (u *user) PremiumTypeIsSet() bool {
-	return u.premiumType.IsSet()
+	return u.premiumType != nil
 }
 
 func (u *user) SetPremiumType(val UserPremiumType) User {
-	u.premiumType.Set(uint8(val))
-
+	u.premiumType = &val
 	return u
 }
 
 func (u *user) UnsetPremiumType() User {
-	u.premiumType.Unset()
-
+	u.premiumType = nil
 	return u
 }
 
 func (u *user) PublicFlags() UserFlag {
-	return UserFlag(u.publicFlags.Get())
+	return *u.publicFlags
 }
 
 func (u *user) PublicFlagsIsSet() bool {
-	return u.publicFlags.IsSet()
+	return u.publicFlags != nil
 }
 
 func (u *user) SetPublicFlags(flag UserFlag) User {
-	u.publicFlags.Set(uint32(flag))
+	u.publicFlags = &flag
 	return u
 }
 
 func (u *user) UnsetPublicFlags() User {
-	u.publicFlags.Unset()
+	u.publicFlags = nil
 	return u
 }
 
 func (u *user) AddPublicFlag(flag UserFlag) User {
-	if u.publicFlags.IsSet() {
-		u.publicFlags.Set(uint32(flag) | u.publicFlags.Get())
+	if u.publicFlags != nil {
+		*u.publicFlags |= flag
 	} else {
-		u.publicFlags.Set(uint32(flag))
+		u.publicFlags = &flag
 	}
 
 	return u
 }
 
 func (u *user) RemovePublicFlag(flag UserFlag) User {
-	if u.publicFlags.IsSet() {
-		u.publicFlags.Set(u.publicFlags.Get() & ^uint32(flag))
+	if u.publicFlags != nil {
+		*u.publicFlags &= ^flag
 	}
 
 	return u
 }
 
 func (u *user) PublicFlagsContains(flag UserFlag) bool {
-	c := uint32(flag)
-
-	return u.publicFlags.Get()&c == c
-}
-
-func (*user) appendIfSet1(mp map[serial.Key]interface{}, key serial.Key, field types.OptionalField) {
-	if field.IsSet() {
-		mp[key] = field
+	if u.publicFlags == nil {
+		return false
 	}
-}
 
-func (*user) appendIfSet2(mp map[serial.Key]interface{}, key serial.Key, field types.TriStateField) {
-	if field.IsSet() {
-		mp[key] = field
-	}
+	return * u.publicFlags & flag == flag
 }

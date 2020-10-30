@@ -2,7 +2,7 @@ package activity
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/internal/types"
+	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils/gj"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"github.com/francoispqt/gojay"
@@ -47,7 +47,7 @@ func (a *emoji) UnmarshalJSONObject(dec *gojay.Decoder, k string) error {
 			return err
 		}
 
-		a.id = types.NewSnowflake()
+		a.id = com.NewSnowflake()
 
 		if err := a.id.UnmarshalString(tmp); err != nil {
 			return nil
@@ -85,7 +85,7 @@ func (a *emoji) UnmarshalJSON(bytes []byte) error {
 	}
 
 	if val, ok := tmp[serial.KeyID]; ok {
-		a.id = types.NewSnowflake()
+		a.id = com.NewSnowflake()
 		if err := a.id.UnmarshalJSON(val); err != nil {
 			return err
 		}

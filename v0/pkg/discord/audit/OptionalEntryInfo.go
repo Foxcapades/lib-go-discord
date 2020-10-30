@@ -86,10 +86,10 @@ type OptionalEntryInfo interface {
 	//
 	// Applies to action type(s): CHANNEL_OVERWRITE_CREATE,
 	// CHANNEL_OVERWRITE_UPDATE, CHANNEL_OVERWRITE_DELETE
-	Type() discord.Type
+	Type() discord.OverwriteType
 
 	// SetType overwrites the current value of this record's `type` field.
-	SetType(discord.Type) OptionalEntryInfo
+	SetType(discord.OverwriteType) OptionalEntryInfo
 
 	// RoleName returns the current value of this record's `role_name` field.
 	//

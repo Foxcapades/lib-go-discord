@@ -74,7 +74,7 @@ func (a *addRecipientRequest) IsValid() bool {
 	return nil == a.Validate()
 }
 
-func (a *addRecipientRequest) Validate() []error {
+func (a *addRecipientRequest) Validate() error {
 	if a.channelID.RawValue() == 0 {
 		return ErrNoChanID
 	}

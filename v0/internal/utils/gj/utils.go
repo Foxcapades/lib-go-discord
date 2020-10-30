@@ -45,3 +45,13 @@ func EncodeTime(t *time.Time) *string {
 	tmp := t.Format(time.RFC3339Nano)
 	return &tmp
 }
+
+func DecodeOptUint8(dec *gojay.Decoder) (*uint8, error) {
+	var tmp *uint8
+
+	if err := dec.Uint8Null(&tmp); err != nil {
+		return nil, err
+	}
+
+	return tmp, nil
+}

@@ -1,10 +1,22 @@
 package audit
 
 import (
+	"encoding/json"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
 )
 
 type LogEntry interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Sized
+	lib.Validatable
+
 	// TargetID returns the current value of this record's `target_id` field.
 	//
 	// The `target_id` field contains the id of the affected entity (webhook,

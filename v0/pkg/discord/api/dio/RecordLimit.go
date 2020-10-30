@@ -16,7 +16,7 @@ func (r RecordLimit) IsValid() bool {
 	return nil == r.Validate()
 }
 
-func (r RecordLimit) Validate() []error {
+func (r RecordLimit) Validate() error {
 	if r < 1 || r > 100 {
 		return ErrBadRecordLimit
 	}

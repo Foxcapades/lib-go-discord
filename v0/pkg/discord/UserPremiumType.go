@@ -14,6 +14,10 @@ const (
 	PremiumTypeNitro
 )
 
+func (p UserPremiumType) BufferSize() uint32 {
+	return 1
+}
+
 func (p UserPremiumType) IsValid() bool {
 	return nil == p.Validate()
 }

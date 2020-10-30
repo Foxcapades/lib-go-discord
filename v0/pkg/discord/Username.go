@@ -24,6 +24,10 @@ func init() {
 
 type Username string
 
+func (u Username) BufferSize() uint32 {
+	return uint32(len(u) + 2)
+}
+
 func (u Username) IsValid() bool {
 	return nil == u.Validate()
 }
