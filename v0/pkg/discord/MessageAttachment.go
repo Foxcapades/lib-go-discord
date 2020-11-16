@@ -1,19 +1,11 @@
 package discord
 
 import (
-	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
-	"github.com/francoispqt/gojay"
+	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
 )
 
 type MessageAttachment interface {
-	json.Marshaler
-	json.Unmarshaler
-
-	gojay.MarshalerJSONObject
-	gojay.UnmarshalerJSONObject
-
-	lib.Validatable
+	meta.ObjectField
 
 	// ID returns the current value of this record's `id` field.
 	//
@@ -34,7 +26,7 @@ type MessageAttachment interface {
 	// Size returns the current value of this record's `size` field.
 	//
 	// The `size` field contains the size of the file in bytes.
-	Size() uint64
+	Size() uint32
 
 	// SetSize overwrites the current value of this record's `size` field.
 	SetSize(uint64) MessageAttachment

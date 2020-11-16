@@ -1,6 +1,21 @@
 package discord
 
+import (
+	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/francoispqt/gojay"
+)
+
 type Emoji interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Sized
+	lib.Validatable
+
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the emoji id.

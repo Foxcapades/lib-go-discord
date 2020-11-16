@@ -46,7 +46,7 @@ const (
 	LogEventIntegrationDelete      LogEvent = 82
 )
 
-func (l LogEvent) BufferSize() uint32 {
+func (l LogEvent) JSONSize() int {
 	if l > 1 {
 		return 2
 	}

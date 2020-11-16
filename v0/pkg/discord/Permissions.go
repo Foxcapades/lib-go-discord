@@ -1,13 +1,14 @@
 package discord
 
 import (
-	"encoding/json"
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
+	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
 	"strconv"
 )
 
 var (
-	ErrBadPermission = errors.New("unrecognized permission flag")
+	ErrBadPermission = errors.New("unrecognized permission flag(s)")
 )
 
 // TODO: Document this
@@ -174,17 +175,20 @@ const (
 )
 
 func (p Permission) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatUint(uint64(p), 10)), nil
+	return p.ToBytes(), nil
 }
 
 func (p *Permission) UnmarshalJSON(b []byte) error {
-	var tmp string
+	ln := len(b)
 
-	if err := json.Unmarshal(b, &tmp); err != nil {
-		return err
+	if ln < 2 || b[0] != '"' || b[ln-1] != '"' {
+		return errors.New("") 	// FIXME
 	}
 
-	if v, err := strconv.ParseUint(tmp, 10, 32); err != nil {
+	tmp := make([]byte, ln - js.QuoteSize)
+	copy(tmp, b[1:])
+
+	if v, err := strconv.ParseUint(ugly.UnsafeString(tmp), 10, 32); err != nil {
 		return err
 	} else {
 		*p = Permission(v)
@@ -193,22 +197,32 @@ func (p *Permission) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (p Permission) BufferSize() uint32 {
+func (p *Permission) JSONSize() int {
+	if p == nil {
+		return js.NullSize
+	}
+
 	switch true {
-	case p > 999_999:
-		return 7
-	case p > 99_999:
-		return 6
-	case p > 9_999:
-		return 5
-	case p > 999:
-		return 4
-	case p > 99:
-		return 3
-	case p > 9:
-		return 2
+	case *p > 999_999_999:
+		return 10 + js.QuoteSize
+	case *p > 99_999_999:
+		return 9 + js.QuoteSize
+	case *p > 9_999_999:
+		return 8 + js.QuoteSize
+	case *p > 999_999:
+		return 7 + js.QuoteSize
+	case *p > 99_999:
+		return 6 + js.QuoteSize
+	case *p > 9_999:
+		return 5 + js.QuoteSize
+	case *p > 999:
+		return 4 + js.QuoteSize
+	case *p > 99:
+		return 3 + js.QuoteSize
+	case *p > 9:
+		return 2 + js.QuoteSize
 	default:
-		return 1
+		return 1 + js.QuoteSize
 	}
 }
 
@@ -216,12 +230,36 @@ func (p Permission) IsValid() bool {
 	return nil == p.Validate()
 }
 
-const maxPermission Permission = 2_147_483_647
+const maxPermission Permission = 0b0111_1111_1111_1111_1111_1111_1111_1111
 
 func (p Permission) Validate() error {
-	if p > maxPermission {
+	if p & ^maxPermission > 0 {
 		return ErrBadPermission
 	}
 
 	return nil
+}
+
+func (p *Permission) ToBytes() []byte {
+	if p == nil {
+		return js.NullBytesBuf
+	}
+
+	sz := p.JSONSize()
+
+	out := make([]byte, sz + js.QuoteSize)
+	out[0] = '"'
+	out[sz + js.SingleQuoteSize] = '"'
+
+	copy(out[1:], p.String())
+
+	return out
+}
+
+func (p *Permission) IsNil() bool {
+	return p == nil
+}
+
+func (p Permission) String() string {
+	return strconv.FormatInt(int64(p), 10)
 }

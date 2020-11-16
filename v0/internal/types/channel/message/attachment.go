@@ -1,33 +1,26 @@
 package message
 
 import (
+	"bytes"
+	"github.com/foxcapades/go-bytify/v0/bytify"
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
+	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
+	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 	"github.com/francoispqt/gojay"
+	"io"
 )
 
-type AttachmentSlice []discord.MessageAttachment
-
-func (a AttachmentSlice) MarshalJSONArray(enc *gojay.Encoder) {
-	for i := range a {
-		enc.AddObject(a[i])
-	}
-}
-
-func (a AttachmentSlice) IsNil() bool {
-	return false
-}
-
-func (a *AttachmentSlice) UnmarshalJSONArray(dec *gojay.Decoder) error {
-	tmp := NewAttachment()
-
-	if err := dec.DecodeObject(tmp); err != nil {
-		return err
-	}
-
-	*a = append(*a, tmp)
-
-	return nil
-}
+const (
+	baseAttachSize = uint32(js.BracketSize +
+		js.FirstFieldSize + len(KeyID) +
+		js.NextFieldSize + len(KeyFilename) +
+		js.NextFieldSize + len(KeySize) +
+		js.NextFieldSize + len(KeyURL) +
+		js.NextFieldSize + len(KeyProxyURL) +
+		js.NextFieldSize + len(KeyHeight) +
+		js.NextFieldSize + len(KeyWidth))
+)
 
 func NewAttachment() discord.MessageAttachment {
 	return new(attachment)
@@ -35,16 +28,82 @@ func NewAttachment() discord.MessageAttachment {
 
 type attachment struct {
 	id       discord.Snowflake
-	fileName string
-	size     uint64
-	url      string
-	proxyUrl string
+	fileName ugly.PseudoString
+	size     uint32
+	url      ugly.PseudoString
+	proxyUrl ugly.PseudoString
 	height   *uint16
 	width    *uint16
 }
 
+func (a *attachment) JSONSize() uint32 {
+	return baseAttachSize +
+		a.id.JSONSize() +
+		a.fileName.JSONSize() +
+		uint32(bytify.Uint32StringSize(a.size)) +
+		a.url.JSONSize() +
+		a.proxyUrl.JSONSize() +
+		js.SizeUint16OrNull(a.height) +
+		js.SizeUint16OrNull(a.width)
+}
+
+func (a *attachment) ToJSONBytes() []byte {
+	buf := new(bytes.Buffer)
+	buf.Grow(int(a.JSONSize()))
+	buf.Reset()
+
+	buf.WriteByte(js.OpenObject)
+
+	_ = KeyID.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	_ = a.id.AppendJSONBytes(buf)
+
+	buf.WriteByte(js.FieldDivider)
+
+	_ = KeyFilename.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	_ = a.fileName.AppendJSONBytes(buf)
+
+	buf.WriteByte(js.FieldDivider)
+
+	_ = KeySize.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	bytify.Uint32ToBuf(a.size, buf)
+
+	buf.WriteByte(js.FieldDivider)
+
+	_ = KeyURL.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	_ = a.url.AppendJSONBytes(buf)
+
+	buf.WriteByte(js.FieldDivider)
+
+	_ = KeyProxyURL.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	_ = a.proxyUrl.AppendJSONBytes(buf)
+
+	buf.WriteByte(js.FieldDivider)
+
+	_ = KeyHeight.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	bytify.Uint16ToBuf(*a.height, buf)
+
+	buf.WriteByte(js.FieldDivider)
+
+	_ = KeyWidth.AppendJSONBytes(buf)
+	buf.WriteByte(js.PairSeparator)
+	bytify.Uint16ToBuf(*a.width, buf)
+
+	return nil
+}
+
+func (a *attachment) AppendJSONBytes(buf io.Writer) (e error) {
+	_, e = buf.Write(a.ToJSONBytes())
+	return
+}
+
 func (a *attachment) MarshalJSON() ([]byte, error) {
-	panic("implement me")
+	return a.ToJSONBytes(), nil
 }
 
 func (a *attachment) UnmarshalJSON(in []byte) error {
@@ -56,7 +115,7 @@ func (a *attachment) MarshalJSONObject(enc *gojay.Encoder) {
 }
 
 func (a *attachment) IsNil() bool {
-	panic("implement me")
+	return a == nil
 }
 
 func (a *attachment) UnmarshalJSONObject(dec *gojay.Decoder, key string) error {
@@ -64,7 +123,7 @@ func (a *attachment) UnmarshalJSONObject(dec *gojay.Decoder, key string) error {
 }
 
 func (a *attachment) NKeys() int {
-	panic("implement me")
+	return 0
 }
 
 func (a *attachment) IsValid() bool {
@@ -91,7 +150,7 @@ func (a *attachment) SetFilename(s string) discord.MessageAttachment {
 	panic("implement me")
 }
 
-func (a *attachment) Size() uint64 {
+func (a *attachment) Size() uint32 {
 	panic("implement me")
 }
 

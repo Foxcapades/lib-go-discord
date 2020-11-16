@@ -2,6 +2,7 @@ package message
 
 import (
 	"bytes"
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
@@ -10,11 +11,12 @@ import (
 
 type ChannelMentionSlice []discord.ChannelMention
 
-func (c ChannelMentionSlice) BufferSize() uint32 {
-	out := uint32(2) + uint32(len(c) - 1)
+func (c ChannelMentionSlice) JSONSize() uint32 {
+	// len(c) - 1 -> number of commas between elements.
+	out := uint32(js.BracketSize + len(c) - 1)
 
 	for i := range c {
-		out += c[i].BufferSize()
+		out += c[i].JSONSize()
 	}
 
 	return out
@@ -54,22 +56,22 @@ type channelMention struct {
 }
 
 const (
-	chanMentionBaseSize = uint32(2 +
-		len(serial.KeyID) + 3 +
-		len(serial.KeyGuildID) + 4 +
-		len(serial.KeyType) + 4 +
-		len(serial.KeyName) + 4)
+	chanMentionBaseSize = uint32(js.BracketSize +
+		len(serial.KeyID) + js.FirstKeySize +
+		len(serial.KeyGuildID) + js.NextKeySize +
+		len(serial.KeyType) + js.NextKeySize +
+		len(serial.KeyName) + js.NextKeySize)
 )
-func (c *channelMention) BufferSize() uint32 {
+func (c *channelMention) JSONSize() uint32 {
 	return chanMentionBaseSize +
 		utils.OptionalSize(c.id) +
 		utils.OptionalSize(c.guildID) +
-		utils.OptionalSize(c.kind) +
-		utils.OptionalSize(c.name)
+		utils.OptionalSize(&c.kind) +
+		utils.OptionalSize(&c.name)
 }
 
 func (c *channelMention) MarshalJSON() ([]byte, error) {
-	buf := bytes.NewBuffer(make([]byte, 0, c.BufferSize()))
+	buf := bytes.NewBuffer(make([]byte, 0, c.JSONSize()))
 	enc := gojay.BorrowEncoder(buf)
 	defer enc.Release()
 

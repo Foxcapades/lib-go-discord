@@ -1,6 +1,7 @@
 package gj
 
 import (
+	"fmt"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 	"github.com/francoispqt/gojay"
@@ -90,9 +91,21 @@ type EncWrapper interface {
 	// to the output encoder based on whether the given pointer is nil.
 	AddNullableString(key serial.Key, val *string) EncWrapper
 
-	// AddTriStateString may append either the given string pointer or a null
-	// value to the output encoder based on whether the given pointer is nil and
-	// the value of the given null flag.
+	// AddStringer appends the string value of the given value to the output
+	// encoder.
+	AddStringer(key serial.Key, val fmt.Stringer) EncWrapper
+
+	// AddOptionalStringer appends the string value of the given value to the
+	// output encoder only if the pointer is not nil.
+	AddOptionalStringer(key serial.Key, val fmt.Stringer) EncWrapper
+
+	// AddNullableStringer appends the string value of the given value or a null
+	// value to the output encoder based on whether the given pointer is nil.
+	AddNullableStringer(key serial.Key, val fmt.Stringer) EncWrapper
+
+	// AddTriStateStringer may append either the string value of the given value
+	// or a null value to the output encoder based on whether the given pointer is
+	// nil and the value of the given null flag.
 	//
 	// If the given string pointer is not nil, the value will be appended to the
 	// output encoder.
@@ -729,6 +742,34 @@ func (e *encWrapper) AddTriStateInt64(key serial.Key, val *int64, null bool) Enc
 	} else {
 		return e.AddOptionalInt64(key, val)
 	}
+}
+
+func (e *encWrapper) AddStringer(key serial.Key, val fmt.Stringer) EncWrapper {
+	return e.AddString(key, val.String())
+}
+
+func (e *encWrapper) AddOptionalStringer(
+	key serial.Key,
+	val fmt.Stringer,
+) EncWrapper {
+	if val != nil {
+		e.enc.AddStringKey(string(key), val.String())
+	}
+
+	return e
+}
+
+func (e *encWrapper) AddNullableStringer(
+	key serial.Key,
+	val fmt.Stringer,
+) EncWrapper {
+	if val != nil {
+		e.enc.AddStringKey(string(key), val.String())
+	} else {
+		e.enc.AddNullKey(string(key))
+	}
+
+	return e
 }
 
 type emptySlice []uint8

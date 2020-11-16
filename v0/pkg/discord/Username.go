@@ -24,7 +24,7 @@ func init() {
 
 type Username string
 
-func (u Username) BufferSize() uint32 {
+func (u Username) JSONSize() int {
 	return uint32(len(u) + 2)
 }
 

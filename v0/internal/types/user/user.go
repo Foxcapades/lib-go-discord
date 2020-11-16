@@ -2,6 +2,7 @@ package user
 
 import (
 	"bytes"
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
 
 	"github.com/francoispqt/gojay"
 
@@ -19,20 +20,20 @@ func NewUser() User {
 	return new(user)
 }
 
-const userBaseSize = uint32(2 +
-	len(serial.KeyID) + 3 +
-	len(serial.KeyUsername) + 4 +
-	len(serial.KeyDiscriminator) + 4 +
-	len(serial.KeyAvatar) + 4 +
-	len(serial.KeyBot) + 4 +
-	len(serial.KeySystem) + 4 +
-	len(serial.KeyMFAEnabled) + 4 +
-	len(serial.KeyLocale) + 4 +
-	len(serial.KeyVerified) + 4 +
-	len(serial.KeyEmail) + 4 +
-	len(serial.KeyFlags) + 4 +
-	len(serial.KeyPremiumType) + 4 +
-	len(serial.KeyPublicFlags) + 4)
+const userBaseSize = uint32(js.BracketSize +
+	js.FirstFieldSize + len(serial.KeyID) +
+	js.NextFieldSize + len(serial.KeyUsername) +
+	js.NextFieldSize + len(serial.KeyDiscriminator) +
+	js.NextFieldSize + len(serial.KeyAvatar) +
+	js.NextFieldSize + len(serial.KeyBot) +
+	js.NextFieldSize + len(serial.KeySystem) +
+	js.NextFieldSize + len(serial.KeyMFAEnabled) +
+	js.NextFieldSize + len(serial.KeyLocale) +
+	js.NextFieldSize + len(serial.KeyVerified) +
+	js.NextFieldSize + len(serial.KeyEmail) +
+	js.NextFieldSize + len(serial.KeyFlags) +
+	js.NextFieldSize + len(serial.KeyPremiumType) +
+	js.NextFieldSize + len(serial.KeyPublicFlags))
 
 type user struct {
 	nullEmail bool
@@ -52,18 +53,18 @@ type user struct {
 	publicFlags   *UserFlag
 }
 
-func (u *user) BufferSize() uint32 {
+func (u *user) JSONSize() int {
 	return userBaseSize +
-		utils.OptionalSize(u.id) +
-		utils.OptionalSize(&u.username) +
-		utils.OptionalSize(&u.discriminator) +
+		utils.NullableSize(u.id) +
+		u.username.JSONSize() +
+		u.discriminator.JSONSize() +
 		utils.OptionalSize(u.avatar) +
 		utils.OptionalBoolSize(u.bot) +
 		utils.OptionalBoolSize(u.system) +
 		utils.OptionalBoolSize(u.mfaEnabled) +
 		utils.OptionalStringSize(u.locale) +
 		utils.OptionalBoolSize(u.verified) +
-		utils.OptionalStringSize(u.email) +
+		utils.TriStateStringSize(u.email, u.nullEmail) +
 		utils.OptionalSize(u.flags) +
 		utils.OptionalSize(u.premiumType) +
 		utils.OptionalSize(u.publicFlags)
@@ -159,7 +160,7 @@ func (u *user) Validate() error {
 }
 
 func (u *user) MarshalJSON() ([]byte, error) {
-	buf := bytes.NewBuffer(make([]byte, 0, u.BufferSize()))
+	buf := bytes.NewBuffer(make([]byte, 0, u.JSONSize()))
 	enc := gojay.BorrowEncoder(buf)
 	defer enc.Release()
 

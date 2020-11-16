@@ -14,8 +14,16 @@ const (
 	PremiumTypeNitro
 )
 
-func (p UserPremiumType) BufferSize() uint32 {
+func (p *UserPremiumType) JSONSize() int {
+	if p == nil {
+		return 4
+	}
+
 	return 1
+}
+
+func (p *UserPremiumType) IsNil() bool {
+	return p == nil
 }
 
 func (p UserPremiumType) IsValid() bool {

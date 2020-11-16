@@ -65,6 +65,10 @@ var features = []GuildFeature{
 	GuildFeatureWelcomeScreenEnabled,
 }
 
+func (f GuildFeature) IsValid() bool {
+	return nil == f.Validate()
+}
+
 func (f GuildFeature) Validate() error {
 	for i := range features {
 		if f == features[i] {
@@ -73,4 +77,8 @@ func (f GuildFeature) Validate() error {
 	}
 
 	return ErrBadFeature
+}
+
+func (f GuildFeature) JSONSize() int {
+	return uint32(len(f) + 2)
 }

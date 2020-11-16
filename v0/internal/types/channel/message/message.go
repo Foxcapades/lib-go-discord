@@ -86,7 +86,7 @@ type message struct {
 	flags           *MessageFlag
 }
 
-func (m *message) BufferSize() uint32 {
+func (m *message) JSONSize() int {
 	return msgBufferSize +
 		utils.OptionalSize(m.id) +
 		utils.OptionalSize(m.channelID) +
@@ -103,7 +103,7 @@ func (m *message) BufferSize() uint32 {
 }
 
 func (m *message) MarshalJSON() ([]byte, error) {
-	buf := bytes.NewBuffer(make([]byte, 0, m.BufferSize()))
+	buf := bytes.NewBuffer(make([]byte, 0, m.JSONSize()))
 	enc := gojay.BorrowEncoder(buf)
 	defer enc.Release()
 

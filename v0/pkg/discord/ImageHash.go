@@ -4,7 +4,11 @@ import "github.com/francoispqt/gojay"
 
 type ImageHash string
 
-func (i *ImageHash) BufferSize() uint32 {
+func (i *ImageHash) IsNil() bool {
+	return i == nil
+}
+
+func (i *ImageHash) JSONSize() int {
 	if i == nil {
 		return 4
 	}

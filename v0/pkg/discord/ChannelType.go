@@ -2,7 +2,10 @@ package discord
 
 import (
 	"errors"
+	"fmt"
+	"github.com/foxcapades/go-bytify/v0/bytify"
 	"github.com/francoispqt/gojay"
+	"io"
 )
 
 var (
@@ -34,7 +37,7 @@ const (
 	ChannelTypeGuildStore
 )
 
-func (t ChannelType) BufferSize() uint32 {
+func (t ChannelType) JSONSize() uint32 {
 	switch true {
 	case t < 10:
 		return 1
@@ -65,4 +68,40 @@ func DecodeChannelType(dec *gojay.Decoder) (ChannelType, error) {
 	}
 
 	return ChannelType(tmp), nil
+}
+
+func (t ChannelType) MarshalJSON() ([]byte, error) {
+	return t.ToJSONBytes(), nil
+}
+
+func (t *ChannelType) UnmarshalJSON(bytes []byte) error {
+	if len(bytes) != 1 {
+		return fmt.Errorf("incorrect number of bytes for a ChannelType value: expected 1, got %d", len(bytes))
+	}
+
+	if bytes[0] < '0' || bytes[0] > '9' {
+		return fmt.Errorf(
+			"incorrect byte value: expected a value in [%d..%d], got %d",
+			ChannelTypeGuildText,
+			ChannelTypeGuildStore,
+			int16(bytes[0]) - '0',
+		)
+	}
+
+	*t = ChannelType(bytes[0] - '0')
+
+	return nil
+}
+
+func (t *ChannelType) IsNil() bool {
+	return t == nil
+}
+
+func (t ChannelType) ToJSONBytes() []byte {
+	return bytify.Uint8ToByteSlice(uint8(t))
+}
+
+func (t ChannelType) AppendJSONBytes(writer io.Writer) error {
+	bytify.Uint8ToBuf(uint8(t), writer)
+	return nil
 }

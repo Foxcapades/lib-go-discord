@@ -2,6 +2,8 @@ package com
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
+	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
 	"github.com/francoispqt/gojay"
 	"strconv"
 	"time"
@@ -26,7 +28,7 @@ const SnowflakeBufferSize = 66
 
 type SnowflakeSlice []Snowflake
 
-func (s SnowflakeSlice) BufferSize() uint32 {
+func (s SnowflakeSlice) JSONSize() int {
 	ln := uint32(len(s))
 	return ln*SnowflakeBufferSize + 2 + (ln - 1)
 }
@@ -105,9 +107,140 @@ type snowflake struct {
 	raw uint64
 }
 
-func (s *snowflake) BufferSize() uint32 {
-	return SnowflakeBufferSize
+// ╔════════════════════════════════════════════════════════════════════════╗ //
+// ║                                                                        ║ //
+// ║     Field Implementation                                               ║ //
+// ║                                                                        ║ //
+// ╚════════════════════════════════════════════════════════════════════════╝ //
+
+func (s *snowflake) IsNil() bool {
+	return s == nil
 }
+
+func (s *snowflake) ToBytes() []byte {
+	ln := s.JSONSize()
+
+	out := make([]byte, ln)
+	out[0] = '"'
+	out[ln-1] = '"'
+
+	ugly.Uint64ToBytes(s.raw, out[1:])
+
+	return out
+}
+
+func (s *snowflake) JSONSize() int {
+	if s == nil {
+		return 4
+	}
+
+	switch true {
+	case s.raw > 9_999_999_999_999_999_999:
+		return 20 + js.QuoteSize
+	case s.raw > 999_999_999_999_999_999:
+		return 19 + js.QuoteSize
+	case s.raw > 99_999_999_999_999_999:
+		return 18 + js.QuoteSize
+	case s.raw > 9_999_999_999_999_999:
+		return 17 + js.QuoteSize
+	case s.raw > 999_999_999_999_999:
+		return 16 + js.QuoteSize
+	case s.raw > 99_999_999_999_999:
+		return 15 + js.QuoteSize
+	case s.raw > 9_999_999_999_999:
+		return 14 + js.QuoteSize
+	case s.raw > 999_999_999_999:
+		return 13 + js.QuoteSize
+	case s.raw > 99_999_999_999:
+		return 12 + js.QuoteSize
+	case s.raw > 9_999_999_999:
+		return 11 + js.QuoteSize
+	case s.raw > 999_999_999:
+		return 10 + js.QuoteSize
+	case s.raw > 99_999_999:
+		return 9 + js.QuoteSize
+	case s.raw > 9_999_999:
+		return 8 + js.QuoteSize
+	case s.raw > 999_999:
+		return 7 + js.QuoteSize
+	case s.raw > 99_999:
+		return 6 + js.QuoteSize
+	case s.raw > 9_999:
+		return 5 + js.QuoteSize
+	case s.raw > 999:
+		return 4 + js.QuoteSize
+	case s.raw > 99:
+		return 3 + js.QuoteSize
+	case s.raw > 9:
+		return 2 + js.QuoteSize
+	default:
+		return 1 + js.QuoteSize
+	}
+}
+
+func (s *snowflake) IsValid() bool {
+	return nil == s.Validate()
+}
+
+func (s *snowflake) Validate() error {
+	if s.raw == 0 {
+		return ErrEmptySnowflake
+	}
+
+	if s.raw&timeMask == 0 {
+		return ErrNoSnowflakeTime
+	}
+
+	if s.raw&workIdMask == 0 {
+		return ErrNoSnowflakeWorkerID
+	}
+
+	if s.raw&procIdMask == 0 {
+		return ErrNoSnowflakeProcID
+	}
+
+	if s.raw&countMask == 0 {
+		return ErrNoSnowflakeCounter
+	}
+
+	return nil
+}
+
+// ╔════════════════════════════════════════════════════════════════════════╗ //
+// ║                                                                        ║ //
+// ║     Std JSON Implementation                                            ║ //
+// ║                                                                        ║ //
+// ╚════════════════════════════════════════════════════════════════════════╝ //
+
+func (s *snowflake) MarshalJSON() ([]byte, error) {
+	return []byte(s.String()), nil
+}
+
+func (s *snowflake) UnmarshalJSON(bytes []byte) (err error) {
+	var tmp string
+
+	if err = json.Unmarshal(bytes, &tmp); err != nil {
+		return
+	}
+
+	return s.UnmarshalString(tmp)
+}
+
+// ╔════════════════════════════════════════════════════════════════════════╗ //
+// ║                                                                        ║ //
+// ║     Std Stringer Implementation                                        ║ //
+// ║                                                                        ║ //
+// ╚════════════════════════════════════════════════════════════════════════╝ //
+
+func (s *snowflake) String() string {
+	return strconv.FormatUint(s.raw, 10)
+}
+
+// ╔════════════════════════════════════════════════════════════════════════╗ //
+// ║                                                                        ║ //
+// ║     Snowflake Implementation                                           ║ //
+// ║                                                                        ║ //
+// ╚════════════════════════════════════════════════════════════════════════╝ //
 
 func (s *snowflake) RawValue() uint64 {
 	return s.raw
@@ -169,24 +302,6 @@ func (s *snowflake) SetCounterValue(id uint16) Snowflake {
 	return s
 }
 
-func (s *snowflake) String() string {
-	return strconv.FormatUint(s.raw, 10)
-}
-
-func (s *snowflake) MarshalJSON() ([]byte, error) {
-	return []byte(s.String()), nil
-}
-
-func (s *snowflake) UnmarshalJSON(bytes []byte) (err error) {
-	var tmp string
-
-	if err = json.Unmarshal(bytes, &tmp); err != nil {
-		return
-	}
-
-	return s.UnmarshalString(tmp)
-}
-
 func (s *snowflake) UnmarshalString(val string) (err error) {
 	s.raw, err = strconv.ParseUint(val, 10, 64)
 	if err != nil {
@@ -194,32 +309,4 @@ func (s *snowflake) UnmarshalString(val string) (err error) {
 	}
 
 	return
-}
-
-func (s *snowflake) IsValid() bool {
-	return nil == s.Validate()
-}
-
-func (s *snowflake) Validate() error {
-	if s.raw == 0 {
-		return ErrEmptySnowflake
-	}
-
-	if s.raw&timeMask == 0 {
-		return ErrNoSnowflakeTime
-	}
-
-	if s.raw&workIdMask == 0 {
-		return ErrNoSnowflakeWorkerID
-	}
-
-	if s.raw&procIdMask == 0 {
-		return ErrNoSnowflakeProcID
-	}
-
-	if s.raw&countMask == 0 {
-		return ErrNoSnowflakeCounter
-	}
-
-	return nil
 }

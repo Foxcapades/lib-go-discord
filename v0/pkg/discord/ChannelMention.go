@@ -2,7 +2,7 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
 	"github.com/francoispqt/gojay"
 )
 
@@ -13,8 +13,8 @@ type ChannelMention interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Sized
-	lib.Validatable
+	meta.Sized
+	meta.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//

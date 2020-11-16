@@ -1,10 +1,24 @@
 package discord
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/francoispqt/gojay"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 type Guild interface {
+	json.Marshaler
+	json.Unmarshaler
+
+	gojay.MarshalerJSONObject
+	gojay.UnmarshalerJSONObject
+
+	lib.Sized
+	lib.Validatable
+
 	// ID returns the current value of this record's `id` field.
 	//
 	// The `id` field contains the guild id.
@@ -42,24 +56,32 @@ type Guild interface {
 
 	// IconHash returns the current value of this record's `icon_hash` field.
 	//
-	// The `icon_hash` field contains the icon hash, returned when in the template
-	// object.
+	// The `icon_hash` field contains the
 	//
-	// If this method is called on a field with a null value, this method will
-	// panic.  Use IconHashIsNull to check if the field is null before use.
+	// If this method is called on a field that is unset or contains a null value,
+	// this method will panic.  Use IconHashIsReadable to check if the field is
+	// present and non-null before use.
 	IconHash() ImageHash
 
-	// IconHashIsNull returns whether this record's `icon_hash` field is currently
-	// null.
+	// IconHashIsNull returns whether this record's `icon_hash` field is currently null.
 	IconHashIsNull() bool
 
-	// SetIconHash overwrites the current value of this record's `icon_hash`
-	// field.
+	// IconHashIsSet returns whether this record's `icon_hash` field is currently present.
+	IconHashIsSet() bool
+
+	// IconHashIsReadable returns whether this record's `icon_hash` field is currently set
+	// and non-null.
+	IconHashIsReadable() bool
+
+	// SetIconHash overwrites the current value of this record's `icon_hash` field.
 	SetIconHash(ImageHash) Guild
 
-	// SetNullIconHash overwrites the current value of this record's `icon_hash`
-	// field with `null`.
+	// SetNullIconHash overwrites the current value of this record's `icon_hash` field
+	// with `null`.
 	SetNullIconHash() Guild
+
+	// UnsetIconHash removes this record's `icon_hash` field.
+	UnsetIconHash() Guild
 
 	// Splash returns the current value of this record's `splash` field.
 	//

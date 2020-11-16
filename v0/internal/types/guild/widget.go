@@ -57,10 +57,10 @@ func (w *widget) NKeys() int {
 	return 0
 }
 
-func (w *widget) BufferSize() uint32 {
+func (w *widget) JSONSize() int {
 	return widgetBaseSize +
 		utils.BoolSize(w.enabled) +
-		utils.OptionalSize(w.id)
+		utils.NullableSize(w.id)
 }
 
 func (w *widget) IsValid() bool {

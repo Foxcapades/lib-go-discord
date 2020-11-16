@@ -10,7 +10,7 @@ var (
 
 type MessageContent string
 
-func (c MessageContent) BufferSize() uint32 {
+func (c MessageContent) JSONSize() int {
 	return uint32(len(c) + 2)
 }
 

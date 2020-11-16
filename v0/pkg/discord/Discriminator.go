@@ -14,7 +14,7 @@ var (
 
 type Discriminator uint16
 
-func (d Discriminator) BufferSize() uint32 {
+func (d Discriminator) JSONSize() int {
 	switch true {
 	case d < 10:
 		return 1

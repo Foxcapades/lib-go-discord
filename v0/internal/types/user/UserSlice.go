@@ -8,11 +8,11 @@ import (
 
 type Slice []discord.User
 
-func (u Slice) BufferSize() uint32 {
+func (u Slice) JSONSize() int {
 	out := uint32(2) + uint32(len(u) - 1) // brackets and commas
 
 	for i := range u {
-		out += u[i].BufferSize()
+		out += u[i].JSONSize()
 	}
 
 	return out

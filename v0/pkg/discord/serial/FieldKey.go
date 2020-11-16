@@ -1,5 +1,11 @@
 package serial
 
+import (
+	"io"
+
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
+)
+
 type Key string
 
 const (
@@ -44,9 +50,11 @@ const (
 	KeyEnd                         Key = "end"
 	KeyExplicitContentFilter       Key = "explicit_content_filter"
 	KeyFeatures                    Key = "features"
+	KeyFilename                    Key = "filename"
 	KeyFlags                       Key = "flags"
 	KeyFriendSync                  Key = "friend_sync"
 	KeyGuildID                     Key = "guild_id"
+	KeyHeight                      Key = "height"
 	KeyHoist                       Key = "hoist"
 	KeyID                          Key = "id"
 	KeyIcon                        Key = "icon"
@@ -96,6 +104,7 @@ const (
 	KeyPremiumTier                 Key = "premium_tier"
 	KeyPremiumType                 Key = "premium_type"
 	KeyPresences                   Key = "presences"
+	KeyProxyURL                    Key = "proxy_url"
 	KeyPublicFlags                 Key = "public_flags"
 	KeyPublicUpdatesChannelID      Key = "public_updates_channel_id"
 	KeyRateLimitPerUser            Key = "rate_limit_per_user"
@@ -145,4 +154,38 @@ const (
 	KeyWebhookID                   Key = "webhook_id"
 	KeyWidgetChannelID             Key = "widget_channel_id"
 	KeyWidgetEnabled               Key = "widget_enabled"
+	KeyWidth                       Key = "width"
 )
+
+func (k *Key) JSONSize() int {
+	if k == nil {
+		return 4
+	}
+
+	return uint32(len(*k) + js.QuoteSize)
+}
+
+func (k Key) ToJSONBytes() []byte {
+	sz := k.JSONSize()
+	out := make([]byte, sz)
+	out[0] = '"'
+	out[sz-1] = '"'
+
+	copy(out[1:], k)
+
+	return out
+}
+
+func (k Key) AppendJSONBytes(writer io.Writer) (e error) {
+	_, e = writer.Write(js.SingleQuoteBuf)
+
+	if e == nil {
+		_, e = writer.Write([]byte(k))
+	}
+
+	if e == nil {
+		_, e = writer.Write(js.SingleQuoteBuf)
+	}
+
+	return
+}

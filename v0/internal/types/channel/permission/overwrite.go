@@ -29,7 +29,7 @@ type overwrite struct {
 	deny  discord.Permission
 }
 
-func (o *overwrite) BufferSize() uint32 {
+func (o *overwrite) JSONSize() int {
 	return overwriteBaseSize +
 		utils.OptionalSize(o.id) +
 		utils.OptionalSize(o.kind) +
@@ -38,7 +38,7 @@ func (o *overwrite) BufferSize() uint32 {
 }
 
 func (o *overwrite) MarshalJSON() ([]byte, error) {
-	buf := bytes.NewBuffer(make([]byte, 0, o.BufferSize()))
+	buf := bytes.NewBuffer(make([]byte, 0, o.JSONSize()))
 	enc := gojay.BorrowEncoder(buf)
 	defer enc.Release()
 

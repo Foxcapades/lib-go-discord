@@ -1,12 +1,10 @@
 package discord
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
 	"time"
-
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 var (
@@ -36,13 +34,8 @@ const (
 )
 
 type Snowflake interface {
+	meta.Field
 	fmt.Stringer
-
-	json.Marshaler
-	json.Unmarshaler
-
-	lib.Sized
-	lib.Validatable
 
 	// RawValue returns the raw uint64 value backing this Snowflake.
 	RawValue() uint64
@@ -59,6 +52,9 @@ type Snowflake interface {
 	//
 	// Note: Snowflake timestamps use millisecond precision.  The input value will
 	// be truncated to milliseconds if needed.
+	//
+	// This method will panic if given a date greater than
+	// Tue Aug 02 10889 05:31:50
 	SetTimestamp(time.Time) Snowflake
 
 	// InternalWorkerID returns the Discord worker ID for the node that generated
@@ -67,6 +63,8 @@ type Snowflake interface {
 
 	// SetInternalWorkerID overwrites this Snowflake's internal worker ID with the
 	// given value.
+	//
+	// Note: This method will panic if given a value greater than MaxWorkerID.
 	SetInternalWorkerID(uint8) Snowflake
 
 	// InternalProcessID returns the Discord process ID that generated this
@@ -75,6 +73,8 @@ type Snowflake interface {
 
 	// SetInternalProcessID overwrites this Snowflake's internal process ID with
 	// the given value.
+	//
+	// Note: This method will panic if given a value greater than MaxProcessID.
 	SetInternalProcessID(uint8) Snowflake
 
 	// CounterValue returns the counter value of this Snowflake.
@@ -85,6 +85,9 @@ type Snowflake interface {
 
 	// SetCounterValue overwrites this Snowflake's counter value with the given
 	// input value.
+	//
+	// Note: This method will panic if given a value that is greater than
+	// MaxCounterValue.
 	SetCounterValue(uint16) Snowflake
 
 	// UnmarshalString attempts to parse the given string as a stringified

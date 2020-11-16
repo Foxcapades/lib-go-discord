@@ -3,6 +3,7 @@ module github.com/foxcapades/lib-go-discord
 go 1.15
 
 require (
+	github.com/foxcapades/go-bytify v0.3.0
 	github.com/francoispqt/gojay v1.2.13
 	github.com/smartystreets/goconvey v1.6.4
 )
