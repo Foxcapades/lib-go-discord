@@ -1,6 +1,12 @@
 package discord
 
-import "errors"
+import (
+	"encoding/json"
+	"errors"
+	"github.com/foxcapades/go-bytify/v0/bytify"
+	"github.com/foxcapades/lib-go-discord/v0/internal/js"
+	"io"
+)
 
 var (
 	ErrBadPremiumType = errors.New("unrecognized premium type value")
@@ -14,9 +20,9 @@ const (
 	PremiumTypeNitro
 )
 
-func (p *UserPremiumType) JSONSize() int {
+func (p *UserPremiumType) JSONSize() uint32 {
 	if p == nil {
-		return 4
+		return js.NullSize
 	}
 
 	return 1
@@ -36,4 +42,21 @@ func (p UserPremiumType) Validate() error {
 	}
 
 	return nil
+}
+
+func (p UserPremiumType) MarshalJSON() ([]byte, error) {
+	return bytify.Uint8ToByteSlice(uint8(p)), nil
+}
+
+func (p *UserPremiumType) UnmarshalJSON(bytes []byte) error {
+	return json.Unmarshal(bytes, (*uint8)(p))
+}
+
+func (p UserPremiumType) ToJSONBytes() []byte {
+	return bytify.Uint8ToByteSlice(uint8(p))
+}
+
+func (p *UserPremiumType) AppendJSONBytes(writer io.Writer) (err error) {
+	_, err = writer.Write(p.ToJSONBytes())
+	return
 }

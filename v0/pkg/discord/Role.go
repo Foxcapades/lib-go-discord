@@ -3,6 +3,7 @@ package discord
 import (
 	"encoding/json"
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
@@ -21,7 +22,7 @@ type Role interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// role id
 	ID() Snowflake

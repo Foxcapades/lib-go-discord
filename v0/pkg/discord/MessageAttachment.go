@@ -1,11 +1,11 @@
 package discord
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 )
 
 type MessageAttachment interface {
-	meta.ObjectField
+	dmeta.ObjectField
 
 	// ID returns the current value of this record's `id` field.
 	//

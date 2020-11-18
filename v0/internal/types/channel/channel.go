@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"time"
 
 	"github.com/francoispqt/gojay"
@@ -330,20 +331,20 @@ func (c *channel) Validate() error {
 		out.AppendKeyedError(KeyID, "channel id is required")
 	}
 
-	singles := map[Key]lib.Validatable{
-		KeyID:   c.id,
-		KeyType: c.kind,
-		KeyGuildID: c.guildID,
-		KeyName: c.name,
-		KeyTopic: c.topic,
-		KeyLastMessageID: c.lastMsgID,
-		KeyBitrate: c.bitrate,
-		KeyUserLimit: c.userLim,
+	singles := map[Key]dmeta.Validatable{
+		KeyID:               c.id,
+		KeyType:             c.kind,
+		KeyGuildID:          c.guildID,
+		KeyName:             c.name,
+		KeyTopic:            c.topic,
+		KeyLastMessageID:    c.lastMsgID,
+		KeyBitrate:          c.bitrate,
+		KeyUserLimit:        c.userLim,
 		KeyRateLimitPerUser: c.rLimPerUser,
 		//KeyIcon: c.icon,
-		KeyOwnerID: c.ownerID,
+		KeyOwnerID:       c.ownerID,
 		KeyApplicationID: c.appID,
-		KeyParentID: c.parentID,
+		KeyParentID:      c.parentID,
 	}
 
 	for k, v := range singles {

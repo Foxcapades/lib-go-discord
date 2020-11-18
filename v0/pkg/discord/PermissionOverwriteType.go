@@ -2,8 +2,10 @@ package discord
 
 import (
 	"errors"
+	"github.com/foxcapades/go-bytify/v0/bytify"
 	"github.com/foxcapades/lib-go-discord/v0/internal/js"
 	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
+	"io"
 	"strconv"
 )
 
@@ -18,7 +20,7 @@ const (
 	OverwriteTypeMember
 )
 
-func (o *OverwriteType) JSONSize() int {
+func (o *OverwriteType) JSONSize() uint32 {
 	if o == nil {
 		return 4
 	}
@@ -39,7 +41,7 @@ func (o OverwriteType) Validate() error {
 }
 
 func (o *OverwriteType) MarshalJSON() ([]byte, error) {
-	return o.ToBytes(), nil
+	return o.ToJSONBytes(), nil
 }
 
 func (o *OverwriteType) UnmarshalJSON(in []byte) error {
@@ -57,7 +59,7 @@ func (o *OverwriteType) IsNil() bool {
 	return o == nil
 }
 
-func (o *OverwriteType) ToBytes() []byte {
+func (o *OverwriteType) ToJSONBytes() []byte {
 	if o == nil {
 		return js.NullBytesBuf
 	}
@@ -70,6 +72,11 @@ func (o *OverwriteType) ToBytes() []byte {
 		return []byte{'1'}
 
 	default:
-		return []byte(strconv.FormatUint(uint64(*o), 10))
+		return bytify.Uint8ToByteSlice(uint8(*o))
 	}
+}
+
+func (o *OverwriteType) AppendJSONBytes(writer io.Writer) (err error) {
+	_, err = writer.Write(o.ToJSONBytes())
+	return
 }

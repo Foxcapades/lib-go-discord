@@ -2,6 +2,7 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"time"
 
 	"github.com/francoispqt/gojay"
@@ -17,7 +18,7 @@ type Guild interface {
 	gojay.UnmarshalerJSONObject
 
 	lib.Sized
-	lib.Validatable
+	dmeta.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//

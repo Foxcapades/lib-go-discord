@@ -2,9 +2,11 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
-	"github.com/francoispqt/gojay"
 	"time"
+
+	"github.com/francoispqt/gojay"
+
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 )
 
 type ActivityTimestamps interface {
@@ -14,7 +16,7 @@ type ActivityTimestamps interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// Start returns the current value of this record's `start` field.
 	//

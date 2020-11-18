@@ -20,7 +20,7 @@ type Activity interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// Name returns the current value of this record's `name` field.
 	//

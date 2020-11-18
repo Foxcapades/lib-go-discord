@@ -15,11 +15,11 @@ import (
 )
 
 const (
-	overwriteBaseSize = uint32(2 +   // {}
-		len(serial.KeyID) + 3 +        // "":
-		len(serial.KeyType) + 4 +      // ,"":
-		len(serial.KeyAllow) + 4 +     // ,"":
-		len(serial.KeyDeny) + 4)       // ,"":
+	overwriteBaseSize = uint32(2 + // {}
+		len(serial.KeyID) + 3 + // "":
+		len(serial.KeyType) + 4 + // ,"":
+		len(serial.KeyAllow) + 4 + // ,"":
+		len(serial.KeyDeny) + 4) // ,"":
 )
 
 type overwrite struct {
@@ -29,10 +29,10 @@ type overwrite struct {
 	deny  discord.Permission
 }
 
-func (o *overwrite) JSONSize() int {
+func (o *overwrite) JSONSize() uint32 {
 	return overwriteBaseSize +
 		utils.OptionalSize(o.id) +
-		utils.OptionalSize(o.kind) +
+		utils.OptionalSize(&o.kind) +
 		utils.OptionalSize(o.allow) +
 		utils.OptionalSize(o.deny)
 }

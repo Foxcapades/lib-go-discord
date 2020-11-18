@@ -2,24 +2,26 @@ package message
 
 import (
 	"bytes"
+	"io"
+
+	"github.com/francoispqt/gojay"
+
 	"github.com/foxcapades/go-bytify/v0/bytify"
 	"github.com/foxcapades/lib-go-discord/v0/internal/js"
 	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
-	"github.com/francoispqt/gojay"
-	"io"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
 )
 
 const (
-	baseAttachSize = uint32(js.BracketSize +
-		js.FirstFieldSize + len(KeyID) +
-		js.NextFieldSize + len(KeyFilename) +
-		js.NextFieldSize + len(KeySize) +
-		js.NextFieldSize + len(KeyURL) +
-		js.NextFieldSize + len(KeyProxyURL) +
-		js.NextFieldSize + len(KeyHeight) +
-		js.NextFieldSize + len(KeyWidth))
+	baseAttachSize = js.BracketSize +
+		js.FirstKeySize + uint32(len(serial.KeyID)) +
+		js.NextKeySize + uint32(len(serial.KeyFilename)) +
+		js.NextKeySize + uint32(len(serial.KeySize)) +
+		js.NextKeySize + uint32(len(serial.KeyURL)) +
+		js.NextKeySize + uint32(len(serial.KeyProxyURL)) +
+		js.NextKeySize + uint32(len(serial.KeyHeight)) +
+		js.NextKeySize + uint32(len(serial.KeyWidth))
 )
 
 func NewAttachment() discord.MessageAttachment {
@@ -54,43 +56,43 @@ func (a *attachment) ToJSONBytes() []byte {
 
 	buf.WriteByte(js.OpenObject)
 
-	_ = KeyID.AppendJSONBytes(buf)
+	_ = serial.KeyID.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	_ = a.id.AppendJSONBytes(buf)
 
 	buf.WriteByte(js.FieldDivider)
 
-	_ = KeyFilename.AppendJSONBytes(buf)
+	_ = serial.KeyFilename.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	_ = a.fileName.AppendJSONBytes(buf)
 
 	buf.WriteByte(js.FieldDivider)
 
-	_ = KeySize.AppendJSONBytes(buf)
+	_ = serial.KeySize.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	bytify.Uint32ToBuf(a.size, buf)
 
 	buf.WriteByte(js.FieldDivider)
 
-	_ = KeyURL.AppendJSONBytes(buf)
+	_ = serial.KeyURL.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	_ = a.url.AppendJSONBytes(buf)
 
 	buf.WriteByte(js.FieldDivider)
 
-	_ = KeyProxyURL.AppendJSONBytes(buf)
+	_ = serial.KeyProxyURL.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	_ = a.proxyUrl.AppendJSONBytes(buf)
 
 	buf.WriteByte(js.FieldDivider)
 
-	_ = KeyHeight.AppendJSONBytes(buf)
+	_ = serial.KeyHeight.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	bytify.Uint16ToBuf(*a.height, buf)
 
 	buf.WriteByte(js.FieldDivider)
 
-	_ = KeyWidth.AppendJSONBytes(buf)
+	_ = serial.KeyWidth.AppendJSONBytes(buf)
 	buf.WriteByte(js.PairSeparator)
 	bytify.Uint16ToBuf(*a.width, buf)
 

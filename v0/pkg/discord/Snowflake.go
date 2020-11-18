@@ -3,7 +3,7 @@ package discord
 import (
 	"errors"
 	"fmt"
-	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"time"
 )
 
@@ -18,24 +18,26 @@ var (
 
 const (
 	// Discord epoch timestamp in milliseconds.
-	EpochMillis     uint64 = 1420070400000
+	EpochMillis uint64 = 1420070400000
 
 	// Max valid value for a raw snowflake timestamp.
-	MaxTimestamp    uint64 = 0x0000_FFFF_FFFF_FFC0
+	MaxTimestamp uint64 = 0x0000_FFFF_FFFF_FFC0
 
 	// Max valid value for a snowflake worker id.
-	MaxWorkerID     uint8  = 0x3E
+	MaxWorkerID uint8 = 0x3E
 
 	// Max valid value for a snowflake process id.
-	MaxProcessID    uint8  = 0x1F
+	MaxProcessID uint8 = 0x1F
 
 	// Max valid value for a snowflake counter value.
 	MaxCounterValue uint16 = 0x0FFF
 )
 
 type Snowflake interface {
-	meta.Field
+	dmeta.Field
 	fmt.Stringer
+
+	dmeta.Validatable
 
 	// RawValue returns the raw uint64 value backing this Snowflake.
 	RawValue() uint64

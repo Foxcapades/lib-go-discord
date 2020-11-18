@@ -3,14 +3,14 @@ package dio
 import (
 	"encoding/json"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
 
 type CreateGuildRequest interface {
 	json.Marshaler
-	lib.Validatable
+	dmeta.Validatable
 
 	// Name returns the current value of this request's `name` field.
 	//

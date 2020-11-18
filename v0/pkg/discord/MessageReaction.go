@@ -2,7 +2,7 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 )
 
@@ -15,7 +15,7 @@ type MessageReaction interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// Count returns the current value of this record's `count` field.
 	//

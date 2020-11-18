@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/foxcapades/lib-go-discord/v0/internal/types/com"
 	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"strconv"
 	"time"
 
@@ -30,31 +31,31 @@ const (
 
 const (
 	// Base buffer size, not counting field values.
-	msgBufferSize = uint32(2 +               // {}
-		len(serial.KeyID) + 3 +                // "":
-		len(serial.KeyChannelID) + 4 +         // ,"":
-		len(serial.KeyGuildID) + 4 +           // ,"":
-		len(serial.KeyAuthor) + 4 +            // ,"":
-		len(serial.KeyMember) + 4 +            // ,"":
-		len(serial.KeyContent) + 4 +           // ,"":
-		len(serial.KeyTimestamp) + 4 +         // ,"":
-		len(serial.KeyEditedTimestamp) + 4 +   // ,"":
-		len(serial.KeyTTS) + 4 +               // ,"":
-		len(serial.KeyMentionEveryone) + 4 +   // ,"":
-		len(serial.KeyMentions) + 4 +          // ,"":
-		len(serial.KeyMentionRoles) + 4 +      // ,"":
-		len(serial.KeyMentionChannels) + 4 +   // ,"":
-		len(serial.KeyAttachments) + 4 +       // ,"":
-		len(serial.KeyEmbeds) + 4 +            // ,"":
-		len(serial.KeyReactions) + 4 +         // ,"":
-		len(serial.KeyNonce) + 4 +             // ,"":
-		len(serial.KeyPinned) + 4 +            // ,"":
-		len(serial.KeyWebhookID) + 4 +         // ,"":
-		len(serial.KeyType) + 4 +              // ,"":
-		len(serial.KeyActivity) + 4 +          // ,"":
-		len(serial.KeyApplication) + 4 +       // ,"":
-		len(serial.KeyMessageReference) + 4 +  // ,"":
-		len(serial.KeyFlags) + 4)              // ,"":
+	msgBufferSize = uint32(2 + // {}
+		len(serial.KeyID) + 3 + // "":
+		len(serial.KeyChannelID) + 4 + // ,"":
+		len(serial.KeyGuildID) + 4 + // ,"":
+		len(serial.KeyAuthor) + 4 + // ,"":
+		len(serial.KeyMember) + 4 + // ,"":
+		len(serial.KeyContent) + 4 + // ,"":
+		len(serial.KeyTimestamp) + 4 + // ,"":
+		len(serial.KeyEditedTimestamp) + 4 + // ,"":
+		len(serial.KeyTTS) + 4 + // ,"":
+		len(serial.KeyMentionEveryone) + 4 + // ,"":
+		len(serial.KeyMentions) + 4 + // ,"":
+		len(serial.KeyMentionRoles) + 4 + // ,"":
+		len(serial.KeyMentionChannels) + 4 + // ,"":
+		len(serial.KeyAttachments) + 4 + // ,"":
+		len(serial.KeyEmbeds) + 4 + // ,"":
+		len(serial.KeyReactions) + 4 + // ,"":
+		len(serial.KeyNonce) + 4 + // ,"":
+		len(serial.KeyPinned) + 4 + // ,"":
+		len(serial.KeyWebhookID) + 4 + // ,"":
+		len(serial.KeyType) + 4 + // ,"":
+		len(serial.KeyActivity) + 4 + // ,"":
+		len(serial.KeyApplication) + 4 + // ,"":
+		len(serial.KeyMessageReference) + 4 + // ,"":
+		len(serial.KeyFlags) + 4) // ,"":
 )
 
 type message struct {
@@ -86,13 +87,13 @@ type message struct {
 	flags           *MessageFlag
 }
 
-func (m *message) JSONSize() int {
+func (m *message) JSONSize() uint32 {
 	return msgBufferSize +
 		utils.OptionalSize(m.id) +
 		utils.OptionalSize(m.channelID) +
 		utils.OptionalSize(m.guildID) +
 		utils.OptionalSize(m.author) +
-		utils.OptionalSize(m.content) +
+		utils.OptionalSize(&m.content) +
 		utils.OptionalTimeSize(&m.tStamp) +
 		utils.OptionalTimeSize(m.editTStamp) +
 		utils.BoolSize(m.tts) +
@@ -247,7 +248,7 @@ func (m *message) Validate() error {
 		out.AppendKeyedError(serial.KeyAuthor, "message author is required")
 	}
 
-	valids := map[serial.Key]lib.Validatable{
+	valids := map[serial.Key]dmeta.Validatable{
 		serial.KeyID:               m.id,
 		serial.KeyChannelID:        m.channelID,
 		serial.KeyGuildID:          m.guildID,

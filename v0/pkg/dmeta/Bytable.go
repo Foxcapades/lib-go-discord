@@ -1,4 +1,4 @@
-package meta
+package dmeta
 
 import "io"
 

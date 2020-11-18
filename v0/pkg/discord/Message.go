@@ -16,7 +16,7 @@ type Message interface {
 	gojay.UnmarshalerJSONObject
 
 	lib.Sized
-	lib.Validatable
+	dmeta.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//

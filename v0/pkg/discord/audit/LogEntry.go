@@ -3,7 +3,7 @@ package audit
 import (
 	"encoding/json"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 )
 
@@ -14,8 +14,8 @@ type LogEntry interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Sized
-	lib.Validatable
+	dmeta.Sized
+	dmeta.Validatable
 
 	// TargetID returns the current value of this record's `target_id` field.
 	//

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"time"
 )
 
@@ -40,7 +40,7 @@ func StringSize(s string) uint32 {
 	return uint32(len(s) + 2)
 }
 
-func NullableSize(o meta.Field) uint32 {
+func NullableSize(o dmeta.Field) uint32 {
 	if o.IsNil() {
 		return 4
 	}
@@ -48,7 +48,7 @@ func NullableSize(o meta.Field) uint32 {
 	return o.JSONSize()
 }
 
-func OptionalSize(o meta.Field) uint32 {
+func OptionalSize(o dmeta.Field) uint32 {
 	if o.IsNil() {
 		return 0
 	}

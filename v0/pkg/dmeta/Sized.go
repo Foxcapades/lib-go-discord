@@ -1,4 +1,4 @@
-package meta
+package dmeta
 
 type Sized interface {
 	// JSONSize returns the projected number of bytes required to store this value

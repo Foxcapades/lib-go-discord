@@ -14,7 +14,7 @@ type Widget interface {
 	gojay.UnmarshalerJSONObject
 
 	lib.Sized
-	lib.Validatable
+	dmeta.Validatable
 
 	// Enabled returns the value of the `enabled` field currently set on this
 	// guild widget.

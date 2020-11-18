@@ -1,6 +1,12 @@
 package discord
 
-import "errors"
+import (
+	"encoding/json"
+	"errors"
+	"io"
+
+	"github.com/foxcapades/go-bytify/v0/bytify"
+)
 
 var (
 	ErrInvalidFlag = errors.New("unrecognized user flag value(s)")
@@ -32,25 +38,12 @@ const (
 	UserFlagEarlyVerifiedBotDeveloper UserFlag = 1 << 17
 )
 
-func (f *UserFlag) JSONSize() int {
+func (f *UserFlag) JSONSize() uint32 {
 	if f == nil {
 		return 4
 	}
 
-	switch true {
-	case *f < 10:
-		return 1
-	case *f < 100:
-		return 2
-	case *f < 1_000:
-		return 3
-	case *f < 10_000:
-		return 4
-	case *f < 100_000:
-		return 5
-	default:
-		return 6
-	}
+	return uint32(bytify.Uint32StringSize(uint32(*f)))
 }
 
 func (f *UserFlag) IsNil() bool {
@@ -96,4 +89,21 @@ func (f UserFlag) Validate() error {
 	}
 
 	return nil
+}
+
+func (f UserFlag) MarshalJSON() ([]byte, error) {
+	return bytify.Uint32ToByteSlice(uint32(f)), nil
+}
+
+func (f *UserFlag) UnmarshalJSON(bytes []byte) error {
+	return json.Unmarshal(bytes, (*uint32)(f))
+}
+
+func (f UserFlag) ToJSONBytes() []byte {
+	return bytify.Uint32ToByteSlice(uint32(f))
+}
+
+func (f *UserFlag) AppendJSONBytes(writer io.Writer) (err error) {
+	_, err = writer.Write(f.ToJSONBytes())
+	return
 }

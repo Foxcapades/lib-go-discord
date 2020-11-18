@@ -2,7 +2,7 @@ package discord
 
 import (
 	"encoding/json"
-	"github.com/foxcapades/lib-go-discord/v0/internal/meta"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 )
 
@@ -13,8 +13,8 @@ type ChannelMention interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	meta.Sized
-	meta.Validatable
+	dmeta.Sized
+	dmeta.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//
@@ -43,8 +43,8 @@ type ChannelMention interface {
 	// Name returns the current value of this record's `name` field.
 	//
 	// The `name` field contains the name of the channel.
-	Name() string
+	Name() ChannelName
 
 	// SetName overwrites the current value of this record's `name` field.
-	SetName(string) ChannelMention
+	SetName(name ChannelName) ChannelMention
 }

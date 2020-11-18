@@ -2,6 +2,7 @@ package discord
 
 import (
 	"errors"
+	"github.com/foxcapades/go-bytify/v0/bytify"
 	"github.com/foxcapades/lib-go-discord/v0/internal/js"
 	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
 	"strconv"
@@ -53,7 +54,7 @@ const (
 
 	// Allows for viewing of audit logs
 	//
-	// Channel Type(s): 
+	// Channel Type(s):
 	PermissionViewAuditLog
 
 	// Allows for using priority speaker in a voice channel
@@ -113,7 +114,7 @@ const (
 
 	// Allows for viewing guild insights
 	//
-	// Channel Type(s): 
+	// Channel Type(s):
 	PermissionViewGuildInsights
 
 	// Allows for joining of a voice channel
@@ -148,12 +149,12 @@ const (
 
 	// Allows for modification of own nickname
 	//
-	// Channel Type(s): 
+	// Channel Type(s):
 	PermissionChangeNickname
 
 	// Allows for modification of other users nicknames
 	//
-	// Channel Type(s): 
+	// Channel Type(s):
 	PermissionManageNicknames
 
 	// Allows management and editing of roles
@@ -182,10 +183,10 @@ func (p *Permission) UnmarshalJSON(b []byte) error {
 	ln := len(b)
 
 	if ln < 2 || b[0] != '"' || b[ln-1] != '"' {
-		return errors.New("") 	// FIXME
+		return errors.New("") // FIXME
 	}
 
-	tmp := make([]byte, ln - js.QuoteSize)
+	tmp := make([]byte, ln-js.QuoteSize)
 	copy(tmp, b[1:])
 
 	if v, err := strconv.ParseUint(ugly.UnsafeString(tmp), 10, 32); err != nil {
@@ -201,6 +202,8 @@ func (p *Permission) JSONSize() int {
 	if p == nil {
 		return js.NullSize
 	}
+
+	return bytify.Uint32StringSize(uint32(*p)) + js.QuoteSize
 
 	switch true {
 	case *p > 999_999_999:
@@ -247,9 +250,9 @@ func (p *Permission) ToBytes() []byte {
 
 	sz := p.JSONSize()
 
-	out := make([]byte, sz + js.QuoteSize)
+	out := make([]byte, sz+js.QuoteSize)
 	out[0] = '"'
-	out[sz + js.SingleQuoteSize] = '"'
+	out[sz+js.SingleQuoteSize] = '"'
 
 	copy(out[1:], p.String())
 

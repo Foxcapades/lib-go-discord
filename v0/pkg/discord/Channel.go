@@ -2,10 +2,9 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 	"time"
-
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 type Channel interface {
@@ -15,7 +14,7 @@ type Channel interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//

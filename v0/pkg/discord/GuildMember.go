@@ -2,10 +2,9 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 	"time"
-
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 )
 
 type GuildMember interface {
@@ -15,7 +14,7 @@ type GuildMember interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// the user this guild member represents
 	// The field user won't be included in the member object attached to MESSAGE_CREATE and MESSAGE_UPDATE gateway events.

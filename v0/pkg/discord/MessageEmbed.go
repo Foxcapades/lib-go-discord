@@ -2,6 +2,7 @@ package discord
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 	"time"
 
@@ -17,7 +18,7 @@ type MessageEmbed interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// Title returns the current value of this record's `title` field.
 	//

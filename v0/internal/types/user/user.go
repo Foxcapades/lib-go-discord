@@ -3,6 +3,7 @@ package user
 import (
 	"bytes"
 	"github.com/foxcapades/lib-go-discord/v0/internal/js"
+	"io"
 
 	"github.com/francoispqt/gojay"
 
@@ -20,20 +21,20 @@ func NewUser() User {
 	return new(user)
 }
 
-const userBaseSize = uint32(js.BracketSize +
-	js.FirstFieldSize + len(serial.KeyID) +
-	js.NextFieldSize + len(serial.KeyUsername) +
-	js.NextFieldSize + len(serial.KeyDiscriminator) +
-	js.NextFieldSize + len(serial.KeyAvatar) +
-	js.NextFieldSize + len(serial.KeyBot) +
-	js.NextFieldSize + len(serial.KeySystem) +
-	js.NextFieldSize + len(serial.KeyMFAEnabled) +
-	js.NextFieldSize + len(serial.KeyLocale) +
-	js.NextFieldSize + len(serial.KeyVerified) +
-	js.NextFieldSize + len(serial.KeyEmail) +
-	js.NextFieldSize + len(serial.KeyFlags) +
-	js.NextFieldSize + len(serial.KeyPremiumType) +
-	js.NextFieldSize + len(serial.KeyPublicFlags))
+const userBaseSize = js.BracketSize +
+	js.FirstKeySize + uint32(len(serial.KeyID)) +
+	js.NextKeySize + uint32(len(serial.KeyUsername)) +
+	js.NextKeySize + uint32(len(serial.KeyDiscriminator)) +
+	js.NextKeySize + uint32(len(serial.KeyAvatar)) +
+	js.NextKeySize + uint32(len(serial.KeyBot)) +
+	js.NextKeySize + uint32(len(serial.KeySystem)) +
+	js.NextKeySize + uint32(len(serial.KeyMFAEnabled)) +
+	js.NextKeySize + uint32(len(serial.KeyLocale)) +
+	js.NextKeySize + uint32(len(serial.KeyVerified)) +
+	js.NextKeySize + uint32(len(serial.KeyEmail)) +
+	js.NextKeySize + uint32(len(serial.KeyFlags)) +
+	js.NextKeySize + uint32(len(serial.KeyPremiumType)) +
+	js.NextKeySize + uint32(len(serial.KeyPublicFlags))
 
 type user struct {
 	nullEmail bool
@@ -53,7 +54,7 @@ type user struct {
 	publicFlags   *UserFlag
 }
 
-func (u *user) JSONSize() int {
+func (u *user) JSONSize() uint32 {
 	return userBaseSize +
 		utils.NullableSize(u.id) +
 		u.username.JSONSize() +
@@ -417,7 +418,7 @@ func (u *user) RemoveFlag(flag UserFlag) User {
 
 func (u *user) FlagsContains(flag UserFlag) bool {
 	if u.flags != nil {
-		return *u.flags & flag == flag
+		return *u.flags&flag == flag
 	}
 
 	return false
@@ -482,5 +483,109 @@ func (u *user) PublicFlagsContains(flag UserFlag) bool {
 		return false
 	}
 
-	return * u.publicFlags & flag == flag
+	return *u.publicFlags&flag == flag
+}
+
+func (u *user) ToJSONBytes() []byte {
+	out := new(bytes.Buffer)
+	out.Grow(int(u.JSONSize()))
+	out.Reset()
+
+	out.WriteByte(js.OpenObject)
+
+	_ = serial.KeyID.AppendJSONBytes(out)
+	out.WriteByte(js.PairSeparator)
+	_ = u.id.AppendJSONBytes(out)
+	out.WriteByte(js.FieldDivider)
+
+	_ = serial.KeyUsername.AppendJSONBytes(out)
+	out.WriteByte(js.PairSeparator)
+	_ = u.username.AppendJSONBytes(out)
+	out.WriteByte(js.FieldDivider)
+
+	_ = serial.KeyDiscriminator.AppendJSONBytes(out)
+	out.WriteByte(js.PairSeparator)
+	_ = u.discriminator.AppendJSONBytes(out)
+	out.WriteByte(js.FieldDivider)
+
+	if u.bot != nil {
+		_ = serial.KeyBot.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(utils.MarshalBool(*u.bot))
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.system != nil {
+		_ = serial.KeySystem.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(utils.MarshalBool(*u.system))
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.mfaEnabled != nil {
+		_ = serial.KeyMFAEnabled.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(utils.MarshalBool(*u.mfaEnabled))
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.locale != nil {
+		_ = serial.KeyLocale.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(utils.MarshalString(*u.locale))
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.verified != nil {
+		_ = serial.KeyVerified.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(utils.MarshalBool(*u.verified))
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.email != nil {
+		_ = serial.KeyEmail.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(utils.MarshalString(*u.email))
+		out.WriteByte(js.FieldDivider)
+	} else if u.nullEmail {
+		_ = serial.KeyEmail.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		out.Write(js.NullBytesBuf)
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.flags != nil {
+		_ = serial.KeyFlags.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		_ = u.flags.AppendJSONBytes(out)
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.premiumType != nil {
+		_ = serial.KeyPremiumType.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		_ = u.premiumType.AppendJSONBytes(out)
+		out.WriteByte(js.FieldDivider)
+	}
+
+	if u.publicFlags != nil {
+		_ = serial.KeyPublicFlags.AppendJSONBytes(out)
+		out.WriteByte(js.PairSeparator)
+		_ = u.publicFlags.AppendJSONBytes(out)
+		out.WriteByte(js.FieldDivider)
+	}
+
+	_ = serial.KeyAvatar.AppendJSONBytes(out)
+	out.WriteByte(js.PairSeparator)
+	_ = u.avatar.AppendJSONBytes(out)
+
+	out.WriteByte(js.CloseObject)
+
+	return out.Bytes()
+}
+
+func (u *user) AppendJSONBytes(writer io.Writer) error {
+	_, err := writer.Write(u.ToJSONBytes())
+	return err
 }

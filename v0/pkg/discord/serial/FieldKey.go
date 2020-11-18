@@ -157,12 +157,12 @@ const (
 	KeyWidth                       Key = "width"
 )
 
-func (k *Key) JSONSize() int {
+func (k *Key) JSONSize() uint32 {
 	if k == nil {
 		return 4
 	}
 
-	return uint32(len(*k) + js.QuoteSize)
+	return uint32(len(*k)) + js.QuoteSize
 }
 
 func (k Key) ToJSONBytes() []byte {

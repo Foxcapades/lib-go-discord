@@ -2,8 +2,7 @@ package discord
 
 import (
 	"errors"
-
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 )
 
 var (
@@ -17,6 +16,6 @@ const (
 )
 
 type GuildIcon interface {
-	lib.Validatable
+	dmeta.Validatable
 	ImageData
 }

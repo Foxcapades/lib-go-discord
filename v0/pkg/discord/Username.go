@@ -2,6 +2,8 @@ package discord
 
 import (
 	"errors"
+	"github.com/foxcapades/lib-go-discord/v0/internal/utils"
+	"io"
 	"regexp"
 	"strings"
 )
@@ -24,7 +26,7 @@ func init() {
 
 type Username string
 
-func (u Username) JSONSize() int {
+func (u Username) JSONSize() uint32 {
 	return uint32(len(u) + 2)
 }
 
@@ -53,6 +55,27 @@ func (u Username) Validate() error {
 	}
 
 	return nil
+}
+
+func (u Username) MarshalJSON() ([]byte, error) {
+	return u.ToJSONBytes(), nil
+}
+
+func (u *Username) UnmarshalJSON(bytes []byte) error {
+	return utils.UnmarshalStringInto(bytes, (*string)(u))
+}
+
+func (u *Username) IsNil() bool {
+	return u == nil
+}
+
+func (u *Username) ToJSONBytes() []byte {
+	return utils.MarshalString(string(*u))
+}
+
+func (u *Username) AppendJSONBytes(writer io.Writer) error {
+	_, err := writer.Write(u.ToJSONBytes())
+	return err
 }
 
 const (

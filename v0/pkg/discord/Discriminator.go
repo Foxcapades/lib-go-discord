@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"github.com/foxcapades/go-bytify/v0/bytify"
+	"io"
 	"strconv"
 )
 
@@ -14,7 +16,7 @@ var (
 
 type Discriminator uint16
 
-func (d Discriminator) JSONSize() int {
+func (d Discriminator) JSONSize() uint32 {
 	switch true {
 	case d < 10:
 		return 1
@@ -68,4 +70,17 @@ func (d Discriminator) Validate() error {
 
 func (d Discriminator) String() string {
 	return strconv.FormatUint(uint64(d), 10)
+}
+
+func (d *Discriminator) IsNil() bool {
+	return d == nil
+}
+
+func (d *Discriminator) ToJSONBytes() []byte {
+	return bytify.Uint16ToByteSlice(uint16(*d))
+}
+
+func (d *Discriminator) AppendJSONBytes(writer io.Writer) error {
+	_, err := writer.Write(d.ToJSONBytes())
+	return err
 }

@@ -3,7 +3,7 @@ package discord
 import (
 	"encoding/json"
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 )
 
@@ -38,8 +38,8 @@ type User interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Sized
-	lib.Validatable
+	dmeta.Field
+	dmeta.Validatable
 
 	// ID returns the value of the `id` field currently set on this user record.
 	//

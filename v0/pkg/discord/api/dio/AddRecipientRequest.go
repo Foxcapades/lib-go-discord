@@ -3,8 +3,8 @@ package dio
 import (
 	"encoding/json"
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
 	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/serial"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 
 	. "github.com/foxcapades/lib-go-discord/v0/pkg/discord"
 )
@@ -18,7 +18,7 @@ var (
 
 type AddRecipientRequest interface {
 	json.Marshaler
-	lib.Validatable
+	dmeta.Validatable
 
 	// AccessToken returns the access token of a user that has granted your app
 	// the gdm.join scope.

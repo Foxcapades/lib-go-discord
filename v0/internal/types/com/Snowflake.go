@@ -2,9 +2,10 @@ package com
 
 import (
 	"encoding/json"
+	"github.com/foxcapades/go-bytify/v0/bytify"
 	"github.com/foxcapades/lib-go-discord/v0/internal/js"
-	"github.com/foxcapades/lib-go-discord/v0/internal/ugly"
 	"github.com/francoispqt/gojay"
+	"io"
 	"strconv"
 	"time"
 
@@ -28,8 +29,9 @@ const SnowflakeBufferSize = 66
 
 type SnowflakeSlice []Snowflake
 
-func (s SnowflakeSlice) JSONSize() int {
+func (s SnowflakeSlice) JSONSize() uint32 {
 	ln := uint32(len(s))
+
 	return ln*SnowflakeBufferSize + 2 + (ln - 1)
 }
 
@@ -107,6 +109,10 @@ type snowflake struct {
 	raw uint64
 }
 
+func (s *snowflake) AppendJSONBytes(writer io.Writer) error {
+	panic("implement me")
+}
+
 // ╔════════════════════════════════════════════════════════════════════════╗ //
 // ║                                                                        ║ //
 // ║     Field Implementation                                               ║ //
@@ -117,65 +123,24 @@ func (s *snowflake) IsNil() bool {
 	return s == nil
 }
 
-func (s *snowflake) ToBytes() []byte {
+func (s *snowflake) ToJSONBytes() []byte {
 	ln := s.JSONSize()
 
 	out := make([]byte, ln)
 	out[0] = '"'
 	out[ln-1] = '"'
 
-	ugly.Uint64ToBytes(s.raw, out[1:])
+	bytify.Uint64ToBytes(s.raw, out[1:])
 
 	return out
 }
 
-func (s *snowflake) JSONSize() int {
+func (s *snowflake) JSONSize() uint32 {
 	if s == nil {
 		return 4
 	}
 
-	switch true {
-	case s.raw > 9_999_999_999_999_999_999:
-		return 20 + js.QuoteSize
-	case s.raw > 999_999_999_999_999_999:
-		return 19 + js.QuoteSize
-	case s.raw > 99_999_999_999_999_999:
-		return 18 + js.QuoteSize
-	case s.raw > 9_999_999_999_999_999:
-		return 17 + js.QuoteSize
-	case s.raw > 999_999_999_999_999:
-		return 16 + js.QuoteSize
-	case s.raw > 99_999_999_999_999:
-		return 15 + js.QuoteSize
-	case s.raw > 9_999_999_999_999:
-		return 14 + js.QuoteSize
-	case s.raw > 999_999_999_999:
-		return 13 + js.QuoteSize
-	case s.raw > 99_999_999_999:
-		return 12 + js.QuoteSize
-	case s.raw > 9_999_999_999:
-		return 11 + js.QuoteSize
-	case s.raw > 999_999_999:
-		return 10 + js.QuoteSize
-	case s.raw > 99_999_999:
-		return 9 + js.QuoteSize
-	case s.raw > 9_999_999:
-		return 8 + js.QuoteSize
-	case s.raw > 999_999:
-		return 7 + js.QuoteSize
-	case s.raw > 99_999:
-		return 6 + js.QuoteSize
-	case s.raw > 9_999:
-		return 5 + js.QuoteSize
-	case s.raw > 999:
-		return 4 + js.QuoteSize
-	case s.raw > 99:
-		return 3 + js.QuoteSize
-	case s.raw > 9:
-		return 2 + js.QuoteSize
-	default:
-		return 1 + js.QuoteSize
-	}
+	return uint32(bytify.Uint64StringSize(s.raw)) + js.QuoteSize
 }
 
 func (s *snowflake) IsValid() bool {

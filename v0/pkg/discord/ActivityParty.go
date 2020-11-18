@@ -3,7 +3,7 @@ package discord
 import (
 	"encoding/json"
 	"errors"
-	"github.com/foxcapades/lib-go-discord/v0/pkg/discord/lib"
+	"github.com/foxcapades/lib-go-discord/v0/pkg/dmeta"
 	"github.com/francoispqt/gojay"
 )
 
@@ -18,7 +18,7 @@ type ActivityParty interface {
 	gojay.MarshalerJSONObject
 	gojay.UnmarshalerJSONObject
 
-	lib.Validatable
+	dmeta.Validatable
 
 	// ID returns the current value of this record's `id` field.
 	//

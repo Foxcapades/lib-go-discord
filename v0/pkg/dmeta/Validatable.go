@@ -1,4 +1,4 @@
-package meta
+package dmeta
 
 type Validatable interface {
 	IsValid() bool
