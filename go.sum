@@ -18,8 +18,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/flynn/go-shlex v0.0.0-20150515145356-3f9db97f8568/go.mod h1:xEzjJPgXI435gkrCt3MPfRiAkVrwSbHsst4LCFVfpJc=
-github.com/foxcapades/go-bytify v0.3.0 h1:5txL1hMLhdGZLom7r/yUKJD0Cf3q43Lhjaz0Shchul8=
-github.com/foxcapades/go-bytify v0.3.0/go.mod h1:mOBxoaTNSfYLd6zNnAV3Tgemp916tOgp1z1qfEXVkng=
+github.com/foxcapades/go-bytify v0.3.1 h1:sN7NGDaiPd8om8pl4aLrsgqJrjiYHl1ap1rZ28LHDgs=
+github.com/foxcapades/go-bytify v0.3.1/go.mod h1:mOBxoaTNSfYLd6zNnAV3Tgemp916tOgp1z1qfEXVkng=
 github.com/foxcapades/gojay v1.2.13-p1 h1:eb10r1kUD4xknipwgWUAjyg8isubZ01VkRPWHQm0WHY=
 github.com/foxcapades/gojay v1.2.13-p1/go.mod h1:ehT5mTG4ua4581f1++1WLG0vPdaA9HaiDsoyrBGkyDY=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
